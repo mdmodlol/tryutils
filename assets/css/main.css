@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* 自定义样式 */
+.drag-area {
+  transition: all 0.3s ease;
+}
+
+.drag-area.dragging {
+  border-color: rgb(59 130 246);
+  background-color: rgb(239 246 255);
+}
+
+/* 文件上传区域样式 */
+.upload-zone {
+  border: 2px dashed rgb(209 213 219);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.upload-zone:hover {
+  border-color: rgb(156 163 175);
+}
+
+.upload-zone.drag-over {
+  border-color: rgb(59 130 246);
+  background-color: rgb(239 246 255);
+}
+
+/* 进度条样式 */
+.progress-bar {
+  width: 100%;
+  background-color: rgb(229 231 235);
+  border-radius: 9999px;
+  height: 0.625rem;
+}
+
+.progress-fill {
+  background-color: rgb(37 99 235);
+  height: 0.625rem;
+  border-radius: 9999px;
+  transition: all 0.3s;
+}
