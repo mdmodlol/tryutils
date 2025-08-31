@@ -5,7 +5,9 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     'nuxt-icon',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/sitemap'
+
   ],
   app: {
     head: {
