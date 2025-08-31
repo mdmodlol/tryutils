@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'nuxt-icon',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    'nuxt-gtag'
 
   ],
   app: {
@@ -33,7 +34,9 @@ export default defineNuxtConfig({
       include: ['heic2any']
     }
   },
-
+  gtag: {
+    id: 'G-M8PTWVBGJL' // 3. 把这里换成你自己的衡量ID
+  },
   ssr: {
     noExternal: ['heic2any']
   }
