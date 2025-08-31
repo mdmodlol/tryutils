@@ -30,6 +30,9 @@ export default defineNuxtConfig({
       include: ['heic2any']
     }
   },
+    site: {
+    url: 'https://www.tryutils.com',
+  },
   ssr: {
     noExternal: ['heic2any']
   }
