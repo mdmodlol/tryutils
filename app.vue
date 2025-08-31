@@ -95,7 +95,23 @@ useHead({
   titleTemplate: '%s - TryUtils',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { charset: 'utf-8' }
+    { charset: 'utf-8' },
+    // SEO 相关
+    { name: 'description', content: 'TryUtils - 简单实用的在线工具集合，支持 HEIC 图片转换等功能' },
+    { name: 'keywords', content: 'TryUtils,在线工具,HEIC转换,图片处理,文件转换' },
+    { name: 'author', content: 'TryUtils Team' },
+    // Open Graph / Facebook
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://www.tryutils.com/' },
+    { property: 'og:title', content: 'TryUtils - 简单实用的在线工具集合' },
+    { property: 'og:description', content: '免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理' },
+    { property: 'og:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' },
+    // Twitter
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:url', content: 'https://www.tryutils.com/' },
+    { property: 'twitter:title', content: 'TryUtils - 简单实用的在线工具集合' },
+    { property: 'twitter:description', content: '免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理' },
+    { property: 'twitter:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' }
   ]
 })
 </script>

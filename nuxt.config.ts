@@ -19,7 +19,22 @@ export default defineNuxtConfig({
         { 
           rel: 'stylesheet', 
           href: 'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/tailwind.min.css' 
-        }
+        },
+        // Favicon 和 PWA 相关文件
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' }
+      ],
+      meta: [
+        // PWA 相关 meta 标签
+        { name: 'theme-color', content: '#3b82f6' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+        { name: 'apple-mobile-web-app-title', content: 'TryUtils' },
+        { name: 'msapplication-TileColor', content: '#3b82f6' },
+        { name: 'msapplication-config', content: '/browserconfig.xml' }
       ]
     }
   },
@@ -37,7 +52,9 @@ export default defineNuxtConfig({
   gtag: {
     id: 'G-M8PTWVBGJL' // 3. 把这里换成你自己的衡量ID
   },
-  ssr: {
-    noExternal: ['heic2any']
+  nitro: {
+    experimental: {
+      wasm: true
+    }
   }
 })
