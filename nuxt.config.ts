@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-08-30',
   devtools: { enabled: true },
+  site: {
+    url: 'https://www.tryutils.com',
+  },
   modules: [
     '@nuxt/eslint',
     'nuxt-icon',
@@ -30,9 +33,7 @@ export default defineNuxtConfig({
       include: ['heic2any']
     }
   },
-    site: {
-    url: 'https://www.tryutils.com',
-  },
+
   ssr: {
     noExternal: ['heic2any']
   }
