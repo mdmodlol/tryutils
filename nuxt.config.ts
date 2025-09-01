@@ -10,9 +10,11 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/sitemap',
-    'nuxt-gtag'
+    'nuxt-gtag',
+    '@nuxt/content'
 
   ],
+  // Content 模块配置
   app: {
     head: {
       link: [

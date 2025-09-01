@@ -53,15 +53,27 @@
                 </ul>
               </div>
               
-              <!-- 信息链接 -->
+              <!-- 内容链接 -->
               <div>
-                <h4 class="font-semibold text-white mb-4">信息</h4>
+                <h4 class="font-semibold text-white mb-4">内容</h4>
                 <ul class="space-y-2 text-sm">
+                  <li>
+                    <NuxtLink to="/blog" class="text-gray-300 hover:text-blue-400 transition-colors">
+                      博客文章
+                    </NuxtLink>
+                  </li>
                   <li>
                     <NuxtLink to="/about" class="text-gray-300 hover:text-blue-400 transition-colors">
                       关于我们
                     </NuxtLink>
                   </li>
+                </ul>
+              </div>
+              
+              <!-- 信息链接 -->
+              <div>
+                <h4 class="font-semibold text-white mb-4">信息</h4>
+                <ul class="space-y-2 text-sm">
                   <li>
                     <NuxtLink to="/contact" class="text-gray-300 hover:text-blue-400 transition-colors">
                       联系我们
