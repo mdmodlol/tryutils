@@ -141,15 +141,15 @@ const shareArticle = async () => {
   }
 }
 
-// SEO 优化
+// 动态设置页面的 SEO 信息
 watchEffect(() => {
   if (data.value) {
     useHead({
-      title: data.value.title,
+      title: `${data.value.title} - TryUtils`,
       meta: [
         { name: 'description', content: data.value.description },
         { name: 'keywords', content: data.value.tags?.join(', ') || '' },
-        { property: 'og:title', content: data.value.title },
+        { property: 'og:title', content: `${data.value.title} - TryUtils` },
         { property: 'og:description', content: data.value.description },
         { property: 'og:type', content: 'article' },
         { property: 'article:published_time', content: data.value.date },

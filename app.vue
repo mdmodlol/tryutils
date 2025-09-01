@@ -5,17 +5,98 @@
         <!-- 顶部导航栏 -->
         <header class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div class="max-w-6xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-center">
-              <div class="text-center">
+            <div class="flex items-center justify-between">
+              <!-- 品牌标志 -->
+              <div class="flex-shrink-0">
                 <NuxtLink to="/" class="group">
-                  <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300">
+                  <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300">
                     TryUtils
                   </h1>
-                  <p class="text-gray-600 text-sm mt-1 group-hover:text-gray-800 transition-colors">
+                  <p class="text-gray-600 text-xs mt-1 group-hover:text-gray-800 transition-colors">
                     简单实用的在线工具集合
                   </p>
                 </NuxtLink>
               </div>
+              
+              <!-- 导航菜单 -->
+              <nav class="hidden md:flex items-center space-x-8">
+                <NuxtLink 
+                  to="/" 
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  active-class="text-blue-600"
+                >
+                  首页
+                </NuxtLink>
+                <NuxtLink 
+                  to="/blog" 
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  active-class="text-blue-600"
+                >
+                  博客
+                </NuxtLink>
+                <NuxtLink 
+                  to="/about" 
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  active-class="text-blue-600"
+                >
+                  关于
+                </NuxtLink>
+                <NuxtLink 
+                  to="/contact" 
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  active-class="text-blue-600"
+                >
+                  联系
+                </NuxtLink>
+              </nav>
+              
+              <!-- 移动端菜单按钮 -->
+              <button 
+                @click="toggleMobileMenu"
+                class="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- 移动端菜单 -->
+            <div v-show="isMobileMenuOpen" class="md:hidden mt-4 pb-4 border-t border-gray-100">
+              <nav class="flex flex-col space-y-3 pt-4">
+                <NuxtLink 
+                  to="/" 
+                  @click="closeMobileMenu"
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  active-class="text-blue-600"
+                >
+                  首页
+                </NuxtLink>
+                <NuxtLink 
+                  to="/blog" 
+                  @click="closeMobileMenu"
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  active-class="text-blue-600"
+                >
+                  博客
+                </NuxtLink>
+                <NuxtLink 
+                  to="/about" 
+                  @click="closeMobileMenu"
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  active-class="text-blue-600"
+                >
+                  关于
+                </NuxtLink>
+                <NuxtLink 
+                  to="/contact" 
+                  @click="closeMobileMenu"
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  active-class="text-blue-600"
+                >
+                  联系
+                </NuxtLink>
+              </nav>
             </div>
           </div>
         </header>
@@ -102,6 +183,19 @@
 </template>
 
 <script setup lang="ts">
+// 移动端菜单状态
+const isMobileMenuOpen = ref(false)
+
+// 切换移动端菜单
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+// 关闭移动端菜单
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+}
+
 // 设置全局页面配置
 useHead({
   titleTemplate: '%s - TryUtils',
