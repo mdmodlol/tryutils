@@ -115,7 +115,8 @@
 </template>
 
 <script setup>
-const { t, localePath } = useI18n()
+const { t } = useI18n()
+const localePath = useLocalePath()
 
 // 获取文章数据
 const { data, pending, error } = await useAsyncData('blog-article', () => 
