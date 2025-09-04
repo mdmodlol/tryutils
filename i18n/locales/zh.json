@@ -143,25 +143,32 @@
     },
     "social": {
       "title": "社交媒体",
+      "description": "关注我们的社交媒体获取最新动态",
       "comingSoon": "即将推出"
     },
     "types": {
       "title": "我们能为您做什么？",
-      "suggestions": {
+      "suggestion": {
         "title": "功能建议",
         "description": "告诉我们您希望看到的新功能或工具"
       },
-      "bugs": {
+      "feedback": {
         "title": "问题反馈",
         "description": "遇到了 bug 或使用问题？我们会尽快修复"
       },
       "business": {
         "title": "商务合作",
         "description": "有合作意向或商务咨询？欢迎与我们联系"
+      },
+      "help": {
+        "title": "使用帮助",
+        "description": "需要使用指导或技术支持"
       }
     },
     "beforeContact": {
       "title": "联系前请注意",
+      "description": "在联系我们之前，您可能想要了解更多关于我们的信息：",
+      "privacy": "隐私政策",
       "point1": "我们通常在 24-48 小时内回复邮件",
       "point2": "请详细描述您的问题或建议，这有助于我们更好地帮助您",
       "point3": "如果是技术问题，请提供浏览器版本和操作系统信息"
@@ -233,10 +240,21 @@
     },
     "loading": "正在加载...",
     "categories": {
+      "title": "分类",
       "all": "全部分类",
       "tutorial": "教程指南",
-      "tips": "使用技巧",
-      "news": "产品动态"
+      "tips": {
+        "title": "使用技巧"
+      },
+      "news": "产品动态",
+      "heic": {
+        "title": "HEIC 转换",
+        "description": "HEIC 图片格式转换相关教程和技巧"
+      },
+      "document": {
+        "title": "文档处理"
+      },
+      "comingSoon": "即将推出"
     },
     "search": {
       "placeholder": "搜索文章...",

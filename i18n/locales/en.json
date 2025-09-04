@@ -144,15 +144,16 @@
      },
      "social": {
        "title": "Social Media",
+       "description": "Follow our social media for the latest updates",
        "comingSoon": "Coming Soon"
      },
      "types": {
        "title": "How can we help you?",
-       "suggestions": {
+       "suggestion": {
          "title": "Feature Suggestions",
          "description": "Tell us about new features or tools you'd like to see"
        },
-       "bugs": {
+       "feedback": {
          "title": "Bug Reports",
          "description": "Encountered a bug or usage issue? Let us know"
        },
@@ -167,7 +168,8 @@
      },
      "beforeContact": {
        "title": "Before Contacting Us",
-       "description": "Before contacting us, you might want to learn more about us:"
+       "description": "Before contacting us, you might want to learn more about us:",
+       "privacy": "Privacy Policy"
      },
      "meta": {
         "title": "Contact Us - TryUtils",
@@ -237,18 +239,19 @@
        "loading": "Loading...",
        "noArticles": "No articles yet",
        "categories": {
-         "title": "Article Categories",
+         "title": "Categories",
+         "all": "All Categories",
+         "tutorial": "Tutorial Guide",
+         "news": "Product Updates",
          "heic": {
            "title": "HEIC Conversion",
-           "description": "HEIC format conversion tutorials"
+           "description": "HEIC image format conversion tutorials and tips"
          },
          "document": {
-           "title": "Document Conversion",
-           "description": "Various document format conversion guides"
+           "title": "Document Processing"
          },
          "tips": {
-           "title": "Practical Tips",
-           "description": "Practical tips to improve work efficiency"
+           "title": "Usage Tips"
          },
          "comingSoon": "Coming Soon"
        },

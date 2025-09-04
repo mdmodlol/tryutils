@@ -121,7 +121,8 @@
 </template>
 
 <script setup lang="ts">
-const { t, localePath } = useI18n()
+const { t } = useI18n()
+const localePath = useLocalePath()
 
 // 设置页面标题和描述
 useHead({
