@@ -4,15 +4,15 @@
     <nav class="bg-white border-b border-gray-200">
       <div class="max-w-4xl mx-auto px-6 py-4">
         <div class="flex items-center space-x-2 text-sm text-gray-600">
-          <NuxtLink to="/" class="hover:text-blue-600 transition-colors">首页</NuxtLink>
+          <NuxtLink :to="localePath('/')" class="hover:text-blue-600 transition-colors">{{ $t('nav.home') }}</NuxtLink>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
-          <NuxtLink to="/blog" class="hover:text-blue-600 transition-colors">博客</NuxtLink>
+          <NuxtLink :to="localePath('/blog')" class="hover:text-blue-600 transition-colors">{{ $t('nav.blog') }}</NuxtLink>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
-          <span class="text-gray-900">{{ data?.title || '文章详情' }}</span>
+          <span class="text-gray-900">{{ data?.title || $t('blog.article.detail') }}</span>
         </div>
       </div>
     </nav>
@@ -22,7 +22,7 @@
       <div class="max-w-4xl mx-auto px-6">
         <div v-if="pending" class="text-center py-12">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p class="mt-4 text-gray-600">加载中...</p>
+          <p class="mt-4 text-gray-600">{{ $t('blog.loading') }}</p>
         </div>
 
         <div v-else-if="error" class="text-center py-12">
@@ -31,10 +31,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
             </svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">文章未找到</h2>
-          <p class="text-gray-600 mb-6">抱歉，您访问的文章不存在或已被删除。</p>
-          <NuxtLink to="/blog" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            返回博客列表
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $t('blog.article.notFound.title') }}</h2>
+          <p class="text-gray-600 mb-6">{{ $t('blog.article.notFound.description') }}</p>
+          <NuxtLink :to="localePath('/blog')" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            {{ $t('blog.article.backToBlog') }}
           </NuxtLink>
         </div>
 
@@ -84,22 +84,22 @@
           <footer class="px-8 py-6 bg-gray-50 border-t border-gray-100">
             <div class="flex items-center justify-between">
               <NuxtLink 
-                to="/blog" 
+                :to="localePath('/blog')" 
                 class="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
               >
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
-                返回博客列表
+                {{ $t('blog.article.backToBlog') }}
               </NuxtLink>
               
               <!-- 分享按钮 -->
               <div class="flex items-center space-x-3">
-                <span class="text-sm text-gray-600">分享：</span>
+                <span class="text-sm text-gray-600">{{ $t('blog.article.share') }}：</span>
                 <button 
                   @click="shareArticle"
                   class="p-2 text-gray-500 hover:text-blue-600 transition-colors"
-                  title="复制链接"
+                  :title="$t('blog.article.copyLink')"
                 >
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -115,6 +115,8 @@
 </template>
 
 <script setup>
+const { t, localePath } = useI18n()
+
 // 获取文章数据
 const { data, pending, error } = await useAsyncData('blog-article', () => 
   queryContent(useRoute().path).findOne()
@@ -135,7 +137,7 @@ const shareArticle = async () => {
   try {
     await navigator.clipboard.writeText(window.location.href)
     // 这里可以添加一个提示消息
-    alert('链接已复制到剪贴板')
+    alert(t('blog.article.linkCopied'))
   } catch (err) {
     console.error('复制失败:', err)
   }

@@ -1,0 +1,281 @@
+{
+  "brand": {
+    "tagline": "Simple and Practical Online Tools Collection"
+  },
+  "app": {
+    "seo": {
+      "description": "TryUtils - Simple and practical online tools collection, supporting HEIC image conversion and more",
+      "keywords": "TryUtils,online tools,HEIC converter,image processing,file conversion",
+      "ogTitle": "TryUtils - Simple and Practical Online Tools Collection",
+      "ogDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser",
+      "twitterTitle": "TryUtils - Simple and Practical Online Tools Collection",
+      "twitterDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "description": "Focused on providing simple and practical online tools that allow you to quickly complete daily tasks without installing complex software. Completely processed in the browser to protect your privacy and security.",
+    "tools": {
+      "title": "Tools",
+      "heicConverter": "HEIC Image Converter",
+      "moreComingSoon": "More tools coming soon..."
+    },
+    "content": {
+      "title": "Content",
+      "blog": "Blog Posts",
+      "about": "About Us"
+    },
+    "info": {
+      "title": "Information",
+      "contact": "Contact Us",
+      "privacy": "Privacy Policy"
+    },
+    "copyright": "© 2024 TryUtils. All rights reserved."
+  },
+"heicConverter": {
+    "title": "Select or Drag HEIC Files",
+    "subtitle": "Fast and secure HEIC to JPG/PNG conversion",
+    "dragText": "Drag HEIC files here, or",
+    "selectFile": "Select Files",
+    "supportInfo": "Supports .heic and .heif formats, max 50MB, up to 10 files",
+    "batchUploadText": "Supports batch upload, fast conversion",
+    "loading": "Loading file upload functionality...",
+    "selectedFiles": "Selected Files",
+    "convertSettings": "Conversion Settings",
+    "outputFormat": "Output Format",
+    "imageQuality": "Image Quality",
+    "lowQuality": "Low Quality",
+    "highQuality": "High Quality",
+    "converting": "Converting...",
+    "startConvert": "Start Conversion",
+    "convertProgress": "Conversion Progress",
+    "convertComplete": "Conversion Complete",
+    "download": "Download",
+    "downloadAll": "Download All",
+    "restart": "Start Over",
+    "instructions": {
+      "title": "Instructions",
+      "step1": "Select or drag HEIC files to the upload area",
+      "step2": "Choose output format and image quality",
+      "step3": "Click convert button to start processing",
+      "step4": "Download files after conversion is complete",
+      "support": "Supports .heic and .heif formats, max 50MB, up to 10 files",
+      "privacy": "All files are processed locally in your browser, never uploaded to servers",
+      "batch": "Supports batch conversion, process multiple files at once",
+      "formats": "Supports conversion to JPEG, PNG, WebP formats"
+    },
+    "language": "Language",
+    "files": "files",
+    "meta": {
+      "title": "HEIC to JPG - Free Online HEIC Converter | TryUtils",
+      "description": "Free online HEIC to JPG converter. Quickly and securely convert iPhone HEIC images to JPG format. No software download required, completely processed in browser to protect your privacy.",
+      "keywords": "HEIC to JPG,HEIC converter,iPhone image conversion,online converter,free converter,TryUtils"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Simple and Practical Online Tools",
+      "subtitle": "Complete daily tasks quickly without installing complex software",
+      "description": "All processing is done in your browser to protect your privacy and security",
+      "getStarted": "Get Started"
+    },
+    "features": {
+      "title": "Why Choose TryUtils?",
+      "online": {
+        "title": "Online Processing",
+        "description": "No need to download or install any software, complete all operations directly in your browser"
+      },
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "All files are processed locally in your browser, never uploaded to servers"
+      },
+      "fast": {
+        "title": "Fast and Efficient",
+        "description": "Optimized algorithms ensure fast processing while maintaining the best quality"
+      }
+    },
+    "meta": {
+      "title": "TryUtils - Simple and Practical Online Tools Collection",
+      "description": "TryUtils provides simple and practical online tools including HEIC converter, document converter and more. All processing in browser to protect your privacy.",
+      "keywords": "online tools,HEIC converter,document converter,file conversion,browser tools,privacy protection,TryUtils"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Us",
+      "description": "TryUtils is committed to providing simple and practical online tools for users"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "Make complex file processing simple and easy to use, complete various format conversion and processing tasks directly in the browser without installing complex software."
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "TryUtils was born from the need for simple and efficient tools. In our daily work, we often encounter various file format conversion needs, but existing solutions either require installing complex software or have privacy and security issues.",
+      "paragraph2": "Therefore, we decided to create a completely browser-based tool collection that allows users to safely and quickly process various file formats while protecting user privacy and data security."
+    },
+    "vision": {
+      "title": "Future Vision",
+      "description": "We will continue to expand our tool collection to cover more file formats and processing needs, always adhering to the principles of simplicity, ease of use, and privacy security, becoming the most trusted online tool platform for users."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "If you have any suggestions or cooperation intentions, please feel free to contact us via email."
+    },
+    "meta": {
+       "title": "About Us - TryUtils",
+       "description": "Learn about TryUtils' mission, story and vision. We are committed to providing simple and practical online tools, protecting user privacy, and making file processing more convenient.",
+       "keywords": "TryUtils,about us,online tools,file conversion,privacy protection"
+     }
+   },
+   "contact": {
+     "hero": {
+       "title": "Contact Us",
+       "description": "We'd love to hear from you, whether it's suggestions, questions, or collaboration opportunities"
+     },
+     "email": {
+       "title": "Email Contact",
+       "description": "Send an email to , and we'll get back to you as soon as possible"
+     },
+     "social": {
+       "title": "Social Media",
+       "comingSoon": "Coming Soon"
+     },
+     "types": {
+       "title": "How can we help you?",
+       "suggestions": {
+         "title": "Feature Suggestions",
+         "description": "Tell us about new features or tools you'd like to see"
+       },
+       "bugs": {
+         "title": "Bug Reports",
+         "description": "Encountered a bug or usage issue? Let us know"
+       },
+       "business": {
+         "title": "Business Cooperation",
+         "description": "Explore collaboration opportunities or business partnerships"
+       },
+       "help": {
+         "title": "Usage Help",
+         "description": "Need usage guidance or technical support"
+       }
+     },
+     "beforeContact": {
+       "title": "Before Contacting Us",
+       "description": "Before contacting us, you might want to learn more about us:"
+     },
+     "meta": {
+        "title": "Contact Us - TryUtils",
+        "description": "Contact the TryUtils team for technical support, suggestions, or collaboration opportunities. We'd love to hear from you.",
+        "keywords": "TryUtils,contact us,technical support,collaboration,feedback"
+      }
+    },
+    "privacy": {
+      "hero": {
+        "title": "Privacy Policy",
+        "description": "We value your privacy. This policy explains how we collect, use, and protect your information",
+        "lastUpdated": "Last updated: January 1, 2024"
+      },
+      "intro": {
+        "title": "Introduction",
+        "description": "TryUtils (hereinafter referred to as \"we\") is committed to protecting user privacy. This privacy policy explains how we collect, use, store, and protect your personal information."
+      },
+      "collection": {
+        "title": "Information We Collect",
+        "point1": "Usage data: including pages you visit, features you use, access times, etc.",
+        "point2": "Device information: browser type, operating system, IP address, and other technical information",
+        "point3": "File processing: Files you upload are processed only locally in your browser and are not uploaded to our servers"
+      },
+      "usage": {
+        "title": "Use of Information",
+        "point1": "Provide and improve our services",
+        "point2": "Analyze website usage to optimize user experience",
+        "point3": "Ensure website security and prevent abuse"
+      },
+      "cookies": {
+        "title": "Use of Cookies",
+        "description": "We use cookies to improve your browsing experience, including remembering your preferences and analyzing website usage. You can control cookie usage through your browser settings."
+      },
+      "ads": {
+        "title": "Third-Party Advertising",
+        "description": "We may display third-party advertisements. These advertising providers may use cookies to display relevant ads. We do not control the privacy practices of these third parties."
+      },
+      "security": {
+        "title": "Data Security",
+        "description": "We employ appropriate technical and organizational measures to protect your personal information from unauthorized access, use, or disclosure."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "point1": "Access: You have the right to know what information we collect about you",
+        "point2": "Correction: You can request correction of inaccurate personal information",
+        "point3": "Deletion: In certain circumstances, you can request deletion of your personal information"
+      },
+      "updates": {
+        "title": "Policy Updates",
+        "description": "We may update this privacy policy from time to time. Significant changes will be communicated through website notifications or other appropriate means."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "description": "If you have any questions or concerns about this privacy policy, please contact us at privacy"
+      },
+      "meta": {
+         "title": "Privacy Policy - TryUtils",
+         "description": "Learn about TryUtils' privacy policy, how we collect, use, and protect your personal information. We are committed to protecting your privacy and data security.",
+         "keywords": "TryUtils,privacy policy,data protection,personal information,cookies"
+       }
+     },
+     "blog": {
+       "hero": {
+         "title": "Tech Blog",
+         "description": "Share practical technical tutorials and tool usage tips"
+       },
+       "loading": "Loading...",
+       "noArticles": "No articles yet",
+       "categories": {
+         "title": "Article Categories",
+         "heic": {
+           "title": "HEIC Conversion",
+           "description": "HEIC format conversion tutorials"
+         },
+         "document": {
+           "title": "Document Conversion",
+           "description": "Various document format conversion guides"
+         },
+         "tips": {
+           "title": "Practical Tips",
+           "description": "Practical tips to improve work efficiency"
+         },
+         "comingSoon": "Coming Soon"
+       },
+       "search": {
+         "placeholder": "Search articles...",
+         "all": "All",
+         "found": "Found {count} articles"
+       },
+       "card": {
+         "readMore": "Read More"
+       },
+       "article": {
+         "detail": "Article Details",
+         "notFound": {
+           "title": "Article Not Found",
+           "description": "Sorry, the article you are looking for does not exist or has been deleted.",
+           "backToBlog": "Back to Blog"
+         },
+         "backToBlog": "Back to Blog List",
+         "share": "Share",
+         "copyLink": "Copy Link",
+         "linkCopied": "Link copied to clipboard!"
+       },
+       "meta": {
+         "title": "Tech Blog - TryUtils",
+         "description": "TryUtils tech blog, sharing file conversion, online tool usage tips and practical tutorials. Help you better use our tools.",
+         "keywords": "TryUtils,tech blog,file conversion,online tools,tutorials,tips"
+       }
+     }
+   }

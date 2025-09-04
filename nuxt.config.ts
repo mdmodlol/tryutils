@@ -10,18 +10,40 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
     'nuxt-gtag',
-    '@nuxt/content'
-
+    '@nuxt/content',
+    '@nuxtjs/i18n'
   ],
+  // i18n 国际化配置
+  i18n: {
+    locales: [
+      {
+        code: 'zh',
+        name: '中文',
+        file: 'zh.json'
+      },
+      {
+        code: 'en',
+        name: 'English',
+        file: 'en.json'
+      }
+    ],
+    defaultLocale: 'zh',
+    langDir: 'locales',
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+      alwaysRedirect: false,
+      fallbackLocale: 'zh'
+    }
+  },
   // Content 模块配置
   app: {
     head: {
       link: [
-        { 
-          rel: 'stylesheet', 
-          href: 'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/tailwind.min.css' 
-        },
         // Favicon 和 PWA 相关文件
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
@@ -51,8 +73,29 @@ export default defineNuxtConfig({
       include: ['heic2any']
     }
   },
+  // Sitemap 配置
+  sitemap: {
+    hostname: 'https://www.tryutils.com',
+    gzip: true,
+    routes: [
+      '/zh',
+      '/zh/about',
+      '/zh/contact',
+      '/zh/blog',
+      '/en',
+      '/en/about', 
+      '/en/contact',
+      '/en/blog'
+    ]
+  },
+  // Robots.txt 配置
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Sitemap: 'https://www.tryutils.com/sitemap.xml'
+  },
   gtag: {
-    id: 'G-M8PTWVBGJL' // 3. 把这里换成你自己的衡量ID
+    id: 'G-M8PTWVBGJL'
   },
   nitro: {
     experimental: {

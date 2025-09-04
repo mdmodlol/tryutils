@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "tagline": "简单实用的在线工具集合"
+  },
+  "app": {
+    "seo": {
+      "description": "TryUtils - 简单实用的在线工具集合，支持 HEIC 图片转换等功能",
+      "keywords": "TryUtils,在线工具,HEIC转换,图片处理,文件转换",
+      "ogTitle": "TryUtils - 简单实用的在线工具集合",
+      "ogDescription": "免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理",
+      "twitterTitle": "TryUtils - 简单实用的在线工具集合",
+      "twitterDescription": "免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理"
+    }
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "about": "关于",
+    "contact": "联系"
+  },
+  "footer": {
+    "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
+    "tools": {
+      "title": "工具",
+      "heicConverter": "HEIC 图片转换",
+      "moreComingSoon": "更多工具即将推出..."
+    },
+    "content": {
+      "title": "内容",
+      "blog": "博客文章",
+      "about": "关于我们"
+    },
+    "info": {
+      "title": "信息",
+      "contact": "联系我们",
+      "privacy": "隐私政策"
+    },
+    "copyright": "© 2024 TryUtils. 保留所有权利。"
+  },
+  "heicConverter": {
+    "title": "选择或拖拽 HEIC 文件",
+    "subtitle": "快速安全的 HEIC 转 JPG/PNG 转换",
+    "dragText": "拖拽 HEIC 文件到这里，或者",
+    "selectFile": "选择文件",
+    "supportInfo": "支持 .heic 和 .heif 格式，最大 50MB，最多 10 个文件",
+    "batchUploadText": "支持批量上传，快速转换",
+    "loading": "正在加载文件上传功能...",
+    "selectedFiles": "已选择的文件",
+    "convertSettings": "转换设置",
+    "outputFormat": "输出格式",
+    "imageQuality": "图片质量",
+    "lowQuality": "低质量",
+    "mediumQuality": "中等质量",
+    "highQuality": "高质量",
+    "converting": "正在转换...",
+    "convertComplete": "转换完成",
+    "download": "下载",
+    "downloadAll": "下载全部",
+    "restart": "重新开始",
+    "instructions": {
+      "title": "使用说明",
+      "step1": "选择或拖拽 HEIC 文件到上传区域",
+      "step2": "选择输出格式和图片质量",
+      "step3": "点击转换按钮开始处理",
+      "step4": "转换完成后下载文件",
+      "support": "支持 .heic 和 .heif 格式，最大 50MB，最多 10 个文件",
+      "privacy": "所有文件都在您的浏览器中本地处理，绝不上传到服务器",
+      "batch": "支持批量转换，一次处理多个文件",
+      "formats": "支持转换为 JPEG、PNG、WebP 格式"
+    },
+    "language": "语言",
+    "files": "个文件",
+    "meta": {
+      "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
+      "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG格式。无需下载软件，完全在浏览器中处理，保护您的隐私。",
+      "keywords": "HEIC转JPG,HEIC转换器,iPhone图片转换,在线转换,免费转换,TryUtils"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "简单实用的在线工具集合",
+      "subtitle": "无需安装复杂软件，快速完成日常任务",
+      "description": "所有处理都在您的浏览器中完成，保护您的隐私和安全",
+      "getStarted": "开始使用"
+    },
+    "features": {
+      "title": "为什么选择 TryUtils？",
+      "online": {
+        "title": "在线处理",
+        "description": "无需下载安装任何软件，直接在浏览器中完成所有操作"
+      },
+      "privacy": {
+        "title": "隐私保护",
+        "description": "所有文件都在您的浏览器中本地处理，绝不上传到服务器"
+      },
+      "fast": {
+        "title": "快速高效",
+        "description": "优化算法确保快速处理的同时保持最佳质量"
+      }
+    },
+    "meta": {
+      "title": "TryUtils - 简单实用的在线工具集合",
+      "description": "TryUtils 提供简单实用的在线工具，包括 HEIC 转换器、文档转换器等。所有处理都在浏览器中完成，保护您的隐私。",
+      "keywords": "在线工具,HEIC转换器,文档转换器,文件转换,浏览器工具,隐私保护,TryUtils"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "关于我们",
+      "description": "TryUtils 致力于为用户提供简单、实用的在线工具"
+    },
+    "mission": {
+      "title": "我们的使命",
+      "description": "让复杂的文件处理变得简单易用，无需安装复杂软件，直接在浏览器中完成各种格式转换和处理任务。"
+    },
+    "story": {
+      "title": "我们的故事",
+      "paragraph1": "TryUtils 诞生于对简单高效工具的需求。在日常工作中，我们经常遇到各种文件格式转换的需求，但现有的解决方案要么需要安装复杂的软件，要么存在隐私安全问题。",
+      "paragraph2": "因此，我们决定创建一个完全基于浏览器的工具集合，让用户能够安全、快速地处理各种文件格式，同时保护用户的隐私和数据安全。"
+    },
+    "vision": {
+      "title": "未来愿景",
+      "description": "我们将持续扩展工具集合，涵盖更多文件格式和处理需求，始终坚持简单易用、隐私安全的原则，成为用户最信赖的在线工具平台。"
+    },
+    "contact": {
+      "title": "联系我们",
+      "description": "如果您有任何建议或合作意向，欢迎通过邮件与我们联系。"
+    },
+    "meta": {
+      "title": "关于我们 - TryUtils",
+      "description": "了解 TryUtils 的使命、故事和愿景。我们致力于提供简单实用的在线工具，保护用户隐私，让文件处理变得更加便捷。",
+      "keywords": "TryUtils,关于我们,在线工具,文件转换,隐私保护"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "联系我们",
+      "description": "我们很乐意听到您的声音，无论是建议、问题还是合作意向"
+    },
+    "email": {
+      "title": "邮件联系",
+      "description": "发送邮件到 我们会尽快回复您"
+    },
+    "social": {
+      "title": "社交媒体",
+      "comingSoon": "即将推出"
+    },
+    "types": {
+      "title": "我们能为您做什么？",
+      "suggestions": {
+        "title": "功能建议",
+        "description": "告诉我们您希望看到的新功能或工具"
+      },
+      "bugs": {
+        "title": "问题反馈",
+        "description": "遇到了 bug 或使用问题？我们会尽快修复"
+      },
+      "business": {
+        "title": "商务合作",
+        "description": "有合作意向或商务咨询？欢迎与我们联系"
+      }
+    },
+    "beforeContact": {
+      "title": "联系前请注意",
+      "point1": "我们通常在 24-48 小时内回复邮件",
+      "point2": "请详细描述您的问题或建议，这有助于我们更好地帮助您",
+      "point3": "如果是技术问题，请提供浏览器版本和操作系统信息"
+    },
+    "meta": {
+      "title": "联系我们 - TryUtils",
+      "description": "有问题、建议或合作意向？通过邮件联系 TryUtils 团队，我们很乐意听到您的声音。",
+      "keywords": "联系我们,TryUtils,客服,技术支持,商务合作"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "title": "隐私政策",
+      "description": "我们重视您的隐私，本政策说明我们如何收集、使用和保护您的信息",
+      "lastUpdated": "最后更新：2024年1月1日"
+    },
+    "intro": {
+      "title": "引言",
+      "description": "TryUtils（以下简称\"我们\"）致力于保护用户隐私。本隐私政策说明我们如何收集、使用、存储和保护您的个人信息。"
+    },
+    "collection": {
+      "title": "我们收集的信息",
+      "point1": "使用数据：包括您访问的页面、使用的功能、访问时间等",
+      "point2": "设备信息：浏览器类型、操作系统、IP地址等技术信息",
+      "point3": "文件处理：您上传的文件仅在本地浏览器中处理，不会上传到我们的服务器"
+    },
+    "usage": {
+      "title": "信息使用",
+      "point1": "提供和改进我们的服务",
+      "point2": "分析网站使用情况以优化用户体验",
+      "point3": "确保网站安全和防止滥用"
+    },
+    "cookies": {
+      "title": "Cookie 使用",
+      "description": "我们使用 Cookie 来改善用户体验，包括记住您的语言偏好和分析网站使用情况。您可以通过浏览器设置控制 Cookie 的使用。"
+    },
+    "thirdParty": {
+      "title": "第三方服务",
+      "description": "我们可能使用第三方分析服务（如 Google Analytics）来了解网站使用情况。这些服务有自己的隐私政策。"
+    },
+    "security": {
+      "title": "数据安全",
+      "description": "我们采取合理的技术和管理措施来保护您的信息安全。所有文件处理都在您的浏览器中本地完成，不会传输到我们的服务器。"
+    },
+    "rights": {
+      "title": "您的权利",
+      "point1": "访问：您可以要求了解我们收集的关于您的信息",
+      "point2": "更正：您可以要求更正不准确的信息",
+      "point3": "删除：您可以要求删除您的个人信息"
+    },
+    "updates": {
+      "title": "政策更新",
+      "description": "我们可能会不时更新本隐私政策。重大变更将在网站上公布，并更新\"最后更新\"日期。"
+    },
+    "contact": {
+      "title": "联系我们",
+      "description": "如果您对本隐私政策有任何问题，请通过 联系我们。"
+    },
+    "meta": {
+      "title": "隐私政策 - TryUtils",
+      "description": "了解 TryUtils 如何收集、使用和保护您的个人信息。我们承诺保护您的隐私，所有文件处理都在本地完成。",
+      "keywords": "隐私政策,数据保护,TryUtils,个人信息,安全"
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "技术博客",
+      "description": "分享文件转换技巧、工具使用指南和实用教程"
+    },
+    "loading": "正在加载...",
+    "categories": {
+      "all": "全部分类",
+      "tutorial": "教程指南",
+      "tips": "使用技巧",
+      "news": "产品动态"
+    },
+    "search": {
+      "placeholder": "搜索文章...",
+      "all": "全部",
+      "found": "找到 {count} 篇文章"
+    },
+    "card": {
+      "readMore": "阅读更多"
+    },
+    "article": {
+      "detail": "文章详情",
+      "notFound": {
+        "title": "文章未找到",
+        "description": "抱歉，您访问的文章不存在或已被删除。",
+        "backToBlog": "返回博客"
+      },
+      "backToBlog": "返回博客列表",
+      "share": "分享",
+      "copyLink": "复制链接",
+      "linkCopied": "链接已复制到剪贴板！"
+    },
+    "meta": {
+      "title": "技术博客 - TryUtils",
+      "description": "TryUtils 技术博客，分享文件转换、在线工具使用技巧和实用教程。帮助您更好地使用我们的工具。",
+      "keywords": "TryUtils,技术博客,文件转换,在线工具,教程,技巧"
+    }
+  }
+}

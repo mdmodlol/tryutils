@@ -6,7 +6,7 @@
         :value="searchQuery"
         @input="$emit('update:searchQuery', $event.target.value)"
         type="text"
-        placeholder="搜索文章..."
+        :placeholder="$t('blog.search.placeholder')"
         class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
       >
       <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +34,7 @@
           !selectedTag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
         ]"
       >
-        全部
+        {{ $t('blog.search.all') }}
       </button>
       <button
         v-for="tag in tags"
@@ -52,10 +52,10 @@
     <!-- 搜索结果统计 -->
     <div v-if="searchQuery || selectedTag" class="text-sm text-gray-600">
       <span v-if="resultCount !== undefined">
-        找到 {{ resultCount }} 篇文章
-        <span v-if="searchQuery">包含 "{{ searchQuery }}"</span>
-        <span v-if="searchQuery && selectedTag"> 且</span>
-        <span v-if="selectedTag">标签为 "{{ selectedTag }}"</span>
+        {{ $t('blog.search.found', { count: resultCount }) }}
+        <span v-if="searchQuery">{{ $t('blog.search.containing', { query: searchQuery }) }}</span>
+        <span v-if="searchQuery && selectedTag"> {{ $t('blog.search.and') }}</span>
+        <span v-if="selectedTag">{{ $t('blog.search.withTag', { tag: selectedTag }) }}</span>
       </span>
     </div>
   </div>

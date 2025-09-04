@@ -5,10 +5,10 @@
       <div class="max-w-4xl mx-auto text-center">
         <div class="fade-in">
           <h1 class="text-5xl md:text-6xl font-bold text-gradient mb-6">
-            关于我们
+            {{ $t('about.hero.title') }}
           </h1>
           <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            专注于提供简单、实用的在线工具，让每个人都能轻松解决日常文件处理问题
+            {{ $t('about.hero.description') }}
           </p>
         </div>
       </div>
@@ -27,9 +27,9 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">我们的使命</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.mission.title') }}</h2>
                 <p class="text-lg text-gray-700 leading-relaxed">
-                  让每个人都能无需安装复杂软件，就能快速完成日常的小需求 —— 比如格式转换、压缩、提取等操作。
+                  {{ $t('about.mission.description') }}
                 </p>
               </div>
             </div>
@@ -44,12 +44,12 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">我们的故事</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.story.title') }}</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                  作为一名开发者，我经常遇到各种小问题：例如 iPhone 照片格式不兼容、PDF 文件太大无法发送、需要临时处理图片……
+                  {{ $t('about.story.paragraph1') }}
                 </p>
                 <p class="text-lg text-gray-700 leading-relaxed">
-                  于是我决定搭建 TryUtils，把这些常见的小工具集中在一起，让它们免费、简单、无广告干扰。
+                  {{ $t('about.story.paragraph2') }}
                 </p>
               </div>
             </div>
@@ -65,9 +65,9 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">未来愿景</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.vision.title') }}</h2>
                 <p class="text-lg text-gray-700 leading-relaxed">
-                  TryUtils 目前还在早期阶段，我们会逐步上线更多工具，涵盖文件、图片、视频、音频、文本处理等场景，打造一个真正的「万能小工具箱」。
+                  {{ $t('about.vision.description') }}
                 </p>
               </div>
             </div>
@@ -76,9 +76,9 @@
           <!-- 联系我们 -->
           <section class="card p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0">
             <div class="text-center">
-              <h2 class="text-3xl font-bold text-gray-900 mb-6">联系我们</h2>
+              <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ $t('about.contact.title') }}</h2>
               <p class="text-lg text-gray-700 mb-6">
-                如果您有任何建议或合作意向，欢迎通过邮箱联系：
+                {{ $t('about.contact.description') }}
               </p>
               <a href="mailto:contact@tryutils.com" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,12 +95,14 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 // 设置页面标题和描述
 useHead({
-  title: '关于我们',
+  title: t('about.meta.title'),
   meta: [
-    { name: 'description', content: 'TryUtils 是一个专注于提供简单、实用的在线工具的网站，致力于帮助用户轻松解决日常文件处理和格式转换问题。' },
-    { name: 'keywords', content: 'TryUtils,在线工具,文件转换,图片处理,关于我们' }
+    { name: 'description', content: t('about.meta.description') },
+    { name: 'keywords', content: t('about.meta.keywords') }
   ]
 })
 </script>

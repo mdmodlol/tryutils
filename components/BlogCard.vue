@@ -35,7 +35,7 @@
         :to="article._path"
         class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
       >
-        阅读更多
+        {{ $t('blog.card.readMore') }}
         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -54,10 +54,12 @@ defineProps({
 
 defineEmits(['tagClick'])
 
+const { locale } = useI18n()
+
 // 日期格式化函数
 const formatDate = (date) => {
   if (!date) return ''
-  return new Date(date).toLocaleDateString('zh-CN', {
+  return new Date(date).toLocaleDateString(locale.value === 'en' ? 'en-US' : 'zh-CN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
