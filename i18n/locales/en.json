@@ -51,6 +51,8 @@
     "imageQuality": "Image Quality",
     "lowQuality": "Low Quality",
     "highQuality": "High Quality",
+    "convert": "Start Conversion",
+    "convertDescription": "Convert all HEIC files to your selected format with one click",
     "converting": "Converting...",
     "startConvert": "Start Conversion",
     "convertProgress": "Conversion Progress",
