@@ -20,25 +20,26 @@
     <!-- 文章内容 -->
     <main class="py-8">
       <div class="max-w-4xl mx-auto px-6">
-        <div v-if="pending" class="text-center py-12">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p class="mt-4 text-gray-600">{{ $t('blog.loading') }}</p>
-        </div>
-
-        <div v-else-if="error" class="text-center py-12">
-          <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-            </svg>
+        <Transition name="fade" mode="out-in">
+          <div v-if="pending" key="loading" class="text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="mt-4 text-gray-600">{{ $t('blog.loading') }}</p>
           </div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $t('blog.article.notFound.title') }}</h2>
-          <p class="text-gray-600 mb-6">{{ $t('blog.article.notFound.description') }}</p>
-          <NuxtLink :to="localePath('/blog')" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            {{ $t('blog.article.backToBlog') }}
-          </NuxtLink>
-        </div>
 
-        <article v-else class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div v-else-if="error" key="error" class="text-center py-12">
+            <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $t('blog.article.notFound.title') }}</h2>
+            <p class="text-gray-600 mb-6">{{ $t('blog.article.notFound.description') }}</p>
+            <NuxtLink :to="localePath('/blog')" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              {{ $t('blog.article.backToBlog') }}
+            </NuxtLink>
+          </div>
+
+          <article v-else key="content" class="bg-white rounded-lg shadow-sm overflow-hidden">
           <!-- 文章头部 -->
           <header class="px-8 py-8 border-b border-gray-100">
             <div class="text-center">
@@ -95,7 +96,7 @@
               
               <!-- 分享按钮 -->
               <div class="flex items-center space-x-3">
-                <span class="text-sm text-gray-600">{{ $t('blog.article.share') }}：</span>
+                <span class="text-sm text-gray-600">{{ $t('blog.article.share') }}:</span>
                 <button 
                   @click="shareArticle"
                   class="p-2 text-gray-500 hover:text-blue-600 transition-colors"
@@ -109,28 +110,60 @@
             </div>
           </footer>
         </article>
+        </Transition>
       </div>
     </main>
   </div>
 </template>
 
 <script setup>
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
+const nuxtApp = useNuxtApp()
 
-// 获取文章数据
-const { data, pending, error } = await useAsyncData('blog-article', () => 
-  queryContent(useRoute().path).findOne()
-)
+// 获取文章数据，根据当前语言获取对应的文章
+const { data, pending, error } = await useAsyncData('blog-article', () => {
+  const slug = route.params.slug
+  const articlePath = Array.isArray(slug) ? slug.join('/') : slug
+  
+  // 根据当前语言构建文章路径
+  const langSuffix = locale.value === 'en' ? '.en' : ''
+  const fullPath = `/blog/${articlePath}${langSuffix}`
+  
+  return queryContent(fullPath).findOne().catch(() => {
+    // 如果找不到对应语言的文章，尝试获取默认语言版本
+    const fallbackPath = locale.value === 'en' ? `/blog/${articlePath}` : `/blog/${articlePath}.en`
+    return queryContent(fallbackPath).findOne()
+  })
+}, {
+  // 当语言或路由参数变化时重新获取数据
+  watch: [locale, () => route.params.slug],
+  // 添加缓存和优化选项
+  server: false, // 在客户端获取数据，避免服务端渲染延迟
+  default: () => null, // 设置默认值避免闪现
+  transform: (data) => data, // 保持数据原样
+  getCachedData(key) {
+    return nuxtApp.ssrContext?.cache?.[key] ?? nuxtApp.static.data[key]
+  }
+})
 
 // 日期格式化函数
 const formatDate = (date) => {
   if (!date) return ''
-  return new Date(date).toLocaleDateString('zh-CN', {
+  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
+  const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  })
+  }
+  
+  try {
+    return new Date(date).toLocaleDateString(localeCode, options)
+  } catch (error) {
+    // Fallback to English if there's an error
+    return new Date(date).toLocaleDateString('en-US', options)
+  }
 }
 
 // 分享文章
@@ -164,6 +197,17 @@ watchEffect(() => {
 </script>
 
 <style>
+/* 过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 /* Prose 样式优化 */
 .prose {
   @apply text-gray-800 leading-relaxed;

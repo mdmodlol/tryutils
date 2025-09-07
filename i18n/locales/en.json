@@ -18,6 +18,15 @@
     "about": "About",
     "contact": "Contact"
   },
+  "common": {
+    "language": "Language",
+    "languages": {
+      "zh": "中文",
+      "en": "English"
+    },
+    "toggleMobileMenu": "Toggle mobile menu",
+    "mobileNavigation": "Mobile navigation"
+  },
   "footer": {
     "description": "Focused on providing simple and practical online tools that allow you to quickly complete daily tasks without installing complex software. Completely processed in the browser to protect your privacy and security.",
     "tools": {
@@ -239,7 +248,7 @@
          "description": "Share practical technical tutorials and tool usage tips"
        },
        "loading": "Loading...",
-       "noArticles": "No articles yet",
+       "noArticles": "No articles available yet",
        "categories": {
          "title": "Categories",
          "all": "All Categories",
@@ -260,7 +269,10 @@
        "search": {
          "placeholder": "Search articles...",
          "all": "All",
-         "found": "Found {count} articles"
+         "found": "Found {count} articles",
+         "containing": "containing '{query}'",
+         "and": "and",
+         "withTag": "with tag '{tag}'"
        },
        "card": {
          "readMore": "Read More"

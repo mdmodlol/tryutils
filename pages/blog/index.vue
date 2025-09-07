@@ -94,10 +94,22 @@
 </template>
 
 <script setup>
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
 
-// 使用 Nuxt Content API 获取博客文章
-const { data: articles, pending, error } = await useAsyncData('blog-articles', () => queryContent('blog').find())
+// 获取博客文章数据，根据当前语言过滤
+const { data: articles, pending, error } = await useAsyncData('blog-articles', () => {
+  return queryContent('blog').find().then(allArticles => {
+    // 根据当前语言过滤文章
+    return allArticles.filter(article => {
+      const articleLang = article._path.endsWith('.en') ? 'en' : 'zh'
+      return articleLang === locale.value
+    })
+  })
+}, {
+  // 当语言切换时重新获取数据
+  watch: [locale]
+})
 
 // 获取所有标签
 const allTags = computed(() => {
@@ -139,7 +151,8 @@ const handleTagClick = (tag) => {
 // 日期格式化函数
 const formatDate = (date) => {
   if (!date) return ''
-  return new Date(date).toLocaleDateString('zh-CN', {
+  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
+  return new Date(date).toLocaleDateString(localeCode, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'

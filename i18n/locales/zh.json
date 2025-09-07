@@ -18,6 +18,15 @@
     "about": "关于",
     "contact": "联系"
   },
+  "common": {
+    "language": "语言",
+    "languages": {
+      "zh": "中文",
+      "en": "English"
+    },
+    "toggleMobileMenu": "切换移动菜单",
+    "mobileNavigation": "移动导航"
+  },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
     "tools": {
@@ -243,6 +252,7 @@
       "description": "分享文件转换技巧、工具使用指南和实用教程"
     },
     "loading": "正在加载...",
+    "noArticles": "暂无文章",
     "categories": {
       "title": "分类",
       "all": "全部分类",
@@ -263,7 +273,10 @@
     "search": {
       "placeholder": "搜索文章...",
       "all": "全部",
-      "found": "找到 {count} 篇文章"
+      "found": "找到 {count} 篇文章",
+      "containing": "包含 '{query}'",
+      "and": "且",
+      "withTag": "标签为 '{tag}'"
     },
     "card": {
       "readMore": "阅读更多"

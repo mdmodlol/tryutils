@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
       <div class="flex-1">
         <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-          <NuxtLink :to="article._path" class="hover:underline">
+          <NuxtLink :to="articlePath" class="hover:underline">
             {{ article.title }}
           </NuxtLink>
         </h2>
@@ -32,7 +32,7 @@
         {{ formatDate(article.date) }}
       </time>
       <NuxtLink 
-        :to="article._path"
+        :to="articlePath"
         class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
       >
         {{ $t('blog.card.readMore') }}
@@ -55,6 +55,25 @@ defineProps({
 defineEmits(['tagClick'])
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
+// 计算正确的文章路径
+const articlePath = computed(() => {
+  const props = getCurrentInstance().props
+  let path = props.article._path
+  
+  // 移除现有的语言后缀
+  if (path.endsWith('.en')) {
+    path = path.replace('.en', '')
+  }
+  
+  // 根据当前语言添加正确的后缀
+  if (locale.value === 'en') {
+    path = path + '.en'
+  }
+  
+  return localePath(path)
+})
 
 // 日期格式化函数
 const formatDate = (date) => {

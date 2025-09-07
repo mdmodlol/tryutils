@@ -8,7 +8,7 @@
             <div class="flex items-center justify-between">
               <!-- 品牌标志 -->
               <div class="flex-shrink-0">
-                <NuxtLink to="/" class="group" aria-label="TryUtils 首页">
+                <NuxtLink to="/" class="group" :aria-label="$t('nav.home')">
                   <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300">
                     TryUtils
                   </h1>
@@ -59,7 +59,7 @@
                 class="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
                 :aria-expanded="isMobileMenuOpen"
                 aria-controls="mobile-menu"
-                aria-label="切换移动端菜单"
+                :aria-label="$t('common.toggleMobileMenu')"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -69,7 +69,7 @@
             
             <!-- 移动端菜单 -->
             <div v-show="isMobileMenuOpen" id="mobile-menu" class="md:hidden mt-4 pb-4 border-t border-gray-100">
-              <nav class="flex flex-col space-y-3 pt-4" role="navigation" aria-label="移动端导航">
+              <nav class="flex flex-col space-y-3 pt-4" role="navigation" :aria-label="$t('common.mobileNavigation')">
                 <NuxtLink 
                   :to="localePath('/')" 
                   @click="closeMobileMenu"
