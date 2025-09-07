@@ -1,3 +1,38 @@
+<script setup lang="ts">
+// SEO 配置
+const { t } = useI18n()
+const seoConfig = computed(() => ({
+  title: t('about.seo.title'),
+  description: t('about.seo.description'),
+  keywords: t('about.seo.keywords'),
+  ogTitle: t('about.seo.title'),
+  ogDescription: t('about.seo.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
+
+// 结构化数据
+const { useStructuredData } = await import('~/composables/useStructuredData')
+const {
+  getOrganizationSchema,
+  getWebPageSchema,
+  setStructuredData
+} = useStructuredData()
+
+// 设置关于页面结构化数据
+const schemas = [
+  getOrganizationSchema(),
+  getWebPageSchema({
+    name: t('about.seo.title'),
+    description: t('about.seo.description')
+  })
+]
+
+setStructuredData(schemas)
+</script>
+
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
@@ -93,16 +128,3 @@
     </main>
   </div>
 </template>
-
-<script setup lang="ts">
-const { t } = useI18n()
-
-// 设置页面标题和描述
-useHead({
-  title: t('about.meta.title'),
-  meta: [
-    { name: 'description', content: t('about.meta.description') },
-    { name: 'keywords', content: t('about.meta.keywords') }
-  ]
-})
-</script>

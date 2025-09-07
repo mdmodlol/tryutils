@@ -1,3 +1,87 @@
+<script setup lang="ts">
+// SEO 配置
+const { t, locale } = useI18n()
+const seoConfig = computed(() => ({
+  title: t('blog.seo.title'),
+  description: t('blog.seo.description'),
+  keywords: t('blog.seo.keywords'),
+  ogTitle: t('blog.seo.title'),
+  ogDescription: t('blog.seo.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
+
+// 博客数据获取
+const { data: articles, pending } = await useAsyncData('blog-articles', () => {
+  // 根据当前语言筛选文章
+  const currentLocale = locale.value
+  if (currentLocale === 'en') {
+    // 英文：查找 .en.md 文件
+    return queryContent('/blog').where({ _path: { $regex: /\.en$/ } }).sort({ date: -1 }).find()
+  } else {
+    // 中文：查找不带 .en 后缀的文件
+    return queryContent('/blog').where({ _path: { $not: { $regex: /\.en$/ } } }).sort({ date: -1 }).find()
+  }
+})
+
+// 搜索和筛选状态
+const searchQuery = ref('')
+const selectedTag = ref('')
+
+// 获取所有标签
+const allTags = computed(() => {
+  if (!articles.value) return []
+  const tags = new Set<string>()
+  articles.value.forEach(article => {
+    if (article.tags) {
+      article.tags.forEach((tag: string) => tags.add(tag))
+    }
+  })
+  return Array.from(tags).sort()
+})
+
+// 筛选文章
+const filteredArticles = computed(() => {
+  if (!articles.value) return []
+  
+  return articles.value.filter(article => {
+    const matchesSearch = !searchQuery.value || 
+      article.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      article.description?.toLowerCase().includes(searchQuery.value.toLowerCase())
+    
+    const matchesTag = !selectedTag.value || 
+      (article.tags && article.tags.includes(selectedTag.value))
+    
+    return matchesSearch && matchesTag
+  })
+})
+
+// 处理标签点击
+const handleTagClick = (tag: string) => {
+  selectedTag.value = selectedTag.value === tag ? '' : tag
+}
+
+// 结构化数据
+const {
+  getOrganizationSchema,
+  getWebPageSchema,
+  setStructuredData
+} = useStructuredData()
+
+// 设置博客页面结构化数据
+const schemas = [
+  getOrganizationSchema(),
+  getWebPageSchema({
+    name: t('blog.seo.title'),
+    description: t('blog.seo.description')
+  })
+]
+
+setStructuredData(schemas)
+</script>
+
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
@@ -92,79 +176,3 @@
     </main>
   </div>
 </template>
-
-<script setup>
-const { t, locale } = useI18n()
-const localePath = useLocalePath()
-
-// 获取博客文章数据，根据当前语言过滤
-const { data: articles, pending, error } = await useAsyncData('blog-articles', () => {
-  return queryContent('blog').find().then(allArticles => {
-    // 根据当前语言过滤文章
-    return allArticles.filter(article => {
-      const articleLang = article._path.endsWith('.en') ? 'en' : 'zh'
-      return articleLang === locale.value
-    })
-  })
-}, {
-  // 当语言切换时重新获取数据
-  watch: [locale]
-})
-
-// 获取所有标签
-const allTags = computed(() => {
-  if (!articles.value) return []
-  const tags = new Set()
-  articles.value.forEach(article => {
-    if (article.tags) {
-      article.tags.forEach(tag => tags.add(tag))
-    }
-  })
-  return Array.from(tags)
-})
-
-// 搜索和筛选状态
-const searchQuery = ref('')
-const selectedTag = ref('')
-
-// 筛选后的文章
-const filteredArticles = computed(() => {
-  if (!articles.value) return []
-  
-  return articles.value.filter(article => {
-    const matchesSearch = !searchQuery.value || 
-      article.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      article.description?.toLowerCase().includes(searchQuery.value.toLowerCase())
-    
-    const matchesTag = !selectedTag.value || 
-      (article.tags && article.tags.includes(selectedTag.value))
-    
-    return matchesSearch && matchesTag
- })
-})
-
-// 处理标签点击
-const handleTagClick = (tag) => {
-  selectedTag.value = selectedTag.value === tag ? '' : tag
-}
-
-// 日期格式化函数
-const formatDate = (date) => {
-  if (!date) return ''
-  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
-  return new Date(date).toLocaleDateString(localeCode, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
-// 设置页面SEO
-useHead({
-  title: t('blog.meta.title'),
-  meta: [
-    { name: 'description', content: t('blog.meta.description') },
-    { name: 'keywords', content: t('blog.meta.keywords') }
-  ]
-})
-</script>

@@ -16,7 +16,8 @@
     "home": "Home",
     "blog": "Blog",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "privacy": "Privacy Policy"
   },
   "common": {
     "language": "Language",
@@ -48,6 +49,7 @@
   },
 "heicConverter": {
     "title": "Select or Drag HEIC Files",
+    "description": "Fast and secure HEIC to JPG/PNG converter",
     "subtitle": "Fast and secure HEIC to JPG/PNG conversion",
     "dragText": "Drag HEIC files here, or",
     "selectFile": "Select Files",
@@ -117,6 +119,11 @@
     }
   },
   "about": {
+    "seo": {
+      "title": "About TryUtils - Focused on Practical Online Tool Development",
+      "description": "Learn about TryUtils' mission and vision. We are committed to providing users with simple, secure, and efficient online tool solutions.",
+      "keywords": "TryUtils about,online tool development,privacy protection,user experience,development team"
+    },
     "hero": {
       "title": "About Us",
       "description": "TryUtils is committed to providing simple and practical online tools for users"
@@ -243,12 +250,20 @@
        }
      },
      "blog": {
+       "seo": {
+         "title": "TryUtils Blog - Practical Tool Tips and Tutorials",
+         "description": "Share practical online tool usage tips, tutorials and best practices to help you work more efficiently.",
+         "keywords": "TryUtils blog,tool tutorials,usage tips,online tool guide,productivity,HEIC converter tutorial"
+       },
        "hero": {
          "title": "Tech Blog",
          "description": "Share practical technical tutorials and tool usage tips"
        },
        "loading": "Loading...",
-       "noArticles": "No articles available yet",
+       "noArticles": {
+         "title": "No articles available yet",
+         "description": "No articles have been published yet, please check back later."
+       },
        "categories": {
          "title": "Categories",
          "all": "All Categories",

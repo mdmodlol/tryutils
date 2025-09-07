@@ -1,3 +1,83 @@
+<script setup lang="ts">
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+const route = useRoute()
+const nuxtApp = useNuxtApp()
+
+// 获取文章数据，根据当前语言获取对应的文章
+const { data, pending, error } = await useAsyncData('blog-article', () => {
+  const slug = route.params.slug
+  const articlePath = Array.isArray(slug) ? slug.join('/') : slug
+  
+  // 根据当前语言构建文章路径
+  const langSuffix = locale.value === 'en' ? '.en' : ''
+  const fullPath = `/blog/${articlePath}${langSuffix}`
+  
+  return queryContent(fullPath).findOne().catch(() => {
+    // 如果找不到对应语言的文章，尝试获取默认语言版本
+    const fallbackPath = locale.value === 'en' ? `/blog/${articlePath}` : `/blog/${articlePath}.en`
+    return queryContent(fallbackPath).findOne()
+  })
+}, {
+  // 当语言或路由参数变化时重新获取数据
+  watch: [locale, () => route.params.slug],
+  // 添加缓存和优化选项
+  server: false, // 在客户端获取数据，避免服务端渲染延迟
+  default: () => null, // 设置默认值避免闪现
+  transform: (data) => data, // 保持数据原样
+  getCachedData(key) {
+    return nuxtApp.ssrContext?.cache?.[key] ?? nuxtApp.static.data[key]
+  }
+})
+
+// 日期格式化函数
+const formatDate = (date) => {
+  if (!date) return ''
+  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }
+  
+  try {
+    return new Date(date).toLocaleDateString(localeCode, options)
+  } catch (error) {
+    // Fallback to English if there's an error
+    return new Date(date).toLocaleDateString('en-US', options)
+  }
+}
+
+// 分享文章
+const shareArticle = async () => {
+  try {
+    await navigator.clipboard.writeText(window.location.href)
+    // 这里可以添加一个提示消息
+    alert(t('blog.article.linkCopied'))
+  } catch (err) {
+    console.error('复制失败:', err)
+  }
+}
+
+// 动态设置页面的 SEO 信息
+watchEffect(() => {
+  if (data.value) {
+    useHead({
+      title: `${data.value.title} - TryUtils`,
+      meta: [
+        { name: 'description', content: data.value.description },
+        { name: 'keywords', content: data.value.tags?.join(', ') || '' },
+        { property: 'og:title', content: `${data.value.title} - TryUtils` },
+        { property: 'og:description', content: data.value.description },
+        { property: 'og:type', content: 'article' },
+        { property: 'article:published_time', content: data.value.date },
+        { property: 'article:tag', content: data.value.tags?.join(', ') || '' }
+      ]
+    })
+  }
+})
+</script>
+
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- 导航面包屑 -->
@@ -116,85 +196,7 @@
   </div>
 </template>
 
-<script setup>
-const { t, locale } = useI18n()
-const localePath = useLocalePath()
-const route = useRoute()
-const nuxtApp = useNuxtApp()
 
-// 获取文章数据，根据当前语言获取对应的文章
-const { data, pending, error } = await useAsyncData('blog-article', () => {
-  const slug = route.params.slug
-  const articlePath = Array.isArray(slug) ? slug.join('/') : slug
-  
-  // 根据当前语言构建文章路径
-  const langSuffix = locale.value === 'en' ? '.en' : ''
-  const fullPath = `/blog/${articlePath}${langSuffix}`
-  
-  return queryContent(fullPath).findOne().catch(() => {
-    // 如果找不到对应语言的文章，尝试获取默认语言版本
-    const fallbackPath = locale.value === 'en' ? `/blog/${articlePath}` : `/blog/${articlePath}.en`
-    return queryContent(fallbackPath).findOne()
-  })
-}, {
-  // 当语言或路由参数变化时重新获取数据
-  watch: [locale, () => route.params.slug],
-  // 添加缓存和优化选项
-  server: false, // 在客户端获取数据，避免服务端渲染延迟
-  default: () => null, // 设置默认值避免闪现
-  transform: (data) => data, // 保持数据原样
-  getCachedData(key) {
-    return nuxtApp.ssrContext?.cache?.[key] ?? nuxtApp.static.data[key]
-  }
-})
-
-// 日期格式化函数
-const formatDate = (date) => {
-  if (!date) return ''
-  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }
-  
-  try {
-    return new Date(date).toLocaleDateString(localeCode, options)
-  } catch (error) {
-    // Fallback to English if there's an error
-    return new Date(date).toLocaleDateString('en-US', options)
-  }
-}
-
-// 分享文章
-const shareArticle = async () => {
-  try {
-    await navigator.clipboard.writeText(window.location.href)
-    // 这里可以添加一个提示消息
-    alert(t('blog.article.linkCopied'))
-  } catch (err) {
-    console.error('复制失败:', err)
-  }
-}
-
-// 动态设置页面的 SEO 信息
-watchEffect(() => {
-  if (data.value) {
-    useHead({
-      title: `${data.value.title} - TryUtils`,
-      meta: [
-        { name: 'description', content: data.value.description },
-        { name: 'keywords', content: data.value.tags?.join(', ') || '' },
-        { property: 'og:title', content: `${data.value.title} - TryUtils` },
-        { property: 'og:description', content: data.value.description },
-        { property: 'og:type', content: 'article' },
-        { property: 'article:published_time', content: data.value.date },
-        { property: 'article:tag', content: data.value.tags?.join(', ') || '' }
-      ]
-    })
-  }
-})
-</script>
 
 <style>
 /* 过渡动画 */

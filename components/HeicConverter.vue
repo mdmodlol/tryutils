@@ -1,13 +1,20 @@
 <template>
-  <div class="heic-converter fade-in-up">
+  <div class="heic-converter fade-in-up" itemscope itemtype="https://schema.org/SoftwareApplication">
     <!-- 文件上传区域 -->
     <section class="core-feature-section" role="region" aria-labelledby="upload-title">
       <div class="text-center mb-8">
-         <h2 id="upload-title" class="section-title flex items-center justify-center gap-3 text-center">
+         <h2 id="upload-title" class="section-title flex items-center justify-center gap-3 text-center" itemprop="name">
            <Icon name="heroicons:cloud-arrow-up" class="text-3xl" aria-hidden="true" />
            {{ $t('heicConverter.title') }}
          </h2>
-         <p class="section-subtitle text-center">{{ $t('heicConverter.subtitle') || '快速、安全、免费的HEIC图片转换工具' }}</p>
+         <p class="section-subtitle text-center" itemprop="description">{{ $t('heicConverter.subtitle') || '快速、安全、免费的HEIC图片转换工具' }}</p>
+         <!-- 隐藏的结构化数据 -->
+         <meta itemprop="applicationCategory" content="ImageConverter">
+         <meta itemprop="operatingSystem" content="Web Browser">
+         <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" style="display: none;">
+           <meta itemprop="price" content="0">
+           <meta itemprop="priceCurrency" content="USD">
+         </div>
        </div>
       
       <!-- 使用 ClientOnly 包装交互组件 -->
@@ -15,7 +22,7 @@
         <!-- 拖拽上传区域 -->
         <div 
           class="enhanced-upload-zone group"
-          :class="{ 'drag-over': isDragOver }"
+          :class="{ 'drag-over': isDragging }"
           @dragenter="handleDragEnter"
           @dragleave="handleDragLeave"
           @dragover="handleDragOver"
@@ -23,8 +30,8 @@
           role="button"
           tabindex="0"
           :aria-label="$t('heicConverter.dragText')"
-          @keydown.enter="$refs.fileInput?.click()"
-          @keydown.space.prevent="$refs.fileInput?.click()"
+          @keydown.enter="fileInput?.click()"
+          @keydown.space.prevent="fileInput?.click()"
         >
           <!-- 优化后的上传区域布局 -->
           <div class="flex flex-col items-center justify-center space-y-8 py-4">
@@ -374,6 +381,9 @@
 import { ref, onUnmounted, computed, watch, nextTick } from 'vue'
 // 导入i18n相关函数
 const { t } = useI18n()
+
+// 模板引用
+const fileInput = ref<HTMLInputElement>()
 // 导入类型定义
 import type { ConvertOptions, ConvertResult } from '~/composables/useImageConverter'
 // 导入防抖函数

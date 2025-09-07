@@ -19,7 +19,7 @@
               </div>
               
               <!-- 导航菜单 -->
-              <nav class="hidden md:flex items-center space-x-8" role="navigation" aria-label="主导航">
+              <nav class="hidden md:flex items-center space-x-8" role="navigation" relative aria-label="主导航">
                 <NuxtLink 
                   :to="localePath('/')" 
                   class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"

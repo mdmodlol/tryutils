@@ -16,7 +16,8 @@
     "home": "首页",
     "blog": "博客",
     "about": "关于",
-    "contact": "联系"
+    "contact": "联系",
+    "privacy": "隐私政策"
   },
   "common": {
     "language": "语言",
@@ -48,6 +49,7 @@
   },
   "heicConverter": {
     "title": "选择或拖拽 HEIC 文件",
+    "description": "快速安全的 HEIC 转 JPG/PNG 转换工具",
     "subtitle": "快速安全的 HEIC 转 JPG/PNG 转换",
     "dragText": "拖拽 HEIC 文件到这里，或者",
     "selectFile": "选择文件",
@@ -118,6 +120,11 @@
     }
   },
   "about": {
+    "seo": {
+      "title": "关于 TryUtils - 专注实用在线工具开发",
+      "description": "了解 TryUtils 的使命和愿景，我们致力于为用户提供简单、安全、高效的在线工具解决方案。",
+      "keywords": "TryUtils关于,在线工具开发,隐私保护,用户体验,工具开发团队"
+    },
     "hero": {
       "title": "关于我们",
       "description": "TryUtils 致力于为用户提供简单、实用的在线工具"
@@ -247,12 +254,20 @@
     }
   },
   "blog": {
+    "seo": {
+      "title": "TryUtils 博客 - 实用工具使用技巧和教程",
+      "description": "分享实用的在线工具使用技巧、教程和最佳实践，帮助您更高效地完成日常工作。",
+      "keywords": "TryUtils博客,工具教程,使用技巧,在线工具指南,效率提升,HEIC转换教程"
+    },
     "hero": {
       "title": "技术博客",
       "description": "分享文件转换技巧、工具使用指南和实用教程"
     },
     "loading": "正在加载...",
-    "noArticles": "暂无文章",
+    "noArticles": {
+      "title": "暂无文章",
+      "description": "目前还没有发布任何文章，请稍后再来查看。"
+    },
     "categories": {
       "title": "分类",
       "all": "全部分类",

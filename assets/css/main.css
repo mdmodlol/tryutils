@@ -200,6 +200,73 @@
   50% { background-position: 0% 0; }
 }
 
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .text-6xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
+  .text-5xl {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+  
+  .py-20 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .py-16 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-6xl {
+    font-size: 2.5rem;
+  }
+  
+  .text-5xl {
+    font-size: 2rem;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem;
+  }
+  
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* 触摸友好的按钮和链接 */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* 减少动画以提升性能 */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in-up,
+  .slide-up,
+  .bounce-in,
+  .pulse-glow {
+    animation: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* 滑块样式 */
 .slider {
   @apply appearance-none bg-transparent cursor-pointer;

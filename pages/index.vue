@@ -1,26 +1,73 @@
-<template>
-  <div class="min-h-screen">
-    <!-- Hero Section -->
-    <section class="py-16 px-6" role="banner" aria-labelledby="hero-title">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="fade-in">
-          <h1 id="hero-title" class="text-5xl md:text-6xl font-bold text-gradient mb-6">
-            {{ $t('home.hero.title') }}
-          </h1>
-          <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {{ $t('home.hero.description') }}
-          </p>
-        </div>
-      </div>
-    </section>
+<script setup lang="ts">
+// SEO 配置
+const { t } = useI18n()
+const seoConfig = computed(() => ({
+  title: t('app.seo.ogTitle'),
+  description: t('app.seo.description'),
+  keywords: t('app.seo.keywords'),
+  ogTitle: t('app.seo.ogTitle'),
+  ogDescription: t('app.seo.ogDescription'),
+  twitterTitle: t('app.seo.twitterTitle'),
+  twitterDescription: t('app.seo.twitterDescription'),
+  ogType: 'website'
+}))
 
-    <!-- 主要内容 -->
-    <main class="pb-16" role="main" aria-label="HEIC转换工具">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="slide-up">
-          <HeicConverter />
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
+
+// 结构化数据
+const { useStructuredData } = await import('~/composables/useStructuredData')
+const {
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+  getSoftwareApplicationSchema,
+  setStructuredData
+} = useStructuredData()
+
+// 设置首页结构化数据
+const schemas = [
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getWebPageSchema({
+    name: t('app.seo.ogTitle'),
+    description: t('app.seo.description')
+  }),
+  getSoftwareApplicationSchema({
+    name: t('heicConverter.title'),
+    description: t('heicConverter.description'),
+    category: 'Image Converter'
+  })
+]
+
+setStructuredData(schemas)
+</script>
+
+<template>
+  <div class="min-h-screen" itemscope itemtype="https://schema.org/WebPage">
+    <main role="main">
+      <!-- Hero Section -->
+      <section class="py-16 px-6" aria-labelledby="hero-title">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="fade-in">
+            <h1 id="hero-title" class="text-5xl md:text-6xl font-bold text-gradient mb-6" itemprop="headline">
+              {{ $t('home.hero.title') }}
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed" itemprop="description">
+              {{ $t('home.hero.description') }}
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- 主要内容 -->
+      <section class="pb-16" aria-label="HEIC转换工具">
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="slide-up">
+            <HeicConverter />
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- 特性介绍 -->
@@ -62,16 +109,3 @@
     </section>
   </div>
 </template>
-
-<script setup lang="ts">
-const { t } = useI18n()
-
-// 设置页面标题和描述
-useHead({
-  title: t('home.meta.title'),
-  meta: [
-    { name: 'description', content: t('home.meta.description') },
-    { name: 'keywords', content: t('home.meta.keywords') }
-  ]
-})
-</script>

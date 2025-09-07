@@ -1,54 +1,276 @@
 <template>
-  <div class="flex items-center gap-2">
-    <Icon name="heroicons:language" class="text-gray-600" />
-    <select 
-      v-model="currentLocale"
-      @change="switchLanguage"
-      class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white hover:bg-gray-50 transition-colors cursor-pointer"
+  <div class="relative inline-block text-left">
+    <!-- 触发按钮 -->
+    <button
+      @click="toggleDropdown"
+      class="language-switcher-btn group"
       :aria-label="$t('common.language')"
+      :aria-expanded="isOpen"
+      ref="triggerButton"
     >
-      <option value="zh">{{ $t('common.languages.zh') }}</option>
-      <option value="en">{{ $t('common.languages.en') }}</option>
-    </select>
+      <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
+      <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+        {{ currentLanguageLabel }}
+      </span>
+      <Icon 
+        name="heroicons:chevron-down" 
+        :class="[
+          'w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-all duration-300',
+          isOpen ? 'rotate-180' : 'rotate-0'
+        ]" 
+      />
+    </button>
+
+    <!-- 下拉菜单 -->
+    <Transition
+      enter-active-class="transition ease-out duration-300"
+      enter-from-class="opacity-0 scale-95 translate-y-2"
+      enter-to-class="opacity-100 scale-100 translate-y-0"
+      leave-active-class="transition ease-in duration-200"
+      leave-from-class="opacity-100 scale-100 translate-y-0"
+      leave-to-class="opacity-0 scale-95 translate-y-2"
+    >
+      <div
+        v-show="isOpen"
+        class="language-dropdown"
+        @mousedown.prevent
+        ref="dropdownMenu"
+      >
+        <div class="py-1">
+          <button
+            v-for="lang in languages"
+            :key="lang.code"
+            @mousedown.prevent="selectLanguage(lang.code)"
+            :class="[
+              'language-option',
+              currentLocale === lang.code ? 'language-option-active' : 'language-option-inactive'
+            ]"
+          >
+            <span class="language-flag">{{ lang.flag }}</span>
+            <span class="language-name">{{ lang.name }}</span>
+            <Icon 
+              v-if="currentLocale === lang.code"
+              name="heroicons:check" 
+              class="w-4 h-4 text-blue-600" 
+            />
+          </button>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-const { locale, setLocale } = useI18n()
+const { locale, setLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const currentLocale = ref(locale.value)
+const isOpen = ref(false)
+const triggerButton = ref<HTMLButtonElement>()
+const dropdownMenu = ref<HTMLDivElement>()
+
+// 语言配置
+const languages = [
+  { code: 'zh', name: '中文', flag: '🇨🇳' },
+  { code: 'en', name: 'English', flag: '🇺🇸' }
+]
+
+// 当前语言标签
+const currentLanguageLabel = computed(() => {
+  const lang = languages.find(l => l.code === currentLocale.value)
+  return lang ? lang.name : '中文'
+})
 
 // 监听locale变化，同步更新currentLocale
 watch(locale, (newLocale) => {
   currentLocale.value = newLocale
 })
 
-// 语言切换函数
-const switchLanguage = () => {
-  const newLocale = currentLocale.value
-  setLocale(newLocale)
-  // 使用 switchLocalePath 进行正确的语言路由切换
-  const newPath = switchLocalePath(newLocale)
-  if (newPath) {
-    navigateTo(newPath)
-  }
+// 切换下拉菜单
+const toggleDropdown = (event: Event) => {
+  event.stopPropagation()
+  isOpen.value = !isOpen.value
 }
+
+// 选择语言
+const selectLanguage = (langCode: string) => {
+  if (langCode !== currentLocale.value) {
+    currentLocale.value = langCode
+    setLocale(langCode)
+    
+    // 使用 switchLocalePath 进行正确的语言路由切换
+    const newPath = switchLocalePath(langCode)
+    if (newPath) {
+      navigateTo(newPath)
+    }
+  }
+  isOpen.value = false
+}
+
+// 点击外部关闭下拉菜单
+onMounted(() => {
+  const handleClickOutside = (event: Event) => {
+    const target = event.target as Element
+    const triggerEl = triggerButton.value
+    const dropdownEl = dropdownMenu.value
+    
+    // 如果点击的不是触发按钮和下拉菜单内的元素，则关闭下拉菜单
+    if (triggerEl && dropdownEl && 
+        !triggerEl.contains(target) && 
+        !dropdownEl.contains(target)) {
+      isOpen.value = false
+    }
+  }
+  
+  document.addEventListener('click', handleClickOutside)
+  
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
+  })
+})
 </script>
 
 <style scoped>
-/* 自定义选择框样式 */
-select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-  background-position: right 0.5rem center;
-  background-repeat: no-repeat;
-  background-size: 1.5em 1.5em;
-  padding-right: 2.5rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+/* 语言切换器按钮 */
+.language-switcher-btn {
+  @apply flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl shadow-sm;
+  @apply hover:shadow-md hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  @apply transition-all duration-300 cursor-pointer;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
-select:focus {
-  outline: none;
+.language-switcher-btn:hover {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  transform: translateY(-1px);
+}
+
+.language-switcher-btn:active {
+  transform: translateY(0);
+}
+
+/* 下拉菜单容器 */
+.language-dropdown {
+  @apply absolute left-0 mt-3 bg-white rounded-2xl border border-gray-200;
+  @apply z-50 overflow-hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 10px 25px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform-origin: top center;
+  min-width: 100%;
+  width: max-content;
+}
+
+/* 语言选项 */
+.language-option {
+  @apply flex items-center justify-between w-full px-4 py-3.5 text-left text-sm;
+  @apply transition-all duration-300 cursor-pointer relative;
+  border-radius: 0;
+}
+
+.language-option-inactive {
+  @apply text-gray-700;
+  background: transparent;
+}
+
+.language-option-inactive:hover {
+  @apply text-blue-700;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
+  transform: translateX(4px);
+}
+
+.language-option-active {
+  @apply text-white;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.language-option-active:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  transform: translateX(2px);
+  box-shadow: 
+    0 6px 16px rgba(59, 130, 246, 0.4),
+    0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.language-option:first-child {
+  border-radius: 1rem 1rem 0 0;
+}
+
+.language-option:last-child {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.language-option:only-child {
+  border-radius: 1rem;
+}
+
+/* 语言标志和名称 */
+.language-flag {
+  @apply text-lg mr-3;
+}
+
+.language-name {
+  @apply font-medium flex-1;
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+  .language-switcher-btn {
+    @apply px-3 py-2;
+  }
+  
+  .language-switcher-btn span {
+    @apply hidden;
+  }
+  
+  .language-dropdown {
+    @apply right-0 left-auto;
+    transform-origin: top right;
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-dropdown {
+    min-width: 100%;
+  }
+  
+  .language-option {
+    @apply px-3 py-3;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .language-switcher-btn {
+    @apply bg-gray-800 border-gray-700 text-gray-200;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  }
+  
+  .language-dropdown {
+    @apply bg-gray-800 border-gray-600;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    box-shadow: 
+      0 10px 25px -3px rgba(0, 0, 0, 0.3),
+      0 4px 6px -2px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  .language-option-inactive {
+    @apply text-gray-300;
+  }
+  
+  .language-option-inactive:hover {
+    @apply text-blue-400;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+  }
+  
+  .language-option-active {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  }
 }
 </style>
