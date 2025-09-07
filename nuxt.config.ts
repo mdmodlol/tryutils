@@ -89,11 +89,35 @@ export default defineNuxtConfig({
       include: ['heic2any']
     },
     build: {
+      target: 'es2020',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug']
+        }
+      },
       rollupOptions: {
         output: {
-          manualChunks: {
-            'heic-converter': ['heic2any'],
-            'vendor': ['vue', 'vue-router']
+          manualChunks: (id) => {
+            // 将 node_modules 中的包分离到 vendor chunk
+            if (id.includes('node_modules')) {
+              if (id.includes('heic2any')) {
+                return 'heic-converter'
+              }
+              if (id.includes('lodash-es')) {
+                return 'utils'
+              }
+              if (id.includes('vue') || id.includes('@vue')) {
+                return 'vue-vendor'
+              }
+              return 'vendor'
+            }
+            // 将组合式函数分离到单独的 chunk
+            if (id.includes('composables/')) {
+              return 'composables'
+            }
           }
         }
       }
@@ -102,12 +126,16 @@ export default defineNuxtConfig({
   // 性能优化配置
   experimental: {
     payloadExtraction: false,
-    inlineSSRStyles: false
+    inlineSSRStyles: false,
+    treeshakeClientOnly: true
   },
+
+
   // 图片优化
   image: {
-    quality: 80,
-    format: ['webp', 'jpg'],
+    quality: 85,
+    format: ['avif', 'webp', 'jpg'],
+    densities: [1, 2],
     screens: {
       xs: 320,
       sm: 640,
@@ -119,18 +147,46 @@ export default defineNuxtConfig({
     presets: {
       avatar: {
         modifiers: {
-          format: 'webp',
+          format: 'avif',
           width: 50,
-          height: 50
+          height: 50,
+          quality: 90
         }
       },
       cover: {
         modifiers: {
-          format: 'webp',
+          format: 'avif',
           width: 800,
           height: 400,
-          fit: 'cover'
+          fit: 'cover',
+          quality: 85
         }
+      },
+      thumbnail: {
+        modifiers: {
+          format: 'webp',
+          width: 150,
+          height: 150,
+          fit: 'cover',
+          quality: 80
+        }
+      },
+      hero: {
+        modifiers: {
+          format: 'avif',
+          width: 1200,
+          height: 600,
+          fit: 'cover',
+          quality: 85
+        }
+      }
+    },
+    // 启用图片优化
+    provider: 'ipx',
+    ipx: {
+      modifiers: {
+        quality: 85,
+        format: 'avif'
       }
     }
   },

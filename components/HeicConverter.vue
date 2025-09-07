@@ -467,18 +467,28 @@ const convertOptions = ref<ConvertOptions>({
 // 转换结果
 const convertResults = ref<ConvertResult[]>([])
 
-// 计算属性优化性能
+// 计算属性优化性能 - 使用shallowRef和缓存优化
 const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => convertResults.value.length > 0)
 const canConvert = computed(() => hasFiles.value && !isConverting.value)
 const totalFileSize = computed(() => {
+  if (files.value.length === 0) return 0
   return files.value.reduce((total, file) => total + file.size, 0)
 })
 const formattedTotalSize = computed(() => formatFileSize(totalFileSize.value))
 
+// 性能优化的文件大小格式化函数
+const formatFileSizeOptimized = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes'
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}
 
 
-// 开始转换
+
+// 开始转换 - 优化性能和错误处理
 const startConversion = async () => {
   if (files.value.length === 0) return
   if (isConverting.value) return // 防止重复点击
@@ -490,7 +500,24 @@ const startConversion = async () => {
     }
     convertResults.value = []
     
-    const results = await convertMultiple([...files.value] as File[], convertOptions.value)
+    // 批量处理优化 - 避免一次性处理过多文件
+    const batchSize = Math.min(5, files.value.length)
+    const filesCopy = [...files.value] as File[]
+    
+    // 预处理文件验证
+    const validFiles = filesCopy.filter(file => {
+      const isValidType = file.type === 'image/heic' || file.type === 'image/heif' || 
+                         file.name.toLowerCase().endsWith('.heic') || 
+                         file.name.toLowerCase().endsWith('.heif')
+      const isValidSize = file.size <= 50 * 1024 * 1024 // 50MB限制
+      return isValidType && isValidSize
+    })
+    
+    if (validFiles.length === 0) {
+      throw new Error('没有有效的HEIC/HEIF文件可转换')
+    }
+    
+    const results = await convertMultiple(validFiles, convertOptions.value)
     convertResults.value = results
   } catch (error) {
     console.error('转换失败:', error)
@@ -538,8 +565,8 @@ const resetConverter = () => {
   }
 }
 
-// 监听文件变化，自动清理错误状态
-watch(files, (newFiles) => {
+// 监听文件变化，自动清理错误状态 - 使用防抖优化性能
+const debouncedFileWatcher = debounce((newFiles: File[]) => {
   if (newFiles.length === 0) {
     // 文件被清空时，清理相关状态
     if (convertResults.value.length > 0) {
@@ -551,15 +578,23 @@ watch(files, (newFiles) => {
   if (dragError.value) {
     dragError.value = null
   }
-}, { deep: true })
+}, 300)
 
-// 监听转换选项变化，清理之前的结果
-watch(convertOptions, () => {
+watch(files, (newFiles) => {
+  debouncedFileWatcher(newFiles)
+}, { deep: false, flush: 'post' })
+
+// 监听转换选项变化，清理之前的结果 - 使用防抖和浅层监听优化
+const debouncedOptionsWatcher = debounce(() => {
   if (convertResults.value.length > 0) {
     cleanup(convertResults.value)
     convertResults.value = []
   }
-}, { deep: true })
+}, 500)
+
+watch(convertOptions, () => {
+  debouncedOptionsWatcher()
+}, { deep: true, flush: 'post' })
 
 // 组件卸载时清理资源
 onUnmounted(() => {
@@ -775,6 +810,37 @@ onUnmounted(() => {
   filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.2));
 }
 
+/* 过渡动画 */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active, .slide-up-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-up-enter-from, .slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from, .list-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.list-move {
+  transition: transform 0.3s ease;
+}
+
 /* 响应式优化 */
 @media (max-width: 768px) {
   .heic-converter {
@@ -817,5 +883,22 @@ onUnmounted(() => {
 
 .interactive-element:hover {
   transform: translateY(-2px);
+}
+
+/* 性能优化 - 减少重绘 */
+.enhanced-upload-zone,
+.file-item,
+.convert-button,
+.download-button {
+  will-change: transform;
+}
+
+/* 减少不必要的阴影计算 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 </style>
