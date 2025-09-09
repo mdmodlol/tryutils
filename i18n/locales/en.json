@@ -331,6 +331,10 @@
            "title": "HEIC Conversion",
            "description": "HEIC image format conversion tutorials and tips"
          },
+         "imageCompression": {
+           "title": "Image Compression",
+           "description": "Image compression techniques, algorithm principles and best practices"
+         },
          "document": {
            "title": "Document Processing"
          },
@@ -361,6 +365,30 @@
          "share": "Share",
          "copyLink": "Copy Link",
          "linkCopied": "Link copied to clipboard!"
+       },
+       "tags": {
+         "imageCompression": "Image Compression",
+         "algorithmPrinciples": "Algorithm Principles",
+         "webOptimization": "Web Optimization",
+         "jpeg": "JPEG",
+         "webp": "WebP",
+         "png": "PNG",
+         "performanceOptimization": "Performance Optimization",
+         "responsiveImages": "Responsive Images",
+         "lazyLoading": "Lazy Loading",
+         "cdn": "CDN",
+         "canvasApi": "Canvas API",
+         "frontendTechnology": "Frontend Technology",
+         "javascript": "JavaScript",
+         "imageProcessing": "Image Processing",
+         "compressionLibraries": "Compression Libraries",
+         "technologySelection": "Technology Selection",
+         "performanceComparison": "Performance Comparison",
+         "realApplications": "Real Applications",
+         "projectCases": "Project Cases",
+         "solutions": "Solutions",
+         "technicalArchitecture": "Technical Architecture",
+         "bestPractices": "Best Practices"
        },
        "meta": {
          "title": "Tech Blog - TryUtils",

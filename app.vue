@@ -8,7 +8,7 @@
             <div class="flex items-center justify-between">
               <!-- 品牌标志 -->
               <div class="flex-shrink-0">
-                <NuxtLink to="/" class="group" :aria-label="$t('nav.home')">
+                <NuxtLink :to="localePath('/')" class="group" :aria-label="$t('nav.home')">
                   <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300">
                     TryUtils
                   </h1>

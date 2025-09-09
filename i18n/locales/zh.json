@@ -338,6 +338,10 @@
         "title": "HEIC 转换",
         "description": "HEIC 图片格式转换相关教程和技巧"
       },
+      "imageCompression": {
+        "title": "图片压缩",
+        "description": "图片压缩技术、算法原理和最佳实践"
+      },
       "document": {
         "title": "文档处理"
       },
@@ -365,6 +369,30 @@
       "share": "分享",
       "copyLink": "复制链接",
       "linkCopied": "链接已复制到剪贴板！"
+    },
+    "tags": {
+      "imageCompression": "图片压缩",
+      "algorithmPrinciples": "算法原理",
+      "webOptimization": "Web优化",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG",
+      "performanceOptimization": "性能优化",
+      "responsiveImages": "响应式图片",
+      "lazyLoading": "懒加载",
+      "cdn": "CDN",
+      "canvasApi": "Canvas API",
+      "frontendTechnology": "前端技术",
+      "javascript": "JavaScript",
+      "imageProcessing": "图像处理",
+      "compressionLibraries": "压缩库",
+      "technologySelection": "技术选型",
+      "performanceComparison": "性能对比",
+      "realApplications": "实际应用",
+      "projectCases": "项目案例",
+      "solutions": "解决方案",
+      "technicalArchitecture": "技术架构",
+      "bestPractices": "最佳实践"
     },
     "meta": {
       "title": "技术博客 - TryUtils",
