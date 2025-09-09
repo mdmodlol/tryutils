@@ -30,7 +30,21 @@ export const useDragDrop = (options: DragDropOptions = {}) => {
 
     // 检查文件格式
     const fileName = file.name.toLowerCase()
-    const isAccepted = accept.some(ext => fileName.endsWith(ext.toLowerCase()))
+    const fileType = file.type.toLowerCase()
+    
+    const isAccepted = accept.some(acceptType => {
+      if (acceptType.startsWith('.')) {
+        // 文件扩展名检查
+        return fileName.endsWith(acceptType.toLowerCase())
+      } else if (acceptType.includes('/*')) {
+        // MIME类型通配符检查 (如 image/*)
+        const baseType = acceptType.split('/')[0]
+        return fileType.startsWith(baseType + '/')
+      } else {
+        // 完整MIME类型检查 (如 image/jpeg)
+        return fileType === acceptType.toLowerCase()
+      }
+    })
     
     if (!isAccepted) {
       error.value = `文件 ${file.name} 不是支持的格式。支持格式: ${accept.join(', ')}`

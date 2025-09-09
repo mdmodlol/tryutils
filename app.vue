@@ -28,6 +28,13 @@
                   {{ $t('nav.home') }}
                 </NuxtLink>
                 <NuxtLink 
+                  :to="localePath('/image-compressor')" 
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  active-class="text-blue-600"
+                >
+                  {{ $t('nav.imageCompressor') }}
+                </NuxtLink>
+                <NuxtLink 
                   :to="localePath('/blog')" 
                   class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
                   active-class="text-blue-600"
@@ -77,6 +84,14 @@
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.home') }}
+                </NuxtLink>
+                <NuxtLink 
+                  :to="localePath('/image-compressor')" 
+                  @click="closeMobileMenu"
+                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  active-class="text-blue-600"
+                >
+                  {{ $t('nav.imageCompressor') }}
                 </NuxtLink>
                 <NuxtLink 
                   :to="localePath('/blog')" 
@@ -138,6 +153,11 @@
                   <li>
                     <NuxtLink :to="localePath('/')" class="text-gray-300 hover:text-blue-400 transition-colors">
                       {{ $t('footer.tools.heicConverter') }}
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink :to="localePath('/image-compressor')" class="text-gray-300 hover:text-blue-400 transition-colors">
+                      {{ $t('footer.tools.imageCompressor') }}
                     </NuxtLink>
                   </li>
                   <li class="text-gray-500">{{ $t('footer.tools.moreComingSoon') }}</li>

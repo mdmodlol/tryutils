@@ -14,6 +14,7 @@
   },
   "nav": {
     "home": "Home",
+    "imageCompressor": "Image Compressor",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -32,8 +33,9 @@
     "description": "Focused on providing simple and practical online tools that allow you to quickly complete daily tasks without installing complex software. Completely processed in the browser to protect your privacy and security.",
     "tools": {
       "title": "Tools",
-      "heicConverter": "HEIC Image Converter",
-      "moreComingSoon": "More tools coming soon..."
+      "heicConverter": "HEIC Converter",
+      "imageCompressor": "Image Compressor",
+      "moreComingSoon": "More tools coming soon"
     },
     "content": {
       "title": "Content",
@@ -88,6 +90,62 @@
       "title": "HEIC to JPG - Free Online HEIC Converter | TryUtils",
       "description": "Free online HEIC to JPG converter. Quickly and securely convert iPhone HEIC images to JPG format. No software download required, completely processed in browser to protect your privacy.",
       "keywords": "HEIC to JPG,HEIC converter,iPhone image conversion,online converter,free converter,TryUtils"
+    }
+  },
+  "imageCompressor": {
+    "title": "Select or drag image files",
+    "description": "Smart image compression tool",
+    "subtitle": "Compress images quickly, reduce file size while maintaining high quality",
+    "dragText": "Drag image files here, or",
+    "selectFile": "Select Files",
+    "supportInfo": "Supports JPG, PNG, WebP and more formats, max 100MB, up to 20 files",
+    "batchUploadText": "Batch upload supported, smart compression",
+    "loading": "Loading file upload functionality...",
+    "selectedFiles": "Selected Files",
+    "clearAll": "Clear All",
+    "compressionSettings": "Compression Settings",
+    "maxFileSize": "Max File Size",
+    "basedOnFileSize": "Auto-adjusted based on file size",
+    "totalSize": "Total Size",
+    "compressionEstimate": "Compression Estimate",
+    "estimatedSize": "Estimated Size",
+    "estimatedSavings": "Estimated Savings",
+    "imageQuality": "Image Quality",
+    "maxResolution": "Max Resolution",
+    "keepOriginal": "Keep Original Size",
+    "useWebWorker": "Use Multi-threading (Recommended)",
+    "lowQuality": "Low Quality",
+    "highQuality": "High Quality",
+    "compress": "Start Compression",
+    "compressDescription": "Compress all images with one click, intelligently optimize file size",
+    "startCompress": "Start Compression",
+    "compressProgress": "Compression Progress",
+    "compressing": "Compressing...",
+    "processingFile": "Processing file",
+    "compressionError": "Compression Error",
+    "compressionComplete": "Compression Complete",
+    "compressionCompleteDesc": "Successfully compressed {count} files",
+    "originalSize": "Original Size",
+    "compressedSize": "Compressed Size",
+    "spaceSaved": "Space Saved",
+    "original": "Original",
+    "compressed": "Compressed",
+    "compressionRatio": "Compression Ratio",
+    "download": "Download",
+    "downloadAll": "Download All",
+    "restart": "Start Over",
+    "instructions": {
+      "title": "How to Use",
+      "support": "Supports JPG, PNG, WebP, BMP, TIFF and other mainstream image formats",
+      "privacy": "All files are processed locally in your browser, never uploaded to servers",
+      "batch": "Batch compression supported, process multiple files at once",
+      "compression": "Smart compression algorithm maximizes file size reduction while maintaining quality"
+    },
+    "files": "files",
+    "meta": {
+      "title": "Image Compressor - Free Online Image Compression Tool | TryUtils",
+      "description": "Free online image compression tool. Intelligently compress JPG, PNG, WebP and other formats. Significantly reduce file size while maintaining high quality, completely processed in browser, protecting your privacy.",
+      "keywords": "image compression,online compressor,JPG compression,PNG compression,image optimization,file compression,TryUtils"
     }
   },
   "home": {

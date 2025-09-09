@@ -14,6 +14,7 @@
   },
   "nav": {
     "home": "首页",
+    "imageCompressor": "图片压缩",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -33,6 +34,7 @@
     "tools": {
       "title": "工具",
       "heicConverter": "HEIC 图片转换",
+      "imageCompressor": "图片压缩",
       "moreComingSoon": "更多工具即将推出..."
     },
     "content": {
@@ -89,6 +91,62 @@
       "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
       "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG格式。无需下载软件，完全在浏览器中处理，保护您的隐私。",
       "keywords": "HEIC转JPG,HEIC转换器,iPhone图片转换,在线转换,免费转换,TryUtils"
+    }
+  },
+  "imageCompressor": {
+    "title": "选择或拖拽图片文件",
+    "description": "智能图片压缩工具",
+    "subtitle": "快速压缩图片，减小文件大小，保持高质量",
+    "dragText": "拖拽图片文件到这里，或者",
+    "selectFile": "选择文件",
+    "supportInfo": "支持 JPG、PNG、WebP 等格式，最大 100MB，最多 20 个文件",
+    "batchUploadText": "支持批量上传，智能压缩",
+    "loading": "正在加载文件上传功能...",
+    "selectedFiles": "已选择的文件",
+    "clearAll": "清除全部",
+    "compressionSettings": "压缩设置",
+    "maxFileSize": "最大文件大小",
+    "basedOnFileSize": "基于文件大小自动调整",
+    "totalSize": "总大小",
+    "compressionEstimate": "压缩预估",
+    "estimatedSize": "预计大小",
+    "estimatedSavings": "预计节省",
+    "imageQuality": "图片质量",
+    "maxResolution": "最大分辨率",
+    "keepOriginal": "保持原始尺寸",
+    "useWebWorker": "使用多线程处理（推荐）",
+    "lowQuality": "低质量",
+    "highQuality": "高质量",
+    "compress": "开始压缩",
+    "compressDescription": "一键压缩所有图片，智能优化文件大小",
+    "startCompress": "开始压缩",
+    "compressProgress": "压缩进度",
+    "compressing": "正在压缩...",
+    "processingFile": "正在处理文件",
+    "compressionError": "压缩错误",
+    "compressionComplete": "压缩完成",
+    "compressionCompleteDesc": "成功压缩 {count} 个文件",
+    "originalSize": "原始大小",
+    "compressedSize": "压缩后大小",
+    "spaceSaved": "节省空间",
+    "original": "原始图片",
+    "compressed": "压缩后",
+    "compressionRatio": "压缩率",
+    "download": "下载",
+    "downloadAll": "下载全部",
+    "restart": "重新开始",
+    "instructions": {
+      "title": "使用说明",
+      "support": "支持 JPG、PNG、WebP、BMP、TIFF 等主流图片格式",
+      "privacy": "所有文件都在您的浏览器中本地处理，绝不上传到服务器",
+      "batch": "支持批量压缩，一次处理多个文件",
+      "compression": "智能压缩算法，在保持质量的同时最大化减小文件大小"
+    },
+    "files": "个文件",
+    "meta": {
+      "title": "图片压缩 - 免费在线图片压缩工具 | TryUtils",
+      "description": "免费的在线图片压缩工具，智能压缩JPG、PNG、WebP等格式图片。保持高质量的同时大幅减小文件大小，完全在浏览器中处理，保护您的隐私。",
+      "keywords": "图片压缩,在线压缩,JPG压缩,PNG压缩,图片优化,文件压缩,TryUtils"
     }
   },
   "home": {
