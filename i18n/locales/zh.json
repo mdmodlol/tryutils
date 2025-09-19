@@ -71,9 +71,21 @@
     "convertProgress": "转换进度",
     "converting": "正在转换...",
     "convertComplete": "转换完成",
+    "convertCompleteDesc": "成功转换 {count} 个文件",
     "download": "下载",
     "downloadAll": "下载全部",
     "restart": "重新开始",
+    "clearAll": "清除全部",
+    "removeFile": "移除文件",
+    "formatHelp": "选择转换后的图片格式",
+    "qualityHelp": "调整转换后图片的质量，数值越高质量越好但文件越大",
+    "progressLabel": "转换进度 {progress}%",
+    "progressComplete": "{progress}% 完成",
+    "convertError": "转换错误",
+    "unknownError": "转换过程中发生未知错误，请重试",
+    "downloadError": "下载失败",
+    "resetError": "重置失败",
+    "cleanupError": "组件卸载时清理资源失败",
     "instructions": {
       "title": "使用说明",
       "step1": "选择或拖拽 HEIC 文件到上传区域",
@@ -89,8 +101,8 @@
     "files": "个文件",
     "meta": {
       "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
-      "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG格式。无需下载软件，完全在浏览器中处理，保护您的隐私。",
-      "keywords": "HEIC转JPG,HEIC转换器,iPhone图片转换,在线转换,免费转换,TryUtils"
+      "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG、PNG、WebP格式。无需下载软件，完全在浏览器中处理，保护您的隐私。支持批量转换，一键处理多个文件。",
+      "keywords": "HEIC转JPG,HEIC转换器,iPhone图片转换,在线转换,免费转换,批量转换,HEIC转PNG,HEIC转WebP,TryUtils"
     }
   },
   "imageCompressor": {

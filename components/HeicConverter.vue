@@ -130,7 +130,7 @@
             :aria-label="`清除所有文件 (${files.length}个)`"
           >
             <Icon name="heroicons:trash" class="mr-2" aria-hidden="true" />
-            清除全部
+            {{ $t('heicConverter.clearAll') }}
           </button>
         </div>
         
@@ -153,7 +153,7 @@
             <button 
               @click="removeFile(index)"
               class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
-              :aria-label="`移除文件 ${file.name}`"
+              :aria-label="`${$t('heicConverter.removeFile')} ${file.name}`"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
             </button>
@@ -182,34 +182,34 @@
               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               aria-describedby="format-help"
             >
-              <option value="JPEG">JPEG (.jpg)</option>
-              <option value="PNG">PNG (.png)</option>
-              <option value="WEBP">WebP (.webp)</option>
+              <option value="jpeg">JPEG (.jpg)</option>
+              <option value="png">PNG (.png)</option>
+              <option value="webp">WebP (.webp)</option>
             </select>
-            <p id="format-help" class="sr-only">选择转换后的图片格式</p>
+            <p id="format-help" class="sr-only">{{ $t('heicConverter.formatHelp') }}</p>
           </div>
 
           <!-- 图片质量 -->
-          <div v-if="convertOptions.format !== 'PNG'">
+          <div v-if="convertOptions.format !== 'png'">
             <label for="image-quality" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ $t('heicConverter.imageQuality') }}: {{ Math.round(convertOptions.quality * 100) }}%
+              {{ $t('heicConverter.imageQuality') }}: {{ convertOptions.quality }}%
             </label>
             <input 
               id="image-quality"
               v-model.number="convertOptions.quality"
               type="range" 
-              min="0.1" 
-              max="1" 
-              step="0.1"
+              min="10" 
+              max="100" 
+              step="5"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              :aria-label="`图片质量: ${Math.round(convertOptions.quality * 100)}%`"
+              :aria-label="`图片质量: ${convertOptions.quality}%`"
               aria-describedby="quality-help"
             >
             <div class="flex justify-between text-xs text-gray-500 mt-1">
               <span>{{ $t('heicConverter.lowQuality') }}</span>
               <span>{{ $t('heicConverter.highQuality') }}</span>
             </div>
-            <p id="quality-help" class="sr-only">调整转换后图片的质量，数值越高质量越好但文件越大</p>
+            <p id="quality-help" class="sr-only">{{ $t('heicConverter.qualityHelp') }}</p>
           </div>
         </form>
       </section>
@@ -232,7 +232,7 @@
             @click="startConversion"
             :disabled="!canConvert"
             class="convert-button w-full flex items-center justify-center gap-3"
-            :aria-label="isConverting ? $t('heicConverter.converting') : `${$t('heicConverter.startConvert')} ${files.length} 个文件`"
+            :aria-label="isConverting ? $t('heicConverter.converting') : `${$t('heicConverter.startConvert')} ${files.length} ${$t('heicConverter.files')}`"
             :aria-describedby="isConverting ? 'conversion-progress' : undefined"
           >
             <Icon 
@@ -245,7 +245,7 @@
           </button>
 
           <!-- 进度条 -->
-          <div v-if="isConverting" id="conversion-progress" class="space-y-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" :aria-label="`转换进度 ${progress}%`">
+          <div v-if="isConverting" id="conversion-progress" class="space-y-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" :aria-label="$t('heicConverter.progressLabel', { progress })">
             <div class="flex justify-between items-center">
               <span class="text-lg font-semibold text-gray-700">{{ $t('heicConverter.convertProgress') }}</span>
               <span class="text-lg font-bold text-blue-600" aria-live="polite">{{ progress }}%</span>
@@ -256,7 +256,7 @@
                 :style="{ width: `${progress}%` }"
               ></div>
             </div>
-            <p class="text-center text-sm text-gray-600 font-medium">{{ progress }}% 完成</p>
+            <p class="text-center text-sm text-gray-600 font-medium">{{ $t('heicConverter.progressComplete', { progress }) }}</p>
           </div>
 
           <!-- 转换错误 -->
@@ -264,7 +264,7 @@
             <div class="flex items-start gap-3">
               <Icon name="heroicons:exclamation-triangle" class="text-red-500 text-xl flex-shrink-0 mt-0.5" aria-hidden="true" />
               <div>
-                <h4 class="text-red-800 font-semibold mb-1">转换错误</h4>
+                <h4 class="text-red-800 font-semibold mb-1">{{ $t('heicConverter.convertError') }}</h4>
                 <p class="text-red-700 text-sm">{{ convertError }}</p>
               </div>
             </div>
@@ -283,7 +283,7 @@
           <h3 class="text-2xl font-bold text-green-800 mb-2">
             {{ $t('heicConverter.convertComplete') }}
           </h3>
-          <p class="text-gray-600">{{ $t('heicConverter.convertCompleteDesc') || `成功转换 ${convertResults.length} 个文件` }}</p>
+          <p class="text-gray-600">{{ $t('heicConverter.convertCompleteDesc', { count: convertResults.length }) }}</p>
         </div>
         
         <div class="grid gap-4 mb-6">
@@ -378,16 +378,14 @@
 
 <script setup lang="ts">
 // 导入Vue组合式API
-import { ref, onUnmounted, computed, watch, nextTick } from 'vue'
+import { ref, onUnmounted, computed, watch, onMounted } from 'vue'
+// heic-convert will be dynamically imported when needed
+
 // 导入i18n相关函数
 const { t } = useI18n()
 
 // 模板引用
 const fileInput = ref<HTMLInputElement>()
-// 导入类型定义
-import type { ConvertOptions, ConvertResult } from '~/composables/useImageConverter'
-// 导入防抖函数
-import { debounce } from 'lodash-es'
 
 // 页面SEO设置通过国际化配置处理
 useHead({
@@ -398,109 +396,260 @@ useHead({
   ]
 })
 
-// 默认空函数和状态
-const defaultDragDrop = {
-  isDragging: ref(false),
-  files: ref([]),
-  error: ref(null),
-  handleDragEnter: () => {},
-  handleDragLeave: () => {},
-  handleDragOver: () => {},
-  handleDrop: () => {},
-  handleFileSelect: () => {},
-  removeFile: () => {},
-  clearFiles: () => {},
-  formatFileSize: (size: number) => {
-    if (size === 0) return '0 Bytes'
-    const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
-    const i = Math.floor(Math.log(size) / Math.log(k))
-    return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-  }
+// 类型定义
+interface ConvertOptions {
+  format: 'jpeg' | 'png' | 'webp'
+  quality: number
+  width?: number
+  height?: number
 }
 
-const defaultImageConverter = {
-  isConverting: ref(false),
-  progress: ref(0),
-  error: ref(null),
-  convertMultiple: async () => [],
-  downloadFile: () => {},
-  downloadMultiple: () => {},
-  cleanup: () => {}
+interface ConvertResult {
+  filename: string
+  blob: Blob
+  originalSize: number
+  processedSize: number
 }
 
-// 引入组合式函数 - 加入客户端检查
-const { 
-  isDragging, 
-  files, 
-  error: dragError,
-  handleDragEnter,
-  handleDragLeave,
-  handleDragOver,
-  handleDrop,
-  handleFileSelect,
-  removeFile,
-  clearFiles,
-  formatFileSize
-} = process.client ? (useDragDrop({
-  accept: ['.heic', '.heif'],
-  maxFiles: 10,
-  maxSize: 50 * 1024 * 1024 // 50MB
-}) || defaultDragDrop) : defaultDragDrop
-
-const {
-  isConverting,
-  progress,
-  error: convertError,
-  convertMultiple,
-  downloadFile,
-  downloadMultiple,
-  cleanup
-} = process.client ? (useImageConverter() || defaultImageConverter) : defaultImageConverter
+// 状态管理
+const isDragging = ref(false)
+const files = ref<File[]>([])
+const dragError = ref<string | null>(null)
+const convertError = ref<string | null>(null)
+const isConverting = ref(false)
+const progress = ref(0)
+const convertResults = ref<ConvertResult[]>([])
 
 // 转换设置
 const convertOptions = ref<ConvertOptions>({
-  format: 'JPEG',
-  quality: 0.8
+  format: 'jpeg',
+  quality: 80,
+  width: undefined,
+  height: undefined
 })
 
-// 转换结果
-const convertResults = ref<ConvertResult[]>([])
+// heic-convert 库引用
+let heicConvert: any = null
 
-// 计算属性优化性能
+// 在组件挂载时动态导入 heic-convert
+onMounted(async () => {
+  try {
+    // 使用浏览器版本的heic-convert
+    const heicConvertModule = await import('heic-convert/browser')
+    heicConvert = heicConvertModule.default || heicConvertModule
+  } catch (error) {
+    console.error('❌ heic-convert导入失败:', error)
+  }
+})
+
+// 计算属性
 const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => convertResults.value.length > 0)
-const canConvert = computed(() => hasFiles.value && !isConverting.value)
+const canConvert = computed(() => hasFiles.value && !isConverting.value && heicConvert)
 const totalFileSize = computed(() => {
   return files.value.reduce((total, file) => total + file.size, 0)
 })
 const formattedTotalSize = computed(() => formatFileSize(totalFileSize.value))
 
+// 工具函数
+const formatFileSize = (size: number) => {
+  if (size === 0) return '0 Bytes'
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(size) / Math.log(k))
+  return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}
 
+// 拖拽处理
+const handleDragEnter = (e: DragEvent) => {
+  e.preventDefault()
+  isDragging.value = true
+}
 
-// 开始转换
+const handleDragLeave = (e: DragEvent) => {
+  e.preventDefault()
+  if (e.relatedTarget === null) {
+    isDragging.value = false
+  }
+}
+
+const handleDragOver = (e: DragEvent) => {
+  e.preventDefault()
+}
+
+const handleDrop = (e: DragEvent) => {
+  e.preventDefault()
+  isDragging.value = false
+  
+  const droppedFiles = Array.from(e.dataTransfer?.files || [])
+  processFiles(droppedFiles)
+}
+
+const handleFileSelect = (e: Event) => {
+  const target = e.target as HTMLInputElement
+  const selectedFiles = Array.from(target.files || [])
+  processFiles(selectedFiles)
+}
+
+const processFiles = (newFiles: File[]) => {
+  const heicFiles = newFiles.filter(file => 
+    file.type === 'image/heic' || file.type === 'image/heif' || 
+    file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')
+  )
+  
+  if (heicFiles.length === 0) {
+    dragError.value = t('heicConverter.invalidFileType')
+    return
+  }
+  
+  if (heicFiles.length > 10) {
+    dragError.value = t('heicConverter.tooManyFiles')
+    return
+  }
+  
+  const oversizedFiles = heicFiles.filter(file => file.size > 50 * 1024 * 1024)
+  if (oversizedFiles.length > 0) {
+    dragError.value = t('heicConverter.fileTooLarge')
+    return
+  }
+  
+  files.value = [...files.value, ...heicFiles]
+  dragError.value = null
+}
+
+const removeFile = (index: number) => {
+  files.value.splice(index, 1)
+}
+
+const clearFiles = () => {
+  files.value = []
+  convertResults.value = []
+  dragError.value = null
+  convertError.value = null
+}
+
+// 高效两步转换流程
 const startConversion = async () => {
   if (files.value.length === 0) return
-  if (isConverting.value) return // 防止重复点击
+  if (isConverting.value) return
+  if (!heicConvert) {
+    convertError.value = 'heic-convert库尚未加载完成，请稍后再试'
+    return
+  }
+  
+  isConverting.value = true
+  progress.value = 0
+  convertError.value = null
+  convertResults.value = []
   
   try {
-    // 清理之前的结果
-    if (convertResults.value.length > 0) {
-      cleanup(convertResults.value)
-    }
-    convertResults.value = []
+    const results: ConvertResult[] = []
     
-    const results = await convertMultiple([...files.value] as File[], convertOptions.value)
-    convertResults.value = results
-  } catch (error) {
-    console.error('转换失败:', error)
-    // 确保错误状态被正确设置
-    if (typeof error === 'object' && error !== null && 'message' in error) {
-      convertError.value = error.message as string
-    } else {
-      convertError.value = '转换过程中发生未知错误，请重试'
+    for (let i = 0; i < files.value.length; i++) {
+      const file = files.value[i]
+      progress.value = Math.round((i / files.value.length) * 100)
+      
+      try {
+        // 将文件读取为ArrayBuffer
+        const arrayBuffer = await file.arrayBuffer()
+        
+        // 将ArrayBuffer转换为Uint8Array，这是heic-convert期望的格式
+        const uint8Array = new Uint8Array(arrayBuffer)
+        
+        // 使用heic-convert进行转换
+        const jpegBuffer = await heicConvert({
+          buffer: uint8Array, // 使用Uint8Array而不是ArrayBuffer
+          format: 'JPEG',
+          quality: 0.95 // 高质量中间格式
+        })
+        
+        // 创建Blob用于上传
+        let jpegBlob: Blob
+        
+        try {
+          if (jpegBuffer instanceof ArrayBuffer) {
+            jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
+          } else if (jpegBuffer instanceof Uint8Array) {
+            jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
+          } else if (jpegBuffer && jpegBuffer.buffer instanceof ArrayBuffer) {
+            jpegBlob = new Blob([jpegBuffer.buffer], { type: 'image/jpeg' })
+          } else {
+            // 尝试将数据转换为Buffer
+            const bufferData = Buffer.from(jpegBuffer)
+            jpegBlob = new Blob([bufferData], { type: 'image/jpeg' })
+          }
+        } catch (blobError) {
+          console.error('❌ Blob创建失败:', blobError)
+          throw new Error(`无法创建Blob: ${blobError.message}`)
+        }
+        
+        // 准备FormData，包含中间JPEG和所有输出选项
+        const formData = new FormData()
+        formData.append('image', jpegBlob, file.name.replace(/\.(heic|heif)$/i, '.jpg'))
+        formData.append('format', convertOptions.value.format)
+        formData.append('quality', convertOptions.value.quality.toString())
+        formData.append('originalFilename', file.name)
+        
+        if (convertOptions.value.width) {
+          formData.append('width', convertOptions.value.width.toString())
+        }
+        if (convertOptions.value.height) {
+          formData.append('height', convertOptions.value.height.toString())
+        }
+        
+        // 服务端处理
+        const response = await $fetch('/api/process-image', {
+          method: 'POST',
+          body: formData
+        })
+        
+        // 处理响应
+        const processedBlob = new Blob([response], { 
+          type: `image/${convertOptions.value.format}` 
+        })
+        
+        const baseName = file.name.replace(/\.(heic|heif)$/i, '')
+        const extension = convertOptions.value.format === 'jpeg' ? 'jpg' : convertOptions.value.format
+        const filename = `${baseName}.${extension}`
+        
+        results.push({
+          filename,
+          blob: processedBlob,
+          originalSize: file.size,
+          processedSize: processedBlob.size
+        })
+        
+      } catch (error) {
+        console.error(`❌ 转换文件 ${file.name} 失败:`, error)
+        // 继续处理其他文件，不中断整个流程
+      }
     }
+    
+    convertResults.value = results
+    progress.value = 100
+    
+    if (results.length === 0) {
+      convertError.value = t('heicConverter.conversionFailed')
+    }
+    
+  } catch (error) {
+    console.error('批量转换失败:', error)
+    convertError.value = error instanceof Error ? error.message : t('heicConverter.unknownError')
+  } finally {
+    isConverting.value = false
   }
+}
+
+// 下载文件
+const downloadFile = (result: ConvertResult) => {
+  const url = URL.createObjectURL(result.blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = result.filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
 }
 
 // 下载全部文件
@@ -508,44 +657,34 @@ const downloadAll = () => {
   if (!hasResults.value) return
   
   try {
-    downloadMultiple(convertResults.value)
+    convertResults.value.forEach(result => {
+      downloadFile(result)
+    })
   } catch (error) {
-    console.error('下载失败:', error)
+    console.error(t('heicConverter.downloadError'), error)
   }
 }
 
 // 重置转换器
 const resetConverter = () => {
   try {
-    // 清理资源
-    if (hasResults.value) {
-      cleanup(convertResults.value)
-    }
-    
     // 重置状态
     convertResults.value = []
     clearFiles()
     
     // 清理错误状态
-    if (convertError.value) {
-      convertError.value = null
-    }
-    if (dragError.value) {
-      dragError.value = null
-    }
+    convertError.value = null
+    dragError.value = null
+    progress.value = 0
   } catch (error) {
-    console.error('重置失败:', error)
+    console.error(t('heicConverter.resetError'), error)
   }
 }
 
 // 监听文件变化，自动清理错误状态
 watch(files, (newFiles) => {
   if (newFiles.length === 0) {
-    // 文件被清空时，清理相关状态
-    if (convertResults.value.length > 0) {
-      cleanup(convertResults.value)
-      convertResults.value = []
-    }
+    convertResults.value = []
   }
   // 清理错误状态
   if (dragError.value) {
@@ -556,7 +695,6 @@ watch(files, (newFiles) => {
 // 监听转换选项变化，清理之前的结果
 watch(convertOptions, () => {
   if (convertResults.value.length > 0) {
-    cleanup(convertResults.value)
     convertResults.value = []
   }
 }, { deep: true })
@@ -564,11 +702,14 @@ watch(convertOptions, () => {
 // 组件卸载时清理资源
 onUnmounted(() => {
   try {
-    if (convertResults.value.length > 0) {
-      cleanup(convertResults.value)
-    }
+    // 清理blob URLs
+    convertResults.value.forEach(result => {
+      if (result.blob) {
+        URL.revokeObjectURL(URL.createObjectURL(result.blob))
+      }
+    })
   } catch (error) {
-    console.error('组件卸载时清理资源失败:', error)
+    console.error(t('heicConverter.cleanupError'), error)
   }
 })
 </script>

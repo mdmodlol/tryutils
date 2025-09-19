@@ -483,7 +483,6 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted, computed, watch } from 'vue'
-import type { CompressionOptions, CompressionResult } from '~/composables/useImageCompression'
 
 const { t } = useI18n()
 
@@ -498,6 +497,37 @@ useHead({
     { name: 'keywords', content: () => t('imageCompressor.meta.keywords') }
   ]
 })
+
+// 压缩选项接口
+interface CompressionOptions {
+  quality: number
+  format: 'jpeg' | 'png' | 'webp'
+  width?: number
+  height?: number
+}
+
+// 压缩结果接口
+interface CompressionResult {
+  originalFile: File
+  compressedBlob: Blob
+  compressedUrl: string
+  originalSize: number
+  compressedSize: number
+  compressionRatio: number
+  filename: string
+  originalWidth: number
+  originalHeight: number
+  compressedWidth: number
+  compressedHeight: number
+}
+
+// 进度接口
+interface CompressionProgress {
+  current: number
+  total: number
+  percentage: number
+  currentFileName: string
+}
 
 // 默认状态
 const defaultDragDrop = {
@@ -520,28 +550,14 @@ const defaultDragDrop = {
   }
 }
 
-const defaultImageCompression = {
-  isCompressing: ref(false),
-  progress: ref({ current: 0, total: 0, percentage: 0, currentFileName: '' }),
-  error: ref(null),
-  compressMultiple: async () => [],
-  downloadCompressedFile: () => {},
-  downloadMultiple: () => {},
-  cleanup: () => {},
-  formatFileSize: (size: number) => defaultDragDrop.formatFileSize(size),
-  calculateSavings: () => ({ originalTotalSize: 0, compressedTotalSize: 0, totalSavings: 0, averageCompressionRatio: 0 })
-}
-
-// 引入组合式函数
+// 引入拖拽组合式函数
 const dragDropComposable = process.client ? useDragDrop({
   accept: ['image/*'],
   maxFiles: 20,
   maxSize: 100 * 1024 * 1024 // 100MB
 }) : null
 
-const imageCompressionComposable = process.client ? useImageCompression() : null
-
-// 解构组合函数返回值
+// 解构拖拽组合函数返回值
 const { 
   isDragging, 
   files, 
@@ -556,23 +572,22 @@ const {
   formatFileSize
 } = dragDropComposable || defaultDragDrop
 
-const {
-  isCompressing,
-  progress,
-  error: compressionError,
-  compressMultiple,
-  downloadCompressedFile,
-  downloadMultiple,
-  cleanup,
-  calculateSavings
-} = imageCompressionComposable || defaultImageCompression
+// 压缩状态
+const isCompressing = ref(false)
+const progress = ref<CompressionProgress>({
+  current: 0,
+  total: 0,
+  percentage: 0,
+  currentFileName: ''
+})
+const compressionError = ref<string | null>(null)
 
 // 压缩设置
 const compressionOptions = ref<CompressionOptions>({
-  maxSizeMB: 1,
-  maxWidthOrHeight: 1920,
-  useWebWorker: true,
-  quality: 0.8
+  quality: 75,
+  format: 'jpeg',
+  width: undefined,
+  height: undefined
 })
 
 // 压缩结果
@@ -583,28 +598,6 @@ const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => compressionResults.value.length > 0)
 const canCompress = computed(() => hasFiles.value && !isCompressing.value)
 
-// 动态计算压缩大小范围
-const maxSizeRange = computed(() => {
-  if (!hasFiles.value) {
-    return { min: 0.1, max: 10, current: compressionOptions.value.maxSizeMB }
-  }
-  
-  // 找到最大的文件大小（MB）
-  const maxFileSize = Math.max(...files.value.map(file => file.size)) / (1024 * 1024)
-  
-  // 设置上限为原图大小，最小0.1MB，不设置人为上限
-  const maxLimit = Math.max(maxFileSize, 0.1)
-  
-  // 如果当前设置超过了新的上限，调整到上限值的80%（避免设置过大导致压缩无效果）
-  const currentValue = Math.min(compressionOptions.value.maxSizeMB, maxLimit * 0.8)
-  
-  return {
-    min: 0.1,
-    max: maxLimit,
-    current: currentValue
-  }
-})
-
 // 压缩预估
 const compressionEstimate = computed(() => {
   if (!hasFiles.value) {
@@ -612,25 +605,9 @@ const compressionEstimate = computed(() => {
   }
   
   const totalSize = files.value.reduce((sum, file) => sum + file.size, 0)
-  const maxSizeBytes = compressionOptions.value.maxSizeMB * 1024 * 1024
-  
-  // 更精确的预估：考虑迭代压缩逻辑
-  let estimatedSize = 0
-  
-  for (const file of files.value) {
-    const fileSizeBytes = file.size
-    const targetSize = Math.min(maxSizeBytes, fileSizeBytes)
-    
-    // 如果目标大小小于原文件大小，预估会进行压缩
-    if (targetSize < fileSizeBytes) {
-      estimatedSize += targetSize
-    } else {
-      // 如果目标大小大于等于原文件，基于质量进行预估
-      const qualityFactor = compressionOptions.value.quality
-      estimatedSize += Math.min(fileSizeBytes * qualityFactor * 0.8, targetSize)
-    }
-  }
-  
+  // 基于质量设置预估压缩后大小
+  const qualityFactor = compressionOptions.value.quality / 100
+  const estimatedSize = totalSize * qualityFactor * 0.7 // 经验值
   const estimatedSavings = ((totalSize - estimatedSize) / totalSize) * 100
   
   return {
@@ -644,8 +621,120 @@ const compressionStats = computed(() => {
   if (!hasResults.value) {
     return { originalTotalSize: 0, compressedTotalSize: 0, totalSavings: 0, averageCompressionRatio: 0 }
   }
-  return calculateSavings(compressionResults.value)
+  
+  const originalTotalSize = compressionResults.value.reduce((sum, result) => sum + result.originalSize, 0)
+  const compressedTotalSize = compressionResults.value.reduce((sum, result) => sum + result.compressedSize, 0)
+  const totalSavings = ((originalTotalSize - compressedTotalSize) / originalTotalSize) * 100
+  const averageCompressionRatio = compressionResults.value.reduce((sum, result) => sum + result.compressionRatio, 0) / compressionResults.value.length
+  
+  return {
+    originalTotalSize,
+    compressedTotalSize,
+    totalSavings,
+    averageCompressionRatio
+  }
 })
+
+// HEIC文件处理函数
+const processHeicFile = async (file: File): Promise<File> => {
+  try {
+    // 动态导入heic-convert
+    const heicConvertModule = await import('heic-convert/browser')
+    const heicConvert = heicConvertModule.default || heicConvertModule
+    
+    if (typeof heicConvert !== 'function') {
+      throw new Error('heic-convert library not loaded correctly')
+    }
+    
+    // 将文件读取为ArrayBuffer并转换为Uint8Array
+    const arrayBuffer = await file.arrayBuffer()
+    const uint8Array = new Uint8Array(arrayBuffer)
+    
+    // 使用heic-convert转换HEIC为JPEG
+    const jpegBuffer = await heicConvert({
+      buffer: uint8Array, // 使用Uint8Array而不是ArrayBuffer
+      format: 'JPEG',
+      quality: 0.9
+    })
+    
+    // 创建新的File对象
+    const convertedFile = new File(
+      [jpegBuffer], 
+      file.name.replace(/\.(heic|heif)$/i, '.jpg'),
+      { type: 'image/jpeg' }
+    )
+    
+    return convertedFile
+  } catch (error) {
+    console.error('HEIC转换失败:', error)
+    throw new Error(`HEIC转换失败: ${error.message}`)
+  }
+}
+
+// 检查是否为HEIC文件
+const isHeicFile = (file: File): boolean => {
+  return /\.(heic|heif)$/i.test(file.name) || 
+         file.type === 'image/heic' || 
+         file.type === 'image/heif'
+}
+
+// 使用后端API处理单个图片
+const processImageWithAPI = async (file: File): Promise<CompressionResult> => {
+  try {
+    // 如果是HEIC文件，先在客户端转换
+    let processedFile = file
+    if (isHeicFile(file)) {
+      processedFile = await processHeicFile(file)
+    }
+    
+    // 创建FormData
+    const formData = new FormData()
+    formData.append('image', processedFile)
+    formData.append('quality', compressionOptions.value.quality.toString())
+    formData.append('format', compressionOptions.value.format)
+    
+    if (compressionOptions.value.width) {
+      formData.append('width', compressionOptions.value.width.toString())
+    }
+    if (compressionOptions.value.height) {
+      formData.append('height', compressionOptions.value.height.toString())
+    }
+    
+    // 调用后端API
+    const response = await $fetch('/api/process-image', {
+      method: 'POST',
+      body: formData
+    }) as Blob
+    
+    // 获取响应头信息（如果可用）
+    const compressedSize = response.size
+    const compressionRatio = ((file.size - compressedSize) / file.size) * 100
+    
+    // 创建URL用于预览和下载
+    const compressedUrl = URL.createObjectURL(response)
+    
+    // 生成新的文件名
+    const extension = compressionOptions.value.format === 'jpeg' ? 'jpg' : compressionOptions.value.format
+    const filename = file.name.replace(/\.[^/.]+$/, '') + `_compressed.${extension}`
+    
+    return {
+      originalFile: file,
+      compressedBlob: response,
+      compressedUrl,
+      originalSize: file.size,
+      compressedSize,
+      compressionRatio,
+      filename,
+      originalWidth: 0, // 这些信息可以从响应头获取，如果后端提供的话
+      originalHeight: 0,
+      compressedWidth: 0,
+      compressedHeight: 0
+    }
+  } catch (error) {
+    console.error('图片处理失败:', error)
+    throw new Error(`处理图片 ${file.name} 失败: ${error.message}`)
+  }
+}
 
 // 开始压缩
 const startCompression = async () => {
@@ -653,48 +742,124 @@ const startCompression = async () => {
   if (isCompressing.value) return
   
   try {
+    isCompressing.value = true
+    compressionError.value = null
+    
     // 清理之前的结果
-    if (compressionResults.value.length > 0) {
-      cleanup(compressionResults.value)
-    }
+    cleanupResults()
     compressionResults.value = []
     
-    const results = await compressMultiple([...files.value] as File[], compressionOptions.value)
+    // 初始化进度
+    progress.value = {
+      current: 0,
+      total: files.value.length,
+      percentage: 0,
+      currentFileName: ''
+    }
+    
+    const results: CompressionResult[] = []
+    
+    // 逐个处理文件
+    for (let i = 0; i < files.value.length; i++) {
+      const file = files.value[i]
+      
+      // 更新进度
+      progress.value.current = i + 1
+      progress.value.currentFileName = file.name
+      progress.value.percentage = Math.round(((i + 1) / files.value.length) * 100)
+      
+      try {
+        const result = await processImageWithAPI(file)
+        results.push(result)
+      } catch (error) {
+        console.error(`处理文件 ${file.name} 失败:`, error)
+        // 继续处理其他文件，但记录错误
+        if (!compressionError.value) {
+          compressionError.value = `部分文件处理失败: ${error.message}`
+        }
+      }
+    }
+    
     compressionResults.value = results
+    
+    if (results.length === 0) {
+      compressionError.value = '所有文件处理失败'
+    } else if (results.length < files.value.length) {
+      compressionError.value = `成功处理 ${results.length}/${files.value.length} 个文件`
+    }
+    
   } catch (error) {
-    console.error('压缩失败:', error)
+    console.error('压缩过程失败:', error)
+    compressionError.value = `压缩失败: ${error.message}`
+  } finally {
+    isCompressing.value = false
+  }
+}
+
+// 下载单个文件
+const downloadCompressedFile = (result: CompressionResult) => {
+  try {
+    const link = document.createElement('a')
+    link.href = result.compressedUrl
+    link.download = result.filename
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (error) {
+    console.error('下载失败:', error)
   }
 }
 
 // 下载全部文件
-const downloadAll = () => {
+const downloadAll = async () => {
   if (!hasResults.value) return
   
   try {
-    downloadMultiple(compressionResults.value)
+    // 如果只有一个文件，直接下载
+    if (compressionResults.value.length === 1) {
+      downloadCompressedFile(compressionResults.value[0])
+      return
+    }
+    
+    // 多个文件时，逐个下载（浏览器会处理）
+    for (const result of compressionResults.value) {
+      downloadCompressedFile(result)
+      // 添加小延迟避免浏览器阻止多个下载
+      await new Promise(resolve => setTimeout(resolve, 100))
+    }
   } catch (error) {
-    console.error('下载失败:', error)
+    console.error('批量下载失败:', error)
   }
+}
+
+// 清理结果资源
+const cleanupResults = () => {
+  compressionResults.value.forEach(result => {
+    if (result.compressedUrl) {
+      URL.revokeObjectURL(result.compressedUrl)
+    }
+  })
 }
 
 // 重置压缩器
 const resetCompressor = () => {
   try {
     // 清理资源
-    if (hasResults.value) {
-      cleanup(compressionResults.value)
-    }
+    cleanupResults()
     
     // 重置状态
     compressionResults.value = []
     clearFiles()
     
     // 清理错误状态
-    if (compressionError.value) {
-      compressionError.value = null
-    }
-    if (dragError.value) {
-      dragError.value = null
+    compressionError.value = null
+    
+    // 重置进度
+    progress.value = {
+      current: 0,
+      total: 0,
+      percentage: 0,
+      currentFileName: ''
     }
   } catch (error) {
     console.error('重置失败:', error)
@@ -704,27 +869,18 @@ const resetCompressor = () => {
 // 监听文件变化
 watch(files, (newFiles) => {
   if (newFiles.length === 0) {
-    if (compressionResults.value.length > 0) {
-      cleanup(compressionResults.value)
-      compressionResults.value = []
-    }
+    cleanupResults()
+    compressionResults.value = []
   }
   if (dragError.value) {
     dragError.value = null
   }
 }, { deep: true })
 
-// 监听文件大小范围变化，自动调整压缩选项
-watch(maxSizeRange, (newRange) => {
-  if (compressionOptions.value.maxSizeMB > newRange.max) {
-    compressionOptions.value.maxSizeMB = newRange.current
-  }
-}, { immediate: true })
-
 // 监听压缩选项变化
 watch(compressionOptions, () => {
   if (compressionResults.value.length > 0) {
-    cleanup(compressionResults.value)
+    cleanupResults()
     compressionResults.value = []
   }
 }, { deep: true })
@@ -732,9 +888,7 @@ watch(compressionOptions, () => {
 // 组件卸载时清理资源
 onUnmounted(() => {
   try {
-    if (compressionResults.value.length > 0) {
-      cleanup(compressionResults.value)
-    }
+    cleanupResults()
   } catch (error) {
     console.error('组件卸载时清理资源失败:', error)
   }
