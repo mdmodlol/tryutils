@@ -27,7 +27,9 @@
       "en": "English"
     },
     "toggleMobileMenu": "切换移动菜单",
-    "mobileNavigation": "移动导航"
+    "mobileNavigation": "移动导航",
+    "clearAll": "清除全部",
+    "removeFile": "移除文件"
   },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
@@ -155,6 +157,25 @@
       "compression": "智能压缩算法，在保持质量的同时最大化减小文件大小"
     },
     "files": "个文件",
+    "noLimit": "不限制",
+    "qualityAriaLabel": "图片质量: {quality}%",
+    "outputFormat": "输出格式",
+    "maxWidth": "最大宽度",
+    "maxHeight": "最大高度", 
+    "maxSizeMB": "最大文件大小 (MB)",
+    "processedFiles": "成功处理 {processed}/{total} 个文件",
+    "allFilesFailed": "所有文件处理失败",
+    "compressionFailed": "压缩失败: {error}",
+    "compressionProcessFailed": "压缩过程失败",
+    "partialProcessingFailed": "部分文件处理失败: {error}",
+    "heicConversionFailed": "HEIC转换失败",
+    "apiRequestFailed": "API请求失败",
+    "imageCompressionFailed": "图片压缩失败",
+    "fileProcessingFailed": "处理文件失败",
+    "downloadFailed": "下载失败",
+    "batchDownloadFailed": "批量下载失败",
+    "resetFailed": "重置失败",
+    "cleanupFailed": "组件卸载时清理资源失败",
     "meta": {
       "title": "图片压缩 - 免费在线图片压缩工具 | TryUtils",
       "description": "免费的在线图片压缩工具，智能压缩JPG、PNG、WebP等格式图片。保持高质量的同时大幅减小文件大小，完全在浏览器中处理，保护您的隐私。",

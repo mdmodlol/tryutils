@@ -127,7 +127,7 @@
           <button 
             @click="clearFiles"
             class="btn-secondary text-sm"
-            :aria-label="`清除所有文件 (${files.length}个)`"
+            :aria-label="$t('common.clearAll') + ' (' + files.length + $t('imageCompressor.files') + ')'"
           >
             <Icon name="heroicons:trash" class="mr-2" aria-hidden="true" />
             {{ $t('imageCompressor.clearAll') }}
@@ -153,7 +153,7 @@
             <button 
               @click="removeFile(index)"
               class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
-              :aria-label="`移除文件 ${file.name}`"
+              :aria-label="$t('common.removeFile') + ' ' + file.name"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
             </button>
@@ -180,41 +180,27 @@
           <!-- 文件大小限制 -->
           <div>
             <label for="max-size" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ $t('imageCompressor.maxFileSize') }}: {{ compressionOptions.maxSizeMB }}MB
+              {{ $t('imageCompressor.maxFileSize') }}: {{ compressionOptions.maxSizeMB || $t('imageCompressor.noLimit') }}
               <span v-if="hasFiles" class="text-xs text-gray-500 ml-2">
                 ({{ $t('imageCompressor.basedOnFileSize') }})
               </span>
             </label>
-            <input 
-              id="max-size"
-              v-model.number="compressionOptions.maxSizeMB"
-              type="range" 
-              :min="maxSizeRange.min" 
-              :max="maxSizeRange.max" 
-              step="0.1"
-              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              :aria-label="`最大文件大小: ${compressionOptions.maxSizeMB}MB`"
-            >
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
-              <span>{{ maxSizeRange.min }}MB</span>
-              <span>{{ maxSizeRange.max }}MB</span>
-            </div>
           </div>
 
           <!-- 图片质量 -->
           <div>
             <label for="image-quality" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ $t('imageCompressor.imageQuality') }}: {{ Math.round(compressionOptions.quality * 100) }}%
+              {{ $t('imageCompressor.imageQuality') }}: {{ compressionOptions.quality }}%
             </label>
             <input 
               id="image-quality"
               v-model.number="compressionOptions.quality"
               type="range" 
-              min="0.1" 
-              max="1" 
-              step="0.1"
+              min="10" 
+              max="100" 
+              step="5"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              :aria-label="`图片质量: ${Math.round(compressionOptions.quality * 100)}%`"
+              :aria-label="$t('imageCompressor.qualityAriaLabel', { quality: compressionOptions.quality })"
             >
             <div class="flex justify-between text-xs text-gray-500 mt-1">
               <span>{{ $t('imageCompressor.lowQuality') }}</span>
@@ -222,36 +208,71 @@
             </div>
           </div>
 
-          <!-- 最大分辨率 -->
+          <!-- 输出格式 -->
           <div>
-            <label for="max-resolution" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ $t('imageCompressor.maxResolution') }}
+            <label for="output-format" class="block text-sm font-medium text-gray-700 mb-2">
+              {{ $t('imageCompressor.outputFormat') }}
             </label>
             <select 
-              id="max-resolution"
-              v-model="compressionOptions.maxWidthOrHeight"
+              id="output-format"
+              v-model="compressionOptions.format"
               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             >
-              <option :value="1920">1920px (Full HD)</option>
-              <option :value="1280">1280px (HD)</option>
-              <option :value="800">800px (中等)</option>
-              <option :value="640">640px (小尺寸)</option>
-              <option :value="4096">{{ $t('imageCompressor.keepOriginal') }}</option>
+              <option value="jpeg">JPEG (.jpg)</option>
+              <option value="png">PNG (.png)</option>
+              <option value="webp">WebP (.webp)</option>
+              <option value="avif">AVIF (.avif)</option>
             </select>
           </div>
 
-          <!-- 使用Web Worker -->
-          <div class="flex items-center">
-              <input 
-                id="use-web-worker"
-                v-model="compressionOptions.useWebWorker"
-                type="checkbox"
-                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
-              >
-              <label for="use-web-worker" class="ml-2 text-sm font-medium text-gray-700">
-                {{ $t('imageCompressor.useWebWorker') }}
-              </label>
-            </div>
+          <!-- 最大宽度 -->
+          <div>
+            <label for="max-width" class="block text-sm font-medium text-gray-700 mb-2">
+              {{ $t('imageCompressor.maxWidth') }}
+            </label>
+            <input 
+              id="max-width"
+              v-model.number="compressionOptions.maxWidth"
+              type="number"
+              min="100"
+              max="4096"
+              :placeholder="$t('imageCompressor.noLimit')"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            >
+          </div>
+
+          <!-- 最大高度 -->
+          <div>
+            <label for="max-height" class="block text-sm font-medium text-gray-700 mb-2">
+              {{ $t('imageCompressor.maxHeight') }}
+            </label>
+            <input 
+              id="max-height"
+              v-model.number="compressionOptions.maxHeight"
+              type="number"
+              min="100"
+              max="4096"
+              :placeholder="$t('imageCompressor.noLimit')"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            >
+          </div>
+
+          <!-- 最大文件大小 -->
+          <div>
+            <label for="max-size-mb" class="block text-sm font-medium text-gray-700 mb-2">
+              {{ $t('imageCompressor.maxSizeMB') }}
+            </label>
+            <input 
+              id="max-size-mb"
+              v-model.number="compressionOptions.maxSizeMB"
+              type="number"
+              min="0.1"
+              max="50"
+              step="0.1"
+              :placeholder="$t('imageCompressor.noLimit')"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            >
+          </div>
           </form>
           
           <!-- 压缩预估 -->
@@ -291,7 +312,7 @@
             @click="startCompression"
             :disabled="!canCompress"
             class="compress-button w-full flex items-center justify-center gap-3"
-            :aria-label="isCompressing ? $t('imageCompressor.compressing') : `${$t('imageCompressor.startCompress')} ${files.length} 个文件`"
+            :aria-label="isCompressing ? $t('imageCompressor.compressing') : $t('imageCompressor.startCompress') + ' ' + files.length + ' ' + $t('imageCompressor.files')"
           >
             <Icon 
               :name="isCompressing ? 'heroicons:arrow-path' : 'heroicons:arrow-down-tray'" 
@@ -501,14 +522,16 @@ useHead({
 // 压缩选项接口
 interface CompressionOptions {
   quality: number
-  format: 'jpeg' | 'png' | 'webp'
-  width?: number
-  height?: number
+  format: 'jpeg' | 'png' | 'webp' | 'avif'
+  maxWidth?: number
+  maxHeight?: number
+  maxSizeMB?: number
 }
 
 // 压缩结果接口
 interface CompressionResult {
   originalFile: File
+  originalUrl: string
   compressedBlob: Blob
   compressedUrl: string
   originalSize: number
@@ -586,8 +609,9 @@ const compressionError = ref<string | null>(null)
 const compressionOptions = ref<CompressionOptions>({
   quality: 75,
   format: 'jpeg',
-  width: undefined,
-  height: undefined
+  maxWidth: undefined,
+  maxHeight: undefined,
+  maxSizeMB: undefined
 })
 
 // 压缩结果
@@ -598,23 +622,298 @@ const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => compressionResults.value.length > 0)
 const canCompress = computed(() => hasFiles.value && !isCompressing.value)
 
-// 压缩预估
+// 高精度压缩预估算法
 const compressionEstimate = computed(() => {
   if (!hasFiles.value) {
     return { estimatedSize: 0, estimatedSavings: 0 }
   }
   
-  const totalSize = files.value.reduce((sum, file) => sum + file.size, 0)
-  // 基于质量设置预估压缩后大小
-  const qualityFactor = compressionOptions.value.quality / 100
-  const estimatedSize = totalSize * qualityFactor * 0.7 // 经验值
-  const estimatedSavings = ((totalSize - estimatedSize) / totalSize) * 100
+  let totalEstimatedSize = 0
+  const totalOriginalSize = files.value.reduce((sum, file) => sum + file.size, 0)
+  
+  // 为每个文件单独计算预估大小
+  for (const file of files.value) {
+    const estimatedFileSize = calculateAdvancedCompression(file)
+    totalEstimatedSize += estimatedFileSize
+  }
+  
+  const estimatedSavings = ((totalOriginalSize - totalEstimatedSize) / totalOriginalSize) * 100
   
   return {
-    estimatedSize: Math.max(estimatedSize, 0),
+    estimatedSize: Math.max(totalEstimatedSize, 0),
     estimatedSavings: Math.max(estimatedSavings, 0)
   }
 })
+
+// 高级压缩预估算法
+const calculateAdvancedCompression = (file: File): number => {
+  const targetFormat = compressionOptions.value.format
+  const quality = compressionOptions.value.quality
+  const originalFormat = file.type.split('/')[1]?.toLowerCase()
+  const fileSize = file.size
+  
+  // 1. 图像复杂度分析（基于文件大小和格式推断）
+  const complexity = analyzeImageComplexity(file, originalFormat)
+  
+  // 2. 格式转换效率矩阵
+  const formatEfficiency = getFormatConversionEfficiency(originalFormat, targetFormat)
+  
+  // 3. 质量-压缩率非线性映射
+  const qualityCompressionCurve = getQualityCompressionCurve(targetFormat, quality, complexity)
+  
+  // 4. 文件大小影响因子（大文件通常压缩率更高）
+  const sizeInfluenceFactor = getSizeInfluenceFactor(fileSize)
+  
+  // 5. 动态校正因子（基于历史数据学习）
+  const dynamicCorrection = getDynamicCorrectionFactor(targetFormat, quality, complexity)
+  
+  // 6. 综合计算压缩率
+  let compressionRatio = formatEfficiency * qualityCompressionCurve * sizeInfluenceFactor * dynamicCorrection
+  
+  // 7. 尺寸调整影响
+  const { maxWidth, maxHeight } = compressionOptions.value
+  if (maxWidth || maxHeight) {
+    const dimensionReduction = estimateDimensionReduction(fileSize, maxWidth, maxHeight)
+    compressionRatio *= dimensionReduction
+  }
+  
+  // 8. 最大文件大小限制
+  let estimatedSize = fileSize * compressionRatio
+  if (compressionOptions.value.maxSizeMB) {
+    const maxSizeBytes = compressionOptions.value.maxSizeMB * 1024 * 1024
+    estimatedSize = Math.min(estimatedSize, maxSizeBytes)
+  }
+  
+  return Math.max(estimatedSize, fileSize * 0.01) // 最小压缩到1%
+}
+
+// 图像复杂度分析
+const analyzeImageComplexity = (file: File, format: string): number => {
+  // 基于文件大小和格式推断复杂度
+  const sizePerPixelEstimate = {
+    'jpeg': 0.5,   // JPEG已压缩
+    'png': 3.0,    // PNG无损，大小反映复杂度
+    'webp': 0.7,   // WebP中等压缩
+    'bmp': 4.0,    // BMP无压缩
+    'tiff': 3.5,   // TIFF通常无损
+    'heic': 0.3,   // HEIC高度压缩
+    'avif': 0.4    // AVIF高度压缩
+  }
+  
+  const bytesPerPixelBase = sizePerPixelEstimate[format] || 1.0
+  const estimatedPixels = file.size / bytesPerPixelBase
+  
+  // 复杂度评分 (0.1-2.0)
+  if (estimatedPixels > 8000000) return 1.8      // 高分辨率，高复杂度
+  if (estimatedPixels > 2000000) return 1.4      // 中高分辨率
+  if (estimatedPixels > 500000) return 1.0       // 标准分辨率
+  if (estimatedPixels > 100000) return 0.7       // 低分辨率
+  return 0.4                                      // 很低分辨率
+}
+
+// 格式转换效率矩阵
+const getFormatConversionEfficiency = (from: string, to: string): number => {
+  const conversionMatrix = {
+    // 从JPEG转换
+    'jpeg': {
+      'jpeg': 0.85,   // JPEG重压缩，效果有限
+      'webp': 0.75,   // JPEG到WebP有一定优势
+      'avif': 0.65,   // JPEG到AVIF优势明显
+      'png': 1.3      // JPEG到PNG会增大
+    },
+    // 从PNG转换
+    'png': {
+      'jpeg': 0.25,   // PNG到JPEG压缩效果显著
+      'webp': 0.35,   // PNG到WebP效果很好
+      'avif': 0.28,   // PNG到AVIF效果最好
+      'png': 0.95     // PNG优化
+    },
+    // 从WebP转换
+    'webp': {
+      'jpeg': 1.1,    // WebP到JPEG可能略增大
+      'webp': 0.9,    // WebP重压缩
+      'avif': 0.8,    // WebP到AVIF有优势
+      'png': 1.5      // WebP到PNG增大
+    },
+    // 从HEIC转换
+    'heic': {
+      'jpeg': 1.2,    // HEIC已高度压缩
+      'webp': 1.0,    // HEIC到WebP
+      'avif': 0.9,    // HEIC到AVIF
+      'png': 2.0      // HEIC到PNG大幅增大
+    }
+  }
+  
+  return conversionMatrix[from]?.[to] || 0.7
+}
+
+// 质量-压缩率非线性曲线
+const getQualityCompressionCurve = (format: string, quality: number, complexity: number): number => {
+  const q = quality / 100
+  
+  // 复杂度影响因子
+  const complexityFactor = 0.7 + (complexity - 1.0) * 0.3
+  
+  let baseRatio
+  if (format === 'jpeg') {
+    // JPEG非线性压缩曲线
+    baseRatio = 0.1 + 0.6 * Math.pow(q, 2.2)
+  } else if (format === 'webp') {
+    // WebP更高效的压缩曲线
+    baseRatio = 0.08 + 0.5 * Math.pow(q, 2.5)
+  } else if (format === 'avif') {
+    // AVIF最高效的压缩曲线
+    baseRatio = 0.06 + 0.4 * Math.pow(q, 2.8)
+  } else if (format === 'png') {
+    // PNG无损，质量影响很小
+    baseRatio = 0.8 + 0.15 * q
+  } else {
+    baseRatio = 0.15 + 0.7 * Math.pow(q, 2.0)
+  }
+  
+  return baseRatio * complexityFactor
+}
+
+// 文件大小影响因子
+const getSizeInfluenceFactor = (fileSize: number): number => {
+  // 大文件通常有更好的压缩率
+  const sizeMB = fileSize / (1024 * 1024)
+  
+  if (sizeMB > 10) return 0.85      // 大文件压缩率更好
+  if (sizeMB > 5) return 0.9        // 中大文件
+  if (sizeMB > 1) return 0.95       // 中等文件
+  if (sizeMB > 0.5) return 1.0      // 标准文件
+  return 1.1                        // 小文件压缩率相对较差
+}
+
+// 尺寸缩放影响估算
+const estimateDimensionReduction = (fileSize: number, maxWidth?: number, maxHeight?: number): number => {
+  if (!maxWidth && !maxHeight) return 1.0
+  
+  // 基于文件大小估算原始尺寸
+  const estimatedPixels = fileSize / 2 // 粗略估算
+  const estimatedDimension = Math.sqrt(estimatedPixels)
+  
+  const targetDimension = Math.min(maxWidth || 4000, maxHeight || 4000)
+  
+  if (estimatedDimension <= targetDimension) return 1.0
+  
+  // 尺寸缩放比例的平方（面积缩放）
+  const scaleFactor = targetDimension / estimatedDimension
+  return Math.pow(scaleFactor, 1.8) // 略小于平方，考虑压缩效率
+}
+
+// 动态学习和反馈机制
+const compressionHistory = ref<Array<{
+  originalSize: number
+  estimatedSize: number
+  actualSize: number
+  format: string
+  quality: number
+  complexity: number
+  timestamp: number
+}>>([])
+
+// 从localStorage加载历史数据
+const loadCompressionHistory = () => {
+  try {
+    const saved = localStorage.getItem('compression-history')
+    if (saved) {
+      compressionHistory.value = JSON.parse(saved)
+    }
+  } catch (error) {
+    console.warn('Failed to load compression history:', error)
+  }
+}
+
+// 保存历史数据到localStorage
+const saveCompressionHistory = () => {
+  try {
+    // 只保留最近100条记录
+    const recentHistory = compressionHistory.value.slice(-100)
+    localStorage.setItem('compression-history', JSON.stringify(recentHistory))
+  } catch (error) {
+    console.warn('Failed to save compression history:', error)
+  }
+}
+
+// 添加压缩结果到历史记录
+const addCompressionResult = (originalFile: File, estimatedSize: number, actualSize: number) => {
+  const originalFormat = originalFile.type.split('/')[1]?.toLowerCase()
+  const complexity = analyzeImageComplexity(originalFile, originalFormat)
+  
+  compressionHistory.value.push({
+    originalSize: originalFile.size,
+    estimatedSize,
+    actualSize,
+    format: compressionOptions.value.format,
+    quality: compressionOptions.value.quality,
+    complexity,
+    timestamp: Date.now()
+  })
+  
+  saveCompressionHistory()
+}
+
+// 基于历史数据的动态校正因子
+const getDynamicCorrectionFactor = (format: string, quality: number, complexity: number): number => {
+  if (compressionHistory.value.length < 5) return 1.0 // 数据不足时不校正
+  
+  // 筛选相似的历史记录
+  const similarRecords = compressionHistory.value.filter(record => {
+    return Math.abs(record.quality - quality) <= 10 &&
+           record.format === format &&
+           Math.abs(record.complexity - complexity) <= 0.3
+  })
+  
+  if (similarRecords.length < 3) return 1.0 // 相似记录不足
+  
+  // 计算预估准确性
+  let totalError = 0
+  let validRecords = 0
+  
+  similarRecords.forEach(record => {
+    if (record.actualSize > 0 && record.estimatedSize > 0) {
+      const error = (record.estimatedSize - record.actualSize) / record.actualSize
+      totalError += error
+      validRecords++
+    }
+  })
+  
+  if (validRecords === 0) return 1.0
+  
+  const avgError = totalError / validRecords
+  
+  // 计算校正因子（限制在0.5-2.0之间）
+  const correctionFactor = 1 - avgError * 0.8 // 80%的校正强度
+  return Math.max(0.5, Math.min(2.0, correctionFactor))
+}
+
+// 获取预估准确性统计
+const getAccuracyStats = () => {
+  if (compressionHistory.value.length === 0) return null
+  
+  const recentRecords = compressionHistory.value.slice(-20) // 最近20条记录
+  let totalError = 0
+  let validRecords = 0
+  
+  recentRecords.forEach(record => {
+    if (record.actualSize > 0 && record.estimatedSize > 0) {
+      const error = Math.abs(record.estimatedSize - record.actualSize) / record.actualSize
+      totalError += error
+      validRecords++
+    }
+  })
+  
+  if (validRecords === 0) return null
+  
+  const avgError = (totalError / validRecords) * 100
+  return {
+    averageError: avgError,
+    recordCount: validRecords,
+    accuracy: Math.max(0, 100 - avgError)
+  }
+}
 
 // 压缩统计
 const compressionStats = computed(() => {
@@ -666,8 +965,8 @@ const processHeicFile = async (file: File): Promise<File> => {
     
     return convertedFile
   } catch (error) {
-    console.error('HEIC转换失败:', error)
-    throw new Error(`HEIC转换失败: ${error.message}`)
+    console.error($t('imageCompressor.heicConversionFailed'), error)
+    throw new Error(`${$t('imageCompressor.heicConversionFailed')}: ${error.message}`)
   }
 }
 
@@ -678,8 +977,8 @@ const isHeicFile = (file: File): boolean => {
          file.type === 'image/heif'
 }
 
-// 使用后端API处理单个图片
-const processImageWithAPI = async (file: File): Promise<CompressionResult> => {
+// 使用新的服务端API处理单个图片
+const compressImageWithAPI = async (file: File): Promise<CompressionResult> => {
   try {
     // 如果是HEIC文件，先在客户端转换
     let processedFile = file
@@ -693,46 +992,71 @@ const processImageWithAPI = async (file: File): Promise<CompressionResult> => {
     formData.append('quality', compressionOptions.value.quality.toString())
     formData.append('format', compressionOptions.value.format)
     
-    if (compressionOptions.value.width) {
-      formData.append('width', compressionOptions.value.width.toString())
+    if (compressionOptions.value.maxWidth) {
+      formData.append('maxWidth', compressionOptions.value.maxWidth.toString())
     }
-    if (compressionOptions.value.height) {
-      formData.append('height', compressionOptions.value.height.toString())
+    if (compressionOptions.value.maxHeight) {
+      formData.append('maxHeight', compressionOptions.value.maxHeight.toString())
+    }
+    if (compressionOptions.value.maxSizeMB) {
+      formData.append('maxSizeMB', compressionOptions.value.maxSizeMB.toString())
     }
     
-    // 调用后端API
-    const response = await $fetch('/api/process-image', {
+    // 调用新的压缩API
+    const response = await fetch('/api/compress-image', {
       method: 'POST',
       body: formData
-    }) as Blob
+    })
     
-    // 获取响应头信息（如果可用）
-    const compressedSize = response.size
-    const compressionRatio = ((file.size - compressedSize) / file.size) * 100
+    if (!response.ok) {
+      throw new Error(`${$t('imageCompressor.apiRequestFailed')}: ${response.status} ${response.statusText}`)
+    }
+    
+    // 获取响应头信息
+    const originalSize = parseInt(response.headers.get('X-Original-Size') || '0')
+    const compressedSize = parseInt(response.headers.get('X-Processed-Size') || '0')
+    const compressionRatio = parseFloat(response.headers.get('X-Compression-Ratio') || '0')
+    const originalWidth = parseInt(response.headers.get('X-Original-Width') || '0')
+    const originalHeight = parseInt(response.headers.get('X-Original-Height') || '0')
+    const compressedWidth = parseInt(response.headers.get('X-Processed-Width') || '0')
+    const compressedHeight = parseInt(response.headers.get('X-Processed-Height') || '0')
+    
+    // 获取压缩后的图片数据
+    const compressedBlob = await response.blob()
     
     // 创建URL用于预览和下载
-    const compressedUrl = URL.createObjectURL(response)
+    const compressedUrl = URL.createObjectURL(compressedBlob)
     
     // 生成新的文件名
     const extension = compressionOptions.value.format === 'jpeg' ? 'jpg' : compressionOptions.value.format
     const filename = file.name.replace(/\.[^/.]+$/, '') + `_compressed.${extension}`
     
+    // 创建原始图片URL用于预览
+    const originalUrl = URL.createObjectURL(file)
+    
+    // 获取预估大小用于反馈学习
+    const estimatedSize = calculateAdvancedCompression(file)
+    
+    // 添加到历史记录用于学习
+    addCompressionResult(file, estimatedSize, compressedSize || compressedBlob.size)
+    
     return {
       originalFile: file,
-      compressedBlob: response,
+      originalUrl,
+      compressedBlob,
       compressedUrl,
-      originalSize: file.size,
-      compressedSize,
-      compressionRatio,
+      originalSize: originalSize || file.size,
+      compressedSize: compressedSize || compressedBlob.size,
+      compressionRatio: compressionRatio || ((file.size - compressedBlob.size) / file.size) * 100,
       filename,
-      originalWidth: 0, // 这些信息可以从响应头获取，如果后端提供的话
-      originalHeight: 0,
-      compressedWidth: 0,
-      compressedHeight: 0
+      originalWidth,
+      originalHeight,
+      compressedWidth,
+      compressedHeight
     }
   } catch (error) {
-    console.error('图片处理失败:', error)
-    throw new Error(`处理图片 ${file.name} 失败: ${error.message}`)
+    console.error($t('imageCompressor.imageCompressionFailed'), error)
+    throw new Error(`${$t('imageCompressor.imageCompressionFailed')} ${file.name}: ${error.message}`)
   }
 }
 
@@ -769,13 +1093,13 @@ const startCompression = async () => {
       progress.value.percentage = Math.round(((i + 1) / files.value.length) * 100)
       
       try {
-        const result = await processImageWithAPI(file)
+        const result = await compressImageWithAPI(file)
         results.push(result)
       } catch (error) {
-        console.error(`处理文件 ${file.name} 失败:`, error)
+        console.error(`${$t('imageCompressor.fileProcessingFailed')} ${file.name}:`, error)
         // 继续处理其他文件，但记录错误
         if (!compressionError.value) {
-          compressionError.value = `部分文件处理失败: ${error.message}`
+          compressionError.value = $t('imageCompressor.partialProcessingFailed', { error: error.message })
         }
       }
     }
@@ -783,14 +1107,14 @@ const startCompression = async () => {
     compressionResults.value = results
     
     if (results.length === 0) {
-      compressionError.value = '所有文件处理失败'
+      compressionError.value = $t('imageCompressor.allFilesFailed')
     } else if (results.length < files.value.length) {
-      compressionError.value = `成功处理 ${results.length}/${files.value.length} 个文件`
+      compressionError.value = $t('imageCompressor.processedFiles', { processed: results.length, total: files.value.length })
     }
     
   } catch (error) {
-    console.error('压缩过程失败:', error)
-    compressionError.value = `压缩失败: ${error.message}`
+    console.error($t('imageCompressor.compressionProcessFailed'), error)
+    compressionError.value = $t('imageCompressor.compressionFailed', { error: error.message })
   } finally {
     isCompressing.value = false
   }
@@ -806,7 +1130,7 @@ const downloadCompressedFile = (result: CompressionResult) => {
     link.click()
     document.body.removeChild(link)
   } catch (error) {
-    console.error('下载失败:', error)
+    console.error($t('imageCompressor.downloadFailed'), error)
   }
 }
 
@@ -828,7 +1152,7 @@ const downloadAll = async () => {
       await new Promise(resolve => setTimeout(resolve, 100))
     }
   } catch (error) {
-    console.error('批量下载失败:', error)
+    console.error($t('imageCompressor.batchDownloadFailed'), error)
   }
 }
 
@@ -837,6 +1161,9 @@ const cleanupResults = () => {
   compressionResults.value.forEach(result => {
     if (result.compressedUrl) {
       URL.revokeObjectURL(result.compressedUrl)
+    }
+    if (result.originalUrl) {
+      URL.revokeObjectURL(result.originalUrl)
     }
   })
 }
@@ -862,7 +1189,7 @@ const resetCompressor = () => {
       currentFileName: ''
     }
   } catch (error) {
-    console.error('重置失败:', error)
+    console.error($t('imageCompressor.resetFailed'), error)
   }
 }
 
@@ -890,8 +1217,13 @@ onUnmounted(() => {
   try {
     cleanupResults()
   } catch (error) {
-    console.error('组件卸载时清理资源失败:', error)
+    console.error($t('imageCompressor.cleanupFailed'), error)
   }
+})
+
+// 组件挂载时加载历史数据
+onMounted(() => {
+  loadCompressionHistory()
 })
 </script>
 

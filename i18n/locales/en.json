@@ -27,7 +27,9 @@
       "en": "English"
     },
     "toggleMobileMenu": "Toggle mobile menu",
-    "mobileNavigation": "Mobile navigation"
+    "mobileNavigation": "Mobile navigation",
+    "clearAll": "Clear All",
+    "removeFile": "Remove file"
   },
   "footer": {
     "description": "Focused on providing simple and practical online tools that allow you to quickly complete daily tasks without installing complex software. Completely processed in the browser to protect your privacy and security.",
@@ -155,6 +157,25 @@
       "compression": "Smart compression algorithm maximizes file size reduction while maintaining quality"
     },
     "files": "files",
+    "noLimit": "No limit",
+    "qualityAriaLabel": "Image quality: {quality}%",
+    "outputFormat": "Output Format",
+    "maxWidth": "Max Width",
+    "maxHeight": "Max Height",
+    "maxSizeMB": "Max File Size (MB)",
+    "processedFiles": "Successfully processed {processed}/{total} files",
+    "allFilesFailed": "All files failed to process",
+    "compressionFailed": "Compression failed: {error}",
+    "compressionProcessFailed": "Compression process failed",
+    "partialProcessingFailed": "Some files failed to process: {error}",
+    "heicConversionFailed": "HEIC conversion failed",
+    "apiRequestFailed": "API request failed",
+    "imageCompressionFailed": "Image compression failed",
+    "fileProcessingFailed": "File processing failed",
+    "downloadFailed": "Download failed",
+    "batchDownloadFailed": "Batch download failed",
+    "resetFailed": "Reset failed",
+    "cleanupFailed": "Component cleanup failed",
     "meta": {
       "title": "Image Compressor - Free Online Image Compression Tool | TryUtils",
       "description": "Free online image compression tool. Intelligently compress JPG, PNG, WebP and other formats. Significantly reduce file size while maintaining high quality, completely processed in browser, protecting your privacy.",

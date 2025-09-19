@@ -13,7 +13,6 @@
     "@nuxt/image": "^1.11.0",
     "@nuxtjs/i18n": "^10.0.6",
     "better-sqlite3": "^12.2.0",
-    "browser-image-compression": "^2.0.2",
     "heic-convert": "^2.1.0",
     "jszip": "^3.10.1",
     "lodash-es": "^4.17.21",
