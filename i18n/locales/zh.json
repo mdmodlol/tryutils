@@ -15,6 +15,7 @@
   "nav": {
     "home": "首页",
     "imageCompressor": "图片压缩",
+    "imageFormatConverter": "格式转换",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -29,7 +30,8 @@
     "toggleMobileMenu": "切换移动菜单",
     "mobileNavigation": "移动导航",
     "clearAll": "清除全部",
-    "removeFile": "移除文件"
+    "removeFile": "移除文件",
+    "loading": "加载中..."
   },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
@@ -37,6 +39,7 @@
       "title": "工具",
       "heicConverter": "HEIC 图片转换",
       "imageCompressor": "图片压缩",
+      "imageFormatConverter": "格式转换",
       "moreComingSoon": "更多工具即将推出..."
     },
     "content": {
@@ -431,6 +434,124 @@
       "title": "技术博客 - TryUtils",
       "description": "TryUtils 技术博客，分享文件转换、在线工具使用技巧和实用教程。帮助您更好地使用我们的工具。",
       "keywords": "TryUtils,技术博客,文件转换,在线工具,教程,技巧"
+    }
+  },
+  "imageFormatConverter": {
+    "title": "选择或拖拽图片文件",
+    "description": "全能图片格式转换器",
+    "subtitle": "快速轻松地在不同图片格式之间转换",
+    "dragText": "拖拽图片文件到这里，或",
+    "selectFile": "选择文件",
+    "supportInfo": "支持所有主流图片格式，最大100MB",
+    "supportedFormats": "支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式",
+    "formatSelection": "格式选择与选项",
+    "targetFormat": "目标格式",
+    "formatOptions": "格式选项",
+    "quality": "质量",
+    "compressionLevel": "压缩级别",
+    "speed": "速度",
+    "low": "低",
+    "high": "高",
+    "fast": "快",
+    "slow": "慢",
+    "best": "最佳",
+    "qualityDescription": "数值越高质量越好，但文件越大",
+    "compressionDescription": "数值越高压缩越好，但处理越慢",
+    "speedDescription": "数值越高处理越快，但压缩越低",
+    "convert": "转换格式",
+    "converting": "转换中...",
+    "progress": "转换进度",
+    "conversionComplete": "转换完成",
+    "download": "下载",
+    "originalFormat": "原始格式",
+    "newFormat": "新格式",
+    "originalSize": "原始大小",
+    "newSize": "新大小",
+    "sizeChange": "大小变化",
+    "hero": {
+      "title": "全能图片格式转换器",
+      "subtitle": "在 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式之间转换，支持高级选项",
+      "feature1": "多种格式",
+      "feature2": "隐私保护",
+      "feature3": "高质量"
+    },
+    "features": {
+      "title": "强大的格式转换功能",
+      "multiFormat": {
+        "title": "多格式支持",
+        "description": "支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 等主流格式之间的转换"
+      },
+      "highQuality": {
+        "title": "高质量转换",
+        "description": "采用先进的 Sharp 库，确保每种格式都能获得最佳的质量和压缩效果"
+      },
+      "batchProcessing": {
+        "title": "批量处理",
+        "description": "一次处理多个文件，提高工作效率"
+      },
+      "privacy": {
+        "title": "隐私保护",
+        "description": "所有文件都在您的浏览器中本地处理，绝不上传到服务器"
+      },
+      "fastProcessing": {
+        "title": "快速处理",
+        "description": "优化的算法确保在保持质量的同时实现快速转换"
+      },
+      "free": {
+        "title": "完全免费",
+        "description": "所有功能完全免费使用，无需注册或付费"
+      }
+    },
+    "guide": {
+      "title": "使用方法",
+      "step1": {
+        "title": "上传图片",
+        "description": "选择或拖拽图片文件到上传区域，支持所有主流格式"
+      },
+      "step2": {
+        "title": "选择目标格式",
+        "description": "选择您想要转换的格式：JPEG、PNG、WebP、GIF、AVIF 或 TIFF"
+      },
+      "step3": {
+        "title": "调整选项",
+        "description": "根据需要设置格式专属选项，如质量、压缩级别或速度"
+      },
+      "step4": {
+        "title": "下载结果",
+        "description": "点击转换，处理完成后下载转换后的文件"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "q1": {
+        "question": "支持哪些图片格式？",
+        "answer": "我们支持 JPEG、PNG、WebP、GIF、AVIF 和 TIFF 格式之间的转换。您可以从任何支持的格式转换为任何其他支持的格式。"
+      },
+      "q2": {
+        "question": "文件大小有限制吗？",
+        "answer": "最大文件大小为 100MB。为了获得最佳性能，我们建议使用 50MB 以下的文件。"
+      },
+      "q3": {
+        "question": "我的文件安全吗？",
+        "answer": "是的，所有文件都在您的浏览器中本地处理。没有文件会上传到我们的服务器，确保完全的隐私和安全。"
+      },
+      "q4": {
+        "question": "不同格式有什么区别？",
+        "answer": "JPEG 最适合照片，PNG 适合有透明度的图片，WebP 适合网页优化，GIF 适合动画，AVIF 是下一代压缩格式，TIFF 适合专业用途。"
+      }
+    },
+    "errors": {
+      "selectImageFile": "请选择一个图片文件",
+      "singleFileOnly": "一次只能转换一个文件",
+      "validImageFile": "请选择有效的图片文件",
+      "apiRequestFailed": "API请求失败: {status} {statusText}",
+      "conversionFailed": "转换失败，请重试"
+    },
+    "conversionSuccess": "成功将 {originalFormat} ({originalSize}) 转换为 {processedFormat} ({processedSize})",
+    "meta": {
+      "title": "图片格式转换器 - 免费在线图片格式转换工具 | TryUtils",
+      "description": "免费在线图片格式转换器。支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式之间的转换，提供高级选项。高质量转换，完全在浏览器中处理。",
+      "keywords": "图片格式转换,JPEG转PNG,PNG转WebP,图片转换,格式转换,在线转换器,TryUtils"
     }
   }
 }
