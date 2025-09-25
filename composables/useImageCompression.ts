@@ -76,36 +76,64 @@ export const useImageCompression = () => {
    */
   const processHeicFile = async (file: File): Promise<File> => {
     try {
-      // 动态导入heic-convert
+      // 动态导入heic-convert，处理CommonJS模块
       const heicConvertModule = await import('heic-convert/browser')
       const heicConvert = heicConvertModule.default || heicConvertModule
       
       if (typeof heicConvert !== 'function') {
         throw new Error('heic-convert library not loaded correctly')
       }
-      
-      // 将文件读取为ArrayBuffer并转换为Uint8Array
+
+      // 读取文件为ArrayBuffer
       const arrayBuffer = await file.arrayBuffer()
       const uint8Array = new Uint8Array(arrayBuffer)
-      
+
       // 使用heic-convert转换HEIC为JPEG
       const jpegBuffer = await heicConvert({
         buffer: uint8Array,
         format: 'JPEG',
         quality: 0.9
       })
-      
+
       // 创建新的File对象
-      const convertedFile = new File(
-        [jpegBuffer], 
-        file.name.replace(/\.(heic|heif)$/i, '.jpg'),
-        { type: 'image/jpeg' }
-      )
-      
-      return convertedFile
+      const jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
+      const jpegFile = new File([jpegBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
+        type: 'image/jpeg',
+        lastModified: file.lastModified
+      })
+
+      return jpegFile
     } catch (error) {
       console.error('HEIC转换失败:', error)
-      throw new Error(`HEIC转换失败: ${error.message}`)
+      
+      // 尝试备用导入方式
+      try {
+        const fallbackModule = await import('heic-convert')
+        const heicConvert = fallbackModule.default || fallbackModule
+        
+        if (typeof heicConvert === 'function') {
+          const arrayBuffer = await file.arrayBuffer()
+          const uint8Array = new Uint8Array(arrayBuffer)
+          
+          const jpegBuffer = await heicConvert({
+            buffer: uint8Array,
+            format: 'JPEG',
+            quality: 0.9
+          })
+          
+          const jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
+          const jpegFile = new File([jpegBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
+            type: 'image/jpeg',
+            lastModified: file.lastModified
+          })
+          
+          return jpegFile
+        }
+      } catch (fallbackError) {
+        console.error('HEIC备用转换也失败:', fallbackError)
+      }
+      
+      throw new Error(`HEIC文件转换失败: ${error instanceof Error ? error.message : '未知错误'}`)
     }
   }
 

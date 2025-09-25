@@ -1,4 +1,4 @@
-{
+﻿{
   "brand": {
     "tagline": "Simple and Practical Online Tools Collection"
   },
@@ -16,6 +16,8 @@
     "home": "Home",
     "imageCompressor": "Image Compressor",
     "imageFormatConverter": "Format Converter",
+    "formatConverter": "Format Converter",
+    "heicConverter": "HEIC Converter",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -24,26 +26,30 @@
   "common": {
     "language": "Language",
     "languages": {
-      "zh": "Chinese",
+      "zh": "中文",
       "en": "English"
     },
     "toggleMobileMenu": "Toggle mobile menu",
     "mobileNavigation": "Mobile navigation",
     "clearAll": "Clear All",
-    "removeFile": "Remove file"
+    "removeFile": "Remove File",
+    "loading": "Loading...",
+    "startUsing": "Start Using",
+    "useNow": "Use Now",
+    "chinese": "Chinese"
   },
   "footer": {
-    "description": "Focused on providing simple and practical online tools that allow you to quickly complete daily tasks without installing complex software. Completely processed in the browser to protect your privacy and security.",
+    "description": "Focused on providing simple and practical online tools, allowing you to quickly complete daily needs without installing complex software. Completely processed in browser to protect your privacy and security.",
     "tools": {
       "title": "Tools",
-      "heicConverter": "HEIC Converter",
+      "heicConverter": "HEIC Image Converter",
       "imageCompressor": "Image Compressor",
       "imageFormatConverter": "Format Converter",
-      "moreComingSoon": "More tools coming soon"
+      "moreComingSoon": "More tools coming soon..."
     },
     "content": {
       "title": "Content",
-      "blog": "Blog Posts",
+      "blog": "Blog Articles",
       "about": "About Us"
     },
     "info": {
@@ -57,10 +63,14 @@
     "title": "Select or drag HEIC files",
     "description": "Fast and secure HEIC to JPG/PNG converter",
     "subtitle": "Fast and secure HEIC to JPG/PNG conversion",
+    "hero": {
+      "title": "HEIC Converter",
+      "subtitle": "Free online conversion of iPhone/iPad HEIC images to JPG, PNG and other common formats"
+    },
     "dragText": "Drag HEIC files here, or",
-    "selectFile": "Select File",
+    "selectFile": "Select Files",
     "supportInfo": "Supports .heic and .heif formats, max 50MB, up to 10 files",
-    "batchUploadText": "Supports batch upload for quick conversion",
+    "batchUploadText": "Supports batch upload, fast conversion",
     "loading": "Loading file upload functionality...",
     "selectedFiles": "Selected Files",
     "convertSettings": "Conversion Settings",
@@ -78,35 +88,35 @@
     "convertCompleteDesc": "Successfully converted {count} files",
     "download": "Download",
     "downloadAll": "Download All",
-    "restart": "Start Over",
+    "restart": "Restart",
     "clearAll": "Clear All",
-    "removeFile": "Remove file",
-    "formatHelp": "Select the output image format",
-    "qualityHelp": "Adjust the quality of converted images. Higher values mean better quality but larger file sizes",
+    "removeFile": "Remove File",
+    "formatHelp": "Select the output image format after conversion",
+    "qualityHelp": "Adjust the quality of converted images, higher values mean better quality but larger file size",
     "progressLabel": "Conversion progress {progress}%",
-    "progressComplete": "{progress}% complete",
+    "progressComplete": "{progress}% Complete",
     "convertError": "Conversion Error",
-    "unknownError": "An unknown error occurred during conversion, please try again",
+    "unknownError": "Unknown error occurred during conversion, please try again",
     "downloadError": "Download failed",
     "resetError": "Reset failed",
     "cleanupError": "Failed to cleanup resources during component unmount",
     "instructions": {
-      "title": "How to Use",
+      "title": "Instructions",
       "step1": "Select or drag HEIC files to the upload area",
       "step2": "Choose output format and image quality",
-      "step3": "Click the convert button to start processing",
+      "step3": "Click convert button to start processing",
       "step4": "Download files after conversion is complete",
       "support": "Supports .heic and .heif formats, max 50MB, up to 10 files",
       "privacy": "All files are processed locally in your browser, never uploaded to servers",
-      "batch": "Supports batch conversion for processing multiple files at once",
+      "batch": "Supports batch conversion, process multiple files at once",
       "formats": "Supports conversion to JPEG, PNG, WebP formats"
     },
     "language": "Language",
     "files": "files",
     "meta": {
       "title": "HEIC to JPG - Free Online HEIC Format Converter | TryUtils",
-      "description": "Free online HEIC to JPG converter. Quickly and securely convert iPhone HEIC images to JPG, PNG, WebP formats. No software download required, completely processed in browser, protecting your privacy. Supports batch conversion for processing multiple files at once.",
-      "keywords": "HEIC to JPG,HEIC converter,iPhone image conversion,online conversion,free conversion,batch conversion,HEIC to PNG,HEIC to WebP,TryUtils"
+      "description": "Free online HEIC to JPG converter, quickly and securely convert iPhone HEIC images to JPG, PNG, WebP formats. No software download required, completely processed in browser, protecting your privacy. Supports batch conversion, process multiple files with one click.",
+      "keywords": "HEIC to JPG,HEIC converter,iPhone image conversion,online converter,free converter,batch conversion,HEIC to PNG,HEIC to WebP,TryUtils"
     }
   },
   "imageCompressor": {
@@ -114,15 +124,15 @@
     "description": "Smart image compression tool",
     "subtitle": "Quickly compress images, reduce file size while maintaining high quality",
     "dragText": "Drag image files here, or",
-    "selectFile": "Select File",
+    "selectFile": "Select Files",
     "supportInfo": "Supports JPG, PNG, WebP and other formats, max 100MB, up to 20 files",
-    "batchUploadText": "Supports batch upload for smart compression",
+    "batchUploadText": "Supports batch upload, smart compression",
     "loading": "Loading file upload functionality...",
     "selectedFiles": "Selected Files",
     "clearAll": "Clear All",
     "compressionSettings": "Compression Settings",
     "maxFileSize": "Max File Size",
-    "basedOnFileSize": "Auto-adjust based on file size",
+    "basedOnFileSize": "Auto adjust based on file size",
     "totalSize": "Total Size",
     "compressionEstimate": "Compression Estimate",
     "estimatedSize": "Estimated Size",
@@ -134,7 +144,7 @@
     "lowQuality": "Low Quality",
     "highQuality": "High Quality",
     "compress": "Start Compression",
-    "compressDescription": "Compress all images with one click, intelligently optimize file sizes",
+    "compressDescription": "Compress all images with one click, intelligently optimize file size",
     "startCompress": "Start Compression",
     "compressProgress": "Compression Progress",
     "compressing": "Compressing...",
@@ -150,16 +160,24 @@
     "compressionRatio": "Compression Ratio",
     "download": "Download",
     "downloadAll": "Download All",
-    "restart": "Start Over",
+    "restart": "Restart",
     "instructions": {
-      "title": "How to Use",
+      "title": "Instructions",
       "support": "Supports JPG, PNG, WebP, BMP, TIFF and other mainstream image formats",
       "privacy": "All files are processed locally in your browser, never uploaded to servers",
-      "batch": "Supports batch compression for processing multiple files at once",
+      "batch": "Supports batch compression, process multiple files at once",
       "compression": "Smart compression algorithm maximizes file size reduction while maintaining quality"
     },
+    "errors": {
+      "selectImageFile": "Please select an image file",
+      "singleFileOnly": "Only one file can be converted at a time",
+      "validImageFile": "Please select a valid image file",
+      "apiRequestFailed": "API request failed: {status} {statusText}",
+      "conversionFailed": "Conversion failed, please try again"
+    },
+    "conversionSuccess": "Successfully converted {originalFormat} ({originalSize}) to {processedFormat} ({processedSize})",
     "files": "files",
-    "noLimit": "No limit",
+    "noLimit": "No Limit",
     "qualityAriaLabel": "Image quality: {quality}%",
     "outputFormat": "Output Format",
     "maxWidth": "Max Width",
@@ -179,41 +197,80 @@
     "resetFailed": "Reset failed",
     "cleanupFailed": "Failed to cleanup resources during component unmount",
     "meta": {
-      "title": "Image Compression - Free Online Image Compression Tool | TryUtils",
-      "description": "Free online image compression tool. Intelligently compress JPG, PNG, WebP and other format images. Significantly reduce file size while maintaining high quality, completely processed in browser, protecting your privacy.",
+      "title": "Image Compression - Free Online Image Compressor | TryUtils",
+      "description": "Free online image compression tool, intelligently compress JPG, PNG, WebP and other format images. Maintain high quality while significantly reducing file size, completely processed in browser, protecting your privacy.",
       "keywords": "image compression,online compression,JPG compression,PNG compression,image optimization,file compression,TryUtils"
+    }
+  },
+  "imageTools": {
+    "title": "Image Tools",
+    "description": "Professional image processing tool collection, supporting compression, conversion, optimization and other functions. All processing is done locally to protect your privacy and security.",
+    "seo": {
+      "title": "Image Tools - Online Image Compression, Format Conversion | TryUtils",
+      "description": "Free online image tool collection, supporting image compression, format conversion, HEIC conversion and other functions. No registration required, local processing, privacy protection.",
+      "keywords": "image compression,image conversion,HEIC conversion,online image tools,free image processing"
+    },
+    "features": {
+      "title": "Tool Features"
     }
   },
   "home": {
     "hero": {
-      "title": "Simple and Practical Online Tools Collection",
-      "subtitle": "Complete daily tasks quickly without installing complex software",
-      "description": "All processing is done in your browser to protect your privacy and security",
-      "getStarted": "Get Started"
+      "title": "TryUtils Tool Site",
+      "description": "Professional online tool collection to make your work more efficient. Free, secure, fast, no registration required."
+    },
+    "values": {
+      "free": "Completely Free",
+      "secure": "Privacy Secure",
+      "fast": "Ultra Fast Processing"
+    },
+    "categories": {
+      "title": "Tool Categories",
+      "subtitle": "Choose the tool type you need and quickly find the right solution",
+      "viewAll": "View All Tools",
+      "imageTools": {
+        "title": "Image Tools",
+        "description": "Professional image processing tool collection, supporting compression, conversion, optimization and other functions",
+        "compressor": {
+          "description": "Intelligently compress image size while maintaining high quality and reducing file volume"
+        },
+        "converter": {
+          "description": "Supports multiple image format conversions, including HEIC, JPEG, PNG, WebP, etc."
+        }
+      }
+    },
+    "stats": {
+      "title": "User Trust",
+      "users": "Active Users",
+      "files": "Files Processed",
+      "uptime": "Service Availability"
     },
     "features": {
-      "title": "Why Choose TryUtils?",
-      "feature1": {
+      "title": "Why Choose Us",
+      "online": {
         "title": "Online Processing",
-        "description": "No need to download or install any software, complete all operations directly in your browser"
+        "description": "No download or installation required, complete all operations directly in browser"
       },
-      "feature2": {
+      "privacy": {
         "title": "Privacy Protection",
-        "description": "All files are processed locally in your browser, never uploaded to servers"
+        "description": "All files are processed locally, not uploaded to servers, protecting your privacy"
       },
-      "feature3": {
+      "fast": {
         "title": "Fast and Efficient",
-        "description": "Optimized algorithms ensure fast processing while maintaining the best quality"
+        "description": "Using advanced algorithms to quickly complete file processing, saving your valuable time"
       }
+    },
+    "relatedTools": {
+      "title": "Related Tools"
     },
     "meta": {
       "title": "TryUtils - Simple and Practical Online Tools Collection",
-      "description": "TryUtils provides simple and practical online tools, including HEIC converter, document converter, etc. All processing is done in the browser to protect your privacy.",
+      "description": "TryUtils provides simple and practical online tools, including HEIC converter, document converter, etc. All processing is completed in browser to protect your privacy.",
       "keywords": "online tools,HEIC converter,document converter,file conversion,browser tools,privacy protection,TryUtils"
     }
   },
   "about": {
-    "meta": {
+    "seo": {
       "title": "About TryUtils - Focused on Practical Online Tool Development",
       "description": "Learn about TryUtils' mission and vision. We are committed to providing users with simple, secure, and efficient online tool solutions.",
       "keywords": "TryUtils about,online tool development,privacy protection,user experience,tool development team"
@@ -224,16 +281,16 @@
     },
     "mission": {
       "title": "Our Mission",
-      "description": "Make complex file processing simple and easy to use. Complete various format conversions and processing tasks directly in the browser without installing complex software."
+      "description": "Make complex file processing simple and easy to use, without installing complex software, complete various format conversions and processing tasks directly in browser."
     },
     "story": {
       "title": "Our Story",
-      "paragraph1": "TryUtils was born from the need for simple and efficient tools. In daily work, we often encounter various file format conversion needs, but existing solutions either require installing complex software or have privacy and security issues.",
+      "paragraph1": "TryUtils was born from the need for simple and efficient tools. In daily work, we often encounter various file format conversion needs, but existing solutions either require installing complex software or have privacy security issues.",
       "paragraph2": "Therefore, we decided to create a completely browser-based tool collection that allows users to safely and quickly process various file formats while protecting user privacy and data security."
     },
     "vision": {
       "title": "Future Vision",
-      "description": "We will continue to expand our tool collection to cover more file formats and processing needs, always adhering to the principles of simplicity, ease of use, and privacy security, becoming the most trusted online tool platform for users."
+      "description": "We will continue to expand our tool collection, covering more file formats and processing needs, always adhering to the principles of simplicity, ease of use, and privacy security, becoming the most trusted online tool platform for users."
     },
     "contact": {
       "title": "Contact Us",
@@ -241,72 +298,72 @@
     },
     "meta": {
       "title": "About Us - TryUtils",
-      "description": "Learn about TryUtils' mission, story, and vision. We are committed to providing simple and practical online tools, protecting user privacy, and making file processing more convenient.",
+      "description": "Learn about TryUtils' mission, story and vision. We are committed to providing simple and practical online tools, protecting user privacy, and making file processing more convenient.",
       "keywords": "TryUtils,about us,online tools,file conversion,privacy protection"
     }
   },
   "contact": {
     "hero": {
       "title": "Contact Us",
-      "description": "We'd love to hear from you, whether it's suggestions, questions, or collaboration opportunities"
+      "description": "We'd love to hear from you, whether it's suggestions, questions, or cooperation intentions"
     },
     "email": {
       "title": "Email Contact",
-      "description": "Send an email to us and we'll get back to you as soon as possible"
+      "description": "Send email to us and we will reply as soon as possible"
     },
     "social": {
       "title": "Social Media",
-      "description": "Follow our social media for the latest updates",
+      "description": "Follow our social media for latest updates",
       "comingSoon": "Coming Soon"
     },
-    "help": {
-      "title": "How Can We Help You?",
-      "feature1": {
+    "types": {
+      "title": "What can we do for you?",
+      "suggestion": {
         "title": "Feature Suggestions",
         "description": "Tell us about new features or tools you'd like to see"
       },
-      "feature2": {
-        "title": "Bug Reports",
-        "description": "Encountered a bug or usage issue? We'll fix it as soon as possible"
+      "feedback": {
+        "title": "Issue Feedback",
+        "description": "Encountered a bug or usage problem? We'll fix it as soon as possible"
       },
-      "feature3": {
+      "business": {
         "title": "Business Cooperation",
-        "description": "Have cooperation intentions or business inquiries? Feel free to contact us"
+        "description": "Have cooperation intentions or business inquiries? Welcome to contact us"
       },
-      "feature4": {
+      "help": {
         "title": "Usage Help",
         "description": "Need usage guidance or technical support"
       }
     },
-    "notice": {
-      "title": "Please Note Before Contacting",
+    "beforeContact": {
+      "title": "Before Contacting",
       "description": "Before contacting us, you might want to learn more about us:",
       "privacy": "Privacy Policy",
       "point1": "We usually reply to emails within 24-48 hours",
-      "point2": "Please describe your questions or suggestions in detail, this helps us better assist you",
+      "point2": "Please describe your problem or suggestion in detail, this helps us better assist you",
       "point3": "If it's a technical issue, please provide browser version and operating system information"
     },
     "meta": {
       "title": "Contact Us - TryUtils",
-      "description": "Have questions, suggestions, or collaboration opportunities? Contact the TryUtils team via email, we'd love to hear from you.",
+      "description": "Have questions, suggestions or cooperation intentions? Contact the TryUtils team via email, we'd love to hear from you.",
       "keywords": "contact us,TryUtils,customer service,technical support,business cooperation"
     }
   },
   "privacy": {
     "hero": {
       "title": "Privacy Policy",
-      "description": "We value your privacy. This policy explains how we collect, use, and protect your information",
+      "description": "We value your privacy. This policy explains how we collect, use and protect your information",
       "lastUpdated": "Last updated: January 1, 2024"
     },
-    "introduction": {
+    "intro": {
       "title": "Introduction",
-      "description": "TryUtils (hereinafter referred to as \"we\") is committed to protecting user privacy. This privacy policy explains how we collect, use, store, and protect your personal information."
+      "description": "TryUtils (hereinafter referred to as \"we\") is committed to protecting user privacy. This privacy policy explains how we collect, use, store and protect your personal information."
     },
     "collection": {
       "title": "Information We Collect",
-      "point1": "Usage data: including pages you visit, features you use, access times, etc.",
+      "point1": "Usage data: including pages you visit, features you use, access time, etc.",
       "point2": "Device information: browser type, operating system, IP address and other technical information",
-      "point3": "File processing: Files you upload are only processed locally in your browser and are not uploaded to our servers"
+      "point3": "File processing: Files you upload are only processed locally in browser, not uploaded to our servers"
     },
     "usage": {
       "title": "Information Usage",
@@ -316,15 +373,15 @@
     },
     "cookies": {
       "title": "Cookie Usage",
-      "description": "We use cookies to improve user experience, including remembering your language preferences and analyzing website usage. You can control cookie usage through your browser settings."
+      "description": "We use cookies to improve user experience, including remembering your language preferences and analyzing website usage. You can control cookie usage through browser settings."
     },
     "thirdParty": {
-      "title": "Third-Party Services",
+      "title": "Third-party Services",
       "description": "We may use third-party analytics services (such as Google Analytics) to understand website usage. These services have their own privacy policies."
     },
     "security": {
       "title": "Data Security",
-      "description": "We take reasonable technical and administrative measures to protect your information security. All file processing is completed locally in your browser and is not transmitted to our servers."
+      "description": "We take reasonable technical and administrative measures to protect your information security. All file processing is completed locally in your browser and not transmitted to our servers."
     },
     "rights": {
       "title": "Your Rights",
@@ -334,50 +391,50 @@
     },
     "updates": {
       "title": "Policy Updates",
-      "description": "We may update this privacy policy from time to time. Significant changes will be announced on the website and the \"last updated\" date will be updated."
+      "description": "We may update this privacy policy from time to time. Major changes will be announced on the website and the \"last updated\" date will be updated."
     },
     "contact": {
       "title": "Contact Us",
-      "description": "If you have any questions about this privacy policy, please contact us."
+      "description": "If you have any questions about this privacy policy, please contact us via email."
     },
     "meta": {
       "title": "Privacy Policy - TryUtils",
-      "description": "Learn how TryUtils collects, uses, and protects your personal information. We are committed to protecting your privacy, and all file processing is completed locally.",
+      "description": "Learn how TryUtils collects, uses and protects your personal information. We are committed to protecting your privacy, all file processing is completed locally.",
       "keywords": "privacy policy,data protection,TryUtils,personal information,security"
     }
   },
   "blog": {
-    "meta": {
+    "seo": {
       "title": "TryUtils Blog - Practical Tool Usage Tips and Tutorials",
-      "description": "Share practical online tool usage tips, tutorials, and best practices to help you complete daily work more efficiently.",
-      "keywords": "TryUtils blog,tool tutorials,usage tips,online tool guides,efficiency improvement,HEIC conversion tutorials"
+      "description": "Share practical online tool usage tips, tutorials and best practices to help you complete daily work more efficiently.",
+      "keywords": "TryUtils blog,tool tutorials,usage tips,online tool guide,efficiency improvement,HEIC conversion tutorial"
     },
     "hero": {
       "title": "Tech Blog",
-      "description": "Share file conversion tips, tool usage guides, and practical tutorials"
+      "description": "Share file conversion tips, tool usage guides and practical tutorials"
     },
     "loading": "Loading...",
-    "empty": {
-      "title": "No Articles Yet",
+    "noArticles": {
+      "title": "No Articles",
       "description": "No articles have been published yet, please check back later."
     },
     "categories": {
       "title": "Categories",
       "all": "All Categories",
-      "tutorial": "Tutorial Guides",
+      "tutorial": "Tutorial Guide",
       "tips": {
         "title": "Usage Tips"
       },
       "news": "Product Updates",
-      "heicConverter": {
+      "heic": {
         "title": "HEIC Conversion",
         "description": "HEIC image format conversion related tutorials and tips"
       },
       "imageCompression": {
         "title": "Image Compression",
-        "description": "Image compression technology, algorithm principles, and best practices"
+        "description": "Image compression technology, algorithm principles and best practices"
       },
-      "documentProcessing": {
+      "document": {
         "title": "Document Processing"
       },
       "comingSoon": "Coming Soon"
@@ -393,30 +450,32 @@
     "card": {
       "readMore": "Read More"
     },
-    "detail": {
-      "detail": "Article Details"
+    "article": {
+      "detail": "Article Details",
+      "notFound": {
+        "title": "Article Not Found",
+        "description": "Sorry, the article you are looking for does not exist or has been deleted.",
+        "backToBlog": "Back to Blog"
+      },
+      "backToBlog": "Back to Blog List",
+      "share": "Share",
+      "copyLink": "Copy Link",
+      "linkCopied": "Link copied to clipboard!"
     },
-    "notFound": {
-      "title": "Article Not Found",
-      "description": "Sorry, the article you're looking for doesn't exist or has been deleted.",
-      "backToBlog": "Back to Blog"
-    },
-    "backToBlog": "Back to Blog List",
-    "share": "Share",
-    "copyLink": "Copy Link",
-    "linkCopied": "Link copied to clipboard!",
     "tags": {
       "imageCompression": "Image Compression",
       "algorithmPrinciples": "Algorithm Principles",
       "webOptimization": "Web Optimization",
-      "heicConverter": "HEIC Converter",
-      "iphonePhotos": "iPhone Photos",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG",
       "performanceOptimization": "Performance Optimization",
       "responsiveImages": "Responsive Images",
       "lazyLoading": "Lazy Loading",
-      "userExperience": "User Experience",
+      "cdn": "CDN",
+      "canvasApi": "Canvas API",
       "frontendTechnology": "Frontend Technology",
-      "browserCompatibility": "Browser Compatibility",
+      "javascript": "JavaScript",
       "imageProcessing": "Image Processing",
       "compressionLibraries": "Compression Libraries",
       "technologySelection": "Technology Selection",
@@ -436,30 +495,48 @@
   "imageFormatConverter": {
     "title": "Select or drag image files",
     "description": "Universal image format converter",
-    "subtitle": "Convert images between different formats quickly and easily",
+    "subtitle": "Quickly and easily convert between different image formats",
     "dragText": "Drag image files here, or",
-    "selectFile": "Select File",
-    "supportInfo": "Supports all major image formats, max 100MB",
+    "selectFile": "Select Files",
+    "supportInfo": "Supports JPG, PNG, WebP, BMP, TIFF and other formats, max 100MB, up to 20 files",
     "supportedFormats": "Supports JPEG, PNG, WebP, GIF, AVIF, TIFF formats",
-    "formatSelection": "Format Selection & Options",
+    "batchUploadText": "Supports batch upload, fast conversion",
+    "loading": "Loading file upload functionality...",
+    "selectedFiles": "Selected Files",
+    "clearAll": "Clear All",
+    "conversionSettings": "Conversion Settings",
+    "outputFormat": "Output Format",
+    "imageQuality": "Image Quality",
+    "lowQuality": "Low Quality",
+    "mediumQuality": "Medium Quality",
+    "highQuality": "High Quality",
+    "convert": "Start Conversion",
+    "convertDescription": "Convert all images to your selected format with one click",
+    "startConvert": "Start Conversion",
+    "convertProgress": "Conversion Progress",
+    "converting": "Converting...",
+    "convertComplete": "Conversion Complete",
+    "convertCompleteDesc": "Successfully converted {count} files",
+    "download": "Download",
+    "downloadAll": "Download All",
+    "restart": "Restart",
+    "formatSelection": "Format Selection",
     "targetFormat": "Target Format",
     "formatOptions": "Format Options",
     "quality": "Quality",
-    "compressionLevel": "Compression Level",
-    "speed": "Speed",
     "low": "Low",
     "high": "High",
+    "qualityDescription": "Adjust image quality, higher quality produces larger files",
+    "compressionLevel": "Compression Level",
     "fast": "Fast",
-    "slow": "Slow",
     "best": "Best",
-    "qualityDescription": "Higher values mean better quality but larger files",
-    "compressionDescription": "Higher values mean better compression but slower processing",
-    "speedDescription": "Higher values mean faster processing but lower compression",
-    "convert": "Convert Format",
+    "compressionDescription": "Choose compression level, best compression takes more time",
+    "speed": "Speed",
+    "slow": "Slow",
+    "speedDescription": "Adjust conversion speed, slower speed usually produces better quality",
     "converting": "Converting...",
     "progress": "Conversion Progress",
     "conversionComplete": "Conversion Complete",
-    "download": "Download",
     "originalFormat": "Original Format",
     "newFormat": "New Format",
     "originalSize": "Original Size",
@@ -476,7 +553,7 @@
       "title": "Powerful Format Conversion Features",
       "multiFormat": {
         "title": "Multi-Format Support",
-        "description": "Supports conversion between JPEG, PNG, WebP, GIF, AVIF, TIFF and other mainstream formats"
+        "description": "Supports conversion between mainstream formats like JPEG, PNG, WebP, GIF, AVIF, TIFF"
       },
       "highQuality": {
         "title": "High-Quality Conversion",
@@ -507,35 +584,42 @@
       },
       "step2": {
         "title": "Choose Target Format",
-        "description": "Select the format you want to convert to: JPEG, PNG, WebP, GIF, AVIF, or TIFF"
+        "description": "Select the format you want to convert to: JPEG, PNG, WebP, GIF, AVIF or TIFF"
       },
       "step3": {
         "title": "Adjust Options",
-        "description": "Set format-specific options as needed, such as quality, compression level, or speed"
+        "description": "Set format-specific options as needed, such as quality, compression level or speed"
       },
       "step4": {
         "title": "Download Results",
-        "description": "Click convert and download the converted file after processing is complete"
+        "description": "Click convert, and download the converted files after processing is complete"
       }
     },
     "faq": {
       "title": "Frequently Asked Questions",
       "q1": {
-        "question": "Which image formats are supported?",
-        "answer": "We support conversion between JPEG, PNG, WebP, GIF, AVIF, and TIFF formats. You can convert from any supported format to any other supported format."
+        "question": "What image formats are supported?",
+        "answer": "We support conversion between JPEG, PNG, WebP, GIF, AVIF and TIFF formats. You can convert from any supported format to any other supported format."
       },
       "q2": {
         "question": "Is there a file size limit?",
-        "answer": "The maximum file size is 100MB. For optimal performance, we recommend files under 50MB."
+        "answer": "The maximum file size is 100MB. For optimal performance, we recommend using files under 50MB."
       },
       "q3": {
-        "question": "Are my files safe?",
+        "question": "Are my files secure?",
         "answer": "Yes, all files are processed locally in your browser. No files are uploaded to our servers, ensuring complete privacy and security."
       },
       "q4": {
-        "question": "What's the difference between formats?",
-        "answer": "JPEG is best for photos, PNG for images with transparency, WebP for web optimization, GIF for animations, AVIF for next-gen compression, and TIFF for professional use."
+        "question": "What are the differences between formats?",
+        "answer": "JPEG is best for photos, PNG is suitable for images with transparency, WebP is optimized for web, GIF is suitable for animations, AVIF is a next-generation compression format, and TIFF is suitable for professional use."
       }
+    },
+    "instructions": {
+      "title": "Instructions",
+      "support": "Supports JPG, PNG, WebP, BMP, TIFF and other mainstream image formats",
+      "privacy": "All files are processed locally in your browser, never uploaded to servers",
+      "batch": "Supports batch conversion, process multiple files at once",
+      "formats": "Supports conversion between various formats, maintaining image quality"
     },
     "errors": {
       "selectImageFile": "Please select an image file",
@@ -545,10 +629,11 @@
       "conversionFailed": "Conversion failed, please try again"
     },
     "conversionSuccess": "Successfully converted {originalFormat} ({originalSize}) to {processedFormat} ({processedSize})",
+    "files": "files",
     "meta": {
-      "title": "Image Format Converter - Free Online Image Format Conversion Tool | TryUtils",
-      "description": "Free online image format converter. Convert between JPEG, PNG, WebP, GIF, AVIF, TIFF formats with advanced options. High quality conversion, completely processed in browser.",
-      "keywords": "image format converter,JPEG to PNG,PNG to WebP,image conversion,format conversion,online converter,TryUtils"
+      "title": "Image Format Converter - Free Online Image Format Conversion | TryUtils",
+      "description": "Free online image format converter, supports conversion between JPG, PNG, WebP, BMP, TIFF and other formats. No software download required, completely processed in browser, protecting your privacy.",
+      "keywords": "image format conversion,JPG to PNG,PNG to WebP,online converter,free converter,batch conversion,TryUtils"
     }
   }
 }

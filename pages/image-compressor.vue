@@ -51,10 +51,10 @@ setStructuredData(schemas)
         <div class="max-w-4xl mx-auto text-center">
           <div class="fade-in">
             <h1 id="hero-title" class="text-5xl md:text-6xl font-bold text-gradient mb-6" itemprop="headline">
-              {{ $t('imageCompressor.title') }}
+              {{ t('imageCompressor.title') }}
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed" itemprop="description">
-              {{ $t('imageCompressor.subtitle') }}
+              {{ t('imageCompressor.subtitle') }}
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@ setStructuredData(schemas)
     <section class="py-16 bg-white/50 backdrop-blur-sm" role="region" aria-labelledby="features-title">
       <div class="max-w-6xl mx-auto px-6">
         <h2 id="features-title" class="text-3xl font-bold text-center text-gray-900 mb-12">
-          {{ $t('home.features.title') }}
+          {{ t('home.features.title') }}
         </h2>
         <div class="grid md:grid-cols-3 gap-8" role="list">
           <article class="card p-8 text-center" role="listitem">
@@ -83,8 +83,8 @@ setStructuredData(schemas)
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ $t('home.features.online.title') }}</h3>
-            <p class="text-gray-600">{{ $t('imageCompressor.instructions.support') }}</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('home.features.online.title') }}</h3>
+            <p class="text-gray-600">{{ t('imageCompressor.instructions.support') }}</p>
           </article>
           <article class="card p-8 text-center" role="listitem">
             <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
@@ -92,8 +92,8 @@ setStructuredData(schemas)
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ $t('home.features.privacy.title') }}</h3>
-            <p class="text-gray-600">{{ $t('imageCompressor.instructions.privacy') }}</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('home.features.privacy.title') }}</h3>
+            <p class="text-gray-600">{{ t('imageCompressor.instructions.privacy') }}</p>
           </article>
           <article class="card p-8 text-center" role="listitem">
             <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
@@ -101,8 +101,8 @@ setStructuredData(schemas)
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ $t('home.features.fast.title') }}</h3>
-            <p class="text-gray-600">{{ $t('imageCompressor.instructions.compression') }}</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('home.features.fast.title') }}</h3>
+            <p class="text-gray-600">{{ t('imageCompressor.instructions.compression') }}</p>
           </article>
         </div>
       </div>

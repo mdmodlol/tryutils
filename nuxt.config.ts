@@ -79,24 +79,35 @@ export default defineNuxtConfig({
     }
   },
   build: {
-    transpile: ['heic2any']
+    transpile: [
+      'browser-image-compression',
+      'heic-convert'
+    ]
   },
   vite: {
     define: {
       global: 'globalThis'
     },
     optimizeDeps: {
-      include: ['heic2any']
+      include: [
+        'browser-image-compression',
+        'heic-convert',
+        'heic-convert/browser'
+      ]
     },
     build: {
       rollupOptions: {
         output: {
           manualChunks: {
-            'heic-converter': ['heic2any'],
+            'heic-converter': 'heic-convert',
             'vendor': ['vue', 'vue-router']
           }
         }
       }
+    },
+    // 处理 CommonJS 模块
+    ssr: {
+      noExternal: ['heic-convert']
     }
   },
   // 性能优化配置

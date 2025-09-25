@@ -434,11 +434,21 @@ let heicConvert: any = null
 // 在组件挂载时动态导入 heic-convert
 onMounted(async () => {
   try {
-    // 使用浏览器版本的heic-convert
+    // 使用浏览器版本的heic-convert，处理CommonJS导入
     const heicConvertModule = await import('heic-convert/browser')
+    // 处理CommonJS模块的导入
     heicConvert = heicConvertModule.default || heicConvertModule
+    console.log('✅ heic-convert加载成功:', typeof heicConvert)
   } catch (error) {
     console.error('❌ heic-convert导入失败:', error)
+    // 尝试备用导入方式
+    try {
+      const { default: heicConvertFallback } = await import('heic-convert')
+      heicConvert = heicConvertFallback
+      console.log('✅ heic-convert备用加载成功:', typeof heicConvert)
+    } catch (fallbackError) {
+      console.error('❌ heic-convert备用导入也失败:', fallbackError)
+    }
   }
 })
 

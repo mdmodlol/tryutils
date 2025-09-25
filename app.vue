@@ -22,42 +22,54 @@
               <nav class="hidden md:flex items-center space-x-8" role="navigation" relative aria-label="主导航">
                 <NuxtLink 
                   :to="localePath('/')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.home') }}
                 </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/image-compressor')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-                  active-class="text-blue-600"
-                >
-                  {{ $t('nav.imageCompressor') }}
-                </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/image-format-converter')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
-                  active-class="text-blue-600"
-                >
-                  {{ $t('nav.imageFormatConverter') }}
-                </NuxtLink>
+                
+                <!-- Image Tools Dropdown -->
+                <div class="relative group">
+                  <button class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center">
+                    {{ $t('imageTools.title') }}
+                    <Icon name="heroicons:chevron-down" class="w-4 h-4 ml-1" />
+                  </button>
+                  <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="p-2">
+                      <NuxtLink :to="localePath('/image-tools')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        {{ $t('home.categories.viewAll') }}
+                      </NuxtLink>
+                      <div class="border-t border-gray-200 dark:border-gray-600 my-2"></div>
+                      <NuxtLink :to="localePath('/image-compressor')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        {{ $t('nav.imageCompressor') }}
+                      </NuxtLink>
+                      <NuxtLink :to="localePath('/image-format-converter')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        {{ $t('nav.imageFormatConverter') }}
+                      </NuxtLink>
+                      <NuxtLink :to="localePath('/heic-converter')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        {{ $t('nav.heicConverter') }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
+
                 <NuxtLink 
                   :to="localePath('/blog')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.blog') }}
                 </NuxtLink>
                 <NuxtLink 
                   :to="localePath('/about')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.about') }}
                 </NuxtLink>
                 <NuxtLink 
                   :to="localePath('/contact')" 
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.contact') }}
@@ -87,31 +99,55 @@
                 <NuxtLink 
                   :to="localePath('/')" 
                   @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.home') }}
                 </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/image-compressor')" 
-                  @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
-                  active-class="text-blue-600"
-                >
-                  {{ $t('nav.imageCompressor') }}
-                </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/image-format-converter')" 
-                  @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
-                  active-class="text-blue-600"
-                >
-                  {{ $t('nav.imageFormatConverter') }}
-                </NuxtLink>
+                
+                <!-- Mobile Image Tools Section -->
+                <div class="space-y-1">
+                  <div class="px-3 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    {{ $t('imageTools.title') }}
+                  </div>
+                  <NuxtLink 
+                    :to="localePath('/image-tools')" 
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('home.categories.viewAll') }}
+                  </NuxtLink>
+                  <NuxtLink 
+                    :to="localePath('/image-compressor')" 
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.imageCompressor') }}
+                  </NuxtLink>
+                  <NuxtLink 
+                    :to="localePath('/image-format-converter')" 
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.imageFormatConverter') }}
+                  </NuxtLink>
+                  <NuxtLink 
+                    :to="localePath('/heic-converter')" 
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.heicConverter') }}
+                  </NuxtLink>
+                </div>
+                
                 <NuxtLink 
                   :to="localePath('/blog')" 
                   @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.blog') }}
@@ -119,7 +155,7 @@
                 <NuxtLink 
                   :to="localePath('/about')" 
                   @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.about') }}
@@ -127,7 +163,7 @@
                 <NuxtLink 
                   :to="localePath('/contact')" 
                   @click="closeMobileMenu"
-                  class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 py-2"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2"
                   active-class="text-blue-600"
                 >
                   {{ $t('nav.contact') }}

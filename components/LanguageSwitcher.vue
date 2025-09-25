@@ -77,7 +77,7 @@ const languages = [
 // 当前语言标签
 const currentLanguageLabel = computed(() => {
   const lang = languages.find(l => l.code === currentLocale.value)
-  return lang ? lang.name : '中文'
+  return lang ? lang.name : t('common.chinese')
 })
 
 // 监听locale变化，同步更新currentLocale

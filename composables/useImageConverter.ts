@@ -17,52 +17,41 @@ export const useImageConverter = () => {
   const error = ref<string | null>(null)
 
   /**
-   * 动态导入 heic2any（仅在客户端）
+   * 动态导入 heic-convert（支持客户端和服务端）
    */
-  const loadHeic2any = async () => {
-    if (process.server) {
-      throw new Error('heic2any 只能在客户端使用')
-    }
-    
+  const loadHeicConvert = async () => {
     try {
-      // heic2any 是一个特殊的 UMD 库，需要特殊处理
-      const heic2anyModule = await import('heic2any')
+      // 根据环境选择合适的heic-convert版本
+      const heicConvertModule = process.server 
+        ? await import('heic-convert')
+        : await import('heic-convert/browser')
       
-      console.log('heic2any 导入成功:', heic2anyModule)
+      // 处理CommonJS模块的导入
+      const heicConvert = heicConvertModule.default || heicConvertModule
       
-      // 尝试不同的导出方式
-      let heic2any
-      
-      if (typeof heic2anyModule.default === 'function') {
-        heic2any = heic2anyModule.default
-      } else if (typeof heic2anyModule === 'function') {
-        heic2any = heic2anyModule
-      } else if (typeof (heic2anyModule as any).heic2any === 'function') {
-        heic2any = (heic2anyModule as any).heic2any
-      } else if (typeof window !== 'undefined' && typeof (window as any).heic2any === 'function') {
-        // 如果库作为全局变量被定义
-        heic2any = (window as any).heic2any
-      } else {
-        // 最后的尝试：直接使用模块本身
-        heic2any = heic2anyModule
+      if (typeof heicConvert !== 'function') {
+        console.error('heic-convert 导入失败，没有找到有效的函数:', heicConvertModule)
+        throw new Error('heic-convert 库导入失败，请检查库的安装')
       }
       
-      if (typeof heic2any !== 'function') {
-        console.error('heic2any 导入失败，没有找到有效的函数:', {
-          heic2anyModule,
-          typeofModule: typeof heic2anyModule,
-          typeofDefault: typeof heic2anyModule.default,
-          keys: Object.keys(heic2anyModule || {}),
-          windowHeic2any: typeof window !== 'undefined' ? typeof (window as any).heic2any : 'undefined'
-        })
-        throw new Error('heic2any 库导入失败，请检查库的安装')
-      }
-      
-      console.log('heic2any 函数加载成功:', typeof heic2any)
-      return heic2any
+      console.log('✅ heic-convert 函数加载成功:', typeof heicConvert)
+      return heicConvert
     } catch (error) {
-      console.error('heic2any 动态导入错误:', error)
-      throw new Error('无法加载 heic2any 库，请刷新页面重试')
+      console.error('❌ heic-convert 动态导入错误:', error)
+      
+      // 尝试备用导入方式
+      try {
+        const fallbackModule = await import('heic-convert')
+        const heicConvert = fallbackModule.default || fallbackModule
+        if (typeof heicConvert === 'function') {
+          console.log('✅ heic-convert 备用加载成功:', typeof heicConvert)
+          return heicConvert
+        }
+      } catch (fallbackError) {
+        console.error('❌ heic-convert 备用导入也失败:', fallbackError)
+      }
+      
+      throw new Error('无法加载 heic-convert 库，请刷新页面重试')
     }
   }
 
@@ -78,35 +67,70 @@ export const useImageConverter = () => {
   }
 
   /**
-   * 使用客户端heic2any解码HEIC文件为通用格式
+   * 使用客户端heic-convert解码HEIC文件为通用格式
    */
   const decodeHEICWithClient = async (
     file: File,
     options: ConvertOptions = { format: 'JPEG', quality: 0.8 }
   ): Promise<{ blob: Blob; filename: string }> => {
-    // 动态加载 heic2any
-    const heic2any = await loadHeic2any()
+    // 动态加载 heic-convert
+    const heicConvert = await loadHeicConvert()
 
-    // 使用heic2any将HEIC解码为通用格式（PNG，避免质量损失）
-    const decodedBlob = await heic2any({
-      blob: file,
-      toType: 'image/png', // 使用PNG作为中间格式，保持最高质量
-      quality: 1.0 // 解码阶段使用最高质量
-    }) as Blob
+    // 将文件读取为ArrayBuffer并转换为Uint8Array
+    const arrayBuffer = await file.arrayBuffer()
+    const uint8Array = new Uint8Array(arrayBuffer)
 
-    // 生成临时文件名
+    // 使用heic-convert将HEIC解码为通用格式
+    const convertedBuffer = await heicConvert({
+      buffer: uint8Array,
+      format: options.format,
+      quality: options.quality
+    })
+
+    // 创建Blob
+    const mimeType = options.format === 'JPEG' ? 'image/jpeg' : 
+                     options.format === 'PNG' ? 'image/png' : 'image/webp'
+    const blob = new Blob([convertedBuffer], { type: mimeType })
+
+    // 生成文件名
     const originalName = file.name.replace(/\.(heic|heif)$/i, '')
-    const filename = `${originalName}_decoded.png`
+    const extension = options.format.toLowerCase() === 'jpeg' ? 'jpg' : options.format.toLowerCase()
+    const filename = `${originalName}.${extension}`
 
-    return {
-      blob: decodedBlob,
-      filename
-    }
+    return { blob, filename }
   }
 
   /**
-   * 使用服务端Sharp优化通用格式图片
+   * 仅使用客户端heic-convert转换HEIC文件（不经过服务端优化）
    */
+  const convertHEICWithClientOnly = async (
+    file: File,
+    options: ConvertOptions = { format: 'JPEG', quality: 0.8 }
+  ): Promise<ConvertResult> => {
+    try {
+      isConverting.value = true
+      progress.value = 0
+      error.value = null
+
+      // 使用客户端heic-convert直接转换
+      const { blob, filename } = await decodeHEICWithClient(file, options)
+      
+      progress.value = 100
+
+      const url = URL.createObjectURL(blob)
+      
+      return {
+        blob,
+        url,
+        filename
+      }
+    } catch (err: any) {
+      error.value = err.message || 'HEIC转换失败'
+      throw err
+    } finally {
+      isConverting.value = false
+    }
+  }
   const optimizeImageWithServer = async (
     blob: Blob,
     originalFilename: string,
@@ -146,28 +170,8 @@ export const useImageConverter = () => {
   }
 
   /**
-   * 客户端直接转换（当服务端不可用时的完整备用方案）
+   * 使用服务端Sharp优化通用格式图片
    */
-  const convertHEICWithClientOnly = async (
-    file: File,
-    options: ConvertOptions = { format: 'JPEG', quality: 0.8 }
-  ): Promise<ConvertResult> => {
-    // 动态加载 heic2any
-    const heic2any = await loadHeic2any()
-
-    const convertedBlob = await heic2any({
-      blob: file,
-      toType: `image/${options.format.toLowerCase()}`,
-      quality: options.quality
-    }) as Blob
-
-    // 生成下载 URL
-    const url = URL.createObjectURL(convertedBlob)
-    
-    // 生成新文件名
-    const originalName = file.name.replace(/\.(heic|heif)$/i, '')
-    const extension = options.format.toLowerCase() === 'jpeg' ? 'jpg' : options.format.toLowerCase()
-    const filename = `${originalName}.${extension}`
 
     return {
       blob: convertedBlob,
@@ -177,7 +181,7 @@ export const useImageConverter = () => {
   }
 
   /**
-   * 转换 HEIC 文件（协同工作流程：heic2any解码 + Sharp优化）
+   * 转换 HEIC 文件（协同工作流程：heic-convert解码 + Sharp优化）
    */
   const convertHEIC = async (
     file: File, 
@@ -196,7 +200,7 @@ export const useImageConverter = () => {
       progress.value = 10
 
       try {
-        // 第一步：使用heic2any在客户端解码HEIC为通用格式
+        // 第一步：使用heic-convert在客户端解码HEIC为通用格式
         progress.value = 20
         const { blob: decodedBlob, filename: tempFilename } = await decodeHEICWithClient(file, options)
         

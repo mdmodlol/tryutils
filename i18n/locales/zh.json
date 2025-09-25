@@ -16,6 +16,8 @@
     "home": "首页",
     "imageCompressor": "图片压缩",
     "imageFormatConverter": "格式转换",
+    "formatConverter": "格式转换",
+    "heicConverter": "HEIC 转换器",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -31,7 +33,10 @@
     "mobileNavigation": "移动导航",
     "clearAll": "清除全部",
     "removeFile": "移除文件",
-    "loading": "加载中..."
+    "loading": "加载中...",
+    "startUsing": "开始使用",
+    "useNow": "立即使用",
+    "chinese": "中文"
   },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
@@ -58,6 +63,10 @@
     "title": "选择或拖拽 HEIC 文件",
     "description": "快速安全的 HEIC 转 JPG/PNG 转换工具",
     "subtitle": "快速安全的 HEIC 转 JPG/PNG 转换",
+    "hero": {
+      "title": "HEIC 转换器",
+      "subtitle": "免费在线将 iPhone/iPad 的 HEIC 图片转换为 JPG、PNG 等常用格式"
+    },
     "dragText": "拖拽 HEIC 文件到这里，或者",
     "selectFile": "选择文件",
     "supportInfo": "支持 .heic 和 .heif 格式，最大 50MB，最多 10 个文件",
@@ -185,27 +194,66 @@
       "keywords": "图片压缩,在线压缩,JPG压缩,PNG压缩,图片优化,文件压缩,TryUtils"
     }
   },
-  "home": {
-    "hero": {
-      "title": "简单实用的在线工具集合",
-      "subtitle": "无需安装复杂软件，快速完成日常任务",
-      "description": "所有处理都在您的浏览器中完成，保护您的隐私和安全",
-      "getStarted": "开始使用"
+  "imageTools": {
+    "title": "图片工具",
+    "description": "专业的图片处理工具集合，支持压缩、转换、优化等功能。所有处理都在本地完成，保护您的隐私安全。",
+    "seo": {
+      "title": "图片工具 - 在线图片压缩、格式转换 | TryUtils",
+      "description": "免费在线图片工具集合，支持图片压缩、格式转换、HEIC转换等功能。无需注册，本地处理，保护隐私。",
+      "keywords": "图片压缩,图片转换,HEIC转换,在线图片工具,免费图片处理"
     },
     "features": {
-      "title": "为什么选择 TryUtils？",
+      "title": "工具特色"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "TryUtils 工具站",
+      "description": "专业的在线工具集合，让您的工作更高效。免费、安全、快速，无需注册即可使用。"
+    },
+    "values": {
+      "free": "完全免费",
+      "secure": "隐私安全",
+      "fast": "极速处理"
+    },
+    "categories": {
+      "title": "工具分类",
+      "subtitle": "选择您需要的工具类型，快速找到合适的解决方案",
+      "viewAll": "查看全部工具",
+      "imageTools": {
+        "title": "图片工具",
+        "description": "专业的图片处理工具集合，支持压缩、转换、优化等功能",
+        "compressor": {
+          "description": "智能压缩图片大小，保持高质量的同时减少文件体积"
+        },
+        "converter": {
+          "description": "支持多种图片格式转换，包括 HEIC、JPEG、PNG、WebP 等"
+        }
+      }
+    },
+    "stats": {
+      "title": "用户信赖",
+      "users": "活跃用户",
+      "files": "处理文件",
+      "uptime": "服务可用性"
+    },
+    "features": {
+      "title": "为什么选择我们",
       "online": {
         "title": "在线处理",
-        "description": "无需下载安装任何软件，直接在浏览器中完成所有操作"
+        "description": "无需下载安装，直接在浏览器中完成所有操作"
       },
       "privacy": {
         "title": "隐私保护",
-        "description": "所有文件都在您的浏览器中本地处理，绝不上传到服务器"
+        "description": "所有文件在本地处理，不会上传到服务器，保护您的隐私"
       },
       "fast": {
         "title": "快速高效",
-        "description": "优化算法确保快速处理的同时保持最佳质量"
+        "description": "采用先进算法，快速完成文件处理，节省您的宝贵时间"
       }
+    },
+    "relatedTools": {
+      "title": "相关工具"
     },
     "meta": {
       "title": "TryUtils - 简单实用的在线工具集合",
@@ -444,7 +492,7 @@
     "selectFile": "选择文件",
     "supportInfo": "支持所有主流图片格式，最大100MB",
     "supportedFormats": "支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式",
-    "formatSelection": "格式选择与选项",
+    "formatSelection": "格式选择",
     "targetFormat": "目标格式",
     "formatOptions": "格式选项",
     "quality": "质量",
@@ -452,13 +500,13 @@
     "speed": "速度",
     "low": "低",
     "high": "高",
-    "fast": "快",
+    "fast": "快速",
     "slow": "慢",
     "best": "最佳",
-    "qualityDescription": "数值越高质量越好，但文件越大",
-    "compressionDescription": "数值越高压缩越好，但处理越慢",
-    "speedDescription": "数值越高处理越快，但压缩越低",
-    "convert": "转换格式",
+    "qualityDescription": "调整图片质量，较高质量会产生更大的文件",
+    "compressionDescription": "选择压缩级别，最佳压缩会花费更多时间",
+    "speedDescription": "调整转换速度，较慢速度通常产生更好的质量",
+    "convert": "开始转换",
     "converting": "转换中...",
     "progress": "转换进度",
     "conversionComplete": "转换完成",
