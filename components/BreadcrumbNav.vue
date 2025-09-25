@@ -1,6 +1,6 @@
 <template>
-  <nav aria-label="Breadcrumb" class="breadcrumb-nav" v-if="breadcrumbs.length > 1">
-    <ol class="flex items-center space-x-2 text-sm text-gray-600" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <nav aria-label="面包屑导航" class="breadcrumb-nav" v-if="breadcrumbs.length > 1" role="navigation">
+    <ol class="flex items-center space-x-2 text-sm text-gray-600" itemscope itemtype="https://schema.org/BreadcrumbList" role="list">
       <li 
         v-for="(item, index) in breadcrumbs" 
         :key="item.url"
@@ -8,6 +8,7 @@
         itemprop="itemListElement"
         itemscope
         itemtype="https://schema.org/ListItem"
+        role="listitem"
       >
         <!-- 分隔符 -->
         <Icon 
@@ -22,8 +23,9 @@
           <NuxtLink 
             v-if="!item.current"
             :to="localePath(item.url)"
-            class="hover:text-blue-600 transition-colors duration-200"
+            class="hover:text-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
             itemprop="item"
+            :aria-label="`导航到 ${item.name}`"
           >
             <span itemprop="name">{{ item.name }}</span>
           </NuxtLink>
@@ -33,6 +35,7 @@
             class="text-gray-900 font-medium"
             itemprop="name"
             aria-current="page"
+            :aria-label="`当前页面: ${item.name}`"
           >
             {{ item.name }}
           </span>

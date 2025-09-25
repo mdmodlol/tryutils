@@ -1,10 +1,10 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="py-16 px-6">
+    <section class="py-12 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <div class="fade-in">
-          <h1 class="text-5xl md:text-6xl font-bold text-gradient mb-6">
+          <h1 class="text-4xl md:text-5xl font-bold text-gradient mb-6">
             {{ $t('privacy.hero.title') }}
           </h1>
           <p class="text-xl text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">

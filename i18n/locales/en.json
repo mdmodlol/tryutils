@@ -1,4 +1,7 @@
 ﻿{
+  "accessibility": {
+    "skipToMain": "Skip to main content"
+  },
   "brand": {
     "tagline": "Simple and Practical Online Tools Collection"
   },
@@ -14,6 +17,10 @@
   },
   "nav": {
     "home": "Home",
+    "homePageLink": "Home page link",
+    "mainNavigation": "Main navigation",
+    "imageToolsMenu": "Image Tools",
+    "imageToolsSubmenu": "Image tools submenu",
     "imageCompressor": "Image Compressor",
     "imageFormatConverter": "Format Converter",
     "formatConverter": "Format Converter",
@@ -21,7 +28,9 @@
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "toggleMobileMenu": "Toggle mobile menu",
+    "mobileNavigation": "Mobile navigation"
   },
   "common": {
     "language": "Language",
@@ -29,8 +38,6 @@
       "zh": "中文",
       "en": "English"
     },
-    "toggleMobileMenu": "Toggle mobile menu",
-    "mobileNavigation": "Mobile navigation",
     "clearAll": "Clear All",
     "removeFile": "Remove File",
     "loading": "Loading...",
@@ -40,6 +47,14 @@
   },
   "footer": {
     "description": "Focused on providing simple and practical online tools, allowing you to quickly complete daily needs without installing complex software. Completely processed in browser to protect your privacy and security.",
+    "socialMedia": {
+      "github": "GitHub"
+    },
+    "quickLinks": "Quick Links",
+    "quickLinksNav": "Quick links navigation",
+    "legal": "Legal",
+    "legalNav": "Legal navigation",
+    "privacy": "Privacy Policy",
     "tools": {
       "title": "Tools",
       "heicConverter": "HEIC Image Converter",
@@ -247,6 +262,7 @@
     },
     "features": {
       "title": "Why Choose Us",
+      "subtitle": "Discover the advantages that make our tools stand out",
       "online": {
         "title": "Online Processing",
         "description": "No download or installation required, complete all operations directly in browser"
@@ -258,7 +274,21 @@
       "fast": {
         "title": "Fast and Efficient",
         "description": "Using advanced algorithms to quickly complete file processing, saving your valuable time"
+      },
+      "speed": {
+        "title": "Lightning Fast",
+        "description": "Optimized algorithms ensure the fastest processing speed, boosting your productivity"
+      },
+      "quality": {
+        "title": "High Quality Output",
+        "description": "Maintain original file quality, ensuring processed files meet your expectations"
       }
+    },
+    "cta": {
+      "title": "Start Using Our Tools Now",
+      "description": "Choose the tool you need and quickly complete your file processing tasks",
+      "button": "Get Started",
+      "buttonAriaLabel": "Get started with tools"
     },
     "relatedTools": {
       "title": "Related Tools"

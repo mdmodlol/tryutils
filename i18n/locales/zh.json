@@ -12,8 +12,17 @@
       "twitterDescription": "免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理"
     }
   },
+  "accessibility": {
+    "skipToMain": "跳转到主要内容"
+  },
   "nav": {
     "home": "首页",
+    "homePageLink": "首页链接",
+    "mainNavigation": "主导航",
+    "imageToolsMenu": "图片工具菜单",
+    "imageToolsSubmenu": "图片工具子菜单",
+    "toggleMobileMenu": "切换移动菜单",
+    "mobileNavigation": "移动导航",
     "imageCompressor": "图片压缩",
     "imageFormatConverter": "格式转换",
     "formatConverter": "格式转换",
@@ -29,8 +38,6 @@
       "zh": "中文",
       "en": "English"
     },
-    "toggleMobileMenu": "切换移动菜单",
-    "mobileNavigation": "移动导航",
     "clearAll": "清除全部",
     "removeFile": "移除文件",
     "loading": "加载中...",
@@ -57,6 +64,14 @@
       "contact": "联系我们",
       "privacy": "隐私政策"
     },
+    "socialMedia": {
+      "github": "GitHub"
+    },
+    "quickLinks": "快速链接",
+    "quickLinksNav": "快速链接导航",
+    "legal": "法律信息",
+    "legalNav": "法律信息导航",
+    "privacy": "隐私政策",
     "copyright": "© 2024 TryUtils. 保留所有权利。"
   },
   "heicConverter": {
@@ -239,6 +254,7 @@
     },
     "features": {
       "title": "为什么选择我们",
+      "subtitle": "发现让我们的工具脱颖而出的优势",
       "online": {
         "title": "在线处理",
         "description": "无需下载安装，直接在浏览器中完成所有操作"
@@ -250,7 +266,21 @@
       "fast": {
         "title": "快速高效",
         "description": "采用先进算法，快速完成文件处理，节省您的宝贵时间"
+      },
+      "speed": {
+        "title": "极速处理",
+        "description": "优化的算法确保最快的处理速度，提升您的工作效率"
+      },
+      "quality": {
+        "title": "高质量输出",
+        "description": "保持原始文件质量，确保处理后的文件符合您的期望"
       }
+    },
+    "cta": {
+      "title": "立即开始使用我们的工具",
+      "description": "选择您需要的工具，快速完成文件处理任务",
+      "button": "开始使用",
+      "buttonAriaLabel": "开始使用工具"
     },
     "relatedTools": {
       "title": "相关工具"
@@ -434,6 +464,8 @@
     "search": {
       "placeholder": "搜索文章...",
       "all": "全部",
+      "showAllPosts": "显示所有文章",
+      "clearSearch": "清除搜索",
       "found": "找到 {count} 篇文章",
       "containing": "包含 '{query}'",
       "and": "且",

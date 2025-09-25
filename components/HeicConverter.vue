@@ -1,12 +1,17 @@
 <template>
   <div class="heic-converter fade-in-up" itemscope itemtype="https://schema.org/SoftwareApplication">
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+      {{ $t('common.skipToMainContent') }}
+    </a>
+
     <!-- 文件上传区域 -->
-    <section class="core-feature-section" role="region" aria-labelledby="upload-title">
-      <div class="text-center mb-8">
-         <h2 id="upload-title" class="section-title flex items-center justify-center gap-3 text-center" itemprop="name">
+    <section id="main-content" class="core-feature-section" role="region" aria-labelledby="upload-title">
+      <header class="text-center mb-8">
+         <h1 id="upload-title" class="section-title flex items-center justify-center gap-3 text-center" itemprop="name">
            <Icon name="heroicons:cloud-arrow-up" class="text-3xl" aria-hidden="true" />
            {{ $t('heicConverter.title') }}
-         </h2>
+         </h1>
          <p class="section-subtitle text-center" itemprop="description">{{ $t('heicConverter.subtitle') || '快速、安全、免费的HEIC图片转换工具' }}</p>
          <!-- 隐藏的结构化数据 -->
          <meta itemprop="applicationCategory" content="ImageConverter">
@@ -15,7 +20,7 @@
            <meta itemprop="price" content="0">
            <meta itemprop="priceCurrency" content="USD">
          </div>
-       </div>
+       </header>
       
       <!-- 使用 ClientOnly 包装交互组件 -->
       <ClientOnly>
@@ -30,43 +35,44 @@
           role="button"
           tabindex="0"
           :aria-label="$t('heicConverter.dragText')"
+          aria-describedby="upload-instructions file-support-info"
           @keydown.enter="fileInput?.click()"
           @keydown.space.prevent="fileInput?.click()"
         >
-          <!-- 优化后的上传区域布局 -->
-          <div class="flex flex-col items-center justify-center space-y-8 py-4">
-            <!-- 主图标区域 - 改进对齐和视觉效果 -->
-            <div class="relative flex items-center justify-center w-40 h-40">
+          <!-- 优化后的上传区域布局 - 减少高度 -->
+          <div class="flex flex-col items-center justify-center space-y-4 py-6">
+            <!-- 主图标区域 - 缩小尺寸 -->
+            <div class="relative flex items-center justify-center w-24 h-24" role="img" aria-label="{{ $t('heicConverter.uploadIcon') }}">
               <!-- 背景光晕效果 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-xl opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" aria-hidden="true"></div>
               <!-- 主图标 -->
-              <div class="relative z-10 p-6 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                <Icon name="heroicons:photo" class="w-16 h-16 text-blue-500 group-hover:text-blue-600 transition-all duration-300 group-hover:scale-110" aria-hidden="true" />
+              <div class="relative z-10 p-4 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                <Icon name="heroicons:photo" class="w-8 h-8 text-blue-500 group-hover:text-blue-600 transition-all duration-300 group-hover:scale-110" aria-hidden="true" />
               </div>
               <!-- 装饰性圆环 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-dashed border-blue-200 rounded-full opacity-30 group-hover:opacity-60 group-hover:border-blue-300 transition-all duration-300 group-hover:scale-105"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-dashed border-blue-200 rounded-full opacity-30 group-hover:opacity-60 group-hover:border-blue-300 transition-all duration-300 group-hover:scale-105" aria-hidden="true"></div>
             </div>
             
-            <!-- 文字内容区域 -->
-            <div class="text-center space-y-6 max-w-md">
+            <!-- 文字内容区域 - 减少间距 -->
+            <div id="upload-instructions" class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
-              <div class="space-y-2">
-                <p class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+              <div class="space-y-1">
+                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {{ $t('heicConverter.dragText') }}
                 </p>
-                <p class="text-gray-500 text-base leading-relaxed">
+                <p class="text-gray-500 text-sm leading-relaxed">
                   {{ $t('heicConverter.batchUploadText') }}
                 </p>
               </div>
               
               <!-- 选择文件按钮 -->
-              <div class="flex justify-center">
-                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
+              <div class="flex justify-center pt-2">
+                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
                   <!-- 按钮光效 -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+                  <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" aria-hidden="true"></div>
                   <!-- 按钮内容 -->
-                  <div class="relative flex items-center gap-3 text-lg">
-                    <Icon name="heroicons:folder-open" class="w-6 h-6" aria-hidden="true" />
+                  <div class="relative flex items-center gap-2 text-base">
+                    <Icon name="heroicons:folder-open" class="w-5 h-5" aria-hidden="true" />
                     <span>{{ $t('heicConverter.selectFile') }}</span>
                   </div>
                   <input 
@@ -77,15 +83,16 @@
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     @change="handleFileSelect"
                     aria-describedby="file-support-info"
+                    :aria-label="$t('heicConverter.selectFileAriaLabel')"
                   >
                 </label>
               </div>
             </div>
             
-            <!-- 支持信息 -->
-            <div class="flex items-center justify-center gap-3 px-6 py-3 bg-green-50 rounded-full border border-green-100">
-              <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-sm font-medium text-green-700">
+            <!-- 支持信息 - 缩小尺寸 -->
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-100">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-green-700">
                 {{ $t('heicConverter.supportInfo') }}
               </p>
             </div>
@@ -93,7 +100,7 @@
         </div>
 
         <!-- 错误信息 -->
-        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite">
+        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
           <p class="text-red-600 text-sm flex items-center gap-2">
             <Icon name="heroicons:exclamation-triangle" aria-hidden="true" />
             {{ dragError }}
@@ -101,9 +108,9 @@
         </div>
         
         <template #fallback>
-          <div class="upload-zone">
+          <div class="upload-zone" role="status" aria-live="polite">
             <div class="space-y-4">
-              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400" />
+              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400" aria-hidden="true" />
               <div>
                 <p class="text-lg text-gray-600">
                   {{ $t('heicConverter.loading') }}
@@ -118,32 +125,33 @@
     <!-- 文件列表 -->
     <ClientOnly>
       <section v-if="hasFiles" class="file-list-section slide-up" role="region" aria-labelledby="file-list-title">
-        <div class="flex items-center justify-between mb-6">
-          <h3 id="file-list-title" class="text-xl font-bold text-gray-900 flex items-center gap-3">
+        <header class="flex items-center justify-between mb-6">
+          <h2 id="file-list-title" class="text-xl font-bold text-gray-900 flex items-center gap-3">
             <Icon name="heroicons:document-duplicate" class="text-blue-600" aria-hidden="true" />
             {{ $t('heicConverter.selectedFiles') }}
-            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full">{{ files.length }}</span>
-          </h3>
+            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full" aria-label="{{ files.length }} {{ $t('heicConverter.filesSelected') }}">{{ files.length }}</span>
+          </h2>
           <button 
             @click="clearFiles"
             class="btn-secondary text-sm"
-            :aria-label="`清除所有文件 (${files.length}个)`"
+            :aria-label="$t('common.clearAll') + ' (' + files.length + ' ' + $t('heicConverter.files') + ')'"
           >
             <Icon name="heroicons:trash" class="mr-2" aria-hidden="true" />
             {{ $t('heicConverter.clearAll') }}
           </button>
-        </div>
+        </header>
         
-        <div class="grid gap-4" role="list">
-          <div 
+        <ul class="grid gap-4" role="list">
+          <li 
             v-for="(file, index) in files" 
             :key="index"
             class="file-item group flex items-center justify-between"
+            role="listitem"
           >
             <div class="flex items-center gap-4 flex-1 min-w-0">
               <div class="relative">
                 <Icon name="heroicons:photo" class="text-2xl text-blue-600 group-hover:text-blue-700 transition-colors" aria-hidden="true" />
-                <div class="absolute -inset-1 bg-blue-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute -inset-1 bg-blue-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></div>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors" :title="file.name">{{ file.name }}</p>
@@ -152,13 +160,13 @@
             </div>
             <button 
               @click="removeFile(index)"
-              class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
-              :aria-label="`${$t('heicConverter.removeFile')} ${file.name}`"
+              class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              :aria-label="$t('common.removeFile') + ' ' + file.name"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
             </button>
-          </div>
-        </div>
+          </li>
+        </ul>
       </section>
     </ClientOnly>
 

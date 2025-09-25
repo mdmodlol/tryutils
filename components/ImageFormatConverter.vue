@@ -1,5 +1,10 @@
 <template>
-  <div class="image-format-converter fade-in-up" itemscope itemtype="https://schema.org/SoftwareApplication">
+  <!-- 跳转到主要内容的链接 -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+    跳转到主要内容
+  </a>
+
+  <div id="main-content" class="image-format-converter fade-in-up" itemscope itemtype="https://schema.org/SoftwareApplication" role="main">
     <!-- 文件上传区域 -->
     <section class="core-feature-section" role="region" aria-labelledby="upload-title">
       <div class="text-center mb-8">
@@ -33,45 +38,46 @@
           @keydown.enter="fileInput?.click()"
           @keydown.space.prevent="fileInput?.click()"
         >
-          <!-- 优化后的上传区域布局 -->
-          <div class="flex flex-col items-center justify-center space-y-8 py-4">
-            <!-- 主图标区域 -->
-            <div class="relative flex items-center justify-center w-40 h-40">
+          <!-- 优化后的上传区域布局 - 减少高度 -->
+          <div class="flex flex-col items-center justify-center space-y-4 py-6">
+            <!-- 主图标区域 - 缩小尺寸 -->
+            <div class="relative flex items-center justify-center w-24 h-24">
               <!-- 背景光晕效果 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-xl opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"></div>
               <!-- 主图标 -->
-              <div class="relative z-10 p-6 rounded-full bg-gradient-to-br from-purple-50 to-pink-50 group-hover:from-purple-100 group-hover:to-pink-100 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                <Icon name="heroicons:arrow-path" class="w-16 h-16 text-purple-500 group-hover:text-purple-600 transition-all duration-300 group-hover:scale-110" aria-hidden="true" />
+              <div class="relative z-10 p-4 rounded-full bg-gradient-to-br from-purple-50 to-pink-50 group-hover:from-purple-100 group-hover:to-pink-100 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                <Icon name="heroicons:arrow-path" class="w-8 h-8 text-purple-500 group-hover:text-purple-600 transition-all duration-300 group-hover:scale-110" aria-hidden="true" />
               </div>
               <!-- 装饰性圆环 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-dashed border-purple-200 rounded-full opacity-30 group-hover:opacity-60 group-hover:border-purple-300 transition-all duration-300 group-hover:scale-105"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-dashed border-purple-200 rounded-full opacity-30 group-hover:opacity-60 group-hover:border-purple-300 transition-all duration-300 group-hover:scale-105"></div>
             </div>
             
-            <!-- 文字内容区域 -->
-            <div class="text-center space-y-6 max-w-md">
+            <!-- 文字内容区域 - 减少间距 -->
+            <div class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
-              <div class="space-y-2">
-                <p class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+              <div class="space-y-1">
+                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {{ $t('imageFormatConverter.dragText') }}
                 </p>
-                <p class="text-gray-500 text-base leading-relaxed">
-                  {{ $t('imageFormatConverter.supportedFormats') }}
+                <p class="text-gray-500 text-sm leading-relaxed">
+                  {{ $t('imageFormatConverter.batchUploadText') }}
                 </p>
               </div>
               
               <!-- 选择文件按钮 -->
-              <div class="flex justify-center">
-                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
+              <div class="flex justify-center pt-2">
+                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
                   <!-- 按钮光效 -->
                   <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
                   <!-- 按钮内容 -->
-                  <div class="relative flex items-center gap-3 text-lg">
-                    <Icon name="heroicons:folder-open" class="w-6 h-6" aria-hidden="true" />
+                  <div class="relative flex items-center gap-2 text-base">
+                    <Icon name="heroicons:folder-open" class="w-5 h-5" aria-hidden="true" />
                     <span>{{ $t('imageFormatConverter.selectFile') }}</span>
                   </div>
                   <input 
                     ref="fileInput"
                     type="file" 
+                    multiple 
                     accept="image/*"
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     @change="handleFileSelect"
@@ -81,10 +87,10 @@
               </div>
             </div>
             
-            <!-- 支持信息 -->
-            <div class="flex items-center justify-center gap-3 px-6 py-3 bg-purple-50 rounded-full border border-purple-100">
-              <Icon name="heroicons:shield-check" class="w-5 h-5 text-purple-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-sm font-medium text-purple-700">
+            <!-- 支持信息 - 缩小尺寸 -->
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 rounded-full border border-purple-100">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-purple-600" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-purple-700">
                 {{ $t('imageFormatConverter.supportInfo') }}
               </p>
             </div>
@@ -92,7 +98,7 @@
         </div>
 
         <!-- 错误信息 -->
-        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite">
+        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
           <p class="text-red-600 text-sm flex items-center gap-2">
             <Icon name="heroicons:exclamation-triangle" aria-hidden="true" />
             {{ dragError }}
@@ -100,8 +106,8 @@
         </div>
 
         <template #fallback>
-          <div class="text-center py-8">
-            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-purple-500" />
+          <div class="text-center py-8" role="status" aria-live="polite">
+            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-purple-500" aria-hidden="true" />
             <p class="mt-2 text-gray-600">{{ $t('common.loading') }}</p>
           </div>
         </template>
@@ -111,18 +117,19 @@
     <!-- 文件信息和格式选择 -->
     <section v-if="selectedFile" class="format-selection-section" role="region" aria-labelledby="format-title">
       <h3 id="format-title" class="text-xl font-semibold mb-6 flex items-center gap-2">
-        <Icon name="heroicons:cog-6-tooth" class="text-purple-600" />
+        <Icon name="heroicons:cog-6-tooth" class="text-purple-600" aria-hidden="true" />
         {{ $t('imageFormatConverter.formatSelection') }}
       </h3>
 
       <!-- 当前文件信息 -->
-      <div class="file-info-card mb-6">
+      <div class="file-info-card mb-6" role="region" aria-labelledby="file-info-title">
+        <h4 id="file-info-title" class="sr-only">当前文件信息</h4>
         <div class="flex items-center gap-4">
           <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg flex items-center justify-center">
-            <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600" />
+            <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600" aria-hidden="true" />
           </div>
           <div class="flex-1">
-            <h4 class="font-medium text-gray-900">{{ selectedFile.name }}</h4>
+            <h5 class="font-medium text-gray-900">{{ selectedFile.name }}</h5>
             <p class="text-sm text-gray-500">
               {{ formatFileSize(selectedFile.size) }} • {{ getFileFormat(selectedFile.name) }}
             </p>
@@ -131,17 +138,22 @@
       </div>
 
       <!-- 目标格式选择 -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-3">
+      <div class="mb-6" role="form" aria-labelledby="target-format-label">
+        <label id="target-format-label" class="block text-sm font-medium text-gray-700 mb-3">
           {{ $t('imageFormatConverter.targetFormat') }}
         </label>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" role="radiogroup" aria-labelledby="target-format-label">
           <div 
             v-for="format in supportedFormats" 
             :key="format.value"
             class="format-option"
             :class="{ 'selected': conversionOptions.targetFormat === format.value }"
             @click="conversionOptions.targetFormat = format.value"
+            role="radio"
+            :aria-checked="conversionOptions.targetFormat === format.value"
+            tabindex="0"
+            @keydown.enter="conversionOptions.targetFormat = format.value"
+            @keydown.space.prevent="conversionOptions.targetFormat = format.value"
           >
             <input 
               type="radio" 
@@ -151,7 +163,7 @@
               class="sr-only"
             >
             <label :for="format.value" class="cursor-pointer block text-center p-3">
-              <Icon :name="format.icon" class="w-6 h-6 mx-auto mb-2" />
+              <Icon :name="format.icon" class="w-6 h-6 mx-auto mb-2" aria-hidden="true" />
               <span class="text-sm font-medium">{{ format.label }}</span>
             </label>
           </div>
@@ -159,15 +171,15 @@
       </div>
 
       <!-- 动态格式选项 -->
-      <div v-if="showFormatOptions" class="format-options-section">
-        <h4 class="text-lg font-medium mb-4 flex items-center gap-2">
-          <Icon name="heroicons:adjustments-horizontal" class="text-purple-600" />
+      <div v-if="showFormatOptions" class="format-options-section" role="region" aria-labelledby="format-options-title">
+        <h4 id="format-options-title" class="text-lg font-medium mb-4 flex items-center gap-2">
+          <Icon name="heroicons:adjustments-horizontal" class="text-purple-600" aria-hidden="true" />
           {{ $t('imageFormatConverter.formatOptions') }}
         </h4>
 
         <!-- JPEG/WebP 质量选项 -->
-        <div v-if="showQualityOption" class="option-group">
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+        <div v-if="showQualityOption" class="option-group" role="group" aria-labelledby="quality-label">
+          <label id="quality-label" class="block text-sm font-medium text-gray-700 mb-2">
             {{ $t('imageFormatConverter.quality') }}: {{ conversionOptions.quality }}%
           </label>
           <div class="flex items-center gap-4">
@@ -178,15 +190,17 @@
               max="100" 
               v-model="conversionOptions.quality"
               class="flex-1 quality-slider"
+              :aria-label="$t('imageFormatConverter.quality')"
+              aria-describedby="quality-description"
             >
             <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.high') }}</span>
           </div>
-          <p class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.qualityDescription') }}</p>
+          <p id="quality-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.qualityDescription') }}</p>
         </div>
 
         <!-- PNG 压缩级别选项 -->
-        <div v-if="showCompressionLevelOption" class="option-group">
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+        <div v-if="showCompressionLevelOption" class="option-group" role="group" aria-labelledby="compression-label">
+          <label id="compression-label" class="block text-sm font-medium text-gray-700 mb-2">
             {{ $t('imageFormatConverter.compressionLevel') }}: {{ conversionOptions.compressionLevel }}
           </label>
           <div class="flex items-center gap-4">
@@ -197,15 +211,17 @@
               max="9" 
               v-model="conversionOptions.compressionLevel"
               class="flex-1 compression-slider"
+              :aria-label="$t('imageFormatConverter.compressionLevel')"
+              aria-describedby="compression-description"
             >
             <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.best') }}</span>
           </div>
-          <p class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.compressionDescription') }}</p>
+          <p id="compression-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.compressionDescription') }}</p>
         </div>
 
         <!-- AVIF 速度选项 -->
-        <div v-if="showSpeedOption" class="option-group">
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+        <div v-if="showSpeedOption" class="option-group" role="group" aria-labelledby="speed-label">
+          <label id="speed-label" class="block text-sm font-medium text-gray-700 mb-2">
             {{ $t('imageFormatConverter.speed') }}: {{ conversionOptions.speed }}
           </label>
           <div class="flex items-center gap-4">
@@ -216,10 +232,12 @@
               max="8" 
               v-model="conversionOptions.speed"
               class="flex-1 speed-slider"
+              :aria-label="$t('imageFormatConverter.speed')"
+              aria-describedby="speed-description"
             >
             <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.fast') }}</span>
           </div>
-          <p class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.speedDescription') }}</p>
+          <p id="speed-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.speedDescription') }}</p>
         </div>
       </div>
 
@@ -229,11 +247,13 @@
           @click="convertFormat"
           :disabled="isConverting || !conversionOptions.targetFormat"
           class="convert-button"
+          :aria-label="isConverting ? $t('imageFormatConverter.converting') : $t('imageFormatConverter.convert')"
         >
           <Icon 
             :name="isConverting ? 'heroicons:arrow-path' : 'heroicons:arrow-right'" 
             :class="{ 'animate-spin': isConverting }"
             class="w-5 h-5 mr-2" 
+            aria-hidden="true"
           />
           {{ isConverting ? $t('imageFormatConverter.converting') : $t('imageFormatConverter.convert') }}
         </button>
@@ -243,16 +263,16 @@
     <!-- 转换进度 -->
     <section v-if="isConverting" class="progress-section" role="region" aria-labelledby="progress-title">
       <h3 id="progress-title" class="text-lg font-medium mb-4">{{ $t('imageFormatConverter.progress') }}</h3>
-      <div class="enhanced-progress">
+      <div class="enhanced-progress" role="progressbar" :aria-valuenow="conversionProgress" aria-valuemin="0" aria-valuemax="100" :aria-label="`转换进度 ${conversionProgress}%`">
         <div class="enhanced-progress-fill" :style="{ width: `${conversionProgress}%` }"></div>
       </div>
-      <p class="text-sm text-gray-600 mt-2 text-center">{{ conversionProgress }}%</p>
+      <p class="text-sm text-gray-600 mt-2 text-center" role="status" aria-live="polite">{{ conversionProgress }}%</p>
     </section>
 
     <!-- 转换结果 -->
     <section v-if="conversionResult" class="results-section" role="region" aria-labelledby="results-title">
       <h3 id="results-title" class="text-xl font-semibold mb-6 flex items-center gap-2">
-        <Icon name="heroicons:check-circle" class="text-green-600" />
+        <Icon name="heroicons:check-circle" class="text-green-600" aria-hidden="true" />
         {{ $t('imageFormatConverter.conversionComplete') }}
       </h3>
 
@@ -260,38 +280,38 @@
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center">
-              <Icon name="heroicons:check" class="w-6 h-6 text-green-600" />
+              <Icon name="heroicons:check" class="w-6 h-6 text-green-600" aria-hidden="true" />
             </div>
             <div>
               <h4 class="font-medium text-gray-900">{{ conversionResult.filename }}</h4>
               <p class="text-sm text-gray-500">{{ conversionResult.details }}</p>
             </div>
           </div>
-          <button @click="downloadResult" class="download-button">
-            <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 mr-2" />
+          <button @click="downloadResult" class="download-button" :aria-label="`下载 ${conversionResult.filename}`">
+            <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 mr-2" aria-hidden="true" />
             {{ $t('imageFormatConverter.download') }}
           </button>
         </div>
 
         <!-- 转换统计 -->
-        <div class="conversion-stats">
-          <div class="stat-item">
+        <div class="conversion-stats" role="list" aria-label="转换统计信息">
+          <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.originalFormat') }}</span>
             <span class="stat-value">{{ conversionResult.originalFormat?.toUpperCase() }}</span>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.newFormat') }}</span>
             <span class="stat-value">{{ conversionResult.processedFormat?.toUpperCase() }}</span>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.originalSize') }}</span>
             <span class="stat-value">{{ formatFileSize(conversionResult.originalSize) }}</span>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.newSize') }}</span>
             <span class="stat-value">{{ formatFileSize(conversionResult.processedSize) }}</span>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.sizeChange') }}</span>
             <span class="stat-value" :class="getSizeChangeClass()">
               {{ getSizeChangeText() }}

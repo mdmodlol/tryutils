@@ -45,9 +45,18 @@ setStructuredData(schemas)
 
 <template>
   <div class="min-h-screen" itemscope itemtype="https://schema.org/WebPage">
-    <main role="main">
+    <!-- Skip to main content link for accessibility -->
+    <a 
+      href="#main-content" 
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
+      tabindex="0"
+    >
+      跳转到主要内容
+    </a>
+
+    <main id="main-content" role="main">
       <!-- Hero Section -->
-      <section class="py-16 px-6" aria-labelledby="hero-title">
+      <section class="py-12 px-6" aria-labelledby="hero-title">
         <div class="max-w-4xl mx-auto text-center">
           <h1 id="hero-title" class="text-4xl md:text-5xl font-bold mb-6" itemprop="name">
             <span class="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
@@ -57,17 +66,17 @@ setStructuredData(schemas)
           <p class="text-xl text-gray-600 mb-8 leading-relaxed" itemprop="description">
             {{ $t('imageFormatConverter.hero.subtitle') }}
           </p>
-          <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-            <div class="flex items-center gap-2">
-              <Icon name="heroicons:check-circle" class="w-5 h-5 text-green-500" />
+          <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500" role="list" aria-label="产品特性">
+            <div class="flex items-center gap-2" role="listitem">
+              <Icon name="heroicons:check-circle" class="w-5 h-5 text-green-500" aria-hidden="true" />
               <span>{{ $t('imageFormatConverter.hero.feature1') }}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-500" />
+            <div class="flex items-center gap-2" role="listitem">
+              <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-500" aria-hidden="true" />
               <span>{{ $t('imageFormatConverter.hero.feature2') }}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <Icon name="heroicons:bolt" class="w-5 h-5 text-green-500" />
+            <div class="flex items-center gap-2" role="listitem">
+              <Icon name="heroicons:bolt" class="w-5 h-5 text-green-500" aria-hidden="true" />
               <span>{{ $t('imageFormatConverter.hero.feature3') }}</span>
             </div>
           </div>
@@ -75,12 +84,13 @@ setStructuredData(schemas)
       </section>
 
       <!-- 主要工具区域 -->
-      <section class="pb-16 px-6" aria-labelledby="tool-section">
+      <section class="pb-12 px-6" aria-labelledby="tool-section-title">
+        <h2 id="tool-section-title" class="sr-only">图片格式转换工具</h2>
         <ImageFormatConverter />
       </section>
 
       <!-- 功能介绍 -->
-      <section class="py-16 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50" aria-labelledby="features-title">
+      <section class="py-12 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50" role="region" aria-labelledby="features-title">
         <div class="max-w-6xl mx-auto">
           <h2 id="features-title" class="text-3xl font-bold text-center mb-12">
             <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -88,162 +98,162 @@ setStructuredData(schemas)
             </span>
           </h2>
           
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="功能特性列表">
             <!-- 多格式支持 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-purple-100 to-pink-100 group-hover:from-purple-200 group-hover:to-pink-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-purple-100 to-pink-100 group-hover:from-purple-200 group-hover:to-pink-200" aria-hidden="true">
                 <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.multiFormat.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.multiFormat.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.multiFormat.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.multiFormat.description') }}</p>
+            </article>
 
             <!-- 高质量转换 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-green-100 to-emerald-100 group-hover:from-green-200 group-hover:to-emerald-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-green-100 to-emerald-100 group-hover:from-green-200 group-hover:to-emerald-200" aria-hidden="true">
                 <Icon name="heroicons:sparkles" class="w-8 h-8 text-green-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.highQuality.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.highQuality.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.highQuality.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.highQuality.description') }}</p>
+            </article>
 
             <!-- 批量处理 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-blue-100 to-indigo-100 group-hover:from-blue-200 group-hover:to-indigo-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-blue-100 to-indigo-100 group-hover:from-blue-200 group-hover:to-indigo-200" aria-hidden="true">
                 <Icon name="heroicons:queue-list" class="w-8 h-8 text-blue-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.batchProcessing.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.batchProcessing.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.batchProcessing.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.batchProcessing.description') }}</p>
+            </article>
 
             <!-- 隐私保护 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-orange-100 to-red-100 group-hover:from-orange-200 group-hover:to-red-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-orange-100 to-red-100 group-hover:from-orange-200 group-hover:to-red-200" aria-hidden="true">
                 <Icon name="heroicons:shield-check" class="w-8 h-8 text-orange-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.privacy.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.privacy.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.privacy.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.privacy.description') }}</p>
+            </article>
 
             <!-- 快速处理 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-teal-100 to-cyan-100 group-hover:from-teal-200 group-hover:to-cyan-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-teal-100 to-cyan-100 group-hover:from-teal-200 group-hover:to-cyan-200" aria-hidden="true">
                 <Icon name="heroicons:bolt" class="w-8 h-8 text-teal-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.fastProcessing.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.fastProcessing.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.fastProcessing.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.fastProcessing.description') }}</p>
+            </article>
 
             <!-- 免费使用 -->
-            <div class="feature-card group">
-              <div class="feature-icon bg-gradient-to-br from-pink-100 to-rose-100 group-hover:from-pink-200 group-hover:to-rose-200">
+            <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
+              <div class="feature-icon bg-gradient-to-br from-pink-100 to-rose-100 group-hover:from-pink-200 group-hover:to-rose-200" aria-hidden="true">
                 <Icon name="heroicons:heart" class="w-8 h-8 text-pink-600" />
               </div>
-              <h3 class="text-xl font-semibold mb-3">{{ $t('imageFormatConverter.features.free.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed">{{ $t('imageFormatConverter.features.free.description') }}</p>
-            </div>
+              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.free.title') }}</h3>
+              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.free.description') }}</p>
+            </article>
           </div>
         </div>
       </section>
 
       <!-- 使用指南 -->
-      <section class="py-16 px-6" aria-labelledby="guide-title">
+      <section class="py-12 px-6" role="region" aria-labelledby="guide-title">
         <div class="max-w-4xl mx-auto">
-          <h2 id="guide-title" class="text-3xl font-bold text-center mb-12">
+          <h2 id="guide-title" class="text-3xl font-bold text-center mb-8">
             <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.guide.title') }}
             </span>
           </h2>
           
-          <div class="space-y-8">
+          <ol class="space-y-8" role="list" aria-label="使用步骤">
             <!-- 步骤1 -->
-            <div class="guide-step">
-              <div class="guide-step-number">1</div>
+            <li class="guide-step" role="listitem">
+              <div class="guide-step-number" aria-hidden="true">1</div>
               <div class="guide-step-content">
                 <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step1.title') }}</h3>
                 <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step1.description') }}</p>
               </div>
-            </div>
+            </li>
 
             <!-- 步骤2 -->
-            <div class="guide-step">
-              <div class="guide-step-number">2</div>
+            <li class="guide-step" role="listitem">
+              <div class="guide-step-number" aria-hidden="true">2</div>
               <div class="guide-step-content">
                 <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step2.title') }}</h3>
                 <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step2.description') }}</p>
               </div>
-            </div>
+            </li>
 
             <!-- 步骤3 -->
-            <div class="guide-step">
-              <div class="guide-step-number">3</div>
+            <li class="guide-step" role="listitem">
+              <div class="guide-step-number" aria-hidden="true">3</div>
               <div class="guide-step-content">
                 <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step3.title') }}</h3>
                 <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step3.description') }}</p>
               </div>
-            </div>
+            </li>
 
             <!-- 步骤4 -->
-            <div class="guide-step">
-              <div class="guide-step-number">4</div>
+            <li class="guide-step" role="listitem">
+              <div class="guide-step-number" aria-hidden="true">4</div>
               <div class="guide-step-content">
                 <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step4.title') }}</h3>
                 <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step4.description') }}</p>
               </div>
-            </div>
-          </div>
+            </li>
+          </ol>
         </div>
       </section>
 
       <!-- FAQ 部分 -->
-      <section class="py-16 px-6 bg-gradient-to-br from-gray-50 to-purple-50" aria-labelledby="faq-title">
+      <section class="py-12 px-6 bg-gradient-to-br from-gray-50 to-purple-50" role="region" aria-labelledby="faq-title">
         <div class="max-w-4xl mx-auto">
-          <h2 id="faq-title" class="text-3xl font-bold text-center mb-12">
+          <h2 id="faq-title" class="text-3xl font-bold text-center mb-8">
             <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.faq.title') }}
             </span>
           </h2>
-          
-          <div class="space-y-6">
+            
+          <div class="space-y-6" role="list" aria-label="常见问题列表">
             <!-- FAQ 项目 -->
-            <details class="faq-item group">
-              <summary class="faq-question">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" />
+            <details class="faq-item group" role="listitem">
+              <summary class="faq-question" role="button" aria-expanded="false">
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
                 <span>{{ $t('imageFormatConverter.faq.q1.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q1.answer') }}</p>
               </div>
             </details>
 
-            <details class="faq-item group">
-              <summary class="faq-question">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" />
+            <details class="faq-item group" role="listitem">
+              <summary class="faq-question" role="button" aria-expanded="false">
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
                 <span>{{ $t('imageFormatConverter.faq.q2.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q2.answer') }}</p>
               </div>
             </details>
 
-            <details class="faq-item group">
-              <summary class="faq-question">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" />
+            <details class="faq-item group" role="listitem">
+              <summary class="faq-question" role="button" aria-expanded="false">
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
                 <span>{{ $t('imageFormatConverter.faq.q3.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q3.answer') }}</p>
               </div>
             </details>
 
-            <details class="faq-item group">
-              <summary class="faq-question">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" />
+            <details class="faq-item group" role="listitem">
+              <summary class="faq-question" role="button" aria-expanded="false">
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
                 <span>{{ $t('imageFormatConverter.faq.q4.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q4.answer') }}</p>

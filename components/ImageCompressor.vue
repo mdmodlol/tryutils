@@ -48,25 +48,25 @@
             </div>
             
             <!-- 文字内容区域 -->
-            <div class="text-center space-y-6 max-w-md">
+            <div class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
-              <div class="space-y-2">
-                <p class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+              <div class="space-y-1">
+                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {{ $t('imageCompressor.dragText') }}
                 </p>
-                <p class="text-gray-500 text-base leading-relaxed">
+                <p class="text-gray-500 text-sm leading-relaxed">
                   {{ $t('imageCompressor.batchUploadText') }}
                 </p>
               </div>
               
               <!-- 选择文件按钮 -->
-              <div class="flex justify-center">
-                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
+              <div class="flex justify-center pt-2">
+                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
                   <!-- 按钮光效 -->
                   <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
                   <!-- 按钮内容 -->
-                  <div class="relative flex items-center gap-3 text-lg">
-                    <Icon name="heroicons:folder-open" class="w-6 h-6" aria-hidden="true" />
+                  <div class="relative flex items-center gap-2 text-base">
+                    <Icon name="heroicons:folder-open" class="w-5 h-5" aria-hidden="true" />
                     <span>{{ $t('imageCompressor.selectFile') }}</span>
                   </div>
                   <input 
@@ -82,10 +82,10 @@
               </div>
             </div>
             
-            <!-- 支持信息 -->
-            <div class="flex items-center justify-center gap-3 px-6 py-3 bg-green-50 rounded-full border border-green-100">
-              <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-sm font-medium text-green-700">
+            <!-- 支持信息 - 缩小尺寸 -->
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-100">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-green-700">
                 {{ $t('imageCompressor.supportInfo') }}
               </p>
             </div>
@@ -270,27 +270,29 @@
               max="50"
               step="0.1"
               :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none"
+              aria-describedby="size-description"
             >
+            <p id="size-description" class="text-xs text-gray-500 mt-1">{{ $t('imageCompressor.sizeDescription') }}</p>
           </div>
           </form>
           
           <!-- 压缩预估 -->
-          <div v-if="hasFiles" class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200">
-            <h4 class="text-sm font-semibold text-gray-800 mb-2 flex items-center gap-2">
+          <div v-if="hasFiles" class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200" role="region" aria-labelledby="estimate-title">
+            <h3 id="estimate-title" class="text-sm font-semibold text-gray-800 mb-2 flex items-center gap-2">
               <Icon name="heroicons:calculator" class="text-blue-600" aria-hidden="true" />
               {{ $t('imageCompressor.compressionEstimate') }}
-            </h4>
-            <div class="grid grid-cols-2 gap-4 text-sm">
+            </h3>
+            <dl class="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span class="text-gray-600">{{ $t('imageCompressor.estimatedSize') }}:</span>
-                <span class="font-semibold text-blue-700 ml-1">{{ formatFileSize(compressionEstimate.estimatedSize) }}</span>
+                <dt class="text-gray-600">{{ $t('imageCompressor.estimatedSize') }}:</dt>
+                <dd class="font-semibold text-blue-700 ml-1">{{ formatFileSize(compressionEstimate.estimatedSize) }}</dd>
               </div>
               <div>
-                <span class="text-gray-600">{{ $t('imageCompressor.estimatedSavings') }}:</span>
-                <span class="font-semibold text-green-700 ml-1">{{ Math.round(compressionEstimate.estimatedSavings) }}%</span>
+                <dt class="text-gray-600">{{ $t('imageCompressor.estimatedSavings') }}:</dt>
+                <dd class="font-semibold text-green-700 ml-1">{{ Math.round(compressionEstimate.estimatedSavings) }}%</dd>
               </div>
-            </div>
+            </dl>
           </div>
       </section>
     </ClientOnly>
@@ -1306,7 +1308,7 @@ onMounted(() => {
 
 .enhanced-upload-zone:hover {
   @apply border-green-400 shadow-2xl;
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 50%, #86efac 100%);
+  background: linear-gradient(135deg, #bbf7d0 0%, #86efac 50%, #4ade80 100%);
   transform: translateY(-4px) scale(1.01);
 }
 

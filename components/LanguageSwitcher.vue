@@ -3,12 +3,16 @@
     <!-- 触发按钮 -->
     <button
       @click="toggleDropdown"
+      @keydown="handleKeyDown"
       class="language-switcher-btn group"
       :aria-label="$t('common.language')"
       :aria-expanded="isOpen"
+      aria-haspopup="listbox"
+      :aria-describedby="isOpen ? 'language-menu' : undefined"
       ref="triggerButton"
+      type="button"
     >
-      <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
+      <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
       <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
         {{ currentLanguageLabel }}
       </span>
@@ -18,6 +22,7 @@
           'w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-all duration-300',
           isOpen ? 'rotate-180' : 'rotate-0'
         ]" 
+        aria-hidden="true"
       />
     </button>
 
@@ -35,23 +40,34 @@
         class="language-dropdown"
         @mousedown.prevent
         ref="dropdownMenu"
+        role="listbox"
+        :aria-labelledby="triggerButton?.id || 'language-switcher'"
+        id="language-menu"
       >
-        <div class="py-1">
+        <div class="py-1" role="none">
           <button
-            v-for="lang in languages"
+            v-for="(lang, index) in languages"
             :key="lang.code"
             @mousedown.prevent="selectLanguage(lang.code)"
+            @keydown="handleOptionKeyDown($event, index)"
             :class="[
               'language-option',
               currentLocale === lang.code ? 'language-option-active' : 'language-option-inactive'
             ]"
+            role="option"
+            :aria-selected="currentLocale === lang.code"
+            :aria-label="`切换到${lang.name}`"
+            :tabindex="isOpen ? 0 : -1"
+            :ref="el => { if (el) optionRefs[index] = el as HTMLButtonElement }"
+            type="button"
           >
-            <span class="language-flag">{{ lang.flag }}</span>
+            <span class="language-flag" aria-hidden="true">{{ lang.flag }}</span>
             <span class="language-name">{{ lang.name }}</span>
             <Icon 
               v-if="currentLocale === lang.code"
               name="heroicons:check" 
               class="w-4 h-4 text-blue-600" 
+              aria-hidden="true"
             />
           </button>
         </div>
@@ -67,6 +83,8 @@ const currentLocale = ref(locale.value)
 const isOpen = ref(false)
 const triggerButton = ref<HTMLButtonElement>()
 const dropdownMenu = ref<HTMLDivElement>()
+const optionRefs = ref<HTMLButtonElement[]>([])
+const focusedIndex = ref(-1)
 
 // 语言配置
 const languages = [
@@ -89,6 +107,73 @@ watch(locale, (newLocale) => {
 const toggleDropdown = (event: Event) => {
   event.stopPropagation()
   isOpen.value = !isOpen.value
+  
+  if (isOpen.value) {
+    nextTick(() => {
+      // 聚焦到当前选中的选项
+      const currentIndex = languages.findIndex(lang => lang.code === currentLocale.value)
+      focusedIndex.value = currentIndex >= 0 ? currentIndex : 0
+      optionRefs.value[focusedIndex.value]?.focus()
+    })
+  } else {
+    focusedIndex.value = -1
+  }
+}
+
+// 键盘导航处理
+const handleKeyDown = (event: KeyboardEvent) => {
+  switch (event.key) {
+    case 'Enter':
+    case ' ':
+    case 'ArrowDown':
+      event.preventDefault()
+      if (!isOpen.value) {
+        toggleDropdown(event)
+      }
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      if (!isOpen.value) {
+        toggleDropdown(event)
+      }
+      break
+    case 'Escape':
+      if (isOpen.value) {
+        event.preventDefault()
+        isOpen.value = false
+        triggerButton.value?.focus()
+      }
+      break
+  }
+}
+
+// 选项键盘导航处理
+const handleOptionKeyDown = (event: KeyboardEvent, index: number) => {
+  switch (event.key) {
+    case 'Enter':
+    case ' ':
+      event.preventDefault()
+      selectLanguage(languages[index].code)
+      break
+    case 'ArrowDown':
+      event.preventDefault()
+      focusedIndex.value = (index + 1) % languages.length
+      optionRefs.value[focusedIndex.value]?.focus()
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      focusedIndex.value = index === 0 ? languages.length - 1 : index - 1
+      optionRefs.value[focusedIndex.value]?.focus()
+      break
+    case 'Escape':
+      event.preventDefault()
+      isOpen.value = false
+      triggerButton.value?.focus()
+      break
+    case 'Tab':
+      isOpen.value = false
+      break
+  }
 }
 
 // 选择语言
@@ -104,6 +189,7 @@ const selectLanguage = (langCode: string) => {
     }
   }
   isOpen.value = false
+  triggerButton.value?.focus()
 }
 
 // 点击外部关闭下拉菜单
