@@ -79,7 +79,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div id="main-content" class="min-h-screen bg-gray-50">
     <!-- 跳转到主要内容的链接 -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
       跳转到主要内容
@@ -125,7 +125,7 @@ watchEffect(() => {
     </nav>
 
     <!-- 文章内容 -->
-    <main class="py-8" id="main-content" role="main">
+    <main class="py-8" role="main">
       <div class="max-w-4xl mx-auto px-6">
         <Transition name="fade" mode="out-in">
           <div v-if="pending" key="loading" class="text-center py-12" role="status" aria-live="polite">
@@ -279,18 +279,6 @@ watchEffect(() => {
 
 .prose blockquote {
   @apply border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6;
-}
-
-.prose code {
-  @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
-}
-
-.prose pre {
-  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
-}
-
-.prose pre code {
-  @apply bg-transparent p-0;
 }
 
 .prose a {

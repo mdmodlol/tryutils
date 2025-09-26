@@ -340,7 +340,7 @@ const route = useRoute()
 
 // 设置全局页面配置
 useHead({
-  titleTemplate: '%s - TryUtils',
+  titleTemplate: '%s',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { charset: 'utf-8' },

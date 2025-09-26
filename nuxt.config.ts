@@ -116,7 +116,8 @@ export default defineNuxtConfig({
   },
   // CSS 配置
   css: [
-    '~/assets/css/main.css'
+    '~/assets/css/main.css',
+    '~/assets/css/prose.css'
   ],
   build: {
     transpile: [
@@ -240,8 +241,11 @@ export default defineNuxtConfig({
   // 内容模块配置
   content: {
     highlight: {
-      theme: 'github-light',
-      preload: ['json', 'js', 'ts', 'html', 'css', 'vue', 'diff', 'shell', 'markdown', 'yaml', 'bash', 'ini']
+      theme: {
+        default: 'github-light',
+        dark: 'github-dark'
+      },
+      preload: ['json', 'js', 'ts', 'html', 'css', 'vue', 'diff', 'shell', 'markdown', 'yaml', 'bash', 'ini', 'python', 'java', 'cpp', 'c', 'php', 'ruby', 'go', 'rust', 'swift', 'kotlin', 'sql']
     },
     markdown: {
       toc: {

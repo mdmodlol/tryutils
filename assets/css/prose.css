@@ -1,0 +1,181 @@
+/* 全局代码样式 - 统一所有博客页面的代码显示风格 */
+
+/* 内联代码样式 */
+.prose code {
+  @apply bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono border border-gray-200;
+  font-weight: 500;
+}
+
+/* 代码块样式 */
+.prose pre {
+  @apply bg-gray-50 border border-gray-200 p-6 rounded-xl overflow-x-auto my-6 shadow-sm;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-gray-800 text-sm leading-relaxed;
+  font-weight: 400;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+/* 语法高亮优化 */
+.prose pre .token.comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata {
+  @apply text-gray-500;
+  font-style: italic;
+}
+
+.prose pre .token.punctuation {
+  @apply text-gray-600;
+}
+
+.prose pre .token.property,
+.prose pre .token.tag,
+.prose pre .token.boolean,
+.prose pre .token.number,
+.prose pre .token.constant,
+.prose pre .token.symbol,
+.prose pre .token.deleted {
+  @apply text-red-600;
+}
+
+.prose pre .token.selector,
+.prose pre .token.attr-name,
+.prose pre .token.string,
+.prose pre .token.char,
+.prose pre .token.builtin,
+.prose pre .token.inserted {
+  @apply text-green-600;
+}
+
+.prose pre .token.operator,
+.prose pre .token.entity,
+.prose pre .token.url,
+.prose pre .language-css .token.string,
+.prose pre .style .token.string {
+  @apply text-blue-600;
+}
+
+.prose pre .token.atrule,
+.prose pre .token.attr-value,
+.prose pre .token.keyword {
+  @apply text-purple-600;
+  font-weight: 500;
+}
+
+.prose pre .token.function,
+.prose pre .token.class-name {
+  @apply text-orange-600;
+  font-weight: 500;
+}
+
+.prose pre .token.regex,
+.prose pre .token.important,
+.prose pre .token.variable {
+  @apply text-pink-600;
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .prose code {
+    @apply bg-gray-800 text-gray-200 border-gray-700;
+  }
+
+  .prose pre {
+    @apply bg-gray-900 border-gray-700;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  }
+
+  .prose pre code {
+    @apply text-gray-200;
+  }
+
+  .prose pre .token.comment,
+  .prose pre .token.prolog,
+  .prose pre .token.doctype,
+  .prose pre .token.cdata {
+    @apply text-gray-400;
+  }
+
+  .prose pre .token.punctuation {
+    @apply text-gray-300;
+  }
+
+  .prose pre .token.property,
+  .prose pre .token.tag,
+  .prose pre .token.boolean,
+  .prose pre .token.number,
+  .prose pre .token.constant,
+  .prose pre .token.symbol,
+  .prose pre .token.deleted {
+    @apply text-red-400;
+  }
+
+  .prose pre .token.selector,
+  .prose pre .token.attr-name,
+  .prose pre .token.string,
+  .prose pre .token.char,
+  .prose pre .token.builtin,
+  .prose pre .token.inserted {
+    @apply text-green-400;
+  }
+
+  .prose pre .token.operator,
+  .prose pre .token.entity,
+  .prose pre .token.url,
+  .prose pre .language-css .token.string,
+  .prose pre .style .token.string {
+    @apply text-blue-400;
+  }
+
+  .prose pre .token.atrule,
+  .prose pre .token.attr-value,
+  .prose pre .token.keyword {
+    @apply text-purple-400;
+  }
+
+  .prose pre .token.function,
+  .prose pre .token.class-name {
+    @apply text-orange-400;
+  }
+
+  .prose pre .token.regex,
+  .prose pre .token.important,
+  .prose pre .token.variable {
+    @apply text-pink-400;
+  }
+}
+
+/* 代码块复制按钮样式 */
+.prose pre:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button {
+  @apply absolute top-3 right-3 p-2 bg-white border border-gray-200 rounded-md shadow-sm opacity-0 transition-opacity duration-200;
+  @apply hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+@media (prefers-color-scheme: dark) {
+  .copy-button {
+    @apply bg-gray-800 border-gray-600 text-gray-200;
+  }
+  
+  .copy-button:hover {
+    @apply bg-gray-700;
+  }
+}
+
+/* 行号样式 */
+.prose pre .line-numbers {
+  @apply text-gray-400 select-none mr-4 text-right;
+  min-width: 2em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose pre .line-numbers {
+    @apply text-gray-500;
+  }
+}
