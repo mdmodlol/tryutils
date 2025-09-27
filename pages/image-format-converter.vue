@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // SEO 配置
 const { t } = useI18n()
+const localePath = useLocalePath()
 const seoConfig = computed(() => ({
   title: t('imageFormatConverter.meta.title'),
   description: t('imageFormatConverter.meta.description'),
@@ -259,6 +260,62 @@ setStructuredData(schemas)
                 <p>{{ $t('imageFormatConverter.faq.q4.answer') }}</p>
               </div>
             </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关工具推荐 -->
+      <section class="py-12 px-6" role="region" aria-labelledby="related-tools-title">
+        <div class="max-w-6xl mx-auto">
+          <h2 id="related-tools-title" class="text-3xl font-bold text-center mb-12">
+            <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              {{ t('home.relatedTools.title') }}
+            </span>
+          </h2>
+          <div class="grid md:grid-cols-2 gap-8" role="list" aria-label="相关工具列表">
+            <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
+                  <Icon name="heroicons:photo" class="w-6 h-6 text-white" />
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                  {{ t('nav.imageCompressor') }}
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+                {{ t('home.categories.imageTools.compressor.description') }}
+              </p>
+              <NuxtLink 
+                :to="localePath('/image-compressor')"
+                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                :aria-label="`使用 ${t('nav.imageCompressor')} 工具`"
+              >
+                {{ t('common.useNow') }}
+                <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
+              </NuxtLink>
+            </article>
+
+            <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
+                  <Icon name="heroicons:arrow-path" class="w-6 h-6 text-white" />
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                  {{ t('nav.heicConverter') }}
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+                {{ t('home.categories.imageTools.heicConverter.description') }}
+              </p>
+              <NuxtLink 
+                :to="localePath('/heic-converter')"
+                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                :aria-label="`使用 ${t('nav.heicConverter')} 工具`"
+              >
+                {{ t('common.useNow') }}
+                <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
+              </NuxtLink>
+            </article>
           </div>
         </div>
       </section>

@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800" itemscope itemtype="https://schema.org/WebPage">
+  <div class="min-h-screen" itemscope itemtype="https://schema.org/WebPage">
     <!-- Skip to main content link for accessibility -->
     <a 
       href="#main-content" 
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
       tabindex="0"
     >
-      跳转到主要内容
+      {{ t('common.accessibility.skipToMain') }}
     </a>
 
     <!-- SEO Head -->
@@ -17,120 +17,183 @@
     </Head>
 
     <main id="main-content" role="main">
-      <!-- Header Section -->
-      <section class="container mx-auto px-4 py-12" aria-labelledby="hero-title">
-        <header class="text-center mb-12">
-          <h1 id="hero-title" class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" itemprop="headline">
-            {{ t('heicConverter.hero.title') }}
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" itemprop="description">
-            {{ t('heicConverter.hero.subtitle') }}
-          </p>
-        </header>
-
-        <!-- HEIC Converter Component -->
-        <section class="max-w-4xl mx-auto" aria-labelledby="converter-section-title">
-          <h2 id="converter-section-title" class="sr-only">HEIC转换工具</h2>
-          <HeicConverter />
-        </section>
-
-        <!-- Features Section -->
-        <section class="mt-16 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700" role="region" aria-labelledby="features-title">
-          <h2 id="features-title" class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            {{ t('home.features.title') }}
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list" aria-label="产品特性列表">
-            <article class="text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                <Icon name="heroicons:shield-check" class="w-8 h-8 text-blue-600 dark:text-blue-400" aria-label="隐私保护图标" />
+      <!-- Hero Section -->
+      <section class="py-12 px-6" aria-labelledby="hero-title">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="fade-in">
+            <h1 id="hero-title" class="text-5xl md:text-6xl font-bold text-gradient mb-6" itemprop="headline">
+              {{ t('heicConverter.hero.title') }}
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed" itemprop="description">
+              {{ t('heicConverter.hero.subtitle') }}
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500" role="list" :aria-label="t('heicConverter.features.ariaLabel')">
+              <div class="flex items-center gap-2" role="listitem">
+                <Icon name="heroicons:check-circle" class="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span>{{ t('heicConverter.features.free') }}</span>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">
-                {{ t('home.features.privacy.title') }}
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300" itemprop="description">
-                {{ t('home.features.privacy.description') }}
-              </p>
-            </article>
-
-            <article class="text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                <Icon name="heroicons:bolt" class="w-8 h-8 text-green-600 dark:text-green-400" aria-label="快速处理图标" />
+              <div class="flex items-center gap-2" role="listitem">
+                <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span>{{ t('heicConverter.features.privacy') }}</span>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">
-                {{ t('home.features.fast.title') }}
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300" itemprop="description">
-                {{ t('home.features.fast.description') }}
-              </p>
-            </article>
-
-            <article class="text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                <Icon name="heroicons:globe-alt" class="w-8 h-8 text-purple-600 dark:text-purple-400" aria-label="在线处理图标" />
+              <div class="flex items-center gap-2" role="listitem">
+                <Icon name="heroicons:bolt" class="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span>{{ t('heicConverter.features.fast') }}</span>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">
-                {{ t('home.features.online.title') }}
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300" itemprop="description">
-                {{ t('home.features.online.description') }}
-              </p>
-            </article>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Related Tools -->
-        <section class="mt-16" role="region" aria-labelledby="related-tools-title">
-          <h2 id="related-tools-title" class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            {{ t('home.relatedTools.title') }}
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto" role="list" aria-label="相关工具列表">
-            <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3" aria-hidden="true">
-                  <Icon name="heroicons:photo" class="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white" itemprop="name">
-                  {{ t('nav.imageCompressor') }}
-                </h3>
-              </div>
-              <p class="text-gray-600 dark:text-gray-300 mb-4" itemprop="description">
-                {{ t('home.categories.imageTools.compressor.description') }}
-              </p>
-              <NuxtLink 
-                :to="localePath('/image-compressor')"
-                class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-                :aria-label="`使用 ${t('nav.imageCompressor')} 工具`"
-              >
-                {{ t('common.useNow') }}
-                <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-1" aria-hidden="true" />
-              </NuxtLink>
-            </article>
-
-            <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-3" aria-hidden="true">
-                  <Icon name="heroicons:arrow-path" class="w-5 h-5 text-green-600 dark:text-green-400" />
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white" itemprop="name">
-                  {{ t('nav.formatConverter') }}
-                </h3>
-              </div>
-              <p class="text-gray-600 dark:text-gray-300 mb-4" itemprop="description">
-                {{ t('home.categories.imageTools.converter.description') }}
-              </p>
-              <NuxtLink 
-                :to="localePath('/format-converter')"
-                class="inline-flex items-center text-green-600 hover:text-green-700 font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded"
-                :aria-label="`使用 ${t('nav.formatConverter')} 工具`"
-              >
-                {{ t('common.useNow') }}
-                <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-1" aria-hidden="true" />
-              </NuxtLink>
-            </article>
+      <!-- 主要工具区域 -->
+      <section class="pb-12" aria-labelledby="tool-section-title">
+        <h2 id="tool-section-title" class="sr-only">{{ t('heicConverter.sections.toolTitle') }}</h2>
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="slide-up">
+            <HeicConverter />
           </div>
-        </section>
+        </div>
       </section>
     </main>
+
+    <!-- 特性介绍 -->
+    <section class="py-12 bg-white/50 backdrop-blur-sm" role="region" aria-labelledby="features-title">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="features-title" class="text-3xl font-bold text-center text-gray-900 mb-12">
+          {{ t('home.features.title') }}
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8" role="list" :aria-label="t('heicConverter.features.listAriaLabel')">
+          <article class="card p-8 text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
+            <div 
+              class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4" 
+              aria-hidden="true"
+            >
+              <svg 
+                class="w-8 h-8 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                aria-hidden="true"
+                role="img"
+              >
+                <title>{{ t('heicConverter.features.icons.heicConversion') }}</title>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3" itemprop="name">
+              {{ t('home.features.online.title') }}
+            </h3>
+            <p class="text-gray-600" itemprop="description">
+              {{ t('heicConverter.features.onlineDescription') }}
+            </p>
+          </article>
+
+          <article class="card p-8 text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
+            <div 
+              class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4" 
+              aria-hidden="true"
+            >
+              <svg 
+                class="w-8 h-8 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                aria-hidden="true"
+                role="img"
+              >
+                <title>{{ t('heicConverter.features.icons.privacy') }}</title>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3" itemprop="name">
+              {{ t('home.features.privacy.title') }}
+            </h3>
+            <p class="text-gray-600" itemprop="description">
+              {{ t('home.features.privacy.description') }}
+            </p>
+          </article>
+
+          <article class="card p-8 text-center" role="listitem" itemscope itemtype="https://schema.org/Thing">
+            <div 
+              class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4" 
+              aria-hidden="true"
+            >
+              <svg 
+                class="w-8 h-8 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                aria-hidden="true"
+                role="img"
+              >
+                <title>{{ t('heicConverter.features.icons.fast') }}</title>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3" itemprop="name">
+              {{ t('home.features.fast.title') }}
+            </h3>
+            <p class="text-gray-600" itemprop="description">
+              {{ t('home.features.fast.description') }}
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 相关工具推荐 -->
+    <section class="py-12 px-6" role="region" aria-labelledby="related-tools-title">
+      <div class="max-w-6xl mx-auto">
+        <h2 id="related-tools-title" class="text-3xl font-bold text-center text-gray-900 mb-12">
+          {{ t('home.relatedTools.title') }}
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8" role="list" :aria-label="t('heicConverter.sections.relatedToolsAriaLabel')">
+          <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
+                <Icon name="heroicons:photo" class="w-6 h-6 text-white" />
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                {{ t('nav.imageCompressor') }}
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+              {{ t('home.categories.imageTools.compressor.description') }}
+            </p>
+            <NuxtLink 
+              :to="localePath('/image-compressor')"
+              class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              :aria-label="`${t('common.useNow')} ${t('nav.imageCompressor')} ${t('common.startUsing')}`"
+            >
+              {{ t('common.useNow') }}
+              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
+            </NuxtLink>
+          </article>
+
+          <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
+                <Icon name="heroicons:arrow-path" class="w-6 h-6 text-white" />
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                {{ t('nav.formatConverter') }}
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+              {{ t('home.categories.imageTools.converter.description') }}
+            </p>
+            <NuxtLink 
+              :to="localePath('/image-format-converter')"
+              class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              :aria-label="`${t('common.useNow')} ${t('nav.formatConverter')} ${t('common.startUsing')}`"
+            >
+              {{ t('common.useNow') }}
+              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
+            </NuxtLink>
+          </article>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

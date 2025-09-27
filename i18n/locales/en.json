@@ -1,4 +1,4 @@
-﻿{
+{
   "accessibility": {
     "skipToMain": "Skip to main content"
   },
@@ -43,7 +43,11 @@
     "loading": "Loading...",
     "startUsing": "Start Using",
     "useNow": "Use Now",
-    "chinese": "Chinese"
+    "chinese": "Chinese",
+    "skipToMainContent": "Skip to main content",
+    "accessibility": {
+      "skipToMain": "Skip to main content"
+    }
   },
   "footer": {
     "description": "Focused on providing simple and practical online tools, allowing you to quickly complete daily needs without installing complex software. Completely processed in browser to protect your privacy and security.",
@@ -82,8 +86,26 @@
       "title": "HEIC Converter",
       "subtitle": "Free online conversion of iPhone/iPad HEIC images to JPG, PNG and other common formats"
     },
+    "features": {
+      "free": "Free Online Conversion",
+      "privacy": "Privacy Protection",
+      "fast": "Fast Processing",
+      "ariaLabel": "Product Features",
+      "listAriaLabel": "Product Features List",
+      "onlineDescription": "Supports HEIC/HEIF format conversion to JPG, PNG and other common formats, no software installation required",
+      "icons": {
+        "heicConversion": "HEIC Conversion Icon",
+        "privacy": "Privacy Protection Icon",
+        "fast": "Fast Processing Icon"
+      }
+    },
+    "sections": {
+      "toolTitle": "HEIC Conversion Tool",
+      "relatedToolsAriaLabel": "Related Tools List"
+    },
     "dragText": "Drag HEIC files here, or",
     "selectFile": "Select Files",
+    "selectFileAriaLabel": "Select HEIC files for conversion",
     "supportInfo": "Supports .heic and .heif formats, max 50MB, up to 10 files",
     "batchUploadText": "Supports batch upload, fast conversion",
     "loading": "Loading file upload functionality...",
@@ -251,6 +273,9 @@
         },
         "converter": {
           "description": "Supports multiple image format conversions, including HEIC, JPEG, PNG, WebP, etc."
+        },
+        "heicConverter": {
+          "description": "Professional HEIC image converter, supports conversion to JPG, PNG and other common formats"
         }
       }
     },
@@ -475,7 +500,8 @@
       "found": "Found {count} articles",
       "containing": "containing '{query}'",
       "and": "and",
-      "withTag": "with tag '{tag}'"
+      "withTag": "with tag '{tag}'",
+      "showAllPosts": "Show All Posts"
     },
     "card": {
       "readMore": "Read More"

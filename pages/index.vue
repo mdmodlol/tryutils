@@ -58,6 +58,12 @@ const toolCategories = computed(() => [
         description: t('home.categories.imageTools.converter.description'),
         path: '/image-format-converter',
         icon: 'convert'
+      },
+      {
+        name: t('nav.heicConverter'),
+        description: t('home.categories.imageTools.heicConverter.description'),
+        path: '/heic-converter',
+        icon: 'heic'
       }
     ]
   }

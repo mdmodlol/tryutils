@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   article: {
     type: Object,
     required: true
@@ -77,7 +77,7 @@ const localePath = useLocalePath()
 
 // 计算正确的文章路径
 const articlePath = computed(() => {
-  const props = getCurrentInstance().props
+  if (!props.article?._path) return ''
   let path = props.article._path
   
   // 移除现有的语言后缀

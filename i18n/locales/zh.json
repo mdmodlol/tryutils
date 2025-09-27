@@ -43,7 +43,11 @@
     "loading": "加载中...",
     "startUsing": "开始使用",
     "useNow": "立即使用",
-    "chinese": "中文"
+    "chinese": "中文",
+    "skipToMainContent": "跳转到主要内容",
+    "accessibility": {
+      "skipToMain": "跳转到主要内容"
+    }
   },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
@@ -82,8 +86,26 @@
       "title": "HEIC 转换器",
       "subtitle": "免费在线将 iPhone/iPad 的 HEIC 图片转换为 JPG、PNG 等常用格式"
     },
+    "features": {
+      "free": "免费在线转换",
+      "privacy": "隐私保护", 
+      "fast": "快速处理",
+      "ariaLabel": "产品特性",
+      "listAriaLabel": "产品特性列表",
+      "onlineDescription": "支持HEIC/HEIF格式转换为JPG、PNG等常见格式，无需安装软件",
+      "icons": {
+        "heicConversion": "HEIC转换图标",
+        "privacy": "隐私保护图标",
+        "fast": "快速处理图标"
+      }
+    },
+    "sections": {
+      "toolTitle": "HEIC转换工具",
+      "relatedToolsAriaLabel": "相关工具列表"
+    },
     "dragText": "拖拽 HEIC 文件到这里，或者",
     "selectFile": "选择文件",
+    "selectFileAriaLabel": "选择 HEIC 文件进行转换",
     "supportInfo": "支持 .heic 和 .heif 格式，最大 50MB，最多 10 个文件",
     "batchUploadText": "支持批量上传，快速转换",
     "loading": "正在加载文件上传功能...",
@@ -243,6 +265,9 @@
         },
         "converter": {
           "description": "支持多种图片格式转换，包括 HEIC、JPEG、PNG、WebP 等"
+        },
+        "heicConverter": {
+          "description": "专业的 HEIC 图片转换工具，支持转换为 JPG、PNG 等常见格式"
         }
       }
     },
@@ -524,6 +549,7 @@
     "selectFile": "选择文件",
     "supportInfo": "支持所有主流图片格式，最大100MB",
     "supportedFormats": "支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式",
+    "batchUploadText": "支持批量上传，快速转换多个文件",
     "formatSelection": "格式选择",
     "targetFormat": "目标格式",
     "formatOptions": "格式选项",
