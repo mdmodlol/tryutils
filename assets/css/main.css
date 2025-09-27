@@ -430,7 +430,8 @@
 
 /* 滑块样式 */
 .slider {
-  @apply appearance-none bg-transparent cursor-pointer;
+  @apply appearance-none cursor-pointer;
+  background: transparent;
 }
 
 .slider::-webkit-slider-track {

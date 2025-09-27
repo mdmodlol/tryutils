@@ -209,7 +209,7 @@
               min="10" 
               max="100" 
               step="5"
-              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              class="w-full"
               :aria-label="`图片质量: ${convertOptions.quality}%`"
               aria-describedby="quality-help"
             >
@@ -310,7 +310,7 @@
                   {{ result.filename }}
                 </p>
                 <p class="text-xs text-gray-600 font-medium">
-                  {{ formatFileSize(result.blob.size) }}
+                  {{ formatFileSize(result.convertedBlob.size) }}
                 </p>
               </div>
             </div>
@@ -413,10 +413,21 @@ interface ConvertOptions {
 }
 
 interface ConvertResult {
+  originalFile: File
+  convertedBlob: Blob
+  downloadUrl: string
   filename: string
-  blob: Blob
   originalSize: number
-  processedSize: number
+  convertedSize: number
+  compressionRatio: number
+  originalDimensions: {
+    width: number
+    height: number
+  }
+  convertedDimensions: {
+    width: number
+    height: number
+  }
 }
 
 // 状态管理
@@ -436,34 +447,12 @@ const convertOptions = ref<ConvertOptions>({
   height: undefined
 })
 
-// heic-convert 库引用
-let heicConvert: any = null
-
-// 在组件挂载时动态导入 heic-convert
-onMounted(async () => {
-  try {
-    // 使用浏览器版本的heic-convert，处理CommonJS导入
-    const heicConvertModule = await import('heic-convert/browser')
-    // 处理CommonJS模块的导入
-    heicConvert = heicConvertModule.default || heicConvertModule
-    console.log('✅ heic-convert加载成功:', typeof heicConvert)
-  } catch (error) {
-    console.error('❌ heic-convert导入失败:', error)
-    // 尝试备用导入方式
-    try {
-      const { default: heicConvertFallback } = await import('heic-convert')
-      heicConvert = heicConvertFallback
-      console.log('✅ heic-convert备用加载成功:', typeof heicConvert)
-    } catch (fallbackError) {
-      console.error('❌ heic-convert备用导入也失败:', fallbackError)
-    }
-  }
-})
+// 移除前端对 heic-convert 的引用，所有转换逻辑在服务端处理
 
 // 计算属性
 const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => convertResults.value.length > 0)
-const canConvert = computed(() => hasFiles.value && !isConverting.value && heicConvert)
+const canConvert = computed(() => hasFiles.value && !isConverting.value)
 const totalFileSize = computed(() => {
   return files.value.reduce((total, file) => total + file.size, 0)
 })
@@ -550,10 +539,6 @@ const clearFiles = () => {
 const startConversion = async () => {
   if (files.value.length === 0) return
   if (isConverting.value) return
-  if (!heicConvert) {
-    convertError.value = 'heic-convert库尚未加载完成，请稍后再试'
-    return
-  }
   
   isConverting.value = true
   progress.value = 0
@@ -568,106 +553,96 @@ const startConversion = async () => {
       progress.value = Math.round((i / files.value.length) * 100)
       
       try {
-        // 将文件读取为ArrayBuffer
-        const arrayBuffer = await file.arrayBuffer()
+        // 准备FormData，直接发送HEIC文件到服务端处理
+        const formData = new FormData()
+        formData.append('file', file)
         
-        // 将ArrayBuffer转换为Uint8Array，这是heic-convert期望的格式
-        const uint8Array = new Uint8Array(arrayBuffer)
-        
-        // 使用heic-convert进行转换
-        const jpegBuffer = await heicConvert({
-          buffer: uint8Array, // 使用Uint8Array而不是ArrayBuffer
-          format: 'JPEG',
-          quality: 0.95 // 高质量中间格式
+        // 构建查询参数
+        const queryParams = new URLSearchParams({
+          format: convertOptions.value.format,
+          quality: convertOptions.value.quality.toString()
         })
         
-        // 创建Blob用于上传
-        let jpegBlob: Blob
-        
-        try {
-          if (jpegBuffer instanceof ArrayBuffer) {
-            jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
-          } else if (jpegBuffer instanceof Uint8Array) {
-            jpegBlob = new Blob([jpegBuffer], { type: 'image/jpeg' })
-          } else if (jpegBuffer && jpegBuffer.buffer instanceof ArrayBuffer) {
-            jpegBlob = new Blob([jpegBuffer.buffer], { type: 'image/jpeg' })
-          } else {
-            // 尝试将数据转换为Buffer
-            const bufferData = Buffer.from(jpegBuffer)
-            jpegBlob = new Blob([bufferData], { type: 'image/jpeg' })
-          }
-        } catch (blobError) {
-          console.error('❌ Blob创建失败:', blobError)
-          throw new Error(`无法创建Blob: ${blobError.message}`)
-        }
-        
-        // 准备FormData，包含中间JPEG和所有输出选项
-        const formData = new FormData()
-        formData.append('image', jpegBlob, file.name.replace(/\.(heic|heif)$/i, '.jpg'))
-        formData.append('format', convertOptions.value.format)
-        formData.append('quality', convertOptions.value.quality.toString())
-        formData.append('originalFilename', file.name)
-        
         if (convertOptions.value.width) {
-          formData.append('width', convertOptions.value.width.toString())
+          queryParams.append('width', convertOptions.value.width.toString())
         }
         if (convertOptions.value.height) {
-          formData.append('height', convertOptions.value.height.toString())
+          queryParams.append('height', convertOptions.value.height.toString())
         }
         
-        // 服务端处理
-        const response = await $fetch('/api/process-image', {
+        // 直接调用服务端API进行转换
+        const response = await fetch(`/api/convert-heic?${queryParams.toString()}`, {
           method: 'POST',
           body: formData
         })
         
-        // 处理响应
-        const processedBlob = new Blob([response], { 
-          type: `image/${convertOptions.value.format}` 
-        })
+        if (!response.ok) {
+          const errorText = await response.text()
+          throw new Error(`转换失败: ${response.status} ${errorText}`)
+        }
         
-        const baseName = file.name.replace(/\.(heic|heif)$/i, '')
-        const extension = convertOptions.value.format === 'jpeg' ? 'jpg' : convertOptions.value.format
-        const filename = `${baseName}.${extension}`
+        // 获取转换后的文件数据
+        const convertedBlob = await response.blob()
         
-        results.push({
-          filename,
-          blob: processedBlob,
-          originalSize: file.size,
-          processedSize: processedBlob.size
-        })
+        // 获取响应头中的文件信息
+        const originalWidth = response.headers.get('X-Original-Width') || '0'
+        const originalHeight = response.headers.get('X-Original-Height') || '0'
+        const originalSize = response.headers.get('X-Original-Size') || '0'
+        const processedWidth = response.headers.get('X-Processed-Width') || '0'
+        const processedHeight = response.headers.get('X-Processed-Height') || '0'
+        const processedSize = response.headers.get('X-Processed-Size') || '0'
+        const processedFilename = response.headers.get('X-Processed-Filename') || `converted.${convertOptions.value.format}`
         
-      } catch (error) {
-        console.error(`❌ 转换文件 ${file.name} 失败:`, error)
-        // 继续处理其他文件，不中断整个流程
+        // 创建下载URL
+        const downloadUrl = URL.createObjectURL(convertedBlob)
+        
+        const result: ConvertResult = {
+          originalFile: file,
+          convertedBlob,
+          downloadUrl,
+          filename: processedFilename,
+          originalSize: parseInt(originalSize),
+          convertedSize: convertedBlob.size,
+          compressionRatio: Math.round((1 - convertedBlob.size / parseInt(originalSize)) * 100),
+          originalDimensions: {
+            width: parseInt(originalWidth),
+            height: parseInt(originalHeight)
+          },
+          convertedDimensions: {
+            width: parseInt(processedWidth),
+            height: parseInt(processedHeight)
+          }
+        }
+        
+        results.push(result)
+        
+      } catch (fileError) {
+        console.error(`❌ 文件 ${file.name} 转换失败:`, fileError)
+        convertError.value = `文件 ${file.name} 转换失败: ${fileError.message}`
+        break
       }
     }
     
     convertResults.value = results
     progress.value = 100
     
-    if (results.length === 0) {
-      convertError.value = t('heicConverter.conversionFailed')
-    }
-    
   } catch (error) {
-    console.error('批量转换失败:', error)
-    convertError.value = error instanceof Error ? error.message : t('heicConverter.unknownError')
+    console.error('❌ 转换过程出错:', error)
+    convertError.value = error instanceof Error ? error.message : '转换过程中发生未知错误'
   } finally {
     isConverting.value = false
   }
 }
 
+
 // 下载文件
 const downloadFile = (result: ConvertResult) => {
-  const url = URL.createObjectURL(result.blob)
   const a = document.createElement('a')
-  a.href = url
+  a.href = result.downloadUrl
   a.download = result.filename
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
-  URL.revokeObjectURL(url)
 }
 
 // 下载全部文件
@@ -733,9 +708,54 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 组件特定样式 */
+/* HEIC转换器专用样式 */
 .heic-converter {
   @apply max-w-6xl mx-auto px-4 py-8;
+}
+
+/* 质量拖动条专用样式 */
+#image-quality {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#image-quality::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+#image-quality::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#image-quality::-moz-range-track {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  border: none;
+}
+
+#image-quality::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* 核心功能区域样式 */

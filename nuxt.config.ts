@@ -121,8 +121,7 @@ export default defineNuxtConfig({
   ],
   build: {
     transpile: [
-      'browser-image-compression',
-      'heic-convert'
+      'browser-image-compression'
     ]
   },
   vite: {
@@ -131,16 +130,13 @@ export default defineNuxtConfig({
     },
     optimizeDeps: {
       include: [
-        'browser-image-compression',
-        'heic-convert',
-        'heic-convert/browser'
+        'browser-image-compression'
       ]
     },
     build: {
       rollupOptions: {
         output: {
           manualChunks: {
-            'heic-converter': 'heic-convert',
             'vendor': ['vue', 'vue-router']
           }
         }

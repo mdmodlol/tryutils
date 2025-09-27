@@ -1,5 +1,6 @@
 import { readMultipartFormData } from 'h3'
 import sharp from 'sharp'
+import heicConvert from 'heic-convert'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -27,6 +28,8 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event)
     const format = (query.format as string) || 'jpeg'
     const quality = parseInt(query.quality as string) || 80
+    const width = query.width ? parseInt(query.width as string) : undefined
+    const height = query.height ? parseInt(query.height as string) : undefined
 
     // 验证格式
     const supportedFormats = ['jpeg', 'png', 'webp']
@@ -60,11 +63,28 @@ export default defineEventHandler(async (event) => {
     // 获取文件数据 - formData中的data已经是Buffer
     const fileBuffer = fileItem.data
 
-    // 使用Sharp处理图片
-    let sharpInstance = sharp(fileBuffer)
+    // 第一步：使用 heic-convert 将 HEIC 转换为 JPEG
+    console.log('Converting HEIC to JPEG using heic-convert...')
+    const jpegBuffer = await heicConvert({
+      buffer: fileBuffer, // 输入 HEIC 文件的 buffer
+      format: 'JPEG',     // 输出格式
+      quality: 1          // heic-convert 的质量参数 (0-1)
+    })
 
-    // 获取原始图片信息
+    // 第二步：使用 Sharp 进行后续处理（调整尺寸、质量、格式转换等）
+    console.log('Processing with Sharp...')
+    let sharpInstance = sharp(Buffer.from(jpegBuffer))
+
+    // 获取原始图片信息（从转换后的 JPEG）
     const metadata = await sharpInstance.metadata()
+
+    // 应用尺寸调整（如果指定了）
+    if (width || height) {
+      sharpInstance = sharpInstance.resize(width, height, {
+        fit: 'inside',
+        withoutEnlargement: true
+      })
+    }
 
     // 根据格式进行转换
     let processedResult: { data: Buffer; info: sharp.OutputInfo }
