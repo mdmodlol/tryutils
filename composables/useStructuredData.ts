@@ -41,22 +41,10 @@ export interface WebPageSchema {
   description: string
   url: string
   mainEntity?: any
-  breadcrumb?: BreadcrumbSchema
   publisher: {
     '@type': string
     name: string
   }
-}
-
-export interface BreadcrumbSchema {
-  '@context': string
-  '@type': string
-  itemListElement: Array<{
-    '@type': string
-    position: number
-    name: string
-    item: string
-  }>
 }
 
 export interface ArticleSchema {
@@ -159,7 +147,6 @@ export const useStructuredData = () => {
   const getWebPageSchema = (config: {
     name: string
     description: string
-    breadcrumb?: Array<{ name: string; url: string }>
   }): WebPageSchema => {
     const currentLocale = locale.value
     const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
@@ -174,20 +161,6 @@ export const useStructuredData = () => {
       publisher: {
         '@type': 'Organization',
         name: 'TryUtils'
-      }
-    }
-    
-    // 添加面包屑导航
-    if (config.breadcrumb && config.breadcrumb.length > 0) {
-      schema.breadcrumb = {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: config.breadcrumb.map((item, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: item.name,
-          item: item.url
-        }))
       }
     }
     

@@ -321,6 +321,12 @@ const { t, locale, setLocale } = useI18n()
 // 路由功能需要从独立的函数获取
 const switchLocalePath = useSwitchLocalePath() // 用于语言切换器
 const localePath = useLocalePath()             // 用于模板中的链接
+const route = useRoute()
+
+// 检查是否为首页或需要显示面包屑的页面
+const isHomePage = computed(() => {
+  return route.path === '/' || route.path === '/en' || route.path === '/zh'
+})
 
 // 移动端菜单状态
 const isMobileMenuOpen = ref(false)
@@ -336,7 +342,7 @@ const closeMobileMenu = () => {
 }
 
 // 获取当前路由信息
-const route = useRoute()
+// const route = useRoute() // 已在上面声明，移除重复声明
 
 // 设置全局页面配置
 useHead({

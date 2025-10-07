@@ -20,7 +20,7 @@
         <div class="slide-up">
           <!-- 联系方式 -->
           <section aria-labelledby="contact-methods-title">
-            <h2 id="contact-methods-title" class="sr-only">联系方式</h2>
+            <h2 id="contact-methods-title" class="sr-only">{{ $t('accessibility.contactMethods') }}</h2>
             <div class="grid lg:grid-cols-2 gap-12 mb-16">
               <!-- 邮箱联系 -->
               <article class="card p-8 text-center" aria-labelledby="email-contact-title">
@@ -37,7 +37,7 @@
                 <a 
                   href="mailto:support@tryutils.com" 
                   class="btn-primary inline-flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  aria-label="发送邮件至 support@tryutils.com"
+                  :aria-label="$t('accessibility.sendEmailTo', { email: 'support@tryutils.com' })"
                 >
                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -60,7 +60,7 @@
                 <p class="text-gray-600 mb-6">{{ $t('contact.social.description') }}</p>
                 <div class="text-gray-500">
                   <p>{{ $t('contact.social.comingSoon') }}</p>
-                  <p class="text-sm mt-2" aria-label="即将推出的社交媒体平台">Telegram • Twitter • GitHub</p>
+                  <p class="text-sm mt-2" :aria-label="$t('accessibility.upcomingSocialPlatforms')">Telegram • Twitter • GitHub</p>
                 </div>
               </article>
             </div>
@@ -69,7 +69,7 @@
           <!-- 联系类型 -->
           <section class="mb-16" aria-labelledby="contact-types-title">
             <h2 id="contact-types-title" class="text-3xl font-bold text-center text-gray-900 mb-12">{{ $t('contact.types.title') }}</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" role="list" aria-label="联系类型列表">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" role="list" :aria-label="$t('accessibility.contactTypesListAriaLabel')">
               <article 
                 class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2" 
                 role="listitem"

@@ -1,18 +1,99 @@
 {
   "accessibility": {
-    "skipToMain": "Skip to main content"
+    "skipToMain": "Skip to main content",
+    "contactMethods": "Contact methods",
+    "toolSection": "Tool section",
+    "searchAndFilter": "Search and filter articles",
+    "articlesList": "Blog articles list",
+    "articleContent": "Article content",
+    "toolsList": "Image processing tools list",
+
+    "articleInfo": "Article information",
+    "articleTags": "Article tags",
+    "shareOptions": "Share options",
+    "availableTools": "Available image processing tools",
+    "featuresListAriaLabel": "Product features list",
+    "relatedToolsListAriaLabel": "Related tools list",
+    "usageStepsAriaLabel": "Usage steps",
+    "faqListAriaLabel": "Frequently asked questions list",
+    "contactTypesListAriaLabel": "Contact types list",
+    "relatedPagesLinksAriaLabel": "Related pages links",
+    "upcomingSocialPlatforms": "Upcoming social media platforms",
+    "upcomingDocToolsCategory": "Upcoming document tools category",
+    "upcomingTipsCategory": "Upcoming tips category",
+    "currentFileInfo": "Current file information",
+    "conversionStats": "Conversion statistics",
+    "blogSearchAndFilter": "Blog search and filter",
+    "searchBlogArticles": "Search blog articles",
+    "filterByTags": "Filter by tags",
+    "publishDate": "Published: ",
+    "tags": "Tags: ",
+    "navigateTo": "Navigate to",
+    "currentPage": "Current page:",
+    "readArticleAbout": "Read article about {topic}",
+    "visitPage": "Visit {page} page",
+    "useToolAriaLabel": "Use {tool} tool",
+    "returnToAriaLabel": "Return to {page}",
+    "downloadFileAriaLabel": "Download {filename}",
+    "conversionProgressAriaLabel": "Conversion progress {progress}%",
+    "imageQualityAriaLabel": "Image quality: {quality}%",
+    "filterTagAriaLabel": "{action} {tag} tag",
+    "selectTag": "Select",
+    "deselectTag": "Deselect",
+    "cancelFilter": "Cancel filter",
+    "filter": "Filter",
+    "switchToLanguage": "Switch to {language}",
+    "sendEmailTo": "Send email to {email}",
+    "readFullArticle": "Read full article: {title}",
+    "publishedDate": "Published: {date}",
+    "viewAllTools": "View all {category} tools",
+    "toolsListAriaLabel": "{category} tools list"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions quickly",
+    "general": {
+      "q1": "What is TryUtils?",
+      "a1": "TryUtils is a free collection of online tools focused on image processing. We provide HEIC conversion, image compression, format conversion and other practical tools. All processing is done in your browser to ensure privacy and security.",
+      "q2": "Do I need to register to use TryUtils?",
+      "a2": "No! TryUtils is completely free to use with no account registration required. You can directly access any tool and start using it immediately.",
+      "q3": "Are my files safe?",
+      "a3": "Absolutely! All file processing is done locally in your browser. Files are not uploaded to our servers. After processing, you can download the results, and neither original files nor processed results are saved.",
+      "q4": "What file formats are supported?",
+      "a4": "We support mainstream image formats: Input formats include HEIC, JPEG, PNG, WebP, BMP, GIF; Output formats include JPEG, PNG, WebP. We continuously add support for more formats."
+    },
+    "imageTools": {
+      "q1": "What is HEIC format?",
+      "a1": "HEIC (High Efficiency Image Container) is a next-generation image format developed by Apple, used as the default camera format since iOS 11. It provides better compression efficiency and image quality than JPEG, but has limited compatibility on some devices and software.",
+      "q2": "Why do I need to convert HEIC format?",
+      "a2": "While HEIC format is excellent, it may not display properly on Windows, Android, and some websites. Converting to JPEG or PNG format ensures compatibility across all devices and platforms.",
+      "q3": "Does image compression affect quality?",
+      "a3": "Our image compression tool uses advanced algorithms to significantly reduce file size while maintaining image quality as much as possible. You can adjust compression levels to balance file size and image quality.",
+      "q4": "Do you support batch processing?",
+      "a4": "Yes! All tools support batch processing. You can select multiple files simultaneously for conversion or compression, greatly improving work efficiency.",
+      "q5": "How long does it take to process large files?",
+      "a5": "Processing time depends on file size and your device performance. Generally: Small files (less than 5MB) take a few seconds; Medium files (5-20MB) take 10-30 seconds; Large files (greater than 20MB) take 30 seconds to 2 minutes."
+    },
+    "privacy": {
+      "q1": "How do you protect user privacy?",
+      "a1": "We use client-side processing technology where all file processing is done in your browser. Files are not uploaded to servers, and we cannot access your file content.",
+      "q2": "Do you collect user data?",
+      "a2": "We only collect necessary anonymous usage statistics (such as page views) to improve our service. We do not collect, store, or analyze your personal files.",
+      "q3": "Can I use it offline?",
+      "a3": "Currently, an internet connection is needed to load the tool interface, but file processing itself doesn't require network access. We're developing a PWA version that will support offline usage in the future."
+    }
   },
   "brand": {
     "tagline": "Simple and Practical Online Tools Collection"
   },
   "app": {
     "seo": {
-      "description": "TryUtils - Simple and practical online tools collection, supporting HEIC image conversion and more",
-      "keywords": "TryUtils,online tools,HEIC converter,image processing,file conversion",
-      "ogTitle": "TryUtils - Simple and Practical Online Tools Collection",
-      "ogDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser",
-      "twitterTitle": "TryUtils - Simple and Practical Online Tools Collection",
-      "twitterDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser"
+      "description": "TryUtils - Free online tools collection, supporting HEIC image conversion, image compression, format conversion and more",
+      "keywords": "HEIC converter,image conversion,image compression,format conversion,online tools,free tools,HEIC to JPG,HEIC to PNG,image processing,file conversion,TryUtils,privacy secure,browser processing",
+      "ogTitle": "TryUtils - Free Online Tools Collection | HEIC Converter, Image Compression, Format Conversion",
+      "ogDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser with privacy protection",
+      "twitterTitle": "TryUtils - Free Online Tools Collection | HEIC Converter, Image Compression, Format Conversion",
+      "twitterDescription": "Free online HEIC to JPG/PNG converter, supports iPhone iPad image format conversion, completely processed in browser with privacy protection"
     }
   },
   "nav": {
@@ -45,6 +126,45 @@
     "useNow": "Use Now",
     "chinese": "Chinese",
     "skipToMainContent": "Skip to main content",
+    "relatedLinks": "Related Links",
+    "relatedLinksContent": {
+      "imageCompressor": "Image Compressor",
+      "formatConverter": "Format Converter",
+      "heicConverter": "HEIC Converter", 
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "blog": "Blog",
+      "imageCompressionGuide": "Image Compression Guide",
+      "heicFormatExplained": "HEIC Format Explained",
+      "compressImagesOnline": "Compress images online for free",
+      "convertImageFormats": "Convert image formats online",
+      "convertHeicToJpg": "Convert HEIC to JPG/PNG",
+      "learnAboutTeam": "Learn more about our team and mission",
+      "getInTouch": "Get in touch with our support team",
+      "readLatestArticles": "Read our latest articles and tutorials",
+      "learnCompressionTechniques": "Learn about image compression techniques",
+      "understandHeicFormat": "Understanding HEIC format and conversion"
+    },
+    "tags": {
+      "imageCompression": "Image Compression",
+      "optimization": "Optimization",
+      "tools": "Tools",
+      "formatConversion": "Format Conversion",
+      "images": "Images",
+      "heic": "HEIC",
+      "conversion": "Conversion",
+      "ios": "iOS",
+      "about": "About",
+      "team": "Team",
+      "contact": "Contact",
+      "support": "Support",
+      "blog": "Blog",
+      "tutorials": "Tutorials",
+      "seo": "SEO",
+      "performance": "Performance",
+      "guide": "Guide",
+      "format": "Format"
+    },
     "accessibility": {
       "skipToMain": "Skip to main content"
     }
@@ -154,6 +274,10 @@
       "title": "HEIC to JPG - Free Online HEIC Format Converter | TryUtils",
       "description": "Free online HEIC to JPG converter, quickly and securely convert iPhone HEIC images to JPG, PNG, WebP formats. No software download required, completely processed in browser, protecting your privacy. Supports batch conversion, process multiple files with one click.",
       "keywords": "HEIC to JPG,HEIC converter,iPhone image conversion,online converter,free converter,batch conversion,HEIC to PNG,HEIC to WebP,TryUtils"
+    },
+    "seo": {
+      "title": "HEIC to JPG - Free Online HEIC Format Converter | TryUtils",
+      "description": "Free online HEIC to JPG converter, quickly and securely convert iPhone HEIC images to JPG, PNG, WebP formats. No software download required, completely processed in browser, protecting your privacy. Supports batch conversion, process multiple files with one click."
     }
   },
   "imageCompressor": {
@@ -257,9 +381,13 @@
       "description": "Professional online tool collection to make your work more efficient. Free, secure, fast, no registration required."
     },
     "values": {
+      "title": "Core Advantages",
       "free": "Completely Free",
+      "freeDesc": "No registration required, free forever",
       "secure": "Privacy Secure",
-      "fast": "Ultra Fast Processing"
+      "secureDesc": "Local processing, no data upload",
+      "fast": "Fast & Efficient",
+      "fastDesc": "Instant processing, no waiting"
     },
     "categories": {
       "title": "Tool Categories",
@@ -434,12 +562,17 @@
       "title": "Third-party Services",
       "description": "We may use third-party analytics services (such as Google Analytics) to understand website usage. These services have their own privacy policies."
     },
+    "ads": {
+      "title": "Advertising",
+      "description": "We do not display any advertisements on our website. Our tools are completely free to use without any advertising interruptions."
+    },
     "security": {
       "title": "Data Security",
       "description": "We take reasonable technical and administrative measures to protect your information security. All file processing is completed locally in your browser and not transmitted to our servers."
     },
     "rights": {
       "title": "Your Rights",
+      "description": "You have the following rights regarding your personal information:",
       "point1": "Access: You can request to know what information we collect about you",
       "point2": "Correction: You can request correction of inaccurate information",
       "point3": "Deletion: You can request deletion of your personal information"

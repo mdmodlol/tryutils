@@ -2,14 +2,98 @@
   "brand": {
     "tagline": "简单实用的在线工具集合"
   },
+  "accessibility": {
+    "skipToMain": "跳转到主要内容",
+    "contactMethods": "联系方式",
+    "toolSection": "工具区域",
+    "searchAndFilter": "搜索和筛选文章",
+    "articlesList": "博客文章列表",
+    "articleContent": "文章内容",
+    "toolsList": "图片处理工具列表",
+
+    "articleInfo": "文章信息",
+    "articleTags": "文章标签",
+    "shareOptions": "分享选项",
+    "availableTools": "可用的图片处理工具",
+    "featuresListAriaLabel": "产品特性列表",
+    "relatedToolsListAriaLabel": "相关工具列表",
+    "usageStepsAriaLabel": "使用步骤",
+    "faqListAriaLabel": "常见问题列表",
+    "contactTypesListAriaLabel": "联系类型列表",
+    "relatedPagesLinksAriaLabel": "相关页面链接",
+    "upcomingSocialPlatforms": "即将推出的社交媒体平台",
+    "upcomingDocToolsCategory": "即将推出的文档工具分类",
+    "upcomingTipsCategory": "即将推出的使用技巧分类",
+    "currentFileInfo": "当前文件信息",
+    "conversionStats": "转换统计信息",
+    "blogSearchAndFilter": "博客搜索和筛选",
+    "searchBlogArticles": "搜索博客文章",
+    "filterByTags": "按标签筛选",
+    "publishDate": "发布日期：",
+    "tags": "标签：",
+    "navigateTo": "导航到",
+    "currentPage": "当前页面:",
+    "readArticleAbout": "阅读关于{topic}的文章",
+    "visitPage": "访问{page}页面",
+    "useToolAriaLabel": "使用 {tool} 工具",
+    "returnToAriaLabel": "返回到{page}",
+    "downloadFileAriaLabel": "下载 {filename}",
+    "conversionProgressAriaLabel": "转换进度 {progress}%",
+    "imageQualityAriaLabel": "图片质量: {quality}%",
+    "filterTagAriaLabel": "{action} {tag} 标签",
+    "selectTag": "选择",
+    "deselectTag": "取消选择",
+    "cancelFilter": "取消筛选",
+    "filter": "筛选",
+    "switchToLanguage": "切换到{language}",
+    "sendEmailTo": "发送邮件至 {email}",
+    "readFullArticle": "阅读完整文章: {title}",
+    "publishedDate": "发布日期: {date}",
+    "viewAllTools": "查看所有 {category} 工具",
+    "toolsListAriaLabel": "{category} 工具列表"
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "快速找到您需要的答案",
+    "general": {
+      "q1": "TryUtils是什么？",
+      "a1": "TryUtils是一个免费的在线工具集合，专注于图片处理功能。我们提供HEIC转换、图片压缩、格式转换等实用工具，所有处理都在您的浏览器中完成，确保隐私安全。",
+      "q2": "使用TryUtils需要注册吗？",
+      "a2": "不需要！TryUtils完全免费使用，无需注册账户。您可以直接访问任何工具并开始使用。",
+      "q3": "我的文件安全吗？",
+      "a3": "绝对安全！所有文件处理都在您的浏览器本地完成，文件不会上传到我们的服务器。处理完成后，您可以选择下载结果，原文件和处理结果都不会被保存。",
+      "q4": "支持哪些文件格式？",
+      "a4": "我们支持主流的图片格式：输入格式包括HEIC、JPEG、PNG、WebP、BMP、GIF；输出格式包括JPEG、PNG、WebP。我们会持续添加更多格式支持。"
+    },
+    "imageTools": {
+      "q1": "HEIC格式是什么？",
+      "a1": "HEIC（High Efficiency Image Container）是苹果公司开发的新一代图片格式，从iOS 11开始作为默认相机格式。它比JPEG提供更好的压缩效率和图片质量，但在某些设备和软件上兼容性有限。",
+      "q2": "为什么需要转换HEIC格式？",
+      "a2": "虽然HEIC格式优秀，但在Windows、Android和一些网站上可能无法正常显示。转换为JPEG或PNG格式可以确保在所有设备和平台上的兼容性。",
+      "q3": "图片压缩会影响质量吗？",
+      "a3": "我们的图片压缩工具使用先进的算法，在显著减小文件大小的同时尽可能保持图片质量。您可以调整压缩级别来平衡文件大小和图片质量。",
+      "q4": "支持批量处理吗？",
+      "a4": "是的！所有工具都支持批量处理。您可以同时选择多个文件进行转换或压缩，大大提高工作效率。",
+      "q5": "处理大文件需要多长时间？",
+      "a5": "处理时间取决于文件大小和您的设备性能。一般来说：小文件（小于5MB）需要几秒钟；中等文件（5-20MB）需要10-30秒；大文件（大于20MB）需要30秒到2分钟。"
+    },
+    "privacy": {
+      "q1": "你们如何保护用户隐私？",
+      "a1": "我们采用客户端处理技术，所有文件处理都在您的浏览器中完成。文件不会上传到服务器，我们无法访问您的文件内容。",
+      "q2": "会收集用户数据吗？",
+      "a2": "我们只收集必要的匿名使用统计数据（如页面访问量）来改进服务。我们不会收集、存储或分析您的个人文件。",
+      "q3": "可以离线使用吗？",
+      "a3": "目前需要网络连接来加载工具界面，但文件处理本身不需要网络。我们正在开发PWA版本，未来将支持离线使用。"
+    }
+  },
   "app": {
     "seo": {
-      "description": "TryUtils - 简单实用的在线工具集合，支持 HEIC 图片转换等功能",
-      "keywords": "TryUtils,在线工具,HEIC转换,图片处理,文件转换",
-      "ogTitle": "TryUtils - 简单实用的在线工具集合",
-      "ogDescription": "免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理",
-      "twitterTitle": "TryUtils - 简单实用的在线工具集合",
-      "twitterDescription": "免费在线 HEIC 转 JPG/PNG 工具，支持 iPhone iPad 图片格式转换，完全在浏览器中处理"
+      "description": "TryUtils - 免费在线工具集合，支持HEIC图片转换、图片压缩、格式转换等功能",
+      "keywords": "HEIC转换,图片转换,图片压缩,格式转换,在线工具,免费工具,HEIC转JPG,HEIC转PNG,图片处理,文件转换,TryUtils,隐私安全,浏览器处理",
+      "ogTitle": "TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换",
+      "ogDescription": "免费在线HEIC转JPG/PNG工具，支持iPhone iPad图片格式转换，完全在浏览器中处理，保护隐私安全",
+      "twitterTitle": "TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换",
+      "twitterDescription": "免费在线HEIC转JPG/PNG工具，支持iPhone iPad图片格式转换，完全在浏览器中处理，保护隐私安全"
     }
   },
   "accessibility": {
@@ -45,6 +129,45 @@
     "useNow": "立即使用",
     "chinese": "中文",
     "skipToMainContent": "跳转到主要内容",
+    "relatedLinks": "相关链接",
+    "relatedLinksContent": {
+      "imageCompressor": "图片压缩工具",
+      "formatConverter": "格式转换工具", 
+      "heicConverter": "HEIC转换工具",
+      "aboutUs": "关于我们",
+      "contact": "联系我们",
+      "blog": "博客",
+      "imageCompressionGuide": "图片压缩指南",
+      "heicFormatExplained": "HEIC格式详解",
+      "compressImagesOnline": "免费在线压缩图片",
+      "convertImageFormats": "在线转换图片格式",
+      "convertHeicToJpg": "将HEIC转换为JPG/PNG",
+      "learnAboutTeam": "了解我们的团队和使命",
+      "getInTouch": "联系我们的支持团队",
+      "readLatestArticles": "阅读我们的最新文章和教程",
+      "learnCompressionTechniques": "了解图片压缩技术",
+      "understandHeicFormat": "了解HEIC格式和转换"
+    },
+    "tags": {
+      "imageCompression": "图片压缩",
+      "optimization": "优化",
+      "tools": "工具",
+      "formatConversion": "格式转换",
+      "images": "图片",
+      "heic": "HEIC",
+      "conversion": "转换",
+      "ios": "iOS",
+      "about": "关于",
+      "team": "团队",
+      "contact": "联系",
+      "support": "支持",
+      "blog": "博客",
+      "tutorials": "教程",
+      "seo": "SEO",
+      "performance": "性能",
+      "guide": "指南",
+      "format": "格式"
+    },
     "accessibility": {
       "skipToMain": "跳转到主要内容"
     }
@@ -154,6 +277,10 @@
       "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
       "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG、PNG、WebP格式。无需下载软件，完全在浏览器中处理，保护您的隐私。支持批量转换，一键处理多个文件。",
       "keywords": "HEIC转JPG,HEIC转换器,iPhone图片转换,在线转换,免费转换,批量转换,HEIC转PNG,HEIC转WebP,TryUtils"
+    },
+    "seo": {
+      "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
+      "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG、PNG、WebP格式。无需下载软件，完全在浏览器中处理，保护您的隐私。支持批量转换，一键处理多个文件。"
     }
   },
   "imageCompressor": {
@@ -249,9 +376,13 @@
       "description": "专业的在线工具集合，让您的工作更高效。免费、安全、快速，无需注册即可使用。"
     },
     "values": {
+      "title": "核心优势",
       "free": "完全免费",
+      "freeDesc": "无需注册，永久免费使用",
       "secure": "隐私安全",
-      "fast": "极速处理"
+      "secureDesc": "本地处理，数据不上传",
+      "fast": "极速处理",
+      "fastDesc": "即时处理，无需等待"
     },
     "categories": {
       "title": "工具分类",
@@ -425,6 +556,10 @@
     "thirdParty": {
       "title": "第三方服务",
       "description": "我们可能使用第三方分析服务（如 Google Analytics）来了解网站使用情况。这些服务有自己的隐私政策。"
+    },
+    "ads": {
+      "title": "广告",
+      "description": "我们的网站不显示任何广告。我们的工具完全免费使用，没有任何广告干扰。"
     },
     "security": {
       "title": "数据安全",

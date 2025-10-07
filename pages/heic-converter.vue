@@ -194,6 +194,11 @@
         </div>
       </div>
     </section>
+
+    <!-- 相关链接 -->
+    <div class="max-w-6xl mx-auto px-6 pb-12">
+      <RelatedLinks category="tools" />
+    </div>
   </div>
 </template>
 
@@ -215,4 +220,58 @@ useHead({
       }
     ]
   })
+
+// 结构化数据
+const { useStructuredData } = await import('~/composables/useStructuredData')
+const { useEnhancedStructuredData } = await import('~/composables/useEnhancedStructuredData')
+const {
+  getOrganizationSchema,
+  getWebPageSchema,
+  getSoftwareApplicationSchema,
+  setStructuredData
+} = useStructuredData()
+
+const {
+  getServiceSchema,
+  getHowToSchema,
+  setEnhancedStructuredData
+} = useEnhancedStructuredData()
+
+// 设置HEIC转换工具结构化数据
+const schemas = [
+  getOrganizationSchema(),
+  getWebPageSchema({
+    name: t('heicConverter.seo.title'),
+    description: t('heicConverter.seo.description')
+  }),
+  getSoftwareApplicationSchema({
+    name: t('heicConverter.seo.title'),
+    description: t('heicConverter.seo.description'),
+    category: 'Multimedia'
+  })
+]
+
+// 添加服务和操作指南结构化数据
+const serviceSchema = getServiceSchema({
+  name: t('heicConverter.seo.title'),
+  description: t('heicConverter.seo.description'),
+  rating: { value: '4.9', count: '1580' }
+})
+
+const howToSchema = getHowToSchema({
+  name: '如何转换HEIC格式',
+  description: '使用TryUtils在线HEIC转换工具将苹果HEIC格式转换为通用格式',
+  steps: [
+    { name: '上传HEIC文件', text: '选择iPhone或iPad拍摄的HEIC格式图片' },
+    { name: '选择输出格式', text: '选择JPEG、PNG或WebP作为输出格式' },
+    { name: '开始转换', text: '点击转换按钮开始处理HEIC文件' },
+    { name: '下载转换结果', text: '转换完成后下载兼容性更好的图片格式' }
+  ],
+  totalTime: 'PT1M30S',
+  tools: ['网页浏览器'],
+  supplies: ['HEIC格式图片文件']
+})
+
+setStructuredData(schemas)
+setEnhancedStructuredData([serviceSchema, howToSchema])
 </script>

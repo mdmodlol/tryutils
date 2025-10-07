@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 性能优化 - 关键CSS内联 */
+@layer base {
+  /* 字体优化 */
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-display: swap;
+  }
+  
+  /* 移动端优化 */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* 减少重绘和回流 */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* 图片优化 */
+  img {
+    max-width: 100%;
+    height: auto;
+    loading: lazy;
+  }
+}
+
 /* 基础组件样式 */
 @layer components {
-  /* 卡片组件 */
+  /* 卡片组件 - 移动端优化 */
   .card {
     @apply bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-300;
   }
@@ -14,9 +42,21 @@
     transform: translateY(-2px);
   }
   
-  /* 按钮组件 */
+  /* 移动端卡片优化 */
+  @media (max-width: 640px) {
+    .card {
+      @apply rounded-lg shadow-sm;
+    }
+    
+    .card:hover {
+      transform: none;
+    }
+  }
+  
+  /* 按钮组件 - 移动端友好 */
   .btn-primary {
     @apply px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-md transition-all duration-200;
+    min-height: 44px; /* iOS 推荐的最小触摸目标 */
   }
   
   .btn-primary:hover {
@@ -28,8 +68,20 @@
     @apply outline-none ring-2 ring-blue-500 ring-offset-2;
   }
   
+  /* 移动端按钮优化 */
+  @media (max-width: 640px) {
+    .btn-primary {
+      @apply w-full py-4 text-base;
+    }
+    
+    .btn-primary:hover {
+      transform: none;
+    }
+  }
+  
   .btn-secondary {
     @apply px-6 py-3 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 shadow-sm transition-all duration-200;
+    min-height: 44px;
   }
   
   .btn-secondary:hover {
@@ -40,10 +92,17 @@
     @apply outline-none ring-2 ring-gray-500 ring-offset-2;
   }
   
-  /* 文件上传区域 */
+  @media (max-width: 640px) {
+    .btn-secondary {
+      @apply w-full py-4 text-base;
+    }
+  }
+  
+  /* 文件上传区域 - 移动端优化 */
   .upload-zone {
     @apply border-2 border-dashed border-gray-300 rounded-xl p-8 text-center transition-all duration-300;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: 200px;
   }
   
   .upload-zone:hover {
@@ -60,6 +119,19 @@
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
   }
   
+  /* 移动端上传区域优化 */
+  @media (max-width: 640px) {
+    .upload-zone {
+      @apply p-6 rounded-lg;
+      min-height: 150px;
+    }
+    
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      transform: none;
+    }
+  }
+  
   /* 增强的上传区域样式 */
   .enhanced-upload-zone {
     @apply border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center transition-all duration-500;
@@ -67,6 +139,21 @@
     min-height: 400px;
     position: relative;
     overflow: hidden;
+  }
+  
+  /* 移动端增强上传区域优化 */
+  @media (max-width: 640px) {
+    .enhanced-upload-zone {
+      @apply p-8 rounded-xl;
+      min-height: 250px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .enhanced-upload-zone {
+      @apply p-6;
+      min-height: 200px;
+    }
   }
   
   .enhanced-upload-zone::before {

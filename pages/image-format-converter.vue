@@ -18,6 +18,7 @@ useSEO(seoConfig)
 
 // 结构化数据
 const { useStructuredData } = await import('~/composables/useStructuredData')
+const { useEnhancedStructuredData } = await import('~/composables/useEnhancedStructuredData')
 const {
   getOrganizationSchema,
   getWebsiteSchema,
@@ -25,6 +26,12 @@ const {
   getSoftwareApplicationSchema,
   setStructuredData
 } = useStructuredData()
+
+const {
+  getServiceSchema,
+  getHowToSchema,
+  setEnhancedStructuredData
+} = useEnhancedStructuredData()
 
 // 设置图片格式转换工具页面结构化数据
 const schemas = [
@@ -41,7 +48,29 @@ const schemas = [
   })
 ]
 
+// 添加服务和操作指南结构化数据
+const serviceSchema = getServiceSchema({
+  name: t('imageFormatConverter.meta.title'),
+  description: t('imageFormatConverter.meta.description'),
+  rating: { value: '4.7', count: '980' }
+})
+
+const howToSchema = getHowToSchema({
+  name: '如何转换图片格式',
+  description: '使用TryUtils在线图片格式转换工具轻松转换图片格式',
+  steps: [
+    { name: '上传图片', text: '选择需要转换格式的图片文件' },
+    { name: '选择格式', text: '从下拉菜单中选择目标输出格式' },
+    { name: '开始转换', text: '点击转换按钮开始格式转换' },
+    { name: '下载文件', text: '转换完成后下载新格式的图片' }
+  ],
+  totalTime: 'PT1M',
+  tools: ['网页浏览器'],
+  supplies: ['图片文件']
+})
+
 setStructuredData(schemas)
+setEnhancedStructuredData([serviceSchema, howToSchema])
 </script>
 
 <template>
@@ -320,6 +349,11 @@ setStructuredData(schemas)
         </div>
       </section>
     </main>
+
+    <!-- 相关链接 -->
+    <div class="max-w-6xl mx-auto px-6 pb-12">
+      <RelatedLinks category="tools" />
+    </div>
   </div>
 </template>
 

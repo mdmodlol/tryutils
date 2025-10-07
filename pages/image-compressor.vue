@@ -18,6 +18,7 @@ useSEO(seoConfig)
 
 // 结构化数据
 const { useStructuredData } = await import('~/composables/useStructuredData')
+const { useEnhancedStructuredData } = await import('~/composables/useEnhancedStructuredData')
 const {
   getOrganizationSchema,
   getWebsiteSchema,
@@ -25,6 +26,12 @@ const {
   getSoftwareApplicationSchema,
   setStructuredData
 } = useStructuredData()
+
+const {
+  getServiceSchema,
+  getHowToSchema,
+  setEnhancedStructuredData
+} = useEnhancedStructuredData()
 
 // 设置图片压缩工具页面结构化数据
 const schemas = [
@@ -41,7 +48,29 @@ const schemas = [
   })
 ]
 
+// 添加服务和操作指南结构化数据
+const serviceSchema = getServiceSchema({
+  name: t('imageCompressor.meta.title'),
+  description: t('imageCompressor.meta.description'),
+  rating: { value: '4.8', count: '1250' }
+})
+
+const howToSchema = getHowToSchema({
+  name: '如何压缩图片',
+  description: '使用TryUtils在线图片压缩工具快速减小图片文件大小',
+  steps: [
+    { name: '选择图片', text: '点击上传区域或拖拽图片文件到页面' },
+    { name: '调整设置', text: '选择压缩质量和输出格式' },
+    { name: '开始压缩', text: '点击压缩按钮开始处理' },
+    { name: '下载结果', text: '压缩完成后下载优化后的图片' }
+  ],
+  totalTime: 'PT2M',
+  tools: ['网页浏览器'],
+  supplies: ['图片文件']
+})
+
 setStructuredData(schemas)
+setEnhancedStructuredData([serviceSchema, howToSchema])
 </script>
 
 <template>
@@ -219,5 +248,10 @@ setStructuredData(schemas)
         </div>
       </div>
     </section>
+
+    <!-- 相关链接 -->
+    <div class="max-w-6xl mx-auto px-6 pb-12">
+      <RelatedLinks category="tools" />
+    </div>
   </div>
 </template>

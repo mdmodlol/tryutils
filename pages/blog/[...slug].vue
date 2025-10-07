@@ -85,45 +85,6 @@ watchEffect(() => {
       跳转到主要内容
     </a>
 
-    <!-- 导航面包屑 -->
-    <nav class="bg-white border-b border-gray-200" role="navigation" aria-label="面包屑导航">
-      <div class="max-w-4xl mx-auto px-6 py-4">
-        <ol class="flex items-center space-x-2 text-sm text-gray-600" role="list">
-          <li role="listitem">
-            <NuxtLink 
-              :to="localePath('/')" 
-              class="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
-              :aria-label="`导航到${$t('nav.home')}`"
-            >
-              {{ $t('nav.home') }}
-            </NuxtLink>
-          </li>
-          <li role="listitem" aria-hidden="true">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </li>
-          <li role="listitem">
-            <NuxtLink 
-              :to="localePath('/blog')" 
-              class="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
-              :aria-label="`导航到${$t('nav.blog')}`"
-            >
-              {{ $t('nav.blog') }}
-            </NuxtLink>
-          </li>
-          <li role="listitem" aria-hidden="true">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </li>
-          <li role="listitem">
-            <span class="text-gray-900" aria-current="page">{{ data?.title || $t('blog.article.detail') }}</span>
-          </li>
-        </ol>
-      </div>
-    </nav>
-
     <!-- 文章内容 -->
     <main class="py-8" role="main">
       <div class="max-w-4xl mx-auto px-6">
