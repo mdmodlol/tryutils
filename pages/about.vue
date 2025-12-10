@@ -34,7 +34,7 @@ setStructuredData(schemas)
 </script>
 
 <template>
-  <div class="min-h-screen" itemscope itemtype="https://schema.org/AboutPage">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300" itemscope itemtype="https://schema.org/AboutPage">
     <!-- Hero Section -->
     <section class="py-12 px-6" aria-labelledby="about-hero-title">
       <div class="max-w-4xl mx-auto text-center">
@@ -42,7 +42,7 @@ setStructuredData(schemas)
           <h1 id="about-hero-title" class="text-4xl md:text-5xl font-bold text-gradient mb-6" itemprop="headline">
             {{ $t('about.hero.title') }}
           </h1>
-          <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed" itemprop="description">
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed" itemprop="description">
             {{ $t('about.hero.description') }}
           </p>
         </div>
@@ -65,8 +65,8 @@ setStructuredData(schemas)
                 </svg>
               </div>
               <div>
-                <h2 id="mission-title" class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.mission.title') }}</h2>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <h2 id="mission-title" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('about.mission.title') }}</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {{ $t('about.mission.description') }}
                 </p>
               </div>
@@ -85,11 +85,11 @@ setStructuredData(schemas)
                 </svg>
               </div>
               <div>
-                <h2 id="story-title" class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.story.title') }}</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                <h2 id="story-title" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('about.story.title') }}</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                   {{ $t('about.story.paragraph1') }}
                 </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {{ $t('about.story.paragraph2') }}
                 </p>
               </div>
@@ -109,8 +109,8 @@ setStructuredData(schemas)
                 </svg>
               </div>
               <div>
-                <h2 id="vision-title" class="text-3xl font-bold text-gray-900 mb-4">{{ $t('about.vision.title') }}</h2>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <h2 id="vision-title" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('about.vision.title') }}</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {{ $t('about.vision.description') }}
                 </p>
               </div>
@@ -118,10 +118,10 @@ setStructuredData(schemas)
           </section>
 
           <!-- 联系我们 -->
-          <section class="card p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0" aria-labelledby="contact-title">
+          <section class="card p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 border-0" aria-labelledby="contact-title">
             <div class="text-center">
-              <h2 id="contact-title" class="text-3xl font-bold text-gray-900 mb-6">{{ $t('about.contact.title') }}</h2>
-              <p class="text-lg text-gray-700 mb-6">
+              <h2 id="contact-title" class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('about.contact.title') }}</h2>
+              <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
                 {{ $t('about.contact.description') }}
               </p>
               <a 

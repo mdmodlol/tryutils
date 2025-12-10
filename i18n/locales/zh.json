@@ -2,6 +2,14 @@
   "brand": {
     "tagline": "简单实用的在线工具集合"
   },
+  "theme": {
+    "lightMode": "切换到深色模式",
+    "darkMode": "切换到跟随系统",
+    "systemMode": "切换到浅色模式",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
   "accessibility": {
     "skipToMain": "跳转到主要内容",
     "contactMethods": "联系方式",
@@ -95,9 +103,6 @@
       "twitterTitle": "TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换",
       "twitterDescription": "免费在线HEIC转JPG/PNG工具，支持iPhone iPad图片格式转换，完全在浏览器中处理，保护隐私安全"
     }
-  },
-  "accessibility": {
-    "skipToMain": "跳转到主要内容"
   },
   "nav": {
     "home": "首页",

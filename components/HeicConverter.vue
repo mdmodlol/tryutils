@@ -57,10 +57,10 @@
             <div id="upload-instructions" class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
               <div class="space-y-1">
-                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+                <p class="text-xl font-semibold text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">
                   {{ $t('heicConverter.dragText') }}
                 </p>
-                <p class="text-gray-500 text-sm leading-relaxed">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                   {{ $t('heicConverter.batchUploadText') }}
                 </p>
               </div>
@@ -90,9 +90,9 @@
             </div>
             
             <!-- 支持信息 - 缩小尺寸 -->
-            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-100">
-              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-xs font-medium text-green-700">
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/30 rounded-full border border-green-100 dark:border-green-800">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600 dark:text-green-400" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-green-700 dark:text-green-300">
                 {{ $t('heicConverter.supportInfo') }}
               </p>
             </div>
@@ -100,8 +100,8 @@
         </div>
 
         <!-- 错误信息 -->
-        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
-          <p class="text-red-600 text-sm flex items-center gap-2">
+        <div v-if="dragError" class="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
+          <p class="text-red-600 dark:text-red-400 text-sm flex items-center gap-2">
             <Icon name="heroicons:exclamation-triangle" aria-hidden="true" />
             {{ dragError }}
           </p>
@@ -110,9 +110,9 @@
         <template #fallback>
           <div class="upload-zone" role="status" aria-live="polite">
             <div class="space-y-4">
-              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400" aria-hidden="true" />
+              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400 dark:text-gray-500" aria-hidden="true" />
               <div>
-                <p class="text-lg text-gray-600">
+                <p class="text-lg text-gray-600 dark:text-gray-400">
                   {{ $t('heicConverter.loading') }}
                 </p>
               </div>
@@ -126,10 +126,10 @@
     <ClientOnly>
       <section v-if="hasFiles" class="file-list-section slide-up" role="region" aria-labelledby="file-list-title">
         <header class="flex items-center justify-between mb-6">
-          <h2 id="file-list-title" class="text-xl font-bold text-gray-900 flex items-center gap-3">
-            <Icon name="heroicons:document-duplicate" class="text-blue-600" aria-hidden="true" />
+          <h2 id="file-list-title" class="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+            <Icon name="heroicons:document-duplicate" class="text-blue-600 dark:text-blue-400" aria-hidden="true" />
             {{ $t('heicConverter.selectedFiles') }}
-            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full" aria-label="{{ files.length }} {{ $t('heicConverter.filesSelected') }}">{{ files.length }}</span>
+            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-sm font-medium px-2.5 py-0.5 rounded-full" aria-label="{{ files.length }} {{ $t('heicConverter.filesSelected') }}">{{ files.length }}</span>
           </h2>
           <button 
             @click="clearFiles"
@@ -150,17 +150,17 @@
           >
             <div class="flex items-center gap-4 flex-1 min-w-0">
               <div class="relative">
-                <Icon name="heroicons:photo" class="text-2xl text-blue-600 group-hover:text-blue-700 transition-colors" aria-hidden="true" />
+                <Icon name="heroicons:photo" class="text-2xl text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors" aria-hidden="true" />
                 <div class="absolute -inset-1 bg-blue-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></div>
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors" :title="file.name">{{ file.name }}</p>
-                <p class="text-xs text-gray-600 font-medium">{{ formatFileSize(file.size) }}</p>
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-900 dark:group-hover:text-blue-300 transition-colors" :title="file.name">{{ file.name }}</p>
+                <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">{{ formatFileSize(file.size) }}</p>
               </div>
             </div>
             <button 
               @click="removeFile(index)"
-              class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              class="interactive-element p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all duration-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               :aria-label="$t('common.removeFile') + ' ' + file.name"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
@@ -172,22 +172,22 @@
 
     <!-- 转换设置 -->
     <ClientOnly>
-      <section v-if="hasFiles" class="bg-white rounded-lg shadow-sm border p-6" role="region" aria-labelledby="settings-title">
-        <h3 id="settings-title" class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-          <Icon name="heroicons:cog-6-tooth" aria-hidden="true" />
+      <section v-if="hasFiles" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300" role="region" aria-labelledby="settings-title">
+        <h3 id="settings-title" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+          <Icon name="heroicons:cog-6-tooth" class="text-gray-700 dark:text-gray-300" aria-hidden="true" />
           {{ $t('heicConverter.convertSettings') }}
         </h3>
         
         <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- 输出格式 -->
           <div>
-            <label for="output-format" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="output-format" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('heicConverter.outputFormat') }}
             </label>
             <select 
               id="output-format"
               v-model="convertOptions.format"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               aria-describedby="format-help"
             >
               <option value="jpeg">JPEG (.jpg)</option>
@@ -199,7 +199,7 @@
 
           <!-- 图片质量 -->
           <div v-if="convertOptions.format !== 'png'">
-            <label for="image-quality" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="image-quality" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('heicConverter.imageQuality') }}: {{ convertOptions.quality }}%
             </label>
             <input 
@@ -213,7 +213,7 @@
               :aria-label="`图片质量: ${convertOptions.quality}%`"
               aria-describedby="quality-help"
             >
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
+            <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
               <span>{{ $t('heicConverter.lowQuality') }}</span>
               <span>{{ $t('heicConverter.highQuality') }}</span>
             </div>
@@ -253,10 +253,10 @@
           </button>
 
           <!-- 进度条 -->
-          <div v-if="isConverting" id="conversion-progress" class="space-y-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" :aria-label="$t('heicConverter.progressLabel', { progress })">
+          <div v-if="isConverting" id="conversion-progress" class="space-y-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl border border-blue-200 dark:border-blue-800" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" :aria-label="$t('heicConverter.progressLabel', { progress })">
             <div class="flex justify-between items-center">
-              <span class="text-lg font-semibold text-gray-700">{{ $t('heicConverter.convertProgress') }}</span>
-              <span class="text-lg font-bold text-blue-600" aria-live="polite">{{ progress }}%</span>
+              <span class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ $t('heicConverter.convertProgress') }}</span>
+              <span class="text-lg font-bold text-blue-600 dark:text-blue-400" aria-live="polite">{{ progress }}%</span>
             </div>
             <div class="enhanced-progress">
               <div 
@@ -264,16 +264,16 @@
                 :style="{ width: `${progress}%` }"
               ></div>
             </div>
-            <p class="text-center text-sm text-gray-600 font-medium">{{ $t('heicConverter.progressComplete', { progress }) }}</p>
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400 font-medium">{{ $t('heicConverter.progressComplete', { progress }) }}</p>
           </div>
 
           <!-- 转换错误 -->
-          <div v-if="convertError" class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg shadow-sm">
+          <div v-if="convertError" class="p-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 dark:border-red-600 rounded-lg shadow-sm">
             <div class="flex items-start gap-3">
-              <Icon name="heroicons:exclamation-triangle" class="text-red-500 text-xl flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <Icon name="heroicons:exclamation-triangle" class="text-red-500 dark:text-red-400 text-xl flex-shrink-0 mt-0.5" aria-hidden="true" />
               <div>
-                <h4 class="text-red-800 font-semibold mb-1">{{ $t('heicConverter.convertError') }}</h4>
-                <p class="text-red-700 text-sm">{{ convertError }}</p>
+                <h4 class="text-red-800 dark:text-red-300 font-semibold mb-1">{{ $t('heicConverter.convertError') }}</h4>
+                <p class="text-red-700 dark:text-red-400 text-sm">{{ convertError }}</p>
               </div>
             </div>
           </div>
@@ -285,31 +285,31 @@
     <ClientOnly>
       <div v-if="hasResults" class="results-section slide-up">
         <div class="text-center mb-6">
-          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <Icon name="heroicons:check-circle" class="text-3xl text-green-600" aria-hidden="true" />
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/50 rounded-full mb-4">
+            <Icon name="heroicons:check-circle" class="text-3xl text-green-600 dark:text-green-400" aria-hidden="true" />
           </div>
-          <h3 class="text-2xl font-bold text-green-800 mb-2">
+          <h3 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-2">
             {{ $t('heicConverter.convertComplete') }}
           </h3>
-          <p class="text-gray-600">{{ $t('heicConverter.convertCompleteDesc', { count: convertResults.length }) }}</p>
+          <p class="text-gray-600 dark:text-gray-400">{{ $t('heicConverter.convertCompleteDesc', { count: convertResults.length }) }}</p>
         </div>
         
         <div class="grid gap-4 mb-6">
           <div 
             v-for="(result, index) in convertResults" 
             :key="index"
-            class="file-item group flex items-center justify-between bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 hover:border-green-300"
+            class="file-item group flex items-center justify-between bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 border-green-200 dark:border-green-800 hover:border-green-300 dark:hover:border-green-700"
           >
             <div class="flex items-center gap-4 flex-1 min-w-0">
               <div class="relative">
-                <Icon name="heroicons:photo" class="text-2xl text-green-600 group-hover:text-green-700 transition-colors" aria-hidden="true" />
+                <Icon name="heroicons:photo" class="text-2xl text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors" aria-hidden="true" />
                 <div class="absolute -inset-1 bg-green-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm font-semibold text-gray-900 truncate group-hover:text-green-900 transition-colors" :title="result.filename">
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-green-900 dark:group-hover:text-green-300 transition-colors" :title="result.filename">
                   {{ result.filename }}
                 </p>
-                <p class="text-xs text-gray-600 font-medium">
+                <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">
                   {{ formatFileSize(result.convertedBlob.size) }}
                 </p>
               </div>
@@ -347,35 +347,35 @@
     <!-- 使用说明 -->
     <div class="instructions-section slide-up">
       <div class="text-center mb-6">
-        <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
-          <Icon name="heroicons:information-circle" class="text-2xl text-blue-600" aria-hidden="true" />
+        <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full mb-3">
+          <Icon name="heroicons:information-circle" class="text-2xl text-blue-600 dark:text-blue-400" aria-hidden="true" />
         </div>
-        <h3 class="text-xl font-bold text-blue-900">
+        <h3 class="text-xl font-bold text-blue-900 dark:text-blue-300">
           {{ $t('heicConverter.instructions.title') }}
         </h3>
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
-        <div class="instruction-item bg-white/60 rounded-lg border border-blue-100">
-          <Icon name="heroicons:check-circle" class="instruction-icon text-green-500" aria-hidden="true" />
-          <p class="text-blue-800 font-medium">
+        <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-blue-100 dark:border-blue-900">
+          <Icon name="heroicons:check-circle" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+          <p class="text-blue-800 dark:text-blue-300 font-medium">
             {{ $t('heicConverter.instructions.support') }}
           </p>
         </div>
-        <div class="instruction-item bg-white/60 rounded-lg border border-blue-100">
-           <Icon name="heroicons:shield-check" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-blue-800 font-medium">
+        <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-blue-100 dark:border-blue-900">
+           <Icon name="heroicons:shield-check" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-blue-800 dark:text-blue-300 font-medium">
              {{ $t('heicConverter.instructions.privacy') }}
            </p>
          </div>
-         <div class="instruction-item bg-white/60 rounded-lg border border-blue-100">
-           <Icon name="heroicons:squares-plus" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-blue-800 font-medium">
+         <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-blue-100 dark:border-blue-900">
+           <Icon name="heroicons:squares-plus" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-blue-800 dark:text-blue-300 font-medium">
              {{ $t('heicConverter.instructions.batch') }}
            </p>
          </div>
-         <div class="instruction-item bg-white/60 rounded-lg border border-blue-100">
-           <Icon name="heroicons:photo" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-blue-800 font-medium">
+         <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-blue-100 dark:border-blue-900">
+           <Icon name="heroicons:photo" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-blue-800 dark:text-blue-300 font-medium">
              {{ $t('heicConverter.instructions.formats') }}
            </p>
          </div>
@@ -706,6 +706,84 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<!-- 非 scoped 样式 - 用于深色模式支持 -->
+<style>
+/* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
+:root.dark .heic-converter .core-feature-section {
+  background: linear-gradient(to bottom right, #1f2937, rgba(30, 58, 138, 0.3), rgba(88, 28, 135, 0.3));
+  border-color: #374151;
+}
+
+:root.dark .heic-converter .section-subtitle {
+  color: #9ca3af;
+}
+
+:root.dark .heic-converter .enhanced-upload-zone {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #1e293b 100%);
+  border-color: #374151;
+}
+
+:root.dark .heic-converter .enhanced-upload-zone:hover {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e3a8a 50%, #312e81 100%);
+}
+
+:root.dark .heic-converter .enhanced-upload-zone.drag-over {
+  border-color: #60a5fa;
+  background: linear-gradient(135deg, #1e3a8a 0%, #312e81 50%, #4c1d95 100%);
+}
+
+:root.dark .heic-converter .file-list-section {
+  background: linear-gradient(to right, #1f2937, rgba(30, 58, 138, 0.3));
+  border-color: #374151;
+}
+
+:root.dark .heic-converter .file-item {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .heic-converter .file-item:hover {
+  border-color: #2563eb;
+  background-color: rgba(30, 58, 138, 0.3);
+}
+
+:root.dark .heic-converter .convert-section {
+  background: linear-gradient(to bottom right, rgba(30, 58, 138, 0.3), #1f2937, rgba(88, 28, 135, 0.3));
+  border-color: #1e40af;
+}
+
+:root.dark .heic-converter .results-section {
+  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(30, 58, 138, 0.3));
+  border-color: #166534;
+}
+
+:root.dark .heic-converter .instructions-section {
+  background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.3), #1f2937, rgba(88, 28, 135, 0.3));
+  border-color: #3730a3;
+}
+
+:root.dark .heic-converter .instruction-item:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+:root.dark .heic-converter .instruction-icon {
+  color: #60a5fa;
+}
+
+:root.dark .heic-converter .enhanced-progress {
+  background-color: #374151;
+}
+
+:root.dark .heic-converter #image-quality {
+  background: #374151;
+}
+
+:root.dark .heic-converter #image-quality::-moz-range-track {
+  background: #374151;
+}
+</style>
 
 <style scoped>
 /* HEIC转换器专用样式 */

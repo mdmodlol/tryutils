@@ -12,14 +12,14 @@
       ref="triggerButton"
       type="button"
     >
-      <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
-      <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+      <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" aria-hidden="true" />
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
         {{ currentLanguageLabel }}
       </span>
       <Icon 
         name="heroicons:chevron-down" 
         :class="[
-          'w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-all duration-300',
+          'w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300',
           isOpen ? 'rotate-180' : 'rotate-0'
         ]" 
         aria-hidden="true"
@@ -330,33 +330,39 @@ onMounted(() => {
   }
 }
 
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  .language-switcher-btn {
-    @apply bg-gray-800 border-gray-700 text-gray-200;
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-  }
-  
-  .language-dropdown {
-    @apply bg-gray-800 border-gray-600;
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    box-shadow: 
-      0 10px 25px -3px rgba(0, 0, 0, 0.3),
-      0 4px 6px -2px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-  
-  .language-option-inactive {
-    @apply text-gray-300;
-  }
-  
-  .language-option-inactive:hover {
-    @apply text-blue-400;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
-  }
-  
-  .language-option-active {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  }
+</style>
+
+<!-- 非 scoped 样式 - 用于深色模式支持 -->
+<style>
+/* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
+:root.dark .language-switcher-btn {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-color: #374151;
+}
+
+:root.dark .language-switcher-btn:hover {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+}
+
+:root.dark .language-dropdown {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-color: #4b5563;
+  box-shadow: 
+    0 10px 25px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .language-option-inactive {
+  color: #d1d5db;
+}
+
+:root.dark .language-option-inactive:hover {
+  color: #60a5fa;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+}
+
+:root.dark .language-option-active {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
 }
 </style>

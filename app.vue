@@ -1,7 +1,7 @@
 <template>
   <div id="app" lang="zh-CN">
     <NuxtLayout>
-      <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
         <!-- Skip to main content link for accessibility -->
         <a 
           href="#main-content" 
@@ -12,7 +12,7 @@
         </a>
 
         <!-- 顶部导航栏 -->
-        <header class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100" role="banner">
+        <header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm dark:shadow-gray-900/50 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300" role="banner">
           <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
               <!-- 品牌标志 -->
@@ -22,10 +22,10 @@
                   class="group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg" 
                   :aria-label="$t('nav.homePageLink')"
                 >
-                  <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300">
+                  <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-500 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 dark:hover:from-purple-400 dark:hover:to-blue-400 transition-all duration-300">
                     TryUtils
                   </h1>
-                  <p class="text-gray-600 text-xs mt-1 group-hover:text-gray-800 transition-colors">
+                  <p class="text-gray-600 dark:text-gray-400 text-xs mt-1 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
                     {{ $t('brand.tagline') }}
                   </p>
                 </NuxtLink>
@@ -115,6 +115,9 @@
                   {{ $t('nav.contact') }}
                 </NuxtLink>
                 
+                <!-- 主题切换器 -->
+                <ThemeToggle />
+                
                 <!-- 语言切换器 -->
                 <LanguageSwitcher />
               </nav>
@@ -122,7 +125,7 @@
               <!-- 移动端菜单按钮 -->
               <button 
                 @click="toggleMobileMenu"
-                class="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
                 :aria-expanded="isMobileMenuOpen"
                 aria-controls="mobile-menu"
                 :aria-label="$t('nav.toggleMobileMenu')"
@@ -137,7 +140,7 @@
             <div 
               v-show="isMobileMenuOpen" 
               id="mobile-menu" 
-              class="md:hidden mt-4 pb-4 border-t border-gray-100"
+              class="md:hidden mt-4 pb-4 border-t border-gray-100 dark:border-gray-800"
               :aria-hidden="!isMobileMenuOpen"
             >
               <nav 
@@ -214,8 +217,9 @@
                   {{ $t('nav.contact') }}
                 </NuxtLink>
                 
-                <!-- Mobile Language Switcher -->
-                <div class="pt-2 border-t border-gray-200">
+                <!-- Mobile Theme and Language Switcher -->
+                <div class="pt-2 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                  <ThemeToggle />
                   <LanguageSwitcher />
                 </div>
               </nav>
@@ -229,7 +233,7 @@
         </main>
 
         <!-- 页脚 -->
-        <footer class="bg-gray-900 text-white" role="contentinfo">
+        <footer class="bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300" role="contentinfo">
           <div class="max-w-6xl mx-auto px-6 py-12">
             <div class="grid md:grid-cols-4 gap-8">
               <!-- 品牌信息 -->
@@ -304,7 +308,7 @@
             </div>
             
             <!-- 版权信息 -->
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <div class="border-t border-gray-800 dark:border-gray-700 mt-8 pt-8 text-center text-gray-400">
               <p>&copy; {{ new Date().getFullYear() }} TryUtils. {{ $t('footer.copyright') }}</p>
             </div>
           </div>

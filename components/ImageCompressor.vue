@@ -51,10 +51,10 @@
             <div class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
               <div class="space-y-1">
-                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+                <p class="text-xl font-semibold text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">
                   {{ $t('imageCompressor.dragText') }}
                 </p>
-                <p class="text-gray-500 text-sm leading-relaxed">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                   {{ $t('imageCompressor.batchUploadText') }}
                 </p>
               </div>
@@ -83,9 +83,9 @@
             </div>
             
             <!-- 支持信息 - 缩小尺寸 -->
-            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-100">
-              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-xs font-medium text-green-700">
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/30 rounded-full border border-green-100 dark:border-green-800">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-green-600 dark:text-green-400" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-green-700 dark:text-green-300">
                 {{ $t('imageCompressor.supportInfo') }}
               </p>
             </div>
@@ -93,8 +93,8 @@
         </div>
 
         <!-- 错误信息 -->
-        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite">
-          <p class="text-red-600 text-sm flex items-center gap-2">
+        <div v-if="dragError" class="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg" role="alert" aria-live="polite">
+          <p class="text-red-600 dark:text-red-400 text-sm flex items-center gap-2">
             <Icon name="heroicons:exclamation-triangle" aria-hidden="true" />
             {{ dragError }}
           </p>
@@ -103,9 +103,9 @@
         <template #fallback>
           <div class="upload-zone">
             <div class="space-y-4">
-              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400" />
+              <Icon name="heroicons:photo" class="mx-auto text-6xl text-gray-400 dark:text-gray-500" />
               <div>
-                <p class="text-lg text-gray-600">
+                <p class="text-lg text-gray-600 dark:text-gray-400">
                   {{ $t('imageCompressor.loading') }}
                 </p>
               </div>
@@ -119,10 +119,10 @@
     <ClientOnly>
       <section v-if="hasFiles" class="file-list-section slide-up" role="region" aria-labelledby="file-list-title">
         <div class="flex items-center justify-between mb-6">
-          <h3 id="file-list-title" class="text-xl font-bold text-gray-900 flex items-center gap-3">
-            <Icon name="heroicons:document-duplicate" class="text-green-600" aria-hidden="true" />
+          <h3 id="file-list-title" class="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+            <Icon name="heroicons:document-duplicate" class="text-green-600 dark:text-green-400" aria-hidden="true" />
             {{ $t('imageCompressor.selectedFiles') }}
-            <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full">{{ files.length }}</span>
+            <span class="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 text-sm font-medium px-2.5 py-0.5 rounded-full">{{ files.length }}</span>
           </h3>
           <button 
             @click="clearFiles"
@@ -142,17 +142,17 @@
           >
             <div class="flex items-center gap-4 flex-1 min-w-0">
               <div class="relative">
-                <Icon name="heroicons:photo" class="text-2xl text-green-600 group-hover:text-green-700 transition-colors" aria-hidden="true" />
+                <Icon name="heroicons:photo" class="text-2xl text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors" aria-hidden="true" />
                 <div class="absolute -inset-1 bg-green-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm font-semibold text-gray-900 truncate group-hover:text-green-900 transition-colors" :title="file.name">{{ file.name }}</p>
-                <p class="text-xs text-gray-600 font-medium">{{ formatFileSize(file.size) }}</p>
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-green-900 dark:group-hover:text-green-300 transition-colors" :title="file.name">{{ file.name }}</p>
+                <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">{{ formatFileSize(file.size) }}</p>
               </div>
             </div>
             <button 
               @click="removeFile(index)"
-              class="interactive-element p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+              class="interactive-element p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all duration-200"
               :aria-label="$t('common.removeFile') + ' ' + file.name"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
@@ -164,24 +164,24 @@
 
     <!-- 压缩设置 -->
     <ClientOnly>
-      <section v-if="hasFiles" class="bg-white rounded-lg shadow-sm border p-6" role="region" aria-labelledby="settings-title">
+      <section v-if="hasFiles" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300" role="region" aria-labelledby="settings-title">
         <div class="flex items-center justify-between mb-4">
-          <h3 id="settings-title" class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <Icon name="heroicons:cog-6-tooth" aria-hidden="true" />
+          <h3 id="settings-title" class="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+            <Icon name="heroicons:cog-6-tooth" class="text-gray-700 dark:text-gray-300" aria-hidden="true" />
             {{ $t('imageCompressor.compressionSettings') }}
           </h3>
-          <div class="text-sm text-gray-600">
+          <div class="text-sm text-gray-600 dark:text-gray-400">
             {{ $t('imageCompressor.totalSize') }}: 
-            <span class="font-semibold text-gray-900">{{ formatFileSize(files.reduce((sum, file) => sum + file.size, 0)) }}</span>
+            <span class="font-semibold text-gray-900 dark:text-gray-100">{{ formatFileSize(files.reduce((sum, file) => sum + file.size, 0)) }}</span>
           </div>
         </div>
         
         <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- 文件大小限制 -->
           <div>
-            <label for="max-size" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="max-size" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.maxFileSize') }}: {{ compressionOptions.maxSizeMB || $t('imageCompressor.noLimit') }}
-              <span v-if="hasFiles" class="text-xs text-gray-500 ml-2">
+              <span v-if="hasFiles" class="text-xs text-gray-500 dark:text-gray-400 ml-2">
                 ({{ $t('imageCompressor.basedOnFileSize') }})
               </span>
             </label>
@@ -189,7 +189,7 @@
 
           <!-- 图片质量 -->
           <div>
-            <label for="image-quality" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="image-quality" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.imageQuality') }}: {{ compressionOptions.quality }}%
             </label>
             <input 
@@ -199,10 +199,10 @@
               min="10" 
               max="100" 
               step="5"
-              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
               :aria-label="$t('imageCompressor.qualityAriaLabel', { quality: compressionOptions.quality })"
             >
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
+            <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
               <span>{{ $t('imageCompressor.lowQuality') }}</span>
               <span>{{ $t('imageCompressor.highQuality') }}</span>
             </div>
@@ -210,13 +210,13 @@
 
           <!-- 输出格式 -->
           <div>
-            <label for="output-format" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="output-format" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.outputFormat') }}
             </label>
             <select 
               id="output-format"
               v-model="compressionOptions.format"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             >
               <option value="jpeg">JPEG (.jpg)</option>
               <option value="png">PNG (.png)</option>
@@ -227,7 +227,7 @@
 
           <!-- 最大宽度 -->
           <div>
-            <label for="max-width" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="max-width" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.maxWidth') }}
             </label>
             <input 
@@ -237,13 +237,13 @@
               min="100"
               max="4096"
               :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             >
           </div>
 
           <!-- 最大高度 -->
           <div>
-            <label for="max-height" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="max-height" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.maxHeight') }}
             </label>
             <input 
@@ -253,13 +253,13 @@
               min="100"
               max="4096"
               :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             >
           </div>
 
           <!-- 最大文件大小 -->
           <div>
-            <label for="max-size-mb" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="max-size-mb" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.maxSizeMB') }}
             </label>
             <input 
@@ -270,27 +270,27 @@
               max="50"
               step="0.1"
               :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none"
               aria-describedby="size-description"
             >
-            <p id="size-description" class="text-xs text-gray-500 mt-1">{{ $t('imageCompressor.sizeDescription') }}</p>
+            <p id="size-description" class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $t('imageCompressor.sizeDescription') }}</p>
           </div>
           </form>
           
           <!-- 压缩预估 -->
-          <div v-if="hasFiles" class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200" role="region" aria-labelledby="estimate-title">
-            <h3 id="estimate-title" class="text-sm font-semibold text-gray-800 mb-2 flex items-center gap-2">
-              <Icon name="heroicons:calculator" class="text-blue-600" aria-hidden="true" />
+          <div v-if="hasFiles" class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 rounded-lg border border-blue-200 dark:border-blue-800" role="region" aria-labelledby="estimate-title">
+            <h3 id="estimate-title" class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+              <Icon name="heroicons:calculator" class="text-blue-600 dark:text-blue-400" aria-hidden="true" />
               {{ $t('imageCompressor.compressionEstimate') }}
             </h3>
             <dl class="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <dt class="text-gray-600">{{ $t('imageCompressor.estimatedSize') }}:</dt>
-                <dd class="font-semibold text-blue-700 ml-1">{{ formatFileSize(compressionEstimate.estimatedSize) }}</dd>
+                <dt class="text-gray-600 dark:text-gray-400">{{ $t('imageCompressor.estimatedSize') }}:</dt>
+                <dd class="font-semibold text-blue-700 dark:text-blue-400 ml-1">{{ formatFileSize(compressionEstimate.estimatedSize) }}</dd>
               </div>
               <div>
-                <dt class="text-gray-600">{{ $t('imageCompressor.estimatedSavings') }}:</dt>
-                <dd class="font-semibold text-green-700 ml-1">{{ Math.round(compressionEstimate.estimatedSavings) }}%</dd>
+                <dt class="text-gray-600 dark:text-gray-400">{{ $t('imageCompressor.estimatedSavings') }}:</dt>
+                <dd class="font-semibold text-green-700 dark:text-green-400 ml-1">{{ Math.round(compressionEstimate.estimatedSavings) }}%</dd>
               </div>
             </dl>
           </div>
@@ -326,10 +326,10 @@
           </button>
 
           <!-- 进度条 -->
-          <div v-if="isCompressing" class="space-y-4 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-200" role="progressbar" :aria-valuenow="progress.percentage" aria-valuemin="0" aria-valuemax="100">
+          <div v-if="isCompressing" class="space-y-4 p-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/30 dark:to-blue-900/30 rounded-xl border border-green-200 dark:border-green-800" role="progressbar" :aria-valuenow="progress.percentage" aria-valuemin="0" aria-valuemax="100">
             <div class="flex justify-between items-center">
-              <span class="text-lg font-semibold text-gray-700">{{ $t('imageCompressor.compressProgress') }}</span>
-              <span class="text-lg font-bold text-green-600" aria-live="polite">{{ progress.percentage }}%</span>
+              <span class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ $t('imageCompressor.compressProgress') }}</span>
+              <span class="text-lg font-bold text-green-600 dark:text-green-400" aria-live="polite">{{ progress.percentage }}%</span>
             </div>
             <div class="enhanced-progress">
               <div 
@@ -337,18 +337,18 @@
                 :style="{ width: `${progress.percentage}%` }"
               ></div>
             </div>
-            <p class="text-center text-sm text-gray-600 font-medium">
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400 font-medium">
               {{ $t('imageCompressor.processingFile') }}: {{ progress.currentFileName }}
             </p>
           </div>
 
           <!-- 压缩错误 -->
-          <div v-if="compressionError" class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg shadow-sm">
+          <div v-if="compressionError" class="p-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 dark:border-red-600 rounded-lg shadow-sm">
             <div class="flex items-start gap-3">
-              <Icon name="heroicons:exclamation-triangle" class="text-red-500 text-xl flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <Icon name="heroicons:exclamation-triangle" class="text-red-500 dark:text-red-400 text-xl flex-shrink-0 mt-0.5" aria-hidden="true" />
               <div>
-                <h4 class="text-red-800 font-semibold mb-1">{{ $t('imageCompressor.compressionError') }}</h4>
-                <p class="text-red-700 text-sm">{{ compressionError }}</p>
+                <h4 class="text-red-800 dark:text-red-300 font-semibold mb-1">{{ $t('imageCompressor.compressionError') }}</h4>
+                <p class="text-red-700 dark:text-red-400 text-sm">{{ compressionError }}</p>
               </div>
             </div>
           </div>
@@ -360,27 +360,27 @@
     <ClientOnly>
       <div v-if="hasResults" class="results-section slide-up">
         <div class="text-center mb-6">
-          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <Icon name="heroicons:check-circle" class="text-3xl text-green-600" aria-hidden="true" />
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/50 rounded-full mb-4">
+            <Icon name="heroicons:check-circle" class="text-3xl text-green-600 dark:text-green-400" aria-hidden="true" />
           </div>
-          <h3 class="text-2xl font-bold text-green-800 mb-2">
+          <h3 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-2">
             {{ $t('imageCompressor.compressionComplete') }}
           </h3>
-          <p class="text-gray-600">{{ $t('imageCompressor.compressionCompleteDesc', { count: compressionResults.length }) }}</p>
+          <p class="text-gray-600 dark:text-gray-400">{{ $t('imageCompressor.compressionCompleteDesc', { count: compressionResults.length }) }}</p>
           
           <!-- 压缩统计 -->
           <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            <div class="bg-blue-50 rounded-lg p-4">
-              <p class="text-sm text-blue-600 font-medium">{{ $t('imageCompressor.originalSize') }}</p>
-              <p class="text-lg font-bold text-blue-800">{{ formatFileSize(compressionStats.originalTotalSize) }}</p>
+            <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4">
+              <p class="text-sm text-blue-600 dark:text-blue-400 font-medium">{{ $t('imageCompressor.originalSize') }}</p>
+              <p class="text-lg font-bold text-blue-800 dark:text-blue-300">{{ formatFileSize(compressionStats.originalTotalSize) }}</p>
             </div>
-            <div class="bg-green-50 rounded-lg p-4">
-              <p class="text-sm text-green-600 font-medium">{{ $t('imageCompressor.compressedSize') }}</p>
-              <p class="text-lg font-bold text-green-800">{{ formatFileSize(compressionStats.compressedTotalSize) }}</p>
+            <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-4">
+              <p class="text-sm text-green-600 dark:text-green-400 font-medium">{{ $t('imageCompressor.compressedSize') }}</p>
+              <p class="text-lg font-bold text-green-800 dark:text-green-300">{{ formatFileSize(compressionStats.compressedTotalSize) }}</p>
             </div>
-            <div class="bg-purple-50 rounded-lg p-4">
-              <p class="text-sm text-purple-600 font-medium">{{ $t('imageCompressor.spaceSaved') }}</p>
-              <p class="text-lg font-bold text-purple-800">{{ Math.round(compressionStats.averageCompressionRatio) }}%</p>
+            <div class="bg-purple-50 dark:bg-purple-900/30 rounded-lg p-4">
+              <p class="text-sm text-purple-600 dark:text-purple-400 font-medium">{{ $t('imageCompressor.spaceSaved') }}</p>
+              <p class="text-lg font-bold text-purple-800 dark:text-purple-300">{{ Math.round(compressionStats.averageCompressionRatio) }}%</p>
             </div>
           </div>
         </div>
@@ -390,15 +390,15 @@
           <div 
             v-for="(result, index) in compressionResults" 
             :key="index"
-            class="result-item bg-white rounded-lg border border-green-200 p-4"
+            class="result-item bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-800 p-4"
           >
             <div class="flex flex-col lg:flex-row gap-6">
               <!-- 图片对比 -->
               <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- 原始图片 -->
                 <div class="space-y-2">
-                  <h4 class="text-sm font-medium text-gray-700">{{ $t('imageCompressor.original') }}</h4>
-                  <div class="relative bg-gray-100 rounded-lg overflow-hidden aspect-video">
+                  <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ $t('imageCompressor.original') }}</h4>
+                  <div class="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden aspect-video">
                     <img 
                       :src="result.originalUrl" 
                       :alt="result.originalFile.name"
@@ -406,13 +406,13 @@
                       loading="lazy"
                     >
                   </div>
-                  <p class="text-xs text-gray-500">{{ formatFileSize(result.originalSize) }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(result.originalSize) }}</p>
                 </div>
                 
                 <!-- 压缩后图片 -->
                 <div class="space-y-2">
-                  <h4 class="text-sm font-medium text-gray-700">{{ $t('imageCompressor.compressed') }}</h4>
-                  <div class="relative bg-gray-100 rounded-lg overflow-hidden aspect-video">
+                  <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ $t('imageCompressor.compressed') }}</h4>
+                  <div class="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden aspect-video">
                     <img 
                       :src="result.compressedUrl" 
                       :alt="result.filename"
@@ -420,15 +420,15 @@
                       loading="lazy"
                     >
                   </div>
-                  <p class="text-xs text-gray-500">{{ formatFileSize(result.compressedSize) }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(result.compressedSize) }}</p>
                 </div>
               </div>
               
               <!-- 文件信息和下载 -->
               <div class="lg:w-64 space-y-4">
                 <div>
-                  <h4 class="font-semibold text-gray-900 truncate" :title="result.filename">{{ result.filename }}</h4>
-                  <p class="text-sm text-green-600 font-medium">
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100 truncate" :title="result.filename">{{ result.filename }}</h4>
+                  <p class="text-sm text-green-600 dark:text-green-400 font-medium">
                     {{ $t('imageCompressor.compressionRatio') }}: {{ Math.round(result.compressionRatio) }}%
                   </p>
                 </div>
@@ -467,35 +467,35 @@
     <!-- 使用说明 -->
     <div class="instructions-section slide-up">
       <div class="text-center mb-6">
-        <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-3">
-          <Icon name="heroicons:information-circle" class="text-2xl text-green-600" aria-hidden="true" />
+        <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full mb-3">
+          <Icon name="heroicons:information-circle" class="text-2xl text-green-600 dark:text-green-400" aria-hidden="true" />
         </div>
-        <h3 class="text-xl font-bold text-green-900">
+        <h3 class="text-xl font-bold text-green-900 dark:text-green-300">
           {{ $t('imageCompressor.instructions.title') }}
         </h3>
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
-        <div class="instruction-item bg-white/60 rounded-lg border border-green-100">
-          <Icon name="heroicons:check-circle" class="instruction-icon text-green-500" aria-hidden="true" />
-          <p class="text-green-800 font-medium">
+        <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-green-100 dark:border-green-900">
+          <Icon name="heroicons:check-circle" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+          <p class="text-green-800 dark:text-green-300 font-medium">
             {{ $t('imageCompressor.instructions.support') }}
           </p>
         </div>
-        <div class="instruction-item bg-white/60 rounded-lg border border-green-100">
-           <Icon name="heroicons:shield-check" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-green-800 font-medium">
+        <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-green-100 dark:border-green-900">
+           <Icon name="heroicons:shield-check" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-green-800 dark:text-green-300 font-medium">
              {{ $t('imageCompressor.instructions.privacy') }}
            </p>
          </div>
-         <div class="instruction-item bg-white/60 rounded-lg border border-green-100">
-           <Icon name="heroicons:squares-plus" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-green-800 font-medium">
+         <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-green-100 dark:border-green-900">
+           <Icon name="heroicons:squares-plus" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-green-800 dark:text-green-300 font-medium">
              {{ $t('imageCompressor.instructions.batch') }}
            </p>
          </div>
-         <div class="instruction-item bg-white/60 rounded-lg border border-green-100">
-           <Icon name="heroicons:arrow-down-tray" class="instruction-icon text-green-500" aria-hidden="true" />
-           <p class="text-green-800 font-medium">
+         <div class="instruction-item bg-white/60 dark:bg-gray-800/60 rounded-lg border border-green-100 dark:border-green-900">
+           <Icon name="heroicons:arrow-down-tray" class="instruction-icon text-green-500 dark:text-green-400" aria-hidden="true" />
+           <p class="text-green-800 dark:text-green-300 font-medium">
              {{ $t('imageCompressor.instructions.compression') }}
            </p>
          </div>
@@ -1226,8 +1226,78 @@ onMounted(() => {
 })
 </script>
 
+<!-- 非 scoped 样式 - 用于深色模式支持 -->
+<style>
+/* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
+:root.dark .image-compressor .core-feature-section {
+  background: linear-gradient(to bottom right, #1f2937, rgba(20, 83, 45, 0.3), rgba(30, 58, 138, 0.3));
+  border-color: #374151;
+}
+
+:root.dark .image-compressor .section-subtitle {
+  color: #9ca3af;
+}
+
+:root.dark .image-compressor .enhanced-upload-zone {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #1e293b 100%);
+  border-color: #374151;
+}
+
+:root.dark .image-compressor .enhanced-upload-zone:hover {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%);
+}
+
+:root.dark .image-compressor .enhanced-upload-zone.drag-over {
+  border-color: #4ade80;
+  background: linear-gradient(135deg, #166534 0%, #15803d 50%, #22c55e 100%);
+}
+
+:root.dark .image-compressor .file-list-section {
+  background: linear-gradient(to right, #1f2937, rgba(20, 83, 45, 0.3));
+  border-color: #374151;
+}
+
+:root.dark .image-compressor .file-item {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .image-compressor .file-item:hover {
+  border-color: #16a34a;
+  background-color: rgba(20, 83, 45, 0.3);
+}
+
+:root.dark .image-compressor .compress-section {
+  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(30, 58, 138, 0.3));
+  border-color: #166534;
+}
+
+:root.dark .image-compressor .results-section {
+  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(30, 58, 138, 0.3));
+  border-color: #166534;
+}
+
+:root.dark .image-compressor .instructions-section {
+  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(30, 58, 138, 0.3));
+  border-color: #166534;
+}
+
+:root.dark .image-compressor .instruction-item:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+:root.dark .image-compressor .instruction-icon {
+  color: #4ade80;
+}
+
+:root.dark .image-compressor .enhanced-progress {
+  background-color: #374151;
+}
+</style>
+
 <style scoped>
-/* 继承HEIC转换工具的样式 */
+/* 图片压缩器专用样式 */
 .image-compressor {
   @apply max-w-6xl mx-auto px-4 py-8;
 }

@@ -74,7 +74,7 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 </script>
 
 <template>
-  <div class="min-h-screen" itemscope itemtype="https://schema.org/WebPage">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300" itemscope itemtype="https://schema.org/WebPage">
     <!-- Skip to main content link for accessibility -->
     <a 
       href="#main-content" 
@@ -89,14 +89,14 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
       <section class="py-12 px-6" aria-labelledby="hero-title">
         <div class="max-w-4xl mx-auto text-center">
           <h1 id="hero-title" class="text-4xl md:text-5xl font-bold mb-6" itemprop="name">
-            <span class="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 dark:from-purple-400 dark:via-pink-400 dark:to-purple-400 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.hero.title') }}
             </span>
           </h1>
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed" itemprop="description">
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed" itemprop="description">
             {{ $t('imageFormatConverter.hero.subtitle') }}
           </p>
-          <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500" role="list" aria-label="产品特性">
+          <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400" role="list" aria-label="产品特性">
             <div class="flex items-center gap-2" role="listitem">
               <Icon name="heroicons:check-circle" class="w-5 h-5 text-green-500" aria-hidden="true" />
               <span>{{ $t('imageFormatConverter.hero.feature1') }}</span>
@@ -120,10 +120,10 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
       </section>
 
       <!-- 功能介绍 -->
-      <section class="py-12 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50" role="region" aria-labelledby="features-title">
+      <section class="py-12 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300" role="region" aria-labelledby="features-title">
         <div class="max-w-6xl mx-auto">
           <h2 id="features-title" class="text-3xl font-bold text-center mb-12">
-            <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.features.title') }}
             </span>
           </h2>
@@ -131,56 +131,56 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="功能特性列表">
             <!-- 多格式支持 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-purple-100 to-pink-100 group-hover:from-purple-200 group-hover:to-pink-200" aria-hidden="true">
-                <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600" />
+              <div class="feature-icon bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 group-hover:from-purple-200 group-hover:to-pink-200 dark:group-hover:from-purple-800/50 dark:group-hover:to-pink-800/50" aria-hidden="true">
+                <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.multiFormat.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.multiFormat.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.multiFormat.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.multiFormat.description') }}</p>
             </article>
 
             <!-- 高质量转换 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-green-100 to-emerald-100 group-hover:from-green-200 group-hover:to-emerald-200" aria-hidden="true">
-                <Icon name="heroicons:sparkles" class="w-8 h-8 text-green-600" />
+              <div class="feature-icon bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 group-hover:from-green-200 group-hover:to-emerald-200 dark:group-hover:from-green-800/50 dark:group-hover:to-emerald-800/50" aria-hidden="true">
+                <Icon name="heroicons:sparkles" class="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.highQuality.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.highQuality.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.highQuality.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.highQuality.description') }}</p>
             </article>
 
             <!-- 批量处理 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-blue-100 to-indigo-100 group-hover:from-blue-200 group-hover:to-indigo-200" aria-hidden="true">
-                <Icon name="heroicons:queue-list" class="w-8 h-8 text-blue-600" />
+              <div class="feature-icon bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 group-hover:from-blue-200 group-hover:to-indigo-200 dark:group-hover:from-blue-800/50 dark:group-hover:to-indigo-800/50" aria-hidden="true">
+                <Icon name="heroicons:queue-list" class="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.batchProcessing.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.batchProcessing.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.batchProcessing.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.batchProcessing.description') }}</p>
             </article>
 
             <!-- 隐私保护 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-orange-100 to-red-100 group-hover:from-orange-200 group-hover:to-red-200" aria-hidden="true">
-                <Icon name="heroicons:shield-check" class="w-8 h-8 text-orange-600" />
+              <div class="feature-icon bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/50 dark:to-red-900/50 group-hover:from-orange-200 group-hover:to-red-200 dark:group-hover:from-orange-800/50 dark:group-hover:to-red-800/50" aria-hidden="true">
+                <Icon name="heroicons:shield-check" class="w-8 h-8 text-orange-600 dark:text-orange-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.privacy.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.privacy.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.privacy.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.privacy.description') }}</p>
             </article>
 
             <!-- 快速处理 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-teal-100 to-cyan-100 group-hover:from-teal-200 group-hover:to-cyan-200" aria-hidden="true">
-                <Icon name="heroicons:bolt" class="w-8 h-8 text-teal-600" />
+              <div class="feature-icon bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/50 dark:to-cyan-900/50 group-hover:from-teal-200 group-hover:to-cyan-200 dark:group-hover:from-teal-800/50 dark:group-hover:to-cyan-800/50" aria-hidden="true">
+                <Icon name="heroicons:bolt" class="w-8 h-8 text-teal-600 dark:text-teal-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.fastProcessing.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.fastProcessing.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.fastProcessing.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.fastProcessing.description') }}</p>
             </article>
 
             <!-- 免费使用 -->
             <article class="feature-card group" role="listitem" itemscope itemtype="https://schema.org/Thing">
-              <div class="feature-icon bg-gradient-to-br from-pink-100 to-rose-100 group-hover:from-pink-200 group-hover:to-rose-200" aria-hidden="true">
-                <Icon name="heroicons:heart" class="w-8 h-8 text-pink-600" />
+              <div class="feature-icon bg-gradient-to-br from-pink-100 to-rose-100 dark:from-pink-900/50 dark:to-rose-900/50 group-hover:from-pink-200 group-hover:to-rose-200 dark:group-hover:from-pink-800/50 dark:group-hover:to-rose-800/50" aria-hidden="true">
+                <Icon name="heroicons:heart" class="w-8 h-8 text-pink-600 dark:text-pink-400" />
               </div>
-              <h3 class="text-xl font-semibold mb-3" itemprop="name">{{ $t('imageFormatConverter.features.free.title') }}</h3>
-              <p class="text-gray-600 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.free.description') }}</p>
+              <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100" itemprop="name">{{ $t('imageFormatConverter.features.free.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed" itemprop="description">{{ $t('imageFormatConverter.features.free.description') }}</p>
             </article>
           </div>
         </div>
@@ -190,7 +190,7 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
       <section class="py-12 px-6" role="region" aria-labelledby="guide-title">
         <div class="max-w-4xl mx-auto">
           <h2 id="guide-title" class="text-3xl font-bold text-center mb-8">
-            <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.guide.title') }}
             </span>
           </h2>
@@ -200,8 +200,8 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
             <li class="guide-step" role="listitem">
               <div class="guide-step-number" aria-hidden="true">1</div>
               <div class="guide-step-content">
-                <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step1.title') }}</h3>
-                <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step1.description') }}</p>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.guide.step1.title') }}</h3>
+                <p class="text-gray-600 dark:text-gray-300">{{ $t('imageFormatConverter.guide.step1.description') }}</p>
               </div>
             </li>
 
@@ -209,8 +209,8 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
             <li class="guide-step" role="listitem">
               <div class="guide-step-number" aria-hidden="true">2</div>
               <div class="guide-step-content">
-                <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step2.title') }}</h3>
-                <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step2.description') }}</p>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.guide.step2.title') }}</h3>
+                <p class="text-gray-600 dark:text-gray-300">{{ $t('imageFormatConverter.guide.step2.description') }}</p>
               </div>
             </li>
 
@@ -218,8 +218,8 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
             <li class="guide-step" role="listitem">
               <div class="guide-step-number" aria-hidden="true">3</div>
               <div class="guide-step-content">
-                <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step3.title') }}</h3>
-                <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step3.description') }}</p>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.guide.step3.title') }}</h3>
+                <p class="text-gray-600 dark:text-gray-300">{{ $t('imageFormatConverter.guide.step3.description') }}</p>
               </div>
             </li>
 
@@ -227,8 +227,8 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
             <li class="guide-step" role="listitem">
               <div class="guide-step-number" aria-hidden="true">4</div>
               <div class="guide-step-content">
-                <h3 class="text-xl font-semibold mb-2">{{ $t('imageFormatConverter.guide.step4.title') }}</h3>
-                <p class="text-gray-600">{{ $t('imageFormatConverter.guide.step4.description') }}</p>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.guide.step4.title') }}</h3>
+                <p class="text-gray-600 dark:text-gray-300">{{ $t('imageFormatConverter.guide.step4.description') }}</p>
               </div>
             </li>
           </ol>
@@ -236,10 +236,10 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
       </section>
 
       <!-- FAQ 部分 -->
-      <section class="py-12 px-6 bg-gradient-to-br from-gray-50 to-purple-50" role="region" aria-labelledby="faq-title">
+      <section class="py-12 px-6 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300" role="region" aria-labelledby="faq-title">
         <div class="max-w-4xl mx-auto">
           <h2 id="faq-title" class="text-3xl font-bold text-center mb-8">
-            <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               {{ $t('imageFormatConverter.faq.title') }}
             </span>
           </h2>
@@ -248,9 +248,9 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
             <!-- FAQ 项目 -->
             <details class="faq-item group" role="listitem">
               <summary class="faq-question" role="button" aria-expanded="false">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
-                <span>{{ $t('imageFormatConverter.faq.q1.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+                <span class="text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.faq.q1.question') }}</span>
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 dark:text-gray-500 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q1.answer') }}</p>
@@ -259,9 +259,9 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 
             <details class="faq-item group" role="listitem">
               <summary class="faq-question" role="button" aria-expanded="false">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
-                <span>{{ $t('imageFormatConverter.faq.q2.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+                <span class="text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.faq.q2.question') }}</span>
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 dark:text-gray-500 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q2.answer') }}</p>
@@ -270,9 +270,9 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 
             <details class="faq-item group" role="listitem">
               <summary class="faq-question" role="button" aria-expanded="false">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
-                <span>{{ $t('imageFormatConverter.faq.q3.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+                <span class="text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.faq.q3.question') }}</span>
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 dark:text-gray-500 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q3.answer') }}</p>
@@ -281,9 +281,9 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 
             <details class="faq-item group" role="listitem">
               <summary class="faq-question" role="button" aria-expanded="false">
-                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600" aria-hidden="true" />
-                <span>{{ $t('imageFormatConverter.faq.q4.question') }}</span>
-                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true" />
+                <Icon name="heroicons:question-mark-circle" class="w-5 h-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+                <span class="text-gray-900 dark:text-gray-100">{{ $t('imageFormatConverter.faq.q4.question') }}</span>
+                <Icon name="heroicons:chevron-down" class="w-5 h-5 text-gray-400 dark:text-gray-500 group-open:rotate-180 transition-transform" aria-hidden="true" />
               </summary>
               <div class="faq-answer">
                 <p>{{ $t('imageFormatConverter.faq.q4.answer') }}</p>
@@ -297,26 +297,26 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
       <section class="py-12 px-6" role="region" aria-labelledby="related-tools-title">
         <div class="max-w-6xl mx-auto">
           <h2 id="related-tools-title" class="text-3xl font-bold text-center mb-12">
-            <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               {{ t('home.relatedTools.title') }}
             </span>
           </h2>
           <div class="grid md:grid-cols-2 gap-8" role="list" aria-label="相关工具列表">
-            <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <article class="card p-8 group hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
               <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
                   <Icon name="heroicons:photo" class="w-6 h-6 text-white" />
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100" itemprop="name">
                   {{ t('nav.imageCompressor') }}
                 </h3>
               </div>
-              <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" itemprop="description">
                 {{ t('home.categories.imageTools.compressor.description') }}
               </p>
               <NuxtLink 
                 :to="localePath('/image-compressor')"
-                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                 :aria-label="`使用 ${t('nav.imageCompressor')} 工具`"
               >
                 {{ t('common.useNow') }}
@@ -324,21 +324,21 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
               </NuxtLink>
             </article>
 
-            <article class="card p-8 group hover:shadow-xl transition-all duration-300" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <article class="card p-8 group hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
               <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
                   <Icon name="heroicons:arrow-path" class="w-6 h-6 text-white" />
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900" itemprop="name">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100" itemprop="name">
                   {{ t('nav.heicConverter') }}
                 </h3>
               </div>
-              <p class="text-gray-600 mb-6 leading-relaxed" itemprop="description">
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" itemprop="description">
                 {{ t('home.categories.imageTools.heicConverter.description') }}
               </p>
               <NuxtLink 
                 :to="localePath('/heic-converter')"
-                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                 :aria-label="`使用 ${t('nav.heicConverter')} 工具`"
               >
                 {{ t('common.useNow') }}
@@ -359,11 +359,11 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 
 <style scoped>
 .feature-card {
-  @apply bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300;
+  @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300;
 }
 
 .feature-card:hover {
-  @apply shadow-lg border-purple-200;
+  @apply shadow-lg border-purple-200 dark:border-purple-700;
   transform: translateY(-4px);
 }
 
@@ -372,7 +372,7 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 }
 
 .guide-step {
-  @apply flex items-start gap-6 p-6 bg-white rounded-xl shadow-sm border border-gray-100;
+  @apply flex items-start gap-6 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700;
 }
 
 .guide-step-number {
@@ -384,11 +384,11 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 }
 
 .faq-item {
-  @apply bg-white rounded-lg border border-gray-200 overflow-hidden;
+  @apply bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden;
 }
 
 .faq-question {
-  @apply flex items-center gap-3 p-6 cursor-pointer hover:bg-gray-50 transition-colors;
+  @apply flex items-center gap-3 p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors;
   list-style: none;
 }
 
@@ -397,7 +397,7 @@ setEnhancedStructuredData([serviceSchema, howToSchema])
 }
 
 .faq-answer {
-  @apply px-6 pb-6 text-gray-600 leading-relaxed;
+  @apply px-6 pb-6 text-gray-600 dark:text-gray-300 leading-relaxed;
 }
 
 /* 响应式优化 */

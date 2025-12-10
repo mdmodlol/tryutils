@@ -83,7 +83,7 @@ setStructuredData(schemas)
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
     <!-- 跳转到主要内容的链接 -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
       跳转到主要内容
@@ -96,7 +96,7 @@ setStructuredData(schemas)
           <h1 class="text-5xl md:text-6xl font-bold text-gradient mb-6">
             {{ $t('blog.hero.title') }}
           </h1>
-          <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
             {{ $t('blog.hero.description') }}
           </p>
         </div>
@@ -123,8 +123,8 @@ setStructuredData(schemas)
             <h2 id="articles-heading" class="sr-only">博客文章列表</h2>
             
             <div v-if="pending" class="text-center py-12" role="status" aria-live="polite">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" aria-hidden="true"></div>
-              <p class="mt-4 text-gray-600">{{ $t('blog.loading') }}</p>
+              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto" aria-hidden="true"></div>
+              <p class="mt-4 text-gray-600 dark:text-gray-400">{{ $t('blog.loading') }}</p>
             </div>
 
             <div v-else-if="filteredArticles && filteredArticles.length > 0" class="space-y-8" role="list">
@@ -139,23 +139,23 @@ setStructuredData(schemas)
 
             <!-- 暂无文章 -->
             <div v-else class="text-center py-16" role="status" aria-live="polite">
-              <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
-                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
+                <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $t('blog.noArticles.title') }}</h3>
-              <p class="text-gray-600">{{ $t('blog.noArticles.description') }}</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.noArticles.title') }}</h3>
+              <p class="text-gray-600 dark:text-gray-400">{{ $t('blog.noArticles.description') }}</p>
             </div>
           </section>
 
           <!-- 分类导航 -->
           <section class="mt-16" aria-labelledby="categories-heading" role="region">
-            <h2 id="categories-heading" class="text-2xl font-bold text-gray-900 mb-8 text-center">{{ $t('blog.categories.title') }}</h2>
+            <h2 id="categories-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">{{ $t('blog.categories.title') }}</h2>
             <div class="grid md:grid-cols-3 gap-6" role="list">
               <NuxtLink 
                 to="/blog/HeicConverter/what-is-heic-format" 
-                class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+                class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                 role="listitem"
                 :aria-label="`阅读关于${$t('blog.categories.heic.title')}的文章`"
               >
@@ -164,28 +164,28 @@ setStructuredData(schemas)
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $t('blog.categories.heic.title') }}</h3>
-                <p class="text-gray-600 text-sm">{{ $t('blog.categories.heic.description') }}</p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.categories.heic.title') }}</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $t('blog.categories.heic.description') }}</p>
               </NuxtLink>
 
-              <div class="card p-6 text-center opacity-50" role="listitem" aria-label="即将推出的文档工具分类">
+              <div class="card p-6 text-center opacity-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" role="listitem" aria-label="即将推出的文档工具分类">
                 <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-4" aria-hidden="true">
                   <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">{{ $t('blog.categories.document.title') }}</h3>
-                <p class="text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ $t('blog.categories.document.title') }}</h3>
+                <p class="text-gray-500 dark:text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
               </div>
 
-              <div class="card p-6 text-center opacity-50" role="listitem" aria-label="即将推出的使用技巧分类">
+              <div class="card p-6 text-center opacity-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" role="listitem" aria-label="即将推出的使用技巧分类">
                 <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-4" aria-hidden="true">
                   <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">{{ $t('blog.categories.tips.title') }}</h3>
-                <p class="text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ $t('blog.categories.tips.title') }}</h3>
+                <p class="text-gray-500 dark:text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
               </div>
             </div>
           </section>

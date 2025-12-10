@@ -9,13 +9,13 @@
         @input="$emit('update:searchQuery', $event.target.value)"
         type="text"
         :placeholder="$t('blog.search.placeholder')"
-        class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+        class="w-full px-4 py-3 pl-12 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
         :aria-describedby="searchQuery || selectedTag ? 'search-results-info' : undefined"
         autocomplete="off"
         role="searchbox"
         :aria-expanded="false"
       >
-      <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
       
@@ -23,7 +23,7 @@
       <button
         v-if="searchQuery"
         @click="$emit('update:searchQuery', '')"
-        class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
         :aria-label="$t('blog.search.clearSearch')"
         type="button"
       >
@@ -39,8 +39,8 @@
       <button
         @click="$emit('update:selectedTag', '')"
         :class="[
-          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-          !selectedTag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
+          !selectedTag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
         ]"
         type="button"
         :aria-pressed="!selectedTag"
@@ -53,8 +53,8 @@
         :key="tag"
         @click="$emit('update:selectedTag', selectedTag === tag ? '' : tag)"
         :class="[
-          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-          selectedTag === tag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
+          selectedTag === tag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
         ]"
         type="button"
         :aria-pressed="selectedTag === tag"
@@ -68,7 +68,7 @@
     <div 
       v-if="searchQuery || selectedTag" 
       id="search-results-info"
-      class="text-sm text-gray-600"
+      class="text-sm text-gray-600 dark:text-gray-400"
       role="status"
       aria-live="polite"
       aria-atomic="true"

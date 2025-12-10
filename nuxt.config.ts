@@ -17,8 +17,16 @@ export default defineNuxtConfig({
     'nuxt-gtag',
     '@nuxt/content',
     '@nuxtjs/i18n',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@nuxtjs/color-mode'
   ],
+  // Color mode 配置
+  colorMode: {
+    preference: 'system',      // 默认跟随系统
+    fallback: 'light',         // 无法检测时的回退
+    classSuffix: '',           // 使用 'dark' 而非 'dark-mode'
+    storageKey: 'nuxt-color-mode'
+  },
   // i18n 国际化配置
   i18n: {
     locales: [

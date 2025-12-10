@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800" itemscope itemtype="https://schema.org/WebPage">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300" itemscope itemtype="https://schema.org/WebPage">
     <!-- Skip to main content link for accessibility -->
     <a 
       href="#main-content" 
@@ -48,7 +48,7 @@
             </p>
             <NuxtLink 
               :to="localePath('/image-compressor')"
-              class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               :aria-label="`使用 ${t('nav.imageCompressor')} 工具`"
             >
               {{ t('common.startUsing') }}
@@ -71,7 +71,7 @@
             </p>
             <NuxtLink 
               :to="localePath('/image-format-converter')"
-              class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               :aria-label="`使用 ${t('nav.formatConverter')} 工具`"
             >
               {{ t('common.startUsing') }}
@@ -94,7 +94,7 @@
             </p>
             <NuxtLink 
               :to="localePath('/heic-converter')"
-              class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               :aria-label="`使用 ${t('nav.heicConverter')} 工具`"
             >
               {{ t('common.startUsing') }}

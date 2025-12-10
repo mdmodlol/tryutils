@@ -1,17 +1,17 @@
 <template>
   <section 
-    class="py-16 px-6 bg-gray-50"
+    class="py-16 px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
     aria-labelledby="faq-title"
   >
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12">
         <h2 
           id="faq-title"
-          class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4"
         >
           {{ t('faq.title') }}
         </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           {{ t('faq.subtitle') }}
         </p>
       </div>
@@ -20,22 +20,22 @@
         <div
           v-for="(faq, index) in faqs"
           :key="index"
-          class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+          class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300"
           role="listitem"
         >
           <button
             :id="`faq-button-${index}`"
             :aria-expanded="openIndex === index"
             :aria-controls="`faq-content-${index}`"
-            class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors"
+            class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors"
             @click="toggleFAQ(index)"
           >
-            <h3 class="text-lg font-semibold text-gray-900 pr-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 pr-4">
               {{ faq.question }}
             </h3>
             <Icon 
               :name="openIndex === index ? 'heroicons:chevron-up' : 'heroicons:chevron-down'"
-              class="w-5 h-5 text-gray-500 flex-shrink-0 transition-transform duration-200"
+              class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 transition-transform duration-200"
               :class="{ 'transform rotate-180': openIndex === index }"
             />
           </button>
@@ -49,7 +49,7 @@
           >
             <div class="px-6 pb-4">
               <div 
-                class="text-gray-700 leading-relaxed prose prose-sm max-w-none"
+                class="text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none"
                 v-html="faq.answer"
               />
             </div>
@@ -162,7 +162,7 @@ setEnhancedStructuredData([faqSchema])
 
 <style scoped>
 .prose h4 {
-  @apply text-base font-semibold text-gray-900 mt-4 mb-2;
+  @apply text-base font-semibold text-gray-900 dark:text-gray-100 mt-4 mb-2;
 }
 
 .prose p {
@@ -174,14 +174,14 @@ setEnhancedStructuredData([faqSchema])
 }
 
 .prose li {
-  @apply text-gray-700;
+  @apply text-gray-700 dark:text-gray-300;
 }
 
 .prose strong {
-  @apply font-semibold text-gray-900;
+  @apply font-semibold text-gray-900 dark:text-gray-100;
 }
 
 .prose a {
-  @apply text-blue-600 hover:text-blue-800 underline;
+  @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline;
 }
 </style>

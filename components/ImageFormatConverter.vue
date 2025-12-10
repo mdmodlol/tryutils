@@ -56,10 +56,10 @@
             <div class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
               <div class="space-y-1">
-                <p class="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+                <p class="text-xl font-semibold text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">
                   {{ $t('imageFormatConverter.dragText') }}
                 </p>
-                <p class="text-gray-500 text-sm leading-relaxed">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                   {{ $t('imageFormatConverter.batchUploadText') }}
                 </p>
               </div>
@@ -88,9 +88,9 @@
             </div>
             
             <!-- 支持信息 - 缩小尺寸 -->
-            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 rounded-full border border-purple-100">
-              <Icon name="heroicons:shield-check" class="w-4 h-4 text-purple-600" aria-hidden="true" />
-              <p id="file-support-info" class="text-xs font-medium text-purple-700">
+            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-purple-700 dark:text-purple-300">
                 {{ $t('imageFormatConverter.supportInfo') }}
               </p>
             </div>
@@ -98,8 +98,8 @@
         </div>
 
         <!-- 错误信息 -->
-        <div v-if="dragError" class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
-          <p class="text-red-600 text-sm flex items-center gap-2">
+        <div v-if="dragError" class="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
+          <p class="text-red-600 dark:text-red-400 text-sm flex items-center gap-2">
             <Icon name="heroicons:exclamation-triangle" aria-hidden="true" />
             {{ dragError }}
           </p>
@@ -107,8 +107,8 @@
 
         <template #fallback>
           <div class="text-center py-8" role="status" aria-live="polite">
-            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-purple-500" aria-hidden="true" />
-            <p class="mt-2 text-gray-600">{{ $t('common.loading') }}</p>
+            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-purple-500 dark:text-purple-400" aria-hidden="true" />
+            <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $t('common.loading') }}</p>
           </div>
         </template>
       </ClientOnly>
@@ -116,8 +116,8 @@
 
     <!-- 文件信息和格式选择 -->
     <section v-if="selectedFile" class="format-selection-section" role="region" aria-labelledby="format-title">
-      <h3 id="format-title" class="text-xl font-semibold mb-6 flex items-center gap-2">
-        <Icon name="heroicons:cog-6-tooth" class="text-purple-600" aria-hidden="true" />
+      <h3 id="format-title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
+        <Icon name="heroicons:cog-6-tooth" class="text-purple-600 dark:text-purple-400" aria-hidden="true" />
         {{ $t('imageFormatConverter.formatSelection') }}
       </h3>
 
@@ -125,12 +125,12 @@
       <div class="file-info-card mb-6" role="region" aria-labelledby="file-info-title">
         <h4 id="file-info-title" class="sr-only">当前文件信息</h4>
         <div class="flex items-center gap-4">
-          <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg flex items-center justify-center">
-            <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600" aria-hidden="true" />
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-lg flex items-center justify-center">
+            <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600 dark:text-purple-400" aria-hidden="true" />
           </div>
           <div class="flex-1">
-            <h5 class="font-medium text-gray-900">{{ selectedFile.name }}</h5>
-            <p class="text-sm text-gray-500">
+            <h5 class="font-medium text-gray-900 dark:text-gray-100">{{ selectedFile.name }}</h5>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
               {{ formatFileSize(selectedFile.size) }} • {{ getFileFormat(selectedFile.name) }}
             </p>
           </div>
@@ -139,7 +139,7 @@
 
       <!-- 目标格式选择 -->
       <div class="mb-6" role="form" aria-labelledby="target-format-label">
-        <label id="target-format-label" class="block text-sm font-medium text-gray-700 mb-3">
+        <label id="target-format-label" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
           {{ $t('imageFormatConverter.targetFormat') }}
         </label>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" role="radiogroup" aria-labelledby="target-format-label">
@@ -179,11 +179,11 @@
 
         <!-- JPEG/WebP 质量选项 -->
         <div v-if="showQualityOption" class="option-group" role="group" aria-labelledby="quality-label">
-          <label id="quality-label" class="block text-sm font-medium text-gray-700 mb-2">
+          <label id="quality-label" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {{ $t('imageFormatConverter.quality') }}: {{ conversionOptions.quality }}%
           </label>
           <div class="flex items-center gap-4">
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.low') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.low') }}</span>
             <input 
               type="range" 
               min="1" 
@@ -193,18 +193,18 @@
               :aria-label="$t('imageFormatConverter.quality')"
               aria-describedby="quality-description"
             >
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.high') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.high') }}</span>
           </div>
-          <p id="quality-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.qualityDescription') }}</p>
+          <p id="quality-description" class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $t('imageFormatConverter.qualityDescription') }}</p>
         </div>
 
         <!-- PNG 压缩级别选项 -->
         <div v-if="showCompressionLevelOption" class="option-group" role="group" aria-labelledby="compression-label">
-          <label id="compression-label" class="block text-sm font-medium text-gray-700 mb-2">
+          <label id="compression-label" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {{ $t('imageFormatConverter.compressionLevel') }}: {{ conversionOptions.compressionLevel }}
           </label>
           <div class="flex items-center gap-4">
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.fast') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.fast') }}</span>
             <input 
               type="range" 
               min="0" 
@@ -214,18 +214,18 @@
               :aria-label="$t('imageFormatConverter.compressionLevel')"
               aria-describedby="compression-description"
             >
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.best') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.best') }}</span>
           </div>
-          <p id="compression-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.compressionDescription') }}</p>
+          <p id="compression-description" class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $t('imageFormatConverter.compressionDescription') }}</p>
         </div>
 
         <!-- AVIF 速度选项 -->
         <div v-if="showSpeedOption" class="option-group" role="group" aria-labelledby="speed-label">
-          <label id="speed-label" class="block text-sm font-medium text-gray-700 mb-2">
+          <label id="speed-label" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {{ $t('imageFormatConverter.speed') }}: {{ conversionOptions.speed }}
           </label>
           <div class="flex items-center gap-4">
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.slow') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.slow') }}</span>
             <input 
               type="range" 
               min="0" 
@@ -235,9 +235,9 @@
               :aria-label="$t('imageFormatConverter.speed')"
               aria-describedby="speed-description"
             >
-            <span class="text-sm text-gray-500">{{ $t('imageFormatConverter.fast') }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.fast') }}</span>
           </div>
-          <p id="speed-description" class="text-xs text-gray-500 mt-1">{{ $t('imageFormatConverter.speedDescription') }}</p>
+          <p id="speed-description" class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $t('imageFormatConverter.speedDescription') }}</p>
         </div>
       </div>
 
@@ -262,29 +262,29 @@
 
     <!-- 转换进度 -->
     <section v-if="isConverting" class="progress-section" role="region" aria-labelledby="progress-title">
-      <h3 id="progress-title" class="text-lg font-medium mb-4">{{ $t('imageFormatConverter.progress') }}</h3>
+      <h3 id="progress-title" class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">{{ $t('imageFormatConverter.progress') }}</h3>
       <div class="enhanced-progress" role="progressbar" :aria-valuenow="conversionProgress" aria-valuemin="0" aria-valuemax="100" :aria-label="`转换进度 ${conversionProgress}%`">
         <div class="enhanced-progress-fill" :style="{ width: `${conversionProgress}%` }"></div>
       </div>
-      <p class="text-sm text-gray-600 mt-2 text-center" role="status" aria-live="polite">{{ conversionProgress }}%</p>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center" role="status" aria-live="polite">{{ conversionProgress }}%</p>
     </section>
 
     <!-- 转换结果 -->
     <section v-if="conversionResult" class="results-section" role="region" aria-labelledby="results-title">
-      <h3 id="results-title" class="text-xl font-semibold mb-6 flex items-center gap-2">
-        <Icon name="heroicons:check-circle" class="text-green-600" aria-hidden="true" />
+      <h3 id="results-title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
+        <Icon name="heroicons:check-circle" class="text-green-600 dark:text-green-400" aria-hidden="true" />
         {{ $t('imageFormatConverter.conversionComplete') }}
       </h3>
 
       <div class="result-card">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center">
-              <Icon name="heroicons:check" class="w-6 h-6 text-green-600" aria-hidden="true" />
+            <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-lg flex items-center justify-center">
+              <Icon name="heroicons:check" class="w-6 h-6 text-green-600 dark:text-green-400" aria-hidden="true" />
             </div>
             <div>
-              <h4 class="font-medium text-gray-900">{{ conversionResult.filename }}</h4>
-              <p class="text-sm text-gray-500">{{ conversionResult.details }}</p>
+              <h4 class="font-medium text-gray-900 dark:text-gray-100">{{ conversionResult.filename }}</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ conversionResult.details }}</p>
             </div>
           </div>
           <button @click="downloadResult" class="download-button" :aria-label="`下载 ${conversionResult.filename}`">
@@ -595,8 +595,96 @@ watch(() => conversionOptions.value.targetFormat, () => {
 })
 </script>
 
+<!-- 非 scoped 样式 - 用于深色模式支持 -->
+<style>
+/* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
+:root.dark .image-format-converter .core-feature-section {
+  background: linear-gradient(to bottom right, #1f2937, rgba(88, 28, 135, 0.3), rgba(157, 23, 77, 0.3));
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .section-subtitle {
+  color: #9ca3af;
+}
+
+:root.dark .image-format-converter .enhanced-upload-zone {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #1e293b 100%);
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .enhanced-upload-zone:hover {
+  border-color: #a855f7;
+  background: linear-gradient(135deg, #581c87 0%, #7e22ce 50%, #a855f7 100%);
+}
+
+:root.dark .image-format-converter .enhanced-upload-zone.drag-over {
+  border-color: #c084fc;
+  background: linear-gradient(135deg, #7e22ce 0%, #a855f7 50%, #c084fc 100%);
+}
+
+:root.dark .image-format-converter .format-selection-section {
+  background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.3), #1f2937, rgba(157, 23, 77, 0.3));
+  border-color: #7e22ce;
+}
+
+:root.dark .image-format-converter .file-info-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .format-option {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .format-option:hover {
+  border-color: #a855f7;
+}
+
+:root.dark .image-format-converter .format-option.selected {
+  border-color: #c084fc;
+  background-color: rgba(88, 28, 135, 0.5);
+}
+
+:root.dark .image-format-converter .format-options-section {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .progress-section {
+  background: linear-gradient(to right, rgba(88, 28, 135, 0.3), rgba(157, 23, 77, 0.3));
+  border-color: #7e22ce;
+}
+
+:root.dark .image-format-converter .results-section {
+  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(6, 78, 59, 0.3));
+  border-color: #166534;
+}
+
+:root.dark .image-format-converter .result-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+:root.dark .image-format-converter .stat-item {
+  background-color: #374151;
+}
+
+:root.dark .image-format-converter .stat-label {
+  color: #9ca3af;
+}
+
+:root.dark .image-format-converter .stat-value {
+  color: #f3f4f6;
+}
+
+:root.dark .image-format-converter .enhanced-progress {
+  background-color: #374151;
+}
+</style>
+
 <style scoped>
-/* 继承ImageCompressor的样式并调整颜色主题 */
+/* 图片格式转换器专用样式 */
 .image-format-converter {
   @apply max-w-6xl mx-auto px-4 py-8;
 }

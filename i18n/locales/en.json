@@ -1,4 +1,12 @@
 {
+  "theme": {
+    "lightMode": "Switch to dark mode",
+    "darkMode": "Switch to system mode",
+    "systemMode": "Switch to light mode",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "accessibility": {
     "skipToMain": "Skip to main content",
     "contactMethods": "Contact methods",

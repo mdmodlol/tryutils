@@ -79,7 +79,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div id="main-content" class="min-h-screen bg-gray-50">
+  <div id="main-content" class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <!-- 跳转到主要内容的链接 -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
       跳转到主要内容
@@ -90,40 +90,40 @@ watchEffect(() => {
       <div class="max-w-4xl mx-auto px-6">
         <Transition name="fade" mode="out-in">
           <div v-if="pending" key="loading" class="text-center py-12" role="status" aria-live="polite">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" aria-hidden="true"></div>
-            <p class="mt-4 text-gray-600">{{ $t('blog.loading') }}</p>
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto" aria-hidden="true"></div>
+            <p class="mt-4 text-gray-600 dark:text-gray-400">{{ $t('blog.loading') }}</p>
           </div>
 
           <div v-else-if="error" key="error" class="text-center py-12" role="alert">
-            <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
-              <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div class="w-24 h-24 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
+              <svg class="w-12 h-12 text-red-500 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
               </svg>
             </div>
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ $t('blog.article.notFound.title') }}</h1>
-            <p class="text-gray-600 mb-6">{{ $t('blog.article.notFound.description') }}</p>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.article.notFound.title') }}</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">{{ $t('blog.article.notFound.description') }}</p>
             <NuxtLink 
               :to="localePath('/blog')" 
-              class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
               :aria-label="`返回到${$t('nav.blog')}`"
             >
               {{ $t('blog.article.backToBlog') }}
             </NuxtLink>
           </div>
 
-          <article v-else key="content" class="bg-white rounded-lg shadow-sm overflow-hidden" itemscope itemtype="https://schema.org/Article">
+          <article v-else key="content" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm dark:shadow-gray-900/50 overflow-hidden transition-colors duration-300" itemscope itemtype="https://schema.org/Article">
           <!-- 文章头部 -->
-          <header class="px-8 py-8 border-b border-gray-100">
+          <header class="px-8 py-8 border-b border-gray-100 dark:border-gray-700">
             <div class="text-center">
-              <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight" itemprop="headline">
+              <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight" itemprop="headline">
                 {{ data?.title }}
               </h1>
-              <p class="text-lg text-gray-600 mb-6 leading-relaxed" itemprop="description">
+              <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" itemprop="description">
                 {{ data?.description }}
               </p>
               
               <!-- 文章元信息 -->
-              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500" role="group" aria-label="文章信息">
+              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400" role="group" aria-label="文章信息">
                 <time class="flex items-center" :datetime="data?.date" itemprop="datePublished">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -141,7 +141,7 @@ watchEffect(() => {
                   <span
                     v-for="tag in data.tags"
                     :key="tag"
-                    class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full"
+                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs rounded-full"
                     itemprop="keywords"
                   >
                     {{ tag }}
@@ -152,17 +152,17 @@ watchEffect(() => {
           </header>
 
           <!-- 文章正文 -->
-          <div class="prose prose-lg max-w-none px-8 py-8" itemprop="articleBody" role="region" aria-labelledby="article-content">
+          <div class="prose prose-lg dark:prose-invert max-w-none px-8 py-8" itemprop="articleBody" role="region" aria-labelledby="article-content">
             <h2 id="article-content" class="sr-only">文章内容</h2>
             <ContentRenderer :value="data" />
           </div>
 
           <!-- 文章底部 -->
-          <footer class="px-8 py-6 bg-gray-50 border-t border-gray-100" role="contentinfo">
+          <footer class="px-8 py-6 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700" role="contentinfo">
             <div class="flex items-center justify-between">
               <NuxtLink 
                 :to="localePath('/blog')" 
-                class="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
+                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
                 :aria-label="`返回到${$t('nav.blog')}`"
               >
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -173,10 +173,10 @@ watchEffect(() => {
               
               <!-- 分享按钮 -->
               <div class="flex items-center space-x-3" role="group" aria-label="分享选项">
-                <span class="text-sm text-gray-600">{{ $t('blog.article.share') }}:</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('blog.article.share') }}:</span>
                 <button 
                   @click="shareArticle"
-                  class="p-2 text-gray-500 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
+                  class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
                   :title="$t('blog.article.copyLink')"
                   :aria-label="$t('blog.article.copyLink')"
                   type="button"
@@ -214,16 +214,32 @@ watchEffect(() => {
   @apply text-gray-800 leading-relaxed;
 }
 
+:global(.dark) .prose {
+  @apply text-gray-200;
+}
+
 .prose h1 {
   @apply text-3xl font-bold text-gray-900 mt-8 mb-4;
+}
+
+:global(.dark) .prose h1 {
+  @apply text-gray-100;
 }
 
 .prose h2 {
   @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
 }
 
+:global(.dark) .prose h2 {
+  @apply text-gray-100;
+}
+
 .prose h3 {
   @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
+}
+
+:global(.dark) .prose h3 {
+  @apply text-gray-100;
 }
 
 .prose p {
@@ -242,8 +258,16 @@ watchEffect(() => {
   @apply border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6;
 }
 
+:global(.dark) .prose blockquote {
+  @apply text-gray-300 border-blue-400;
+}
+
 .prose a {
   @apply text-blue-600 hover:text-blue-700 underline;
+}
+
+:global(.dark) .prose a {
+  @apply text-blue-400 hover:text-blue-300;
 }
 
 .prose img {
@@ -254,11 +278,24 @@ watchEffect(() => {
   @apply w-full border-collapse border border-gray-300 my-6;
 }
 
+:global(.dark) .prose table {
+  @apply border-gray-600;
+}
+
 .prose th, .prose td {
   @apply border border-gray-300 px-4 py-2;
 }
 
+:global(.dark) .prose th,
+:global(.dark) .prose td {
+  @apply border-gray-600;
+}
+
 .prose th {
   @apply bg-gray-50 font-semibold;
+}
+
+:global(.dark) .prose th {
+  @apply bg-gray-700 text-gray-100;
 }
 </style>

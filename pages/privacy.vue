@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
     <!-- Hero Section -->
     <section class="py-12 px-6">
       <div class="max-w-4xl mx-auto text-center">
@@ -7,10 +7,10 @@
           <h1 class="text-4xl md:text-5xl font-bold text-gradient mb-6">
             {{ $t('privacy.hero.title') }}
           </h1>
-          <p class="text-xl text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
             {{ $t('privacy.hero.description') }}
           </p>
-          <p class="text-gray-500">{{ $t('privacy.hero.lastUpdated') }}</p>
+          <p class="text-gray-500 dark:text-gray-400">{{ $t('privacy.hero.lastUpdated') }}</p>
         </div>
       </div>
     </section>
@@ -28,8 +28,8 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('privacy.intro.title') }}</h2>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.intro.title') }}</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {{ $t('privacy.intro.description') }}
                 </p>
               </div>
@@ -45,8 +45,8 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('privacy.collection.title') }}</h2>
-                <ul class="text-lg text-gray-700 space-y-3 leading-relaxed">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.collection.title') }}</h2>
+                <ul class="text-lg text-gray-700 dark:text-gray-300 space-y-3 leading-relaxed">
                   <li class="flex items-start">
                     <span class="w-2 h-2 bg-green-500 rounded-full mt-3 mr-3 flex-shrink-0"></span>
                     {{ $t('privacy.collection.point1') }}
@@ -73,8 +73,8 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $t('privacy.usage.title') }}</h2>
-                <ul class="text-lg text-gray-700 space-y-3 leading-relaxed">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.usage.title') }}</h2>
+                <ul class="text-lg text-gray-700 dark:text-gray-300 space-y-3 leading-relaxed">
                   <li class="flex items-start">
                     <span class="w-2 h-2 bg-purple-500 rounded-full mt-3 mr-3 flex-shrink-0"></span>
                     {{ $t('privacy.usage.point1') }}
@@ -92,32 +92,32 @@
           <div class="grid md:grid-cols-2 gap-8">
             <!-- Cookies -->
             <div class="card p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $t('privacy.cookies.title') }}</h3>
-              <p class="text-gray-700 leading-relaxed">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.cookies.title') }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {{ $t('privacy.cookies.description') }}
               </p>
             </div>
 
             <!-- 第三方广告 -->
             <div class="card p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $t('privacy.ads.title') }}</h3>
-              <p class="text-gray-700 leading-relaxed">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.ads.title') }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {{ $t('privacy.ads.description') }}
               </p>
             </div>
 
             <!-- 数据安全 -->
             <div class="card p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $t('privacy.security.title') }}</h3>
-              <p class="text-gray-700 leading-relaxed">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.security.title') }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {{ $t('privacy.security.description') }}
               </p>
             </div>
 
             <!-- 用户权利 -->
             <div class="card p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-4">{{ $t('privacy.rights.title') }}</h3>
-              <p class="text-gray-700 leading-relaxed">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.rights.title') }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {{ $t('privacy.rights.description') }}
               </p>
             </div>
@@ -125,16 +125,16 @@
 
           <!-- 政策更新和联系 -->
           <div class="grid md:grid-cols-2 gap-8">
-            <div class="card p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0">
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $t('privacy.updates.title') }}</h2>
-              <p class="text-gray-700 leading-relaxed">
+            <div class="card p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 border-0">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.updates.title') }}</h2>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {{ $t('privacy.updates.description') }}
               </p>
             </div>
             
-            <div class="card p-8 bg-gradient-to-r from-green-50 to-teal-50 border-0">
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $t('privacy.contact.title') }}</h2>
-              <p class="text-gray-700 mb-4">
+            <div class="card p-8 bg-gradient-to-r from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 border-0">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ $t('privacy.contact.title') }}</h2>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
                 {{ $t('privacy.contact.description') }}
               </p>
               <a href="mailto:support@tryutils.com" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">

@@ -1,17 +1,17 @@
 <template>
-  <article class="card p-8 hover:scale-[1.02] transition-all duration-300 group" itemscope itemtype="https://schema.org/BlogPosting">
+  <article class="card p-8 hover:scale-[1.02] transition-all duration-300 group dark:bg-gray-800 dark:border-gray-700" itemscope itemtype="https://schema.org/BlogPosting">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
       <div class="flex-1">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors" itemprop="headline">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" itemprop="headline">
           <NuxtLink 
             :to="articlePath" 
-            class="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
+            class="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
             :aria-label="`阅读文章: ${article.title}`"
           >
             {{ article.title }}
           </NuxtLink>
         </h2>
-        <p class="text-gray-600 mb-4 leading-relaxed line-clamp-3" itemprop="description">
+        <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3" itemprop="description">
           {{ article.description }}
         </p>
         
@@ -29,26 +29,26 @@
     </div>
     
     <!-- 文章元信息 -->
-    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+    <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
       <time 
-        class="text-sm text-gray-500 flex items-center" 
+        class="text-sm text-gray-500 dark:text-gray-400 flex items-center" 
         :datetime="article.date"
         itemprop="datePublished"
         :aria-label="`发布日期: ${formatDate(article.date)}`"
       >
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
         {{ formatDate(article.date) }}
       </time>
       <NuxtLink 
         :to="articlePath"
-        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
         :aria-label="`阅读完整文章: ${article.title}`"
       >
         {{ $t('blog.card.readMore') }}
         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
       </NuxtLink>
     </div>

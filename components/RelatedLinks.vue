@@ -1,13 +1,13 @@
 <template>
   <section 
-    class="bg-gray-50 rounded-lg p-6 mt-8"
+    class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mt-8 transition-colors duration-300"
     aria-labelledby="related-links-title"
   >
     <h2 
       id="related-links-title"
-      class="text-xl font-semibold text-gray-900 mb-4 flex items-center"
+      class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center"
     >
-      <Icon name="heroicons:link" class="w-5 h-5 mr-2 text-blue-600" />
+      <Icon name="heroicons:link" class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" />
       {{ title || $t('common.relatedLinks') }}
     </h2>
     
@@ -16,21 +16,21 @@
         v-for="link in links"
         :key="link.path"
         :to="localePath(link.path)"
-        class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        class="group block p-4 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
         :aria-label="`访问 ${link.title}`"
       >
         <div class="flex items-start space-x-3">
           <Icon 
             :name="link.icon || 'heroicons:document-text'" 
-            class="w-6 h-6 text-blue-600 mt-1 group-hover:text-blue-700 transition-colors" 
+            class="w-6 h-6 text-blue-600 dark:text-blue-400 mt-1 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors" 
           />
           <div class="flex-1 min-w-0">
-            <h3 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">
+            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
               {{ $t(link.title) }}
             </h3>
             <p 
               v-if="link.description" 
-              class="text-sm text-gray-600 mt-1 line-clamp-2"
+              class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2"
             >
               {{ $t(link.description) }}
             </p>
@@ -41,7 +41,7 @@
               <span
                 v-for="tag in link.tags.slice(0, 3)"
                 :key="tag"
-                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300"
               >
                 {{ $t(`common.tags.${tag}`) }}
               </span>
