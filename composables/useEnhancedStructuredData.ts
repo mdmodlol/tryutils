@@ -235,9 +235,11 @@ export const useEnhancedStructuredData = () => {
   }
 
   // 设置增强结构化数据到页面
+  // 使用 key 来避免重复添加相同类型的结构化数据
   const setEnhancedStructuredData = (schemas: any[]) => {
     useHead({
       script: schemas.map(schema => ({
+        key: `structured-data-${schema['@type']}`,
         type: 'application/ld+json',
         innerHTML: JSON.stringify(schema)
       }))
