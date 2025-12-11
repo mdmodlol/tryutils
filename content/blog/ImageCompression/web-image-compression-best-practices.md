@@ -4,7 +4,11 @@ description: "深入探讨Web开发中的图片压缩策略，包括响应式图
 date: '2025-01-09'
 tags: ["Web性能优化", "图片压缩", "响应式图片", "懒加载", "CDN", "前端优化"]
 author: "TryUtils Team"
-keywords: "Web图片优化,响应式图片,图片懒加载,CDN图片服务,WebP格式,AVIF格式,图片性能监控,移动端优化,图片压缩质量,网站性能提升"
+keywords: ["Web图片优化", "响应式图片", "图片懒加载", "CDN图片服务", "WebP格式", "AVIF格式", "图片性能监控", "移动端优化"]
+relatedTools:
+  - image-compressor
+  - image-format-converter
+embedTool: image-compressor
 ogTitle: "Web图片压缩最佳实践与性能优化指南 - 完整实战指南"
 ogDescription: "深入探讨Web开发中的图片压缩策略，包括响应式图片、懒加载、CDN优化等现代Web性能优化技术，提升用户体验和页面加载速度。"
 ogImage: "/images/blog/web-image-compression-best-practices-guide-og.jpg"
@@ -27,6 +31,12 @@ seo:
 # Web图片压缩最佳实践与性能优化指南
 
 在现代Web开发中，图片往往占据页面总大小的60-70%。掌握图片压缩和优化技术对提升网站性能至关重要。本文将深入探讨Web端图片压缩的最佳实践。
+
+在学习理论知识之前，先来体验一下实际的图片压缩效果：
+
+::blog-tool-embed{tool="image-compressor" compact}
+在线体验图片压缩
+::
 
 ---
 

@@ -5,11 +5,22 @@ date: '2024-12-26'
 tags: ['格式转换', '图片处理', '基础知识', 'JPG', 'PNG', 'WebP']
 author: 'TryUtils Team'
 category: 'FormatConverter'
+keywords: ['图片格式转换', 'JPG转PNG', 'PNG转WebP', '格式选择', '图片压缩', '无损转换', '有损压缩']
+relatedTools:
+  - image-format-converter
+  - image-compressor
+embedTool: image-format-converter
 ---
 
 # 图片格式转换基础知识：从入门到精通
 
 在数字化时代，图片格式转换已成为日常工作中不可或缺的技能。无论是网站开发、社交媒体分享，还是文档制作，选择合适的图片格式都能显著提升用户体验和工作效率。
+
+在深入了解格式转换知识之前，不妨先体验一下实际的格式转换效果：
+
+::blog-tool-embed{tool="image-format-converter" compact}
+立即体验格式转换功能
+::
 
 ## 什么是图片格式转换？
 

@@ -194,3 +194,133 @@
 .dark .prose hr {
   @apply border-gray-700;
 }
+
+/* 表格深色模式样式 */
+.prose table {
+  @apply w-full border-collapse border border-gray-300 my-6 bg-white;
+}
+
+.dark .prose table {
+  @apply border-gray-600 bg-gray-800;
+}
+
+.prose th,
+.prose td {
+  @apply border border-gray-300 px-4 py-2;
+}
+
+.dark .prose th,
+.dark .prose td {
+  @apply border-gray-600 text-gray-200;
+}
+
+.prose th {
+  @apply bg-gray-100 font-semibold text-gray-800;
+}
+
+.dark .prose th {
+  @apply bg-gray-700 text-gray-100;
+}
+
+.prose tr {
+  @apply bg-white;
+}
+
+.dark .prose tr {
+  @apply bg-gray-800;
+}
+
+.prose tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+.dark .prose tr:nth-child(even) {
+  background-color: rgb(55, 65, 81);
+}
+
+.prose tbody tr:hover {
+  @apply bg-gray-100;
+}
+
+.dark .prose tbody tr:hover {
+  @apply bg-gray-700;
+}
+
+/* 列表样式深色模式 */
+.dark .prose ul,
+.dark .prose ol {
+  @apply text-gray-200;
+}
+
+.dark .prose li {
+  @apply text-gray-200;
+}
+
+/* 链接深色模式 */
+.prose a {
+  @apply text-blue-600 hover:text-blue-700;
+}
+
+.dark .prose a {
+  @apply text-blue-400 hover:text-blue-300;
+}
+
+/* 引用块深色模式 */
+.prose blockquote {
+  @apply border-l-4 border-blue-500 pl-4 italic text-gray-700;
+}
+
+.dark .prose blockquote {
+  @apply text-gray-300 border-blue-400;
+}
+
+/* 标题深色模式 */
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  @apply text-gray-100;
+}
+
+/* 标题链接样式 - 移除默认的蓝色链接样式 */
+.prose h1 a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+  @apply text-inherit no-underline;
+  color: inherit !important;
+}
+
+.prose h1 a:hover,
+.prose h2 a:hover,
+.prose h3 a:hover,
+.prose h4 a:hover,
+.prose h5 a:hover,
+.prose h6 a:hover {
+  @apply text-inherit no-underline;
+  color: inherit !important;
+}
+
+.dark .prose h1 a,
+.dark .prose h2 a,
+.dark .prose h3 a,
+.dark .prose h4 a,
+.dark .prose h5 a,
+.dark .prose h6 a {
+  @apply text-gray-100 no-underline;
+  color: inherit !important;
+}
+
+.dark .prose h1 a:hover,
+.dark .prose h2 a:hover,
+.dark .prose h3 a:hover,
+.dark .prose h4 a:hover,
+.dark .prose h5 a:hover,
+.dark .prose h6 a:hover {
+  @apply text-gray-100 no-underline;
+  color: inherit !important;
+}

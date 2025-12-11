@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useBlogArticleMeta } from '~/composables/useBlogArticleMeta'
+import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
@@ -30,11 +33,30 @@ const { data, pending, error } = await useAsyncData('blog-article', () => {
   }
 })
 
+// 生成面包屑导航数据
+const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
+  const items: BreadcrumbItem[] = [
+    { name: t('seo.breadcrumb.home'), path: '/' },
+    { name: t('seo.breadcrumb.blog'), path: '/blog' }
+  ]
+  
+  if (data.value?.title) {
+    items.push({ name: data.value.title, path: route.path })
+  }
+  
+  return items
+})
+
+// 获取文章关联的工具ID列表
+const relatedToolIds = computed<string[]>(() => {
+  return data.value?.relatedTools || []
+})
+
 // 日期格式化函数
-const formatDate = (date) => {
+const formatDate = (date: string | Date | undefined) => {
   if (!date) return ''
   const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -42,7 +64,7 @@ const formatDate = (date) => {
   
   try {
     return new Date(date).toLocaleDateString(localeCode, options)
-  } catch (error) {
+  } catch (err) {
     // Fallback to English if there's an error
     return new Date(date).toLocaleDateString('en-US', options)
   }
@@ -59,20 +81,17 @@ const shareArticle = async () => {
   }
 }
 
-// 动态设置页面的 SEO 信息
+// 使用 useBlogArticleMeta 设置优化的 SEO 元数据
+// Requirements: 5.1, 5.2, 5.3 - 标题长度、描述长度、日期包含
 watchEffect(() => {
   if (data.value) {
-    useHead({
-      title: `${data.value.title} - TryUtils`,
-      meta: [
-        { name: 'description', content: data.value.description },
-        { name: 'keywords', content: data.value.tags?.join(', ') || '' },
-        { property: 'og:title', content: `${data.value.title} - TryUtils` },
-        { property: 'og:description', content: data.value.description },
-        { property: 'og:type', content: 'article' },
-        { property: 'article:published_time', content: data.value.date },
-        { property: 'article:tag', content: data.value.tags?.join(', ') || '' }
-      ]
+    useBlogArticleMeta({
+      title: data.value.title || '',
+      description: data.value.description || '',
+      date: data.value.date || new Date().toISOString(),
+      author: data.value.author || 'TryUtils',
+      keywords: data.value.keywords || data.value.tags || [],
+      locale: locale.value as 'zh' | 'en'
     })
   }
 })
@@ -88,6 +107,13 @@ watchEffect(() => {
     <!-- 文章内容 -->
     <main class="py-8" role="main">
       <div class="max-w-4xl mx-auto px-6">
+        <!-- 面包屑导航 - Requirements: 3.2 -->
+        <BreadcrumbNav 
+          v-if="data && !pending && !error" 
+          :items="breadcrumbItems" 
+          :generate-schema="true"
+        />
+        
         <Transition name="fade" mode="out-in">
           <div v-if="pending" key="loading" class="text-center py-12" role="status" aria-live="polite">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto" aria-hidden="true"></div>
@@ -189,7 +215,16 @@ watchEffect(() => {
             </div>
           </footer>
         </article>
+        
         </Transition>
+        
+        <!-- 相关工具推荐 - Requirements: 4.1 -->
+        <RelatedContent 
+          v-if="!pending && !error && relatedToolIds.length > 0"
+          type="tools"
+          :related-tool-ids="relatedToolIds"
+          :limit="3"
+        />
       </div>
     </main>
   </div>
@@ -275,11 +310,11 @@ watchEffect(() => {
 }
 
 .prose table {
-  @apply w-full border-collapse border border-gray-300 my-6;
+  @apply w-full border-collapse border border-gray-300 my-6 bg-white;
 }
 
 :global(.dark) .prose table {
-  @apply border-gray-600;
+  @apply border-gray-600 bg-gray-800;
 }
 
 .prose th, .prose td {
@@ -288,14 +323,79 @@ watchEffect(() => {
 
 :global(.dark) .prose th,
 :global(.dark) .prose td {
-  @apply border-gray-600;
+  @apply border-gray-600 text-gray-200;
 }
 
 .prose th {
-  @apply bg-gray-50 font-semibold;
+  @apply bg-gray-100 font-semibold text-gray-800;
 }
 
 :global(.dark) .prose th {
   @apply bg-gray-700 text-gray-100;
+}
+
+.prose tr {
+  @apply bg-white;
+}
+
+:global(.dark) .prose tr {
+  @apply bg-gray-800;
+}
+
+.prose tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+:global(.dark) .prose tr:nth-child(even) {
+  background-color: rgb(55, 65, 81); /* gray-700 的稍深版本 */
+}
+
+.prose tbody tr:hover {
+  @apply bg-gray-100;
+}
+
+:global(.dark) .prose tbody tr:hover {
+  @apply bg-gray-700;
+}
+
+/* 标题链接样式 - 移除默认的蓝色链接样式 */
+.prose h1 a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+  @apply text-inherit no-underline;
+  color: inherit !important;
+}
+
+.prose h1 a:hover,
+.prose h2 a:hover,
+.prose h3 a:hover,
+.prose h4 a:hover,
+.prose h5 a:hover,
+.prose h6 a:hover {
+  @apply text-inherit no-underline;
+  color: inherit !important;
+}
+
+:global(.dark) .prose h1 a,
+:global(.dark) .prose h2 a,
+:global(.dark) .prose h3 a,
+:global(.dark) .prose h4 a,
+:global(.dark) .prose h5 a,
+:global(.dark) .prose h6 a {
+  @apply text-gray-100 no-underline;
+  color: inherit !important;
+}
+
+:global(.dark) .prose h1 a:hover,
+:global(.dark) .prose h2 a:hover,
+:global(.dark) .prose h3 a:hover,
+:global(.dark) .prose h4 a:hover,
+:global(.dark) .prose h5 a:hover,
+:global(.dark) .prose h6 a:hover {
+  @apply text-gray-100 no-underline;
+  color: inherit !important;
 }
 </style>

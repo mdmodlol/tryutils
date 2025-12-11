@@ -10,6 +10,24 @@
     "dark": "深色",
     "system": "跟随系统"
   },
+  "seo": {
+    "tryOnline": "在线体验",
+    "clickToLoad": "点击加载工具",
+    "viewFullFeatures": "查看完整功能",
+    "relatedTools": "相关工具",
+    "relatedArticles": "相关文章",
+    "faq": "常见问题",
+    "breadcrumb": {
+      "home": "首页",
+      "blog": "博客",
+      "tools": "工具"
+    },
+    "meta": {
+      "free": "免费",
+      "online": "在线",
+      "noRegistration": "无需注册"
+    }
+  },
   "accessibility": {
     "skipToMain": "跳转到主要内容",
     "contactMethods": "联系方式",
@@ -108,6 +126,7 @@
     "home": "首页",
     "homePageLink": "首页链接",
     "mainNavigation": "主导航",
+    "imageTools": "图片工具",
     "imageToolsMenu": "图片工具菜单",
     "imageToolsSubmenu": "图片工具子菜单",
     "toggleMobileMenu": "切换移动菜单",
@@ -286,6 +305,31 @@
     "seo": {
       "title": "HEIC转JPG - 免费在线HEIC格式转换器 | TryUtils",
       "description": "免费的在线HEIC转JPG转换器，快速安全地将iPhone HEIC图片转换为JPG、PNG、WebP格式。无需下载软件，完全在浏览器中处理，保护您的隐私。支持批量转换，一键处理多个文件。"
+    },
+    "howTo": {
+      "step1": {
+        "name": "上传HEIC文件",
+        "text": "选择iPhone或iPad拍摄的HEIC格式图片，支持拖拽上传"
+      },
+      "step2": {
+        "name": "选择输出格式",
+        "text": "选择JPEG、PNG或WebP作为输出格式，调整质量参数"
+      },
+      "step3": {
+        "name": "开始转换",
+        "text": "点击转换按钮开始处理HEIC文件，支持批量转换"
+      },
+      "step4": {
+        "name": "下载转换结果",
+        "text": "转换完成后下载兼容性更好的图片格式，支持一键下载全部"
+      }
+    },
+    "comparison": {
+      "privacy": "本地处理，隐私保护",
+      "batchProcessing": "批量转换",
+      "qualityControl": "质量控制",
+      "noRegistration": "无需注册",
+      "multiFormat": "多格式输出"
     }
   },
   "imageCompressor": {
@@ -361,6 +405,34 @@
       "title": "图片压缩 - 免费在线图片压缩工具 | TryUtils",
       "description": "免费的在线图片压缩工具，智能压缩JPG、PNG、WebP等格式图片。保持高质量的同时大幅减小文件大小，完全在浏览器中处理，保护您的隐私。",
       "keywords": "图片压缩,在线压缩,JPG压缩,PNG压缩,图片优化,文件压缩,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "上传图片",
+        "text": "点击上传区域或拖拽图片文件到页面，支持 JPG、PNG、WebP 等格式"
+      },
+      "step2": {
+        "name": "调整设置",
+        "text": "选择压缩质量和输出格式，根据需要调整参数"
+      },
+      "step3": {
+        "name": "开始压缩",
+        "text": "点击压缩按钮开始处理，智能算法自动优化"
+      },
+      "step4": {
+        "name": "下载结果",
+        "text": "压缩完成后下载优化后的图片，支持批量下载"
+      }
+    },
+    "comparison": {
+      "privacy": "本地处理，隐私保护",
+      "batchProcessing": "批量处理",
+      "qualityControl": "质量控制",
+      "noRegistration": "无需注册",
+      "freeUnlimited": "免费无限制"
+    },
+    "sections": {
+      "toolTitle": "图片压缩工具"
     }
   },
   "imageTools": {
@@ -798,6 +870,43 @@
       "title": "图片格式转换器 - 免费在线图片格式转换工具 | TryUtils",
       "description": "免费在线图片格式转换器。支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 格式之间的转换，提供高级选项。高质量转换，完全在浏览器中处理。",
       "keywords": "图片格式转换,JPEG转PNG,PNG转WebP,图片转换,格式转换,在线转换器,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "上传图片",
+        "text": "选择或拖拽图片文件到上传区域，支持所有主流格式"
+      },
+      "step2": {
+        "name": "选择目标格式",
+        "text": "选择您想要转换的格式：JPEG、PNG、WebP、GIF、AVIF 或 TIFF"
+      },
+      "step3": {
+        "name": "调整选项",
+        "text": "根据需要设置格式专属选项，如质量、压缩级别或速度"
+      },
+      "step4": {
+        "name": "下载结果",
+        "text": "点击转换，处理完成后下载转换后的文件"
+      }
+    },
+    "comparison": {
+      "privacy": "本地处理，隐私保护",
+      "formatSupport": "支持格式数量",
+      "qualityControl": "质量控制",
+      "noRegistration": "无需注册",
+      "batchProcessing": "批量处理"
+    },
+    "sections": {
+      "toolTitle": "图片格式转换工具"
     }
+  },
+  "toolPageContent": {
+    "howToUse": "使用方法",
+    "comparison": "为什么选择我们",
+    "feature": "功能特点",
+    "stats": "用户信赖",
+    "totalUsers": "活跃用户",
+    "filesProcessed": "已处理文件",
+    "avgRating": "用户评分"
   }
 }

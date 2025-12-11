@@ -4,7 +4,11 @@ description: "深入解析图片压缩的基本原理、有损与无损压缩算
 date: '2025-01-09'
 tags: ["图片压缩", "算法原理", "Web优化", "JPEG", "WebP", "PNG"]
 author: "TryUtils Team"
-keywords: "图片压缩算法,有损压缩,无损压缩,JPEG压缩,WebP格式,PNG优化,图像质量评估,Web性能优化,压缩比率,图片格式选择"
+keywords: ["图片压缩算法", "有损压缩", "无损压缩", "JPEG压缩", "WebP格式", "PNG优化", "图像质量评估", "Web性能优化", "压缩比率", "图片格式选择"]
+relatedTools:
+  - image-compressor
+  - image-format-converter
+embedTool: image-compressor
 ogTitle: "图片压缩基础原理与算法详解 - 完整技术指南"
 ogDescription: "全面解析图片压缩技术原理，包括有损无损算法、JPEG/WebP/PNG格式特点、质量评估方法和Web应用最佳实践。"
 ogImage: "/images/blog/image-compression-fundamentals-og.jpg"

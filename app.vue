@@ -320,12 +320,31 @@
 
 <script setup lang="ts">
 // useI18n 只负责翻译和状态
-const { t, locale, setLocale } = useI18n()
+const { t, locale } = useI18n()
 
 // 路由功能需要从独立的函数获取
 const switchLocalePath = useSwitchLocalePath() // 用于语言切换器
 const localePath = useLocalePath()             // 用于模板中的链接
 const route = useRoute()
+
+// Performance optimization: Apply preload hints for critical resources
+// Using useHead directly for preload hints (Nuxt's recommended approach)
+useHead({
+  link: [
+    // Preload critical font stylesheet
+    {
+      rel: 'preload',
+      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+      as: 'style'
+    },
+    // Preconnect to font server for faster font loading
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossorigin: 'anonymous'
+    }
+  ]
+})
 
 // 检查是否为首页或需要显示面包屑的页面
 const isHomePage = computed(() => {

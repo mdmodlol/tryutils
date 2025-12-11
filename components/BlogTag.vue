@@ -1,8 +1,10 @@
 <template>
   <button
     :class="[
-      'px-3 py-1 text-sm rounded-full cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-      isSelected ? 'bg-blue-600 text-white shadow-md' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+      'px-3 py-1 text-sm rounded-full cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
+      isSelected 
+        ? 'bg-blue-600 text-white shadow-md' 
+        : 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800/50'
     ]"
     @click="$emit('click', tag)"
     type="button"

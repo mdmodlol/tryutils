@@ -7,6 +7,24 @@
     "dark": "Dark",
     "system": "System"
   },
+  "seo": {
+    "tryOnline": "Try Online",
+    "clickToLoad": "Click to load tool",
+    "viewFullFeatures": "View Full Features",
+    "relatedTools": "Related Tools",
+    "relatedArticles": "Related Articles",
+    "faq": "FAQ",
+    "breadcrumb": {
+      "home": "Home",
+      "blog": "Blog",
+      "tools": "Tools"
+    },
+    "meta": {
+      "free": "Free",
+      "online": "Online",
+      "noRegistration": "No Registration"
+    }
+  },
   "accessibility": {
     "skipToMain": "Skip to main content",
     "contactMethods": "Contact methods",
@@ -108,6 +126,7 @@
     "home": "Home",
     "homePageLink": "Home page link",
     "mainNavigation": "Main navigation",
+    "imageTools": "Image Tools",
     "imageToolsMenu": "Image Tools",
     "imageToolsSubmenu": "Image tools submenu",
     "imageCompressor": "Image Compressor",
@@ -286,6 +305,31 @@
     "seo": {
       "title": "HEIC to JPG - Free Online HEIC Format Converter | TryUtils",
       "description": "Free online HEIC to JPG converter, quickly and securely convert iPhone HEIC images to JPG, PNG, WebP formats. No software download required, completely processed in browser, protecting your privacy. Supports batch conversion, process multiple files with one click."
+    },
+    "howTo": {
+      "step1": {
+        "name": "Upload HEIC Files",
+        "text": "Select HEIC format images from iPhone or iPad, supports drag and drop upload"
+      },
+      "step2": {
+        "name": "Select Output Format",
+        "text": "Choose JPEG, PNG or WebP as output format, adjust quality parameters"
+      },
+      "step3": {
+        "name": "Start Conversion",
+        "text": "Click convert button to start processing HEIC files, supports batch conversion"
+      },
+      "step4": {
+        "name": "Download Results",
+        "text": "Download converted images with better compatibility, supports one-click download all"
+      }
+    },
+    "comparison": {
+      "privacy": "Local Processing, Privacy Protection",
+      "batchProcessing": "Batch Conversion",
+      "qualityControl": "Quality Control",
+      "noRegistration": "No Registration Required",
+      "multiFormat": "Multiple Output Formats"
     }
   },
   "imageCompressor": {
@@ -369,6 +413,34 @@
       "title": "Image Compression - Free Online Image Compressor | TryUtils",
       "description": "Free online image compression tool, intelligently compress JPG, PNG, WebP and other format images. Maintain high quality while significantly reducing file size, completely processed in browser, protecting your privacy.",
       "keywords": "image compression,online compression,JPG compression,PNG compression,image optimization,file compression,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Upload Images",
+        "text": "Click the upload area or drag image files to the page, supports JPG, PNG, WebP and other formats"
+      },
+      "step2": {
+        "name": "Adjust Settings",
+        "text": "Select compression quality and output format, adjust parameters as needed"
+      },
+      "step3": {
+        "name": "Start Compression",
+        "text": "Click the compress button to start processing, smart algorithm automatically optimizes"
+      },
+      "step4": {
+        "name": "Download Results",
+        "text": "Download optimized images after compression is complete, supports batch download"
+      }
+    },
+    "comparison": {
+      "privacy": "Local Processing, Privacy Protection",
+      "batchProcessing": "Batch Processing",
+      "qualityControl": "Quality Control",
+      "noRegistration": "No Registration Required",
+      "freeUnlimited": "Free & Unlimited"
+    },
+    "sections": {
+      "toolTitle": "Image Compression Tool"
     }
   },
   "imageTools": {
@@ -831,6 +903,43 @@
       "title": "Image Format Converter - Free Online Image Format Conversion | TryUtils",
       "description": "Free online image format converter, supports conversion between JPG, PNG, WebP, BMP, TIFF and other formats. No software download required, completely processed in browser, protecting your privacy.",
       "keywords": "image format conversion,JPG to PNG,PNG to WebP,online converter,free converter,batch conversion,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Upload Images",
+        "text": "Select or drag image files to the upload area, supports all mainstream formats"
+      },
+      "step2": {
+        "name": "Choose Target Format",
+        "text": "Select the format you want to convert to: JPEG, PNG, WebP, GIF, AVIF or TIFF"
+      },
+      "step3": {
+        "name": "Adjust Options",
+        "text": "Set format-specific options as needed, such as quality, compression level or speed"
+      },
+      "step4": {
+        "name": "Download Results",
+        "text": "Click convert, and download the converted files after processing is complete"
+      }
+    },
+    "comparison": {
+      "privacy": "Local Processing, Privacy Protected",
+      "formatSupport": "Supported Formats",
+      "qualityControl": "Quality Control",
+      "noRegistration": "No Registration Required",
+      "batchProcessing": "Batch Processing"
+    },
+    "sections": {
+      "toolTitle": "Image Format Conversion Tool"
     }
+  },
+  "toolPageContent": {
+    "howToUse": "How to Use",
+    "comparison": "Why Choose Us",
+    "feature": "Feature",
+    "stats": "Trusted by Users",
+    "totalUsers": "Active Users",
+    "filesProcessed": "Files Processed",
+    "avgRating": "User Rating"
   }
 }

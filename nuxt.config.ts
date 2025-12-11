@@ -401,7 +401,9 @@ export default defineNuxtConfig({
       toc: {
         depth: 3,
         searchDepth: 3
-      }
+      },
+      // 禁用标题的自动锚点链接，避免误导用户
+      anchorLinks: false
     }
   },
   // Nitro 配置

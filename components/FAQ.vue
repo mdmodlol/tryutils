@@ -18,14 +18,14 @@
 
       <div class="space-y-4" role="list">
         <div
-          v-for="(faq, index) in faqs"
+          v-for="(faq, index) in displayFaqs"
           :key="index"
           class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300"
           role="listitem"
         >
           <button
             :id="`faq-button-${index}`"
-            :aria-expanded="openIndex === index"
+            :aria-expanded="openIndex === index ? 'true' : 'false'"
             :aria-controls="`faq-content-${index}`"
             class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors"
             @click="toggleFAQ(index)"
@@ -37,12 +37,14 @@
               :name="openIndex === index ? 'heroicons:chevron-up' : 'heroicons:chevron-down'"
               class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 transition-transform duration-200"
               :class="{ 'transform rotate-180': openIndex === index }"
+              aria-hidden="true"
             />
           </button>
           
           <div
             :id="`faq-content-${index}`"
             :aria-labelledby="`faq-button-${index}`"
+            :hidden="openIndex !== index"
             class="overflow-hidden transition-all duration-300 ease-in-out"
             :class="openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'"
             role="region"
@@ -61,24 +63,28 @@
 </template>
 
 <script setup lang="ts">
-interface FAQ {
-  question: string
-  answer: string
-}
+import { useFAQSchema, type FAQItem } from '~/composables/useFAQSchema'
 
 interface Props {
+  /** FAQ category for i18n-based FAQs */
   category?: 'general' | 'image-tools' | 'privacy'
+  /** Custom FAQ items (overrides category-based FAQs) */
+  items?: FAQItem[]
+  /** Whether to generate FAQ structured data (default: true) */
+  generateSchema?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  category: 'general'
+  category: 'general',
+  items: undefined,
+  generateSchema: true
 })
 
 const { t } = useI18n()
 const openIndex = ref<number | null>(null)
 
-// 根据分类获取FAQ数据
-const faqs = computed(() => {
+// Category-based FAQ data from i18n
+const categoryFaqs = computed(() => {
   const faqData = {
     general: [
       {
@@ -139,25 +145,20 @@ const faqs = computed(() => {
   return faqData[props.category] || faqData.general
 })
 
+// Use custom items if provided, otherwise use category-based FAQs
+const displayFaqs = computed<FAQItem[]>(() => {
+  return props.items || categoryFaqs.value
+})
+
 const toggleFAQ = (index: number) => {
   openIndex.value = openIndex.value === index ? null : index
 }
 
-// 键盘导航支持
-const handleKeydown = (event: KeyboardEvent, index: number) => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault()
-    toggleFAQ(index)
-  }
+// Generate FAQ structured data using useFAQSchema composable
+// Only generate schema if generateSchema prop is true
+if (props.generateSchema) {
+  useFAQSchema(displayFaqs)
 }
-
-// 设置FAQ结构化数据
-const { useEnhancedStructuredData } = await import('~/composables/useEnhancedStructuredData')
-const { getFAQPageSchema, setEnhancedStructuredData } = useEnhancedStructuredData()
-
-// 创建FAQ结构化数据
-const faqSchema = getFAQPageSchema(faqs.value)
-setEnhancedStructuredData([faqSchema])
 </script>
 
 <style scoped>

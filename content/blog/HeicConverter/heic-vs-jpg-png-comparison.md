@@ -3,6 +3,12 @@ title: "HEIC vs JPG vs PNG：图片格式全面对比"
 description: "深入对比 HEIC、JPG、PNG 三种主流图片格式的优缺点、适用场景和选择建议，帮你选择最合适的图片格式。"
 date: '2024-12-31'
 tags: ["HEIC", "JPG", "PNG", "图片格式", "对比"]
+keywords: ["HEIC对比JPG", "PNG格式", "图片格式选择", "格式优缺点", "压缩效率", "透明度支持"]
+relatedTools:
+  - heic-converter
+  - image-format-converter
+  - image-compressor
+embedTool: heic-converter
 ---
 
 # HEIC vs JPG vs PNG：图片格式全面对比

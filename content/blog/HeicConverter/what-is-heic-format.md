@@ -3,6 +3,11 @@ title: "HEIC 格式是什么？为什么 iPhone 照片是 HEIC？"
 description: "详细介绍 HEIC 图片格式的由来、优点和缺点，并解释为什么苹果选择在 iPhone 上使用 HEIC 作为默认照片格式。"
 date: '2024-12-31'
 tags: ["HEIC", "图片格式", "iPhone", "教程"]
+keywords: ["HEIC格式", "iPhone照片", "HEIC转换", "苹果图片格式", "HEIF", "iOS照片", "图片兼容性"]
+relatedTools:
+  - heic-converter
+  - image-format-converter
+embedTool: heic-converter
 ---
 
 # HEIC 格式是什么？为什么 iPhone 照片是 HEIC？

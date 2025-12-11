@@ -3,11 +3,22 @@ title: "如何将 HEIC 转换为 JPG？5种方法详解"
 description: "详细介绍将 iPhone 的 HEIC 照片转换为 JPG 格式的多种方法，包括在线工具、系统自带功能和第三方软件。"
 date: '2024-12-31'
 tags: ["HEIC转换", "JPG", "图片格式转换", "教程"]
+keywords: ["HEIC转JPG", "iPhone照片转换", "HEIC转换方法", "在线转换工具", "批量转换", "图片格式转换"]
+relatedTools:
+  - heic-converter
+  - image-format-converter
+embedTool: heic-converter
 ---
 
 # 如何将 HEIC 转换为 JPG？5种方法详解
 
 当你从 iPhone 导出照片到 Windows 电脑或需要在网站上传图片时，经常会遇到 HEIC 格式不被支持的问题。这时候就需要将 HEIC 转换为更通用的 JPG 格式。
+
+想要快速转换？直接在下方体验我们的在线转换工具：
+
+::blog-tool-embed{tool="heic-converter" compact}
+立即体验 HEIC 转换功能
+::
 
 ---
 

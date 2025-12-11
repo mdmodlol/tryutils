@@ -5,6 +5,12 @@ date: '2024-12-26'
 tags: ['格式转换', '图片处理', '转换指南', 'JPG转PNG', 'WebP转换', 'HEIC转换']
 author: 'TryUtils团队'
 category: 'FormatConverter'
+keywords: ['JPG转PNG', 'PNG转WebP', 'HEIC转换', '格式转换技巧', '质量设置', '批量转换']
+relatedTools:
+  - image-format-converter
+  - heic-converter
+  - image-compressor
+embedTool: image-format-converter
 ---
 
 # 常见格式转换指南：掌握主流图片格式转换技巧
