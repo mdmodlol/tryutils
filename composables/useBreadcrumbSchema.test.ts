@@ -41,7 +41,9 @@ function isValidListItemSchema(item: BreadcrumbListSchema['itemListElement'][num
     typeof item.position === 'number' &&
     item.position > 0 &&
     typeof item.name === 'string' &&
-    typeof item.item === 'string'
+    typeof item.item === 'object' &&
+    item.item['@type'] === 'WebPage' &&
+    typeof item.item['@id'] === 'string'
   )
 }
 
@@ -127,24 +129,24 @@ describe('BreadcrumbList Schema Property Tests', () => {
       )
     })
 
-    it('should set item property to path when no baseUrl provided', () => {
+    it('should set item @id to path when no baseUrl provided', () => {
       fc.assert(
         fc.property(breadcrumbItemsArbitrary, (items) => {
           const schema = generateBreadcrumbSchema(items)
           return items.every((inputItem, index) => 
-            schema.itemListElement[index].item === inputItem.path
+            schema.itemListElement[index].item['@id'] === inputItem.path
           )
         }),
         { numRuns: 100 }
       )
     })
 
-    it('should prepend baseUrl to item property when provided', () => {
+    it('should prepend baseUrl to item @id when provided', () => {
       fc.assert(
         fc.property(breadcrumbItemsArbitrary, baseUrlArbitrary, (items, baseUrl) => {
           const schema = generateBreadcrumbSchema(items, baseUrl)
           return items.every((inputItem, index) => 
-            schema.itemListElement[index].item === baseUrl + inputItem.path
+            schema.itemListElement[index].item['@id'] === baseUrl + inputItem.path
           )
         }),
         { numRuns: 100 }

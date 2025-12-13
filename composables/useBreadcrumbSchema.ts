@@ -19,7 +19,10 @@ export interface BreadcrumbListSchema {
     '@type': 'ListItem'
     position: number
     name: string
-    item: string
+    item: {
+      '@type': 'WebPage'
+      '@id': string
+    }
   }>
 }
 
@@ -37,7 +40,10 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[], baseUrl: strin
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: baseUrl + item.path
+      item: {
+        '@type': 'WebPage',
+        '@id': baseUrl + item.path
+      }
     }))
   }
 }
