@@ -183,6 +183,62 @@ export const toolFAQs: Record<string, ToolFAQs> = {
         category: 'privacy'
       }
     ]
+  },
+  'qr-code-generator': {
+    zh: [
+      {
+        question: '什么是二维码？',
+        answer: '二维码（QR Code）是一种二维条形码，可以存储文本、URL、电话号码、电子邮件等信息。用户可以通过手机扫描二维码快速获取信息。',
+        category: 'basics'
+      },
+      {
+        question: '可以自定义二维码的颜色吗？',
+        answer: '是的！我们支持自定义前景色和背景色，还提供多种颜色预设。系统会自动检查颜色对比度，确保二维码可以被正常扫描。',
+        category: 'customization'
+      },
+      {
+        question: '如何在二维码中添加 Logo？',
+        answer: '点击"上传 Logo"按钮，选择 PNG、JPG 或 SVG 格式的图片文件（最大 2MB）。您可以调整 Logo 的大小，系统会自动在 Logo 周围添加白色边距以确保可扫描性。',
+        category: 'logo'
+      },
+      {
+        question: '支持批量生成二维码吗？',
+        answer: '支持！切换到批量模式，每行输入一个内容，或导入 CSV 文件。一次最多可以生成 50 个二维码，完成后可以打包下载为 ZIP 文件。',
+        category: 'batch'
+      },
+      {
+        question: '生成的二维码数据会被上传吗？',
+        answer: '不会。所有二维码生成都在您的浏览器本地完成，输入的数据和上传的 Logo 都不会发送到服务器，完全保护您的隐私。',
+        category: 'privacy'
+      }
+    ],
+    en: [
+      {
+        question: 'What is a QR code?',
+        answer: 'A QR Code (Quick Response Code) is a two-dimensional barcode that can store text, URLs, phone numbers, emails, and other information. Users can quickly access information by scanning the QR code with their phone.',
+        category: 'basics'
+      },
+      {
+        question: 'Can I customize QR code colors?',
+        answer: 'Yes! We support custom foreground and background colors, and provide multiple color presets. The system automatically checks color contrast to ensure the QR code can be scanned properly.',
+        category: 'customization'
+      },
+      {
+        question: 'How do I add a logo to the QR code?',
+        answer: 'Click the "Upload Logo" button and select a PNG, JPG, or SVG image file (max 2MB). You can adjust the logo size, and the system will automatically add white margins around the logo to ensure scannability.',
+        category: 'logo'
+      },
+      {
+        question: 'Does it support batch QR code generation?',
+        answer: 'Yes! Switch to batch mode, enter one item per line, or import a CSV file. You can generate up to 50 QR codes at once, and download them as a ZIP file when complete.',
+        category: 'batch'
+      },
+      {
+        question: 'Is my QR code data uploaded?',
+        answer: 'No. All QR code generation is done locally in your browser. Input data and uploaded logos are never sent to servers, completely protecting your privacy.',
+        category: 'privacy'
+      }
+    ]
   }
 }
 

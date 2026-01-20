@@ -133,6 +133,7 @@
     "imageFormatConverter": "Format Converter",
     "formatConverter": "Format Converter",
     "heicConverter": "HEIC Converter",
+    "qrCodeGenerator": "QR Code Generator",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -153,6 +154,9 @@
     "useNow": "Use Now",
     "chinese": "Chinese",
     "skipToMainContent": "Skip to main content",
+    "maxSize": "Max size",
+    "items": "items",
+    "characters": "characters",
     "relatedLinks": "Related Links",
     "relatedLinksContent": {
       "imageCompressor": "Image Compressor",
@@ -941,5 +945,146 @@
     "totalUsers": "Active Users",
     "filesProcessed": "Files Processed",
     "avgRating": "User Rating"
+  },
+  "qrCodeGenerator": {
+    "title": "QR Code Generator",
+    "description": "Generate QR codes online with custom colors, sizes, logo embedding and batch generation",
+    "subtitle": "Quickly generate QR codes with custom styles and batch processing",
+    "hero": {
+      "title": "QR Code Generator",
+      "subtitle": "Free online QR code generator with custom colors, sizes, logo embedding and batch generation"
+    },
+    "features": {
+      "free": "Free Online Generation",
+      "privacy": "Privacy Protection",
+      "fast": "Fast Processing",
+      "customizable": "Custom Styles",
+      "ariaLabel": "Product Features",
+      "listAriaLabel": "Product Features List",
+      "customization": {
+        "title": "Custom Styles",
+        "description": "Customize colors, sizes, error correction levels to create unique QR codes"
+      },
+      "logoEmbedding": {
+        "title": "Logo Embedding",
+        "description": "Embed brand logo in the center of QR code to enhance brand recognition"
+      },
+      "batchGeneration": {
+        "title": "Batch Generation",
+        "description": "Generate up to 50 QR codes in batch, download as ZIP with one click"
+      }
+    },
+    "sections": {
+      "toolTitle": "QR Code Generation Tool",
+      "relatedToolsAriaLabel": "Related Tools List"
+    },
+    "input": {
+      "placeholder": "Enter text, URL, phone number or email",
+      "label": "Input Content",
+      "empty": "Please enter content",
+      "tooLong": "Input too long (max 2000 characters)"
+    },
+    "settings": {
+      "title": "Custom Settings",
+      "colors": "Color Settings",
+      "foreground": "Foreground Color",
+      "background": "Background Color",
+      "colorPresets": "Color Presets",
+      "blackWhite": "Black & White",
+      "blueWhite": "Blue & White",
+      "redWhite": "Red & White",
+      "size": "Size",
+      "sizeSmall": "Small (256px)",
+      "sizeMedium": "Medium (512px)",
+      "sizeLarge": "Large (1024px)",
+      "logo": "Logo Settings",
+      "uploadLogo": "Upload Logo",
+      "removeLogo": "Remove Logo",
+      "logoSize": "Logo Size",
+      "errorCorrection": "Error Correction Level",
+      "errorCorrectionL": "Low (7%)",
+      "errorCorrectionM": "Medium (15%)",
+      "errorCorrectionQ": "High (25%)",
+      "errorCorrectionH": "Highest (30%)"
+    },
+    "preview": {
+      "title": "Preview",
+      "generating": "Generating...",
+      "size": "Size",
+      "format": "Format"
+    },
+    "export": {
+      "title": "Export",
+      "format": "Export Format",
+      "png": "PNG",
+      "svg": "SVG",
+      "download": "Download",
+      "downloadAll": "Download All"
+    },
+    "batch": {
+      "title": "Batch Generation",
+      "input": "Batch Input",
+      "placeholder": "One item per line, max 50 items",
+      "csvImport": "Import CSV",
+      "generate": "Batch Generate",
+      "progress": "Progress",
+      "downloadZip": "Download ZIP",
+      "currentItem": "Current Item",
+      "results": "Generation Results",
+      "moreResults": "{count} more results not shown"
+    },
+    "mode": {
+      "single": "Single Generation",
+      "batch": "Batch Generation"
+    },
+    "actions": {
+      "generate": "Generate QR Code",
+      "generating": "Generating...",
+      "reset": "Reset",
+      "download": "Download",
+      "downloading": "Downloading..."
+    },
+    "dragDrop": {
+      "dropHere": "Drop files here"
+    },
+    "errors": {
+      "emptyInput": "Please enter content",
+      "tooLong": "Input too long (max 2000 characters)",
+      "logoTooLarge": "Logo file too large (max 2MB)",
+      "logoFormatInvalid": "Logo format not supported (only PNG, JPG, SVG)",
+      "generationFailed": "Generation failed, please try again",
+      "exportFailed": "Export failed, please try again",
+      "batchLimitExceeded": "Batch generation limit exceeded (max 50 items)"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Enter Content",
+        "text": "Enter text, URL, phone number, email or other content"
+      },
+      "step2": {
+        "name": "Customize Style",
+        "text": "Choose colors, size, upload logo to create unique QR code"
+      },
+      "step3": {
+        "name": "Generate QR Code",
+        "text": "Click generate button to preview QR code in real-time"
+      },
+      "step4": {
+        "name": "Download & Save",
+        "text": "Choose PNG or SVG format to download, supports batch packaging"
+      }
+    },
+    "comparison": {
+      "customization": "Custom Styles",
+      "batchProcessing": "Batch Generation",
+      "logoEmbedding": "Logo Embedding",
+      "privacy": "Local Processing, Privacy Protected",
+      "multiFormat": "Multi-Format Export"
+    },
+    "meta": {
+      "title": "QR Code Generator - Free Online QR Code Generator | TryUtils",
+      "description": "Free online QR code generator with custom colors, sizes, logo embedding and batch generation. Completely processed in browser, protecting your privacy.",
+      "keywords": "QR code generator,QR code,generate QR code,custom QR code,batch generation,logo QR code,TryUtils"
+    }
   }
 }

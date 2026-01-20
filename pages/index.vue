@@ -64,6 +64,12 @@ const toolCategories = computed(() => [
         description: t('home.categories.imageTools.heicConverter.description'),
         path: '/heic-converter',
         icon: 'heic'
+      },
+      {
+        name: t('nav.qrCodeGenerator'),
+        description: t('qrCodeGenerator.hero.subtitle'),
+        path: '/qr-code-generator',
+        icon: 'qrcode'
       }
     ]
   }

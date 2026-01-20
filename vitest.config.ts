@@ -7,7 +7,8 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     include: ['**/*.test.ts', '**/*.spec.ts'],
-    exclude: ['node_modules', '.nuxt', 'dist']
+    exclude: ['node_modules', '.nuxt', 'dist'],
+    setupFiles: ['./vitest.setup.ts']
   },
   resolve: {
     alias: {

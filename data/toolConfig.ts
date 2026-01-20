@@ -59,6 +59,21 @@ export const toolConfigs: ToolConfig[] = [
     path: '/image-format-converter',
     category: 'FormatConverter',
     keywords: ['format', 'convert', 'jpeg', 'png', 'webp', 'gif', 'avif', 'tiff', '格式', '转换']
+  },
+  {
+    id: 'qr-code-generator',
+    name: {
+      zh: '二维码生成器',
+      en: 'QR Code Generator'
+    },
+    description: {
+      zh: '在线生成二维码，支持自定义颜色、尺寸、Logo 嵌入和批量生成',
+      en: 'Generate QR codes online with custom colors, sizes, logo embedding and batch generation'
+    },
+    icon: 'heroicons:qr-code',
+    path: '/qr-code-generator',
+    category: 'QRCodeGenerator',
+    keywords: ['qr', 'qrcode', 'barcode', 'generate', '二维码', '生成', 'url', 'link', 'batch', '批量']
   }
 ]
 

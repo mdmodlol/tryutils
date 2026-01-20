@@ -135,6 +135,7 @@
     "imageFormatConverter": "格式转换",
     "formatConverter": "格式转换",
     "heicConverter": "HEIC 转换器",
+    "qrCodeGenerator": "二维码生成器",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -153,6 +154,9 @@
     "useNow": "立即使用",
     "chinese": "中文",
     "skipToMainContent": "跳转到主要内容",
+    "maxSize": "最大",
+    "items": "项",
+    "characters": "字符",
     "relatedLinks": "相关链接",
     "relatedLinksContent": {
       "imageCompressor": "图片压缩工具",
@@ -908,5 +912,146 @@
     "totalUsers": "活跃用户",
     "filesProcessed": "已处理文件",
     "avgRating": "用户评分"
+  },
+  "qrCodeGenerator": {
+    "title": "二维码生成器",
+    "description": "在线生成二维码，支持自定义颜色、尺寸、Logo 嵌入和批量生成",
+    "subtitle": "快速生成二维码，支持自定义样式和批量处理",
+    "hero": {
+      "title": "二维码生成器",
+      "subtitle": "免费在线生成二维码，支持自定义颜色、尺寸、Logo 嵌入和批量生成"
+    },
+    "features": {
+      "free": "免费在线生成",
+      "privacy": "隐私保护",
+      "fast": "快速处理",
+      "customizable": "自定义样式",
+      "ariaLabel": "产品特性",
+      "listAriaLabel": "产品特性列表",
+      "customization": {
+        "title": "自定义样式",
+        "description": "支持自定义颜色、尺寸、容错级别，打造独特的二维码"
+      },
+      "logoEmbedding": {
+        "title": "Logo 嵌入",
+        "description": "在二维码中心嵌入品牌 Logo，增强品牌识别度"
+      },
+      "batchGeneration": {
+        "title": "批量生成",
+        "description": "支持批量生成最多 50 个二维码，一键打包下载"
+      }
+    },
+    "sections": {
+      "toolTitle": "二维码生成工具",
+      "relatedToolsAriaLabel": "相关工具列表"
+    },
+    "input": {
+      "placeholder": "输入文本、URL、电话号码或电子邮件",
+      "label": "输入内容",
+      "empty": "请输入内容",
+      "tooLong": "输入内容过长（最多 2000 个字符）"
+    },
+    "settings": {
+      "title": "自定义设置",
+      "colors": "颜色设置",
+      "foreground": "前景色",
+      "background": "背景色",
+      "colorPresets": "颜色预设",
+      "blackWhite": "黑白",
+      "blueWhite": "蓝白",
+      "redWhite": "红白",
+      "size": "尺寸",
+      "sizeSmall": "小（256px）",
+      "sizeMedium": "中（512px）",
+      "sizeLarge": "大（1024px）",
+      "logo": "Logo 设置",
+      "uploadLogo": "上传 Logo",
+      "removeLogo": "移除 Logo",
+      "logoSize": "Logo 大小",
+      "errorCorrection": "容错级别",
+      "errorCorrectionL": "低（7%）",
+      "errorCorrectionM": "中（15%）",
+      "errorCorrectionQ": "高（25%）",
+      "errorCorrectionH": "最高（30%）"
+    },
+    "preview": {
+      "title": "预览",
+      "generating": "生成中...",
+      "size": "尺寸",
+      "format": "格式"
+    },
+    "export": {
+      "title": "导出",
+      "format": "导出格式",
+      "png": "PNG",
+      "svg": "SVG",
+      "download": "下载",
+      "downloadAll": "下载全部"
+    },
+    "batch": {
+      "title": "批量生成",
+      "input": "批量输入",
+      "placeholder": "每行一个内容，最多 50 个",
+      "csvImport": "导入 CSV",
+      "generate": "批量生成",
+      "progress": "进度",
+      "downloadZip": "下载 ZIP",
+      "currentItem": "当前项目",
+      "results": "生成结果",
+      "moreResults": "还有 {count} 个结果未显示"
+    },
+    "mode": {
+      "single": "单个生成",
+      "batch": "批量生成"
+    },
+    "actions": {
+      "generate": "生成二维码",
+      "generating": "生成中...",
+      "reset": "重置",
+      "download": "下载",
+      "downloading": "下载中..."
+    },
+    "dragDrop": {
+      "dropHere": "拖放文件到这里"
+    },
+    "errors": {
+      "emptyInput": "请输入内容",
+      "tooLong": "输入内容过长（最多 2000 个字符）",
+      "logoTooLarge": "Logo 文件过大（最大 2MB）",
+      "logoFormatInvalid": "Logo 格式不支持（仅支持 PNG、JPG、SVG）",
+      "generationFailed": "生成失败，请重试",
+      "exportFailed": "导出失败，请重试",
+      "batchLimitExceeded": "批量生成数量超过限制（最多 50 个）"
+    },
+    "howTo": {
+      "step1": {
+        "name": "输入内容",
+        "text": "输入文本、URL、电话号码或电子邮件等内容"
+      },
+      "step2": {
+        "name": "自定义样式",
+        "text": "选择颜色、尺寸、上传 Logo，打造独特的二维码"
+      },
+      "step3": {
+        "name": "生成二维码",
+        "text": "点击生成按钮，实时预览二维码效果"
+      },
+      "step4": {
+        "name": "下载保存",
+        "text": "选择 PNG 或 SVG 格式下载，支持批量打包"
+      }
+    },
+    "comparison": {
+      "customization": "自定义样式",
+      "batchProcessing": "批量生成",
+      "logoEmbedding": "Logo 嵌入",
+      "privacy": "本地处理，隐私保护",
+      "multiFormat": "多格式导出"
+    },
+    "meta": {
+      "title": "二维码生成器 - 免费在线二维码生成工具 | TryUtils",
+      "description": "免费在线二维码生成器，支持自定义颜色、尺寸、Logo 嵌入和批量生成。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "二维码生成器,QR码生成,在线生成二维码,自定义二维码,批量生成,Logo二维码,TryUtils"
+    }
   }
 }

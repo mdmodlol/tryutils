@@ -19,11 +19,13 @@
     "heic-convert": "^2.1.0",
     "jszip": "^3.10.1",
     "lodash-es": "^4.17.21",
+    "qrcode": "^1.5.4",
     "sharp": "^0.33.5",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@fast-check/vitest": "^0.2.4",
     "@iconify-json/heroicons": "^1.2.2",
     "@nuxt/content": "^2.13.1",
     "@nuxt/eslint": "^0.4.0",
@@ -33,15 +35,18 @@
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@types/jszip": "^3.4.1",
     "@types/node": "^24.3.1",
+    "@types/qrcode": "^1.5.6",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/test-utils": "^2.4.6",
+    "axe-core": "^4.11.1",
     "eslint": "^9.34.0",
     "fast-check": "^4.4.0",
     "happy-dom": "^20.0.11",
     "nuxt": "^3.18.1",
     "nuxt-gtag": "^4.0.0",
     "nuxt-icon": "^0.6.10",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.15",
+    "vitest-axe": "^0.1.0"
   },
   "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b"
 }
