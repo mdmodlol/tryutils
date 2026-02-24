@@ -1,137 +1,58 @@
-import { readMultipartFormData } from 'h3'
 import sharp from 'sharp'
+import {
+  parseImageFormData,
+  getFormField,
+  getFormFieldInt,
+  validateFormat,
+  validateQuality,
+  convertToFormat,
+  setImageResponseHeaders,
+  handleApiError,
+  makeOutputFilename
+} from '../utils/image-api'
 
 export default defineEventHandler(async (event) => {
   try {
-    // 设置CORS头
-    setHeader(event, 'Access-Control-Allow-Origin', '*')
-    setHeader(event, 'Access-Control-Allow-Methods', 'POST, OPTIONS')
-    setHeader(event, 'Access-Control-Allow-Headers', 'Content-Type')
+    const { formData, imageFile } = await parseImageFormData(event)
 
-    // 处理OPTIONS请求
-    if (getMethod(event) === 'OPTIONS') {
-      return ''
-    }
+    // 解析参数
+    const quality = getFormFieldInt(formData, 'quality', 80)!
+    const format = (getFormField(formData, 'format') || 'jpeg').toLowerCase()
+    const originalFilename = getFormField(formData, 'originalFilename') || 'optimized'
 
-    // 读取上传的文件
-    const formData = await readMultipartFormData(event)
-    
-    if (!formData || formData.length === 0) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'No file uploaded'
-      })
-    }
-
-    // 获取文件数据
-    const fileItem = formData.find(item => item.name === 'image' && item.data)
-    
-    if (!fileItem) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'No image file found in upload'
-      })
-    }
-
-    // 获取查询参数
+    // 也支持从 query 参数获取（兼容旧调用方式）
     const query = getQuery(event)
-    const format = (query.format as string) || 'jpeg'
-    const quality = parseInt(query.quality as string) || 80
-    const originalFilename = query.originalFilename as string || 'optimized'
+    const finalFormat = (query.format as string)?.toLowerCase() || format
+    const finalQuality = parseInt(query.quality as string) || quality
 
-    // 验证格式
-    const supportedFormats = ['jpeg', 'png', 'webp']
-    if (!supportedFormats.includes(format.toLowerCase())) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: `Unsupported format: ${format}. Supported formats: ${supportedFormats.join(', ')}`
-      })
-    }
+    // 验证
+    validateQuality(finalQuality)
+    validateFormat(finalFormat, 'basic')
 
-    // 获取文件数据 - formData中的data已经是Buffer
-    const fileBuffer = fileItem.data
-
-    // 使用Sharp处理图片
-    let sharpInstance = sharp(fileBuffer)
-
-    // 获取原始图片信息
+    // Sharp 处理
+    const sharpInstance = sharp(imageFile.data)
     const metadata = await sharpInstance.metadata()
 
-    // 根据格式进行转换和优化
-    let processedResult: { data: Buffer; info: sharp.OutputInfo }
+    const result = await convertToFormat(sharpInstance, finalFormat, { quality: finalQuality })
+    const filename = makeOutputFilename(
+      (query.originalFilename as string) || originalFilename,
+      finalFormat
+    )
 
-    switch (format.toLowerCase()) {
-      case 'jpeg':
-        processedResult = await sharpInstance
-          .jpeg({ 
-            quality: Math.round(quality),
-            progressive: true,
-            mozjpeg: true
-          })
-          .toBuffer({ resolveWithObject: true })
-        break
-      case 'png':
-        processedResult = await sharpInstance
-          .png({ 
-            compressionLevel: 9,
-            adaptiveFiltering: true,
-            palette: true
-          })
-          .toBuffer({ resolveWithObject: true })
-        break
-      case 'webp':
-        processedResult = await sharpInstance
-          .webp({ 
-            quality: Math.round(quality),
-            effort: 6,
-            smartSubsample: true
-          })
-          .toBuffer({ resolveWithObject: true })
-        break
-      default:
-        throw createError({
-          statusCode: 400,
-          statusMessage: `Unsupported format: ${format}`
-        })
-    }
-
-    const processedBuffer = processedResult.data
-    const processedInfo = processedResult.info
-
-    // 生成新文件名
-    const baseName = originalFilename.replace(/\.(heic|heif|png|jpg|jpeg|webp)$/i, '')
-    const extension = format.toLowerCase() === 'jpeg' ? 'jpg' : format.toLowerCase()
-    const newFilename = `${baseName}.${extension}`
-
-    // 设置响应头
-    setHeader(event, 'Content-Type', `image/${format.toLowerCase()}`)
-    setHeader(event, 'Content-Disposition', `attachment; filename="${newFilename}"`)
-    setHeader(event, 'Content-Length', processedBuffer.length.toString())
-    
-    // 添加处理信息到响应头
-    setHeader(event, 'X-Original-Width', metadata.width?.toString() || '0')
-    setHeader(event, 'X-Original-Height', metadata.height?.toString() || '0')
-    setHeader(event, 'X-Original-Size', fileBuffer.length.toString())
-    setHeader(event, 'X-Processed-Width', processedInfo.width.toString())
-    setHeader(event, 'X-Processed-Height', processedInfo.height.toString())
-    setHeader(event, 'X-Processed-Size', processedBuffer.length.toString())
-    setHeader(event, 'X-Processed-Format', format.toLowerCase())
-    setHeader(event, 'X-Original-Filename', originalFilename)
-    setHeader(event, 'X-Processed-Filename', newFilename)
-
-    // 返回处理后的图片数据
-    return processedBuffer
-
-  } catch (error) {
-    console.error('Image optimization error:', error)
-    
-    if (error.statusCode) {
-      throw error
-    }
-
-    throw createError({
-      statusCode: 500,
-      statusMessage: error instanceof Error ? error.message : 'Internal server error during image optimization'
+    // 响应
+    setImageResponseHeaders(event, {
+      format: finalFormat,
+      filename,
+      originalSize: imageFile.data.length,
+      processedSize: result.data.length,
+      metadata,
+      processedInfo: result.info
     })
+    setHeader(event, 'X-Original-Filename', originalFilename)
+    setHeader(event, 'X-Processed-Filename', filename)
+
+    return result.data
+  } catch (error: unknown) {
+    handleApiError(error, 'Image optimization')
   }
 })

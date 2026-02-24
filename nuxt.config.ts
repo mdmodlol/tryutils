@@ -129,32 +129,6 @@ export default defineNuxtConfig({
     '~/assets/css/performance.css'
   ],
   
-  // 性能优化配置
-  nitro: {
-    compressPublicAssets: true,
-    minify: true,
-    prerender: {
-      crawlLinks: true,
-      routes: [
-        '/',
-        '/en',
-        '/about',
-        '/en/about',
-        '/contact',
-        '/en/contact',
-        '/blog',
-        '/en/blog',
-        '/image-compressor',
-        '/en/image-compressor',
-        '/image-format-converter',
-        '/en/image-format-converter',
-        '/heic-converter',
-        '/en/heic-converter',
-        '/privacy',
-        '/en/privacy'
-      ]
-    }
-  },
   build: {
     transpile: [
       'browser-image-compression'
@@ -219,154 +193,36 @@ export default defineNuxtConfig({
     }
   },
   // 站点地图配置
+  // @nuxtjs/sitemap v7+ 会自动从预渲染路由和 Nuxt Content 中发现页面
+  // 无需手动列出所有 URL，也无需使用已废弃的 routes 回调
   sitemap: {
-    hostname: 'https://www.tryutils.com',
-    gzip: true,
+    autoLastmod: true,
     exclude: [
       '/admin/**',
       '/api/**',
       '/404',
       '/500'
-    ],
-    routes: async () => {
-      // 动态生成博客文章路由
-      try {
-        const { $content } = require('@nuxt/content')
-        const articles = await $content('blog').fetch()
-        return articles.map(article => ({
-          url: `/blog/${article.slug}`,
-          changefreq: 'weekly',
-          priority: 0.8,
-          lastmod: article.updatedAt || article.createdAt
-        }))
-      } catch (error) {
-        console.warn('Failed to fetch blog articles for sitemap:', error)
-        return []
-      }
-    },
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date().toISOString()
-    },
-    urls: [
-      // 主要页面
-      {
-        url: '/',
-        changefreq: 'daily',
-        priority: 1.0,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en',
-        changefreq: 'daily',
-        priority: 1.0,
-        lastmod: new Date().toISOString()
-      },
-      // 工具页面
-      {
-        url: '/image-compressor',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/image-compressor',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/image-format-converter',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/image-format-converter',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/heic-converter',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/heic-converter',
-        changefreq: 'weekly',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      },
-      // 信息页面
-      {
-        url: '/about',
-        changefreq: 'monthly',
-        priority: 0.7,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/about',
-        changefreq: 'monthly',
-        priority: 0.7,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/contact',
-        changefreq: 'monthly',
-        priority: 0.6,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/contact',
-        changefreq: 'monthly',
-        priority: 0.6,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/blog',
-        changefreq: 'daily',
-        priority: 0.8,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/blog',
-        changefreq: 'daily',
-        priority: 0.8,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/privacy',
-        changefreq: 'yearly',
-        priority: 0.5,
-        lastmod: new Date().toISOString()
-      },
-      {
-        url: '/en/privacy',
-        changefreq: 'yearly',
-        priority: 0.5,
-        lastmod: new Date().toISOString()
-      }
     ]
   },
-  // Robots.txt 配置
+  // Robots.txt 配置（@nuxtjs/robots v5+ 格式）
   robots: {
-    UserAgent: '*',
-    Allow: '/',
-    Disallow: [
-      '/admin',
-      '/api',
-      '/404',
-      '/500',
-      '/*.json$',
-      '/*?*utm_*',
-      '/*?*ref=*',
-      '/*?*fbclid=*'
+    groups: [
+      {
+        userAgent: ['*'],
+        allow: ['/'],
+        disallow: [
+          '/admin',
+          '/api',
+          '/404',
+          '/500',
+          '/*.json$',
+          '/*?*utm_*',
+          '/*?*ref=*',
+          '/*?*fbclid=*'
+        ]
+      }
     ],
-    Sitemap: 'https://www.tryutils.com/sitemap.xml',
-    Host: 'https://www.tryutils.com'
+    sitemap: 'https://www.tryutils.com/sitemap.xml'
   },
   // Google Analytics 配置
   gtag: {
@@ -406,22 +262,33 @@ export default defineNuxtConfig({
       anchorLinks: false
     }
   },
-  // Nitro 配置
+  // Nitro 配置（合并后的唯一配置）
   nitro: {
+    compressPublicAssets: true,
+    minify: true,
     prerender: {
       crawlLinks: true,
       routes: [
         '/',
+        '/en',
         '/about',
+        '/en/about',
         '/contact',
-        '/privacy',
+        '/en/contact',
         '/blog',
-        '/heic-converter',
+        '/en/blog',
         '/image-compressor',
+        '/en/image-compressor',
         '/image-format-converter',
+        '/en/image-format-converter',
+        '/heic-converter',
+        '/en/heic-converter',
+        '/qr-code-generator',
+        '/en/qr-code-generator',
+        '/privacy',
+        '/en/privacy',
         '/image-tools'
       ]
-    },
-    compressPublicAssets: true
+    }
   }
 })
