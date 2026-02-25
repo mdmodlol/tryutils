@@ -13,14 +13,18 @@ const breadcrumbItems = computed(() => [
   { name: t('base64Codec.title'), path: '/base64-codec' }
 ])
 
-// SEO Meta
-useHead({
-  title: () => t('base64Codec.meta.title'),
-  meta: [
-    { name: 'description', content: () => t('base64Codec.meta.description') },
-    { name: 'keywords', content: () => t('base64Codec.meta.keywords') }
-  ]
-})
+// SEO Meta - 使用 useSEO 确保完整的 OG/Twitter 标签
+const seoConfig = computed(() => ({
+  title: t('base64Codec.meta.title'),
+  description: t('base64Codec.meta.description'),
+  keywords: t('base64Codec.meta.keywords'),
+  ogTitle: t('base64Codec.meta.title'),
+  ogDescription: t('base64Codec.meta.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
 
 // Structured data
 const { useStructuredData } = await import('~/composables/useStructuredData')

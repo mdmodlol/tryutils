@@ -298,7 +298,31 @@ export default defineNuxtConfig({
         '/text-diff',
         '/en/text-diff',
         '/dev-tools',
-        '/en/dev-tools'
+        '/en/dev-tools',
+        // JSON Formatter 博客文章
+        '/blog/JsonFormatter/json-formatting-basics',
+        '/blog/JsonFormatter/json-validation-guide',
+        '/blog/JsonFormatter/json-beautify-minify-tips',
+        '/blog/JsonFormatter/json-vs-xml-yaml-comparison',
+        '/blog/JsonFormatter/json-api-best-practices',
+        // Base64 Codec 博客文章
+        '/blog/Base64Codec/base64-encoding-explained',
+        '/blog/Base64Codec/how-to-base64-online',
+        '/blog/Base64Codec/base64-web-development-use-cases',
+        '/blog/Base64Codec/base64-security-myths',
+        '/blog/Base64Codec/image-to-base64-tips',
+        // Color Converter 博客文章
+        '/blog/ColorConverter/hex-rgb-hsl-color-guide',
+        '/blog/ColorConverter/how-to-convert-colors-online',
+        '/blog/ColorConverter/web-color-best-practices',
+        '/blog/ColorConverter/css-color-properties-deep-dive',
+        '/blog/ColorConverter/color-theory-developer-guide',
+        // Text Diff 博客文章
+        '/blog/TextDiff/text-diff-getting-started',
+        '/blog/TextDiff/online-text-comparison-guide',
+        '/blog/TextDiff/diff-algorithm-explained',
+        '/blog/TextDiff/text-diff-for-code-review',
+        '/blog/TextDiff/text-diff-practical-use-cases'
       ]
     }
   }

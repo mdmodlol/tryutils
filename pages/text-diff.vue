@@ -13,14 +13,18 @@ const breadcrumbItems = computed(() => [
   { name: t('textDiff.title'), path: '/text-diff' }
 ])
 
-// SEO Meta
-useHead({
-  title: () => t('textDiff.meta.title'),
-  meta: [
-    { name: 'description', content: () => t('textDiff.meta.description') },
-    { name: 'keywords', content: () => t('textDiff.meta.keywords') }
-  ]
-})
+// SEO Meta - 使用 useSEO 确保完整的 OG/Twitter 标签
+const seoConfig = computed(() => ({
+  title: t('textDiff.meta.title'),
+  description: t('textDiff.meta.description'),
+  keywords: t('textDiff.meta.keywords'),
+  ogTitle: t('textDiff.meta.title'),
+  ogDescription: t('textDiff.meta.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
 
 // Structured data
 const { useStructuredData } = await import('~/composables/useStructuredData')

@@ -13,14 +13,18 @@ const breadcrumbItems = computed(() => [
   { name: t('colorConverter.title'), path: '/color-converter' }
 ])
 
-// SEO Meta
-useHead({
-  title: () => t('colorConverter.meta.title'),
-  meta: [
-    { name: 'description', content: () => t('colorConverter.meta.description') },
-    { name: 'keywords', content: () => t('colorConverter.meta.keywords') }
-  ]
-})
+// SEO Meta - 使用 useSEO 确保完整的 OG/Twitter 标签
+const seoConfig = computed(() => ({
+  title: t('colorConverter.meta.title'),
+  description: t('colorConverter.meta.description'),
+  keywords: t('colorConverter.meta.keywords'),
+  ogTitle: t('colorConverter.meta.title'),
+  ogDescription: t('colorConverter.meta.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
 
 // Structured data
 const { useStructuredData } = await import('~/composables/useStructuredData')

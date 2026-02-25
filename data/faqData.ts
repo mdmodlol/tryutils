@@ -239,6 +239,230 @@ export const toolFAQs: Record<string, ToolFAQs> = {
         category: 'privacy'
       }
     ]
+  },
+  'json-formatter': {
+    zh: [
+      {
+        question: 'JSON 格式化工具支持哪些功能？',
+        answer: '支持 JSON 格式化（美化）、压缩（Minify）、语法校验、错误定位和语法高亮。可以一键将紧凑的 JSON 转为可读格式，或将格式化的 JSON 压缩为单行。',
+        category: 'features'
+      },
+      {
+        question: 'JSON 格式化后数据会上传到服务器吗？',
+        answer: '不会。所有 JSON 处理都在您的浏览器本地完成，数据不会发送到任何服务器，完全保护您的隐私和数据安全。',
+        category: 'privacy'
+      },
+      {
+        question: '可以处理多大的 JSON 数据？',
+        answer: '工具可以处理大多数常见大小的 JSON 数据。对于超大文件（超过 10MB），建议使用命令行工具如 jq 进行处理。',
+        category: 'limits'
+      },
+      {
+        question: 'JSON 格式化支持哪些缩进方式？',
+        answer: '默认使用 2 个空格缩进，这是业界最常用的标准。格式化后的 JSON 结构清晰，便于阅读和调试。',
+        category: 'formatting'
+      },
+      {
+        question: '如何快速定位 JSON 语法错误？',
+        answer: '粘贴 JSON 数据后，工具会自动检测语法错误并高亮显示错误位置，同时给出错误描述，帮助您快速定位和修复问题。',
+        category: 'validation'
+      }
+    ],
+    en: [
+      {
+        question: 'What features does the JSON Formatter support?',
+        answer: 'It supports JSON formatting (beautify), minification, syntax validation, error location, and syntax highlighting. One-click conversion between compact and readable JSON formats.',
+        category: 'features'
+      },
+      {
+        question: 'Is my JSON data uploaded to servers?',
+        answer: 'No. All JSON processing is done locally in your browser. Data is never sent to any server, ensuring complete privacy and data security.',
+        category: 'privacy'
+      },
+      {
+        question: 'How large of a JSON file can it handle?',
+        answer: 'The tool can handle most common-sized JSON data. For very large files (over 10MB), we recommend using command-line tools like jq.',
+        category: 'limits'
+      },
+      {
+        question: 'What indentation styles are supported?',
+        answer: 'The default is 2-space indentation, which is the most common industry standard. The formatted JSON has a clear structure for easy reading and debugging.',
+        category: 'formatting'
+      },
+      {
+        question: 'How do I quickly locate JSON syntax errors?',
+        answer: 'After pasting JSON data, the tool automatically detects syntax errors, highlights the error location, and provides error descriptions to help you quickly find and fix issues.',
+        category: 'validation'
+      }
+    ]
+  },
+  'base64-codec': {
+    zh: [
+      {
+        question: 'Base64 编码和加密有什么区别？',
+        answer: 'Base64 是编码方式，不是加密。任何人都可以解码 Base64 数据，它不提供任何安全保护。Base64 的目的是将二进制数据转换为文本格式，方便在文本协议中传输。',
+        category: 'basics'
+      },
+      {
+        question: '支持哪些类型的数据编解码？',
+        answer: '支持文本的 Base64 编码和解码，以及图片文件的 Base64 转换。可以将图片转为 Data URI 格式，直接用于 HTML 和 CSS。',
+        category: 'features'
+      },
+      {
+        question: 'Base64 编码后数据会变大吗？',
+        answer: '是的，Base64 编码会使数据体积增加约 33%。这是因为每 3 个字节的二进制数据会被编码为 4 个 ASCII 字符。',
+        category: 'size'
+      },
+      {
+        question: '可以处理中文等非 ASCII 字符吗？',
+        answer: '可以。工具会自动使用 UTF-8 编码处理中文、日文、韩文等多字节字符，确保编解码结果正确。',
+        category: 'encoding'
+      },
+      {
+        question: '数据会上传到服务器吗？',
+        answer: '不会。所有编解码操作都在浏览器本地完成，您的数据不会离开您的设备，完全保护隐私安全。',
+        category: 'privacy'
+      }
+    ],
+    en: [
+      {
+        question: 'What is the difference between Base64 encoding and encryption?',
+        answer: 'Base64 is an encoding scheme, not encryption. Anyone can decode Base64 data — it provides no security protection. Its purpose is to convert binary data into text format for transmission through text-based protocols.',
+        category: 'basics'
+      },
+      {
+        question: 'What types of data can be encoded/decoded?',
+        answer: 'Supports text Base64 encoding/decoding and image file Base64 conversion. You can convert images to Data URI format for direct use in HTML and CSS.',
+        category: 'features'
+      },
+      {
+        question: 'Does Base64 encoding increase data size?',
+        answer: 'Yes, Base64 encoding increases data size by approximately 33%. This is because every 3 bytes of binary data are encoded into 4 ASCII characters.',
+        category: 'size'
+      },
+      {
+        question: 'Can it handle non-ASCII characters like Chinese?',
+        answer: 'Yes. The tool automatically uses UTF-8 encoding to handle multi-byte characters including Chinese, Japanese, and Korean, ensuring correct encoding/decoding results.',
+        category: 'encoding'
+      },
+      {
+        question: 'Is my data uploaded to servers?',
+        answer: 'No. All encoding/decoding operations are performed locally in your browser. Your data never leaves your device, ensuring complete privacy.',
+        category: 'privacy'
+      }
+    ]
+  },
+  'color-converter': {
+    zh: [
+      {
+        question: '支持哪些颜色格式转换？',
+        answer: '支持 HEX、RGB、HSL 三种主流颜色格式之间的互相转换。输入任意一种格式，即可自动获得其他格式的对应值。',
+        category: 'formats'
+      },
+      {
+        question: '如何使用可视化调色板？',
+        answer: '工具提供直观的可视化调色板，您可以通过拖动色相、饱和度和亮度滑块来选择颜色，实时预览颜色效果并获取对应的颜色代码。',
+        category: 'usage'
+      },
+      {
+        question: 'HEX、RGB、HSL 有什么区别？',
+        answer: 'HEX 是十六进制颜色码（如 #FF5733），最常用于 CSS。RGB 用红绿蓝三个通道值表示颜色（如 rgb(255, 87, 51)）。HSL 用色相、饱和度、亮度表示（如 hsl(14, 100%, 60%)），更直观易理解。',
+        category: 'basics'
+      },
+      {
+        question: '可以复制颜色代码吗？',
+        answer: '可以！每种格式的颜色值旁边都有一键复制按钮，方便您直接粘贴到代码中使用。',
+        category: 'features'
+      },
+      {
+        question: '颜色数据会上传到服务器吗？',
+        answer: '不会。所有颜色转换都在浏览器本地完成，不涉及任何网络请求。',
+        category: 'privacy'
+      }
+    ],
+    en: [
+      {
+        question: 'What color formats are supported?',
+        answer: 'Supports conversion between HEX, RGB, and HSL — three mainstream color formats. Enter any format and automatically get the corresponding values in other formats.',
+        category: 'formats'
+      },
+      {
+        question: 'How do I use the visual color picker?',
+        answer: 'The tool provides an intuitive visual color picker. You can drag hue, saturation, and lightness sliders to select colors, preview in real-time, and get the corresponding color codes.',
+        category: 'usage'
+      },
+      {
+        question: 'What are the differences between HEX, RGB, and HSL?',
+        answer: 'HEX is hexadecimal color code (e.g., #FF5733), most commonly used in CSS. RGB uses red, green, blue channel values (e.g., rgb(255, 87, 51)). HSL uses hue, saturation, lightness (e.g., hsl(14, 100%, 60%)), which is more intuitive.',
+        category: 'basics'
+      },
+      {
+        question: 'Can I copy color codes?',
+        answer: 'Yes! Each color format value has a one-click copy button, making it easy to paste directly into your code.',
+        category: 'features'
+      },
+      {
+        question: 'Is color data uploaded to servers?',
+        answer: 'No. All color conversions are performed locally in your browser with no network requests involved.',
+        category: 'privacy'
+      }
+    ]
+  },
+  'text-diff': {
+    zh: [
+      {
+        question: '文本对比工具支持哪些功能？',
+        answer: '支持逐行对比和逐字对比两种模式，高亮显示新增、删除和修改的内容。可以快速找出两段文本之间的所有差异。',
+        category: 'features'
+      },
+      {
+        question: '可以对比代码文件吗？',
+        answer: '可以！工具适用于任何文本内容的对比，包括代码、配置文件、文档等。对比结果会清晰地标记出每一处变更。',
+        category: 'usage'
+      },
+      {
+        question: '对比的文本长度有限制吗？',
+        answer: '工具可以处理大多数常见长度的文本。对于超长文本（超过 100KB），可能会有轻微的性能延迟，但仍然可以正常使用。',
+        category: 'limits'
+      },
+      {
+        question: '文本数据会上传到服务器吗？',
+        answer: '不会。所有文本对比都在您的浏览器本地完成，您的文本内容不会发送到任何服务器，完全保护隐私。',
+        category: 'privacy'
+      },
+      {
+        question: '如何理解对比结果中的颜色标记？',
+        answer: '绿色背景表示新增的内容，红色背景表示删除的内容。通过颜色标记可以直观地看出两段文本之间的差异。',
+        category: 'results'
+      }
+    ],
+    en: [
+      {
+        question: 'What features does the Text Diff tool support?',
+        answer: 'Supports line-by-line and character-by-character comparison modes, highlighting additions, deletions, and modifications. Quickly find all differences between two texts.',
+        category: 'features'
+      },
+      {
+        question: 'Can I compare code files?',
+        answer: 'Yes! The tool works for comparing any text content, including code, configuration files, and documents. Results clearly mark every change.',
+        category: 'usage'
+      },
+      {
+        question: 'Is there a text length limit?',
+        answer: 'The tool handles most common text lengths. For very long texts (over 100KB), there may be slight performance delays, but it still works correctly.',
+        category: 'limits'
+      },
+      {
+        question: 'Is my text data uploaded to servers?',
+        answer: 'No. All text comparison is done locally in your browser. Your text content is never sent to any server, ensuring complete privacy.',
+        category: 'privacy'
+      },
+      {
+        question: 'How do I understand the color coding in results?',
+        answer: 'Green background indicates added content, red background indicates deleted content. The color coding provides an intuitive view of differences between two texts.',
+        category: 'results'
+      }
+    ]
   }
 }
 

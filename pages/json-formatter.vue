@@ -13,14 +13,18 @@ const breadcrumbItems = computed(() => [
   { name: t('jsonFormatter.title'), path: '/json-formatter' }
 ])
 
-// SEO Meta
-useHead({
-  title: () => t('jsonFormatter.meta.title'),
-  meta: [
-    { name: 'description', content: () => t('jsonFormatter.meta.description') },
-    { name: 'keywords', content: () => t('jsonFormatter.meta.keywords') }
-  ]
-})
+// SEO Meta - 使用 useSEO 确保完整的 OG/Twitter 标签
+const seoConfig = computed(() => ({
+  title: t('jsonFormatter.meta.title'),
+  description: t('jsonFormatter.meta.description'),
+  keywords: t('jsonFormatter.meta.keywords'),
+  ogTitle: t('jsonFormatter.meta.title'),
+  ogDescription: t('jsonFormatter.meta.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
 
 // Structured data
 const { useStructuredData } = await import('~/composables/useStructuredData')
