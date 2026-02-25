@@ -287,7 +287,18 @@ export default defineNuxtConfig({
         '/en/qr-code-generator',
         '/privacy',
         '/en/privacy',
-        '/image-tools'
+        '/image-tools',
+        '/en/image-tools',
+        '/json-formatter',
+        '/en/json-formatter',
+        '/base64-codec',
+        '/en/base64-codec',
+        '/color-converter',
+        '/en/color-converter',
+        '/text-diff',
+        '/en/text-diff',
+        '/dev-tools',
+        '/en/dev-tools'
       ]
     }
   }

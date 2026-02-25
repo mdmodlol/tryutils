@@ -74,6 +74,66 @@ export const toolConfigs: ToolConfig[] = [
     path: '/qr-code-generator',
     category: 'QRCodeGenerator',
     keywords: ['qr', 'qrcode', 'barcode', 'generate', '二维码', '生成', 'url', 'link', 'batch', '批量']
+  },
+  {
+    id: 'json-formatter',
+    name: {
+      zh: 'JSON 格式化',
+      en: 'JSON Formatter'
+    },
+    description: {
+      zh: 'JSON 格式化、校验、压缩，支持语法高亮和错误定位',
+      en: 'JSON formatting, validation, and minification with syntax highlighting and error location'
+    },
+    icon: 'heroicons:code-bracket',
+    path: '/json-formatter',
+    category: 'DevTools',
+    keywords: ['json', 'format', 'validate', 'minify', '格式化', '校验', '压缩', 'beautify']
+  },
+  {
+    id: 'base64-codec',
+    name: {
+      zh: 'Base64 编解码',
+      en: 'Base64 Codec'
+    },
+    description: {
+      zh: '文本和图片的 Base64 编码/解码，支持文件拖拽',
+      en: 'Base64 encoding/decoding for text and images, with file drag & drop support'
+    },
+    icon: 'heroicons:lock-closed',
+    path: '/base64-codec',
+    category: 'DevTools',
+    keywords: ['base64', 'encode', 'decode', '编码', '解码', 'text', 'image', '文本', '图片']
+  },
+  {
+    id: 'color-converter',
+    name: {
+      zh: '颜色转换',
+      en: 'Color Converter'
+    },
+    description: {
+      zh: 'HEX、RGB、HSL 颜色格式互转，可视化调色板',
+      en: 'Convert between HEX, RGB, HSL color formats with visual color picker'
+    },
+    icon: 'heroicons:swatch',
+    path: '/color-converter',
+    category: 'DevTools',
+    keywords: ['color', 'hex', 'rgb', 'hsl', '颜色', '转换', 'picker', '调色板']
+  },
+  {
+    id: 'text-diff',
+    name: {
+      zh: '文本对比',
+      en: 'Text Diff'
+    },
+    description: {
+      zh: '对比两段文本的差异，高亮显示增删改内容',
+      en: 'Compare two texts and highlight additions, deletions, and modifications'
+    },
+    icon: 'heroicons:document-duplicate',
+    path: '/text-diff',
+    category: 'DevTools',
+    keywords: ['diff', 'compare', 'text', '对比', '差异', '文本', 'merge']
   }
 ]
 

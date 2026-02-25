@@ -46,6 +46,7 @@ const toolCategories = computed(() => [
     description: t('home.categories.imageTools.description'),
     icon: 'image',
     color: 'from-blue-500 to-purple-600',
+    link: '/image-tools',
     tools: [
       {
         name: t('nav.imageCompressor'),
@@ -70,6 +71,40 @@ const toolCategories = computed(() => [
         description: t('qrCodeGenerator.hero.subtitle'),
         path: '/qr-code-generator',
         icon: 'qrcode'
+      }
+    ]
+  },
+  {
+    id: 'dev-tools',
+    title: t('home.categories.devTools.title'),
+    description: t('home.categories.devTools.description'),
+    icon: 'code',
+    color: 'from-green-500 to-teal-600',
+    link: '/dev-tools',
+    tools: [
+      {
+        name: t('nav.jsonFormatter'),
+        description: t('home.categories.devTools.jsonFormatter.description'),
+        path: '/json-formatter',
+        icon: 'json'
+      },
+      {
+        name: t('nav.base64Codec'),
+        description: t('home.categories.devTools.base64Codec.description'),
+        path: '/base64-codec',
+        icon: 'base64'
+      },
+      {
+        name: t('nav.colorConverter'),
+        description: t('home.categories.devTools.colorConverter.description'),
+        path: '/color-converter',
+        icon: 'color'
+      },
+      {
+        name: t('nav.textDiff'),
+        description: t('home.categories.devTools.textDiff.description'),
+        path: '/text-diff',
+        icon: 'diff'
       }
     ]
   }
@@ -204,8 +239,8 @@ const toolCategories = computed(() => [
                   
                   <!-- 查看全部链接 -->
                   <div class="mt-8 text-center">
-                    <NuxtLink 
-                      :to="localePath('/image-tools')" 
+                    <NuxtLink
+                      :to="localePath(category.link)"
                       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       :aria-label="`查看所有 ${category.title} 工具`"
                     >

@@ -136,6 +136,13 @@
     "formatConverter": "格式转换",
     "heicConverter": "HEIC 转换器",
     "qrCodeGenerator": "二维码生成器",
+    "devTools": "开发者工具",
+    "devToolsMenu": "开发者工具菜单",
+    "devToolsSubmenu": "开发者工具子菜单",
+    "jsonFormatter": "JSON 格式化",
+    "base64Codec": "Base64 编解码",
+    "colorConverter": "颜色转换",
+    "textDiff": "文本对比",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -480,6 +487,22 @@
         },
         "heicConverter": {
           "description": "专业的 HEIC 图片转换工具，支持转换为 JPG、PNG 等常见格式"
+        }
+      },
+      "devTools": {
+        "title": "开发者工具",
+        "description": "实用的开发辅助工具，完全在浏览器中运行",
+        "jsonFormatter": {
+          "description": "JSON 格式化、校验、压缩，支持语法高亮和错误定位"
+        },
+        "base64Codec": {
+          "description": "文本和图片的 Base64 编码/解码，支持文件拖拽"
+        },
+        "colorConverter": {
+          "description": "HEX、RGB、HSL 颜色格式互转，可视化调色板"
+        },
+        "textDiff": {
+          "description": "对比两段文本的差异，高亮显示增删改内容"
         }
       }
     },
@@ -1052,6 +1075,179 @@
       "title": "二维码生成器 - 免费在线二维码生成工具 | TryUtils",
       "description": "免费在线二维码生成器，支持自定义颜色、尺寸、Logo 嵌入和批量生成。完全在浏览器中处理，保护您的隐私。",
       "keywords": "二维码生成器,QR码生成,在线生成二维码,自定义二维码,批量生成,Logo二维码,TryUtils"
+    }
+  },
+  "devTools": {
+    "title": "开发者工具",
+    "description": "实用的开发辅助工具集合，完全在浏览器中运行，保护您的隐私安全。",
+    "seo": {
+      "title": "开发者工具 - 在线开发辅助工具集合 | TryUtils",
+      "description": "免费在线开发者工具集合，支持 JSON 格式化、Base64 编解码、颜色转换、文本对比等功能。无需注册，本地处理，保护隐私。",
+      "keywords": "开发者工具,JSON格式化,Base64编解码,颜色转换,文本对比,在线工具,免费工具"
+    },
+    "features": {
+      "title": "工具特色"
+    }
+  },
+  "jsonFormatter": {
+    "title": "JSON 格式化",
+    "subtitle": "在线 JSON 格式化、校验和压缩工具",
+    "description": "JSON 格式化、校验、压缩，支持语法高亮和错误定位",
+    "inputPlaceholder": "在此粘贴或输入 JSON 数据...",
+    "outputPlaceholder": "格式化后的 JSON 将显示在这里...",
+    "placeholder": "在此粘贴或输入 JSON 数据...",
+    "actions": {
+      "format": "格式化",
+      "minify": "压缩",
+      "compress": "压缩",
+      "validate": "校验",
+      "copy": "复制",
+      "clear": "清空",
+      "copySuccess": "已复制到剪贴板"
+    },
+    "indent": {
+      "label": "缩进",
+      "spaces2": "2 空格",
+      "spaces4": "4 空格",
+      "tab": "Tab"
+    },
+    "validation": {
+      "valid": "JSON 格式正确",
+      "invalid": "JSON 格式错误",
+      "errorAtLine": "第 {line} 行错误",
+      "emptyInput": "请输入 JSON 数据"
+    },
+    "info": {
+      "characters": "字符",
+      "lines": "行",
+      "size": "大小"
+    },
+    "dropHint": "拖拽 .json 文件到此处",
+    "meta": {
+      "title": "JSON 格式化 - 免费在线 JSON 格式化工具 | TryUtils",
+      "description": "免费在线 JSON 格式化工具，支持 JSON 格式化、校验、压缩，语法高亮和错误定位。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "JSON格式化,JSON校验,JSON压缩,在线JSON工具,JSON美化,TryUtils"
+    }
+  },
+  "base64Codec": {
+    "title": "Base64 编解码",
+    "subtitle": "在线 Base64 编码和解码工具，支持文本和图片",
+    "description": "文本和图片的 Base64 编码/解码，支持文件拖拽",
+    "mode": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "textMode": "文本模式",
+    "imageMode": "图片模式",
+    "inputPlaceholder": {
+      "encode": "在此输入要编码的文本...",
+      "decode": "在此输入要解码的 Base64 字符串..."
+    },
+    "outputPlaceholder": "结果将显示在这里...",
+    "actions": {
+      "encode": "编码",
+      "decode": "解码",
+      "copy": "复制结果",
+      "clear": "清空",
+      "swap": "交换输入输出",
+      "copySuccess": "已复制到剪贴板",
+      "download": "下载",
+      "uploadFile": "上传文件"
+    },
+    "imageUpload": {
+      "dragText": "拖拽图片到此处，或",
+      "selectFile": "选择文件",
+      "preview": "图片预览",
+      "downloadImage": "下载图片"
+    },
+    "validation": {
+      "invalidBase64": "无效的 Base64 字符串",
+      "emptyInput": "请输入内容",
+      "fileTooLarge": "文件过大，最大支持 {size}"
+    },
+    "info": {
+      "characters": "字符",
+      "size": "大小"
+    },
+    "meta": {
+      "title": "Base64 编解码 - 免费在线 Base64 工具 | TryUtils",
+      "description": "免费在线 Base64 编解码工具，支持文本和图片的 Base64 编码/解码，支持文件拖拽。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "Base64编码,Base64解码,在线Base64工具,图片Base64,文件编码,TryUtils"
+    }
+  },
+  "colorConverter": {
+    "title": "颜色转换",
+    "subtitle": "在线颜色格式转换工具，支持 HEX、RGB、HSL 互转与可视化调色板",
+    "description": "HEX、RGB、HSL 颜色格式互转，可视化调色板",
+    "placeholder": "输入颜色值，如 #FF5733 或 rgb(255,87,51)",
+    "formats": {
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL"
+    },
+    "actions": {
+      "convert": "转换",
+      "copy": "复制",
+      "copySuccess": "已复制",
+      "clear": "清空",
+      "random": "随机颜色"
+    },
+    "palette": {
+      "title": "调色板",
+      "complementary": "互补色",
+      "analogous": "类似色",
+      "triadic": "三等分色",
+      "shades": "暗色变体",
+      "tints": "亮色变体"
+    },
+    "history": {
+      "title": "最近使用",
+      "clear": "清空历史"
+    },
+    "preview": {
+      "title": "颜色预览"
+    },
+    "meta": {
+      "title": "颜色转换 - 免费在线颜色格式转换工具 | TryUtils",
+      "description": "免费在线颜色转换工具，支持 HEX、RGB、HSL 颜色格式互转，可视化调色板。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "颜色转换,HEX转RGB,RGB转HSL,在线调色板,颜色格式转换,TryUtils"
+    }
+  },
+  "textDiff": {
+    "title": "文本对比",
+    "subtitle": "在线文本差异对比工具",
+    "description": "对比两段文本的差异，高亮显示增删改内容",
+    "original": "原始文本",
+    "modified": "修改后文本",
+    "originalPlaceholder": "在此输入原始文本...",
+    "modifiedPlaceholder": "在此输入修改后的文本...",
+    "dropHint": "或拖拽 .txt 文件到此处",
+    "actions": {
+      "compare": "对比",
+      "swap": "交换",
+      "clear": "清空",
+      "copy": "复制差异",
+      "copySuccess": "已复制到剪贴板"
+    },
+    "viewMode": {
+      "sideBySide": "并排模式",
+      "unified": "统一模式"
+    },
+    "stats": {
+      "additions": "新增",
+      "deletions": "删除",
+      "modifications": "修改",
+      "unchanged": "未变"
+    },
+    "empty": {
+      "noChanges": "两段文本完全相同，没有差异",
+      "enterText": "请在左右两侧输入文本，然后点击「对比」按钮"
+    },
+    "lineNum": "行号",
+    "meta": {
+      "title": "文本对比 - 免费在线文本差异对比工具 | TryUtils",
+      "description": "免费在线文本对比工具，对比两段文本的差异，高亮显示增删改内容。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "文本对比,文本差异,Diff工具,在线对比,文本比较,TryUtils"
     }
   }
 }

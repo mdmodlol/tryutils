@@ -134,6 +134,13 @@
     "formatConverter": "Format Converter",
     "heicConverter": "HEIC Converter",
     "qrCodeGenerator": "QR Code Generator",
+    "devTools": "Dev Tools",
+    "devToolsMenu": "Dev Tools Menu",
+    "devToolsSubmenu": "Dev Tools submenu",
+    "jsonFormatter": "JSON Formatter",
+    "base64Codec": "Base64 Codec",
+    "colorConverter": "Color Converter",
+    "textDiff": "Text Diff",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -488,6 +495,22 @@
         },
         "heicConverter": {
           "description": "Professional HEIC image converter, supports conversion to JPG, PNG and other common formats"
+        }
+      },
+      "devTools": {
+        "title": "Dev Tools",
+        "description": "Practical development utilities, running entirely in your browser",
+        "jsonFormatter": {
+          "description": "JSON formatting, validation, and minification with syntax highlighting and error location"
+        },
+        "base64Codec": {
+          "description": "Base64 encoding/decoding for text and images, with file drag & drop support"
+        },
+        "colorConverter": {
+          "description": "Convert between HEX, RGB, HSL color formats with visual color picker"
+        },
+        "textDiff": {
+          "description": "Compare two texts and highlight additions, deletions, and modifications"
         }
       }
     },
@@ -1085,6 +1108,179 @@
       "title": "QR Code Generator - Free Online QR Code Generator | TryUtils",
       "description": "Free online QR code generator with custom colors, sizes, logo embedding and batch generation. Completely processed in browser, protecting your privacy.",
       "keywords": "QR code generator,QR code,generate QR code,custom QR code,batch generation,logo QR code,TryUtils"
+    }
+  },
+  "devTools": {
+    "title": "Dev Tools",
+    "description": "A collection of practical development utilities, running entirely in your browser to protect your privacy.",
+    "seo": {
+      "title": "Dev Tools - Online Developer Utilities | TryUtils",
+      "description": "Free online developer tools collection, including JSON formatter, Base64 codec, color converter, text diff and more. No registration required, local processing, privacy protected.",
+      "keywords": "developer tools,JSON formatter,Base64 codec,color converter,text diff,online tools,free tools"
+    },
+    "features": {
+      "title": "Tool Features"
+    }
+  },
+  "jsonFormatter": {
+    "title": "JSON Formatter",
+    "subtitle": "Online JSON formatting, validation and minification tool",
+    "description": "JSON formatting, validation, and minification with syntax highlighting and error location",
+    "inputPlaceholder": "Paste or type JSON data here...",
+    "outputPlaceholder": "Formatted JSON will appear here...",
+    "placeholder": "Paste or type JSON data here...",
+    "actions": {
+      "format": "Format",
+      "minify": "Minify",
+      "compress": "Minify",
+      "validate": "Validate",
+      "copy": "Copy",
+      "clear": "Clear",
+      "copySuccess": "Copied to clipboard"
+    },
+    "indent": {
+      "label": "Indent",
+      "spaces2": "2 Spaces",
+      "spaces4": "4 Spaces",
+      "tab": "Tab"
+    },
+    "validation": {
+      "valid": "Valid JSON",
+      "invalid": "Invalid JSON",
+      "errorAtLine": "Error at line {line}",
+      "emptyInput": "Please enter JSON data"
+    },
+    "info": {
+      "characters": "Characters",
+      "lines": "Lines",
+      "size": "Size"
+    },
+    "dropHint": "Drop .json file here",
+    "meta": {
+      "title": "JSON Formatter - Free Online JSON Formatting Tool | TryUtils",
+      "description": "Free online JSON formatter with formatting, validation, minification, syntax highlighting and error location. Completely processed in browser, protecting your privacy.",
+      "keywords": "JSON formatter,JSON validator,JSON minifier,online JSON tool,JSON beautifier,TryUtils"
+    }
+  },
+  "base64Codec": {
+    "title": "Base64 Codec",
+    "subtitle": "Online Base64 encoding and decoding tool for text and images",
+    "description": "Base64 encoding/decoding for text and images, with file drag & drop support",
+    "mode": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "textMode": "Text Mode",
+    "imageMode": "Image Mode",
+    "inputPlaceholder": {
+      "encode": "Enter text to encode...",
+      "decode": "Enter Base64 string to decode..."
+    },
+    "outputPlaceholder": "Result will appear here...",
+    "actions": {
+      "encode": "Encode",
+      "decode": "Decode",
+      "copy": "Copy Result",
+      "clear": "Clear",
+      "swap": "Swap Input/Output",
+      "copySuccess": "Copied to clipboard",
+      "download": "Download",
+      "uploadFile": "Upload File"
+    },
+    "imageUpload": {
+      "dragText": "Drag and drop image here, or",
+      "selectFile": "Select File",
+      "preview": "Image Preview",
+      "downloadImage": "Download Image"
+    },
+    "validation": {
+      "invalidBase64": "Invalid Base64 string",
+      "emptyInput": "Please enter content",
+      "fileTooLarge": "File too large, max {size}"
+    },
+    "info": {
+      "characters": "Characters",
+      "size": "Size"
+    },
+    "meta": {
+      "title": "Base64 Codec - Free Online Base64 Tool | TryUtils",
+      "description": "Free online Base64 encoding/decoding tool for text and images, with file drag & drop support. Completely processed in browser, protecting your privacy.",
+      "keywords": "Base64 encode,Base64 decode,online Base64 tool,image Base64,file encoding,TryUtils"
+    }
+  },
+  "colorConverter": {
+    "title": "Color Converter",
+    "subtitle": "Online color format conversion tool with HEX, RGB, HSL support and visual palette",
+    "description": "Convert between HEX, RGB, HSL color formats with visual color picker",
+    "placeholder": "Enter a color value, e.g. #FF5733 or rgb(255,87,51)",
+    "formats": {
+      "hex": "HEX",
+      "rgb": "RGB",
+      "hsl": "HSL"
+    },
+    "actions": {
+      "convert": "Convert",
+      "copy": "Copy",
+      "copySuccess": "Copied",
+      "clear": "Clear",
+      "random": "Random Color"
+    },
+    "palette": {
+      "title": "Palette",
+      "complementary": "Complementary",
+      "analogous": "Analogous",
+      "triadic": "Triadic",
+      "shades": "Shades",
+      "tints": "Tints"
+    },
+    "history": {
+      "title": "Recent Colors",
+      "clear": "Clear History"
+    },
+    "preview": {
+      "title": "Color Preview"
+    },
+    "meta": {
+      "title": "Color Converter - Free Online Color Format Converter | TryUtils",
+      "description": "Free online color converter supporting HEX, RGB, HSL format conversion with visual color picker. Completely processed in browser, protecting your privacy.",
+      "keywords": "color converter,HEX to RGB,RGB to HSL,online color picker,color format conversion,TryUtils"
+    }
+  },
+  "textDiff": {
+    "title": "Text Diff",
+    "subtitle": "Online text difference comparison tool",
+    "description": "Compare two texts and highlight additions, deletions, and modifications",
+    "original": "Original",
+    "modified": "Modified",
+    "originalPlaceholder": "Enter original text here...",
+    "modifiedPlaceholder": "Enter modified text here...",
+    "dropHint": "or drag & drop a .txt file here",
+    "actions": {
+      "compare": "Compare",
+      "swap": "Swap",
+      "clear": "Clear",
+      "copy": "Copy Diff",
+      "copySuccess": "Copied to clipboard"
+    },
+    "viewMode": {
+      "sideBySide": "Side by Side",
+      "unified": "Unified"
+    },
+    "stats": {
+      "additions": "Additions",
+      "deletions": "Deletions",
+      "modifications": "Modifications",
+      "unchanged": "Unchanged"
+    },
+    "empty": {
+      "noChanges": "Both texts are identical, no differences found",
+      "enterText": "Enter text on both sides, then click the Compare button"
+    },
+    "lineNum": "Line",
+    "meta": {
+      "title": "Text Diff - Free Online Text Comparison Tool | TryUtils",
+      "description": "Free online text diff tool to compare two texts and highlight additions, deletions, and modifications. Completely processed in browser, protecting your privacy.",
+      "keywords": "text diff,text comparison,diff tool,online diff,text compare,TryUtils"
     }
   }
 }

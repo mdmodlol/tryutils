@@ -90,8 +90,59 @@
                   </div>
                 </div>
 
-                <NuxtLink 
-                  :to="localePath('/blog')" 
+                <!-- Dev Tools Dropdown -->
+                <div class="relative group">
+                  <button
+                    class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                    :aria-expanded="false"
+                    :aria-haspopup="true"
+                    :aria-label="$t('nav.devToolsMenu')"
+                    @keydown.enter="$event.target.focus()"
+                    @keydown.space.prevent="$event.target.focus()"
+                  >
+                    {{ $t('nav.devTools') }}
+                    <Icon name="heroicons:chevron-down" class="w-4 h-4 ml-1" aria-hidden="true" />
+                  </button>
+                  <div
+                    class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50"
+                    role="menu"
+                    :aria-label="$t('nav.devToolsSubmenu')"
+                  >
+                    <div class="p-2">
+                      <NuxtLink
+                        :to="localePath('/json-formatter')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.jsonFormatter') }}
+                      </NuxtLink>
+                      <NuxtLink
+                        :to="localePath('/base64-codec')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.base64Codec') }}
+                      </NuxtLink>
+                      <NuxtLink
+                        :to="localePath('/color-converter')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.colorConverter') }}
+                      </NuxtLink>
+                      <NuxtLink
+                        :to="localePath('/text-diff')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.textDiff') }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
+
+                <NuxtLink
+                  :to="localePath('/blog')"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                   active-class="text-blue-600"
                   :aria-current="$route.path.startsWith(localePath('/blog')) ? 'page' : undefined"
@@ -189,8 +240,47 @@
                   </NuxtLink>
                 </div>
                 
-                <NuxtLink 
-                  :to="localePath('/blog')" 
+                <!-- Mobile Dev Tools Section -->
+                <div class="space-y-1">
+                  <div class="px-3 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    {{ $t('nav.devTools') }}
+                  </div>
+                  <NuxtLink
+                    :to="localePath('/json-formatter')"
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.jsonFormatter') }}
+                  </NuxtLink>
+                  <NuxtLink
+                    :to="localePath('/base64-codec')"
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.base64Codec') }}
+                  </NuxtLink>
+                  <NuxtLink
+                    :to="localePath('/color-converter')"
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.colorConverter') }}
+                  </NuxtLink>
+                  <NuxtLink
+                    :to="localePath('/text-diff')"
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.textDiff') }}
+                  </NuxtLink>
+                </div>
+                
+                <NuxtLink
+                  :to="localePath('/blog')"
                   @click="closeMobileMenu"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                   active-class="text-blue-600"
