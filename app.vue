@@ -1,5 +1,5 @@
 <template>
-  <div id="app" lang="zh-CN">
+  <div id="app">
     <NuxtLayout>
       <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
         <!-- Skip to main content link for accessibility -->
@@ -460,6 +460,9 @@ const closeMobileMenu = () => {
 // 设置全局页面配置
 useHead({
   titleTemplate: '%s',
+  htmlAttrs: {
+    lang: () => locale.value === 'zh' ? 'zh-CN' : 'en-US'
+  },
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { charset: 'utf-8' },
@@ -499,7 +502,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: () => JSON.stringify({
+      innerHTML: () => JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         name: 'TryUtils',

@@ -49,10 +49,14 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
+      cookieCrossOrigin: false,
+      cookieSecure: true,
       redirectOn: 'root',
       alwaysRedirect: false,
-      fallbackLocale: 'zh'
-    }
+      fallbackLocale: 'zh',
+      cookieDomain: null
+    },
+    skipSettingLocaleOnNavigate: false
   },
   // Content 模块配置
   app: {
@@ -60,9 +64,6 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
       title: 'TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换',
-      htmlAttrs: {
-        lang: 'zh-CN'
-      },
       link: [
         // Favicon 和 PWA 相关文件
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
