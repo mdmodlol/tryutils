@@ -134,6 +134,21 @@ export const toolConfigs: ToolConfig[] = [
     path: '/text-diff',
     category: 'DevTools',
     keywords: ['diff', 'compare', 'text', '对比', '差异', '文本', 'merge']
+  },
+  {
+    id: 'url-codec',
+    name: {
+      zh: 'URL 编解码',
+      en: 'URL Codec'
+    },
+    description: {
+      zh: 'URL 编码/解码工具，支持 encodeURIComponent 和 encodeURI',
+      en: 'URL encoding/decoding tool with encodeURIComponent and encodeURI support'
+    },
+    icon: 'heroicons:link',
+    path: '/url-codec',
+    category: 'DevTools',
+    keywords: ['url', 'encode', 'decode', 'uri', 'percent', '编码', '解码', 'encodeURIComponent', 'encodeURI']
   }
 ]
 

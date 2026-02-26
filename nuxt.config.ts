@@ -298,6 +298,8 @@ export default defineNuxtConfig({
         '/en/color-converter',
         '/text-diff',
         '/en/text-diff',
+        '/url-codec',
+        '/en/url-codec',
         '/dev-tools',
         '/en/dev-tools',
         // JSON Formatter 博客文章
@@ -323,7 +325,13 @@ export default defineNuxtConfig({
         '/blog/TextDiff/online-text-comparison-guide',
         '/blog/TextDiff/diff-algorithm-explained',
         '/blog/TextDiff/text-diff-for-code-review',
-        '/blog/TextDiff/text-diff-practical-use-cases'
+        '/blog/TextDiff/text-diff-practical-use-cases',
+        // URL Codec 博客文章
+        '/blog/UrlCodec/url-encoding-explained',
+        '/blog/UrlCodec/how-to-encode-decode-url-online',
+        '/blog/UrlCodec/url-encoding-in-web-development',
+        '/blog/UrlCodec/encodeuri-vs-encodeuricomponent',
+        '/blog/UrlCodec/url-encoding-special-characters-guide'
       ]
     }
   }

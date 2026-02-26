@@ -124,6 +124,29 @@
               <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
             </NuxtLink>
           </article>
+
+          <!-- URL Codec -->
+          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
+                <Icon name="heroicons:link" class="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
+                {{ t('nav.urlCodec') }}
+              </h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
+              {{ t('home.categories.devTools.urlCodec.description') }}
+            </p>
+            <NuxtLink
+              :to="localePath('/url-codec')"
+              class="inline-flex items-center px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              :aria-label="`${t('common.startUsing')} ${t('nav.urlCodec')}`"
+            >
+              {{ t('common.startUsing') }}
+              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
+            </NuxtLink>
+          </article>
         </div>
       </section>
 

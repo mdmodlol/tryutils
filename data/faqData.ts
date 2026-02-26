@@ -463,6 +463,62 @@ export const toolFAQs: Record<string, ToolFAQs> = {
         category: 'results'
       }
     ]
+  },
+  'url-codec': {
+    zh: [
+      {
+        question: 'encodeURIComponent 和 encodeURI 有什么区别？',
+        answer: 'encodeURIComponent 会编码所有特殊字符（包括 /、?、#、& 等），适合编码 URL 参数值。encodeURI 会保留 URL 结构字符，适合编码完整的 URL。',
+        category: 'encoding'
+      },
+      {
+        question: 'URL 编码是什么？为什么需要 URL 编码？',
+        answer: 'URL 编码（也叫百分号编码）是将 URL 中的特殊字符转换为 %XX 格式的过程。因为 URL 只能包含 ASCII 字符，中文、空格等特殊字符必须经过编码才能在 URL 中正确传输。',
+        category: 'basics'
+      },
+      {
+        question: '我的数据会上传到服务器吗？',
+        answer: '不会。所有编码和解码操作都在您的浏览器本地完成，数据不会发送到任何服务器，完全保护您的隐私。',
+        category: 'privacy'
+      },
+      {
+        question: '支持解码中文 URL 吗？',
+        answer: '支持！工具可以正确处理包含中文字符的 URL 编码和解码，使用 UTF-8 编码确保中文字符的正确转换。',
+        category: 'chinese'
+      },
+      {
+        question: '什么时候应该使用 URL 编码？',
+        answer: '在构建 URL 查询参数、处理表单数据、API 请求传参、以及在 URL 中包含特殊字符（如空格、中文、&、= 等）时，都需要进行 URL 编码。',
+        category: 'usage'
+      }
+    ],
+    en: [
+      {
+        question: 'What is the difference between encodeURIComponent and encodeURI?',
+        answer: 'encodeURIComponent encodes all special characters (including /, ?, #, & etc.), suitable for encoding URL parameter values. encodeURI preserves URL structure characters, suitable for encoding complete URLs.',
+        category: 'encoding'
+      },
+      {
+        question: 'What is URL encoding and why is it needed?',
+        answer: 'URL encoding (also called percent-encoding) converts special characters in URLs to %XX format. Since URLs can only contain ASCII characters, special characters like spaces and non-Latin characters must be encoded for correct transmission.',
+        category: 'basics'
+      },
+      {
+        question: 'Is my data uploaded to servers?',
+        answer: 'No. All encoding and decoding operations are performed locally in your browser. Data is never sent to any server, ensuring complete privacy.',
+        category: 'privacy'
+      },
+      {
+        question: 'Can it handle Unicode characters?',
+        answer: 'Yes! The tool correctly handles URL encoding and decoding of Unicode characters including Chinese, Japanese, Korean, and emoji, using UTF-8 encoding for accurate conversion.',
+        category: 'unicode'
+      },
+      {
+        question: 'When should I use URL encoding?',
+        answer: 'URL encoding is needed when building URL query parameters, handling form data, making API requests with special characters, and including spaces, ampersands, equals signs, or non-ASCII characters in URLs.',
+        category: 'usage'
+      }
+    ]
   }
 }
 

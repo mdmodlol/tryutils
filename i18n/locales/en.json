@@ -141,6 +141,7 @@
     "base64Codec": "Base64 Codec",
     "colorConverter": "Color Converter",
     "textDiff": "Text Diff",
+    "urlCodec": "URL Codec",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -511,6 +512,9 @@
         },
         "textDiff": {
           "description": "Compare two texts and highlight additions, deletions, and modifications"
+        },
+        "urlCodec": {
+          "description": "URL encoding/decoding tool with encodeURIComponent and encodeURI support"
         }
       }
     },
@@ -1281,6 +1285,45 @@
       "title": "Text Diff - Free Online Text Comparison Tool | TryUtils",
       "description": "Free online text diff tool to compare two texts and highlight additions, deletions, and modifications. Completely processed in browser, protecting your privacy.",
       "keywords": "text diff,text comparison,diff tool,online diff,text compare,TryUtils"
+    }
+  },
+  "urlCodec": {
+    "title": "URL Codec",
+    "subtitle": "Online URL encoding and decoding tool with encodeURIComponent and encodeURI modes",
+    "description": "URL encoding/decoding tool with encodeURIComponent and encodeURI support",
+    "encode": "Encode",
+    "decode": "Decode",
+    "modeLabel": "Encode/Decode mode",
+    "encodeType": "Encode type",
+    "input": "Input",
+    "output": "Output",
+    "chars": "chars",
+    "inputPlaceholder": {
+      "encode": "Enter URL or text to encode...",
+      "decode": "Enter URL-encoded string to decode..."
+    },
+    "outputPlaceholder": "Result will appear here...",
+    "copy": "Copy",
+    "copied": "Copied",
+    "clear": "Clear",
+    "swap": "Swap input/output",
+    "example": "Example",
+    "validation": {
+      "emptyInput": "Please enter content",
+      "invalidUrl": "Invalid URL-encoded string",
+      "encodeFailed": "Encoding failed"
+    },
+    "encodeTypeExplain": {
+      "title": "Encoding Type Explanation",
+      "component": "Encodes all special characters. Best for URL parameter values. Encodes =, &, /, ?, # and more.",
+      "componentKeeps": "Preserved: A-Z a-z 0-9 - _ . ! ~ * ' ( )",
+      "full": "Preserves URL structure characters. Best for encoding complete URLs. Does not encode :, /, ?, #, & etc.",
+      "fullKeeps": "Preserved: A-Z a-z 0-9 ; , / ? : {'@'} & = + $ - _ . ! ~ * ' ( ) #"
+    },
+    "meta": {
+      "title": "URL Codec - Free Online URL Encoder/Decoder | TryUtils",
+      "description": "Free online URL encoder/decoder tool supporting encodeURIComponent/encodeURI and decodeURIComponent/decodeURI. Completely processed in browser, protecting your privacy.",
+      "keywords": "URL encode,URL decode,encodeURIComponent,encodeURI,online URL tool,URL encoder,URL decoder,TryUtils"
     }
   }
 }

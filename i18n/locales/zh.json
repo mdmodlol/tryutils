@@ -143,6 +143,7 @@
     "base64Codec": "Base64 编解码",
     "colorConverter": "颜色转换",
     "textDiff": "文本对比",
+    "urlCodec": "URL 编解码",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -503,6 +504,9 @@
         },
         "textDiff": {
           "description": "对比两段文本的差异，高亮显示增删改内容"
+        },
+        "urlCodec": {
+          "description": "URL 编码/解码工具，支持 encodeURIComponent 和 encodeURI"
         }
       }
     },
@@ -1248,6 +1252,45 @@
       "title": "文本对比 - 免费在线文本差异对比工具 | TryUtils",
       "description": "免费在线文本对比工具，对比两段文本的差异，高亮显示增删改内容。完全在浏览器中处理，保护您的隐私。",
       "keywords": "文本对比,文本差异,Diff工具,在线对比,文本比较,TryUtils"
+    }
+  },
+  "urlCodec": {
+    "title": "URL 编解码",
+    "subtitle": "在线 URL 编码和解码工具，支持 encodeURIComponent 和 encodeURI 两种模式",
+    "description": "URL 编码/解码工具，支持 encodeURIComponent 和 encodeURI",
+    "encode": "编码",
+    "decode": "解码",
+    "modeLabel": "编码/解码模式",
+    "encodeType": "编码方式",
+    "input": "输入",
+    "output": "输出",
+    "chars": "字符",
+    "inputPlaceholder": {
+      "encode": "在此输入要编码的 URL 或文本...",
+      "decode": "在此输入要解码的 URL 编码字符串..."
+    },
+    "outputPlaceholder": "结果将显示在这里...",
+    "copy": "复制",
+    "copied": "已复制",
+    "clear": "清空",
+    "swap": "交换输入输出",
+    "example": "示例",
+    "validation": {
+      "emptyInput": "请输入内容",
+      "invalidUrl": "无效的 URL 编码字符串",
+      "encodeFailed": "编码失败"
+    },
+    "encodeTypeExplain": {
+      "title": "编码方式说明",
+      "component": "编码所有特殊字符，适用于 URL 参数值。会编码 =、&、/、?、# 等字符。",
+      "componentKeeps": "保留字符：A-Z a-z 0-9 - _ . ! ~ * ' ( )",
+      "full": "保留 URL 结构字符，适用于编码完整 URL。不会编码 :、/、?、#、& 等 URL 结构字符。",
+      "fullKeeps": "保留字符：A-Z a-z 0-9 ; , / ? : {'@'} & = + $ - _ . ! ~ * ' ( ) #"
+    },
+    "meta": {
+      "title": "URL 编解码 - 免费在线 URL 编码解码工具 | TryUtils",
+      "description": "免费在线 URL 编解码工具，支持 URL 编码（encodeURIComponent/encodeURI）和解码（decodeURIComponent/decodeURI）。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "URL编码,URL解码,encodeURIComponent,encodeURI,在线URL工具,URL encode,URL decode,TryUtils"
     }
   }
 }

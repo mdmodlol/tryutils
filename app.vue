@@ -137,6 +137,13 @@
                       >
                         {{ $t('nav.textDiff') }}
                       </NuxtLink>
+                      <NuxtLink
+                        :to="localePath('/url-codec')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.urlCodec') }}
+                      </NuxtLink>
                     </div>
                   </div>
                 </div>
@@ -276,6 +283,14 @@
                     active-class="text-blue-600"
                   >
                     {{ $t('nav.textDiff') }}
+                  </NuxtLink>
+                  <NuxtLink
+                    :to="localePath('/url-codec')"
+                    @click="closeMobileMenu"
+                    class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    active-class="text-blue-600"
+                  >
+                    {{ $t('nav.urlCodec') }}
                   </NuxtLink>
                 </div>
                 

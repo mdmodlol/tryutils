@@ -105,6 +105,12 @@ const toolCategories = computed(() => [
         description: t('home.categories.devTools.textDiff.description'),
         path: '/text-diff',
         icon: 'diff'
+      },
+      {
+        name: t('nav.urlCodec'),
+        description: t('home.categories.devTools.urlCodec.description'),
+        path: '/url-codec',
+        icon: 'url'
       }
     ]
   }
