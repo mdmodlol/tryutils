@@ -834,7 +834,6 @@
     "speed": "Speed",
     "slow": "Slow",
     "speedDescription": "Adjust conversion speed, slower speed usually produces better quality",
-    "converting": "Converting...",
     "progress": "Conversion Progress",
     "conversionComplete": "Conversion Complete",
     "originalFormat": "Original Format",
