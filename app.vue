@@ -32,14 +32,14 @@
               </div>
               
               <!-- 主导航菜单 -->
-              <nav 
-                class="hidden md:flex items-center space-x-8" 
-                role="navigation" 
+              <nav
+                class="hidden md:flex items-center lg:space-x-6 md:space-x-4"
+                role="navigation"
                 :aria-label="$t('nav.mainNavigation')"
               >
-                <NuxtLink 
-                  :to="localePath('/')" 
-                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                <NuxtLink
+                  :to="localePath('/')"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/') ? 'page' : undefined"
                 >
@@ -48,15 +48,15 @@
                 
                 <!-- Image Tools Dropdown -->
                 <div class="relative group">
-                  <button 
-                    class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                  <button
+                    class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                     :aria-expanded="false"
                     :aria-haspopup="true"
                     :aria-label="$t('nav.imageToolsMenu')"
                     @keydown.enter="$event.target.focus()"
                     @keydown.space.prevent="$event.target.focus()"
                   >
-                    {{ $t('imageTools.title') }}
+                    {{ $t('nav.imageTools') }}
                     <Icon name="heroicons:chevron-down" class="w-4 h-4 ml-1" aria-hidden="true" />
                   </button>
                   <div 
@@ -93,7 +93,7 @@
                 <!-- Dev Tools Dropdown -->
                 <div class="relative group">
                   <button
-                    class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                    class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                     :aria-expanded="false"
                     :aria-haspopup="true"
                     :aria-label="$t('nav.devToolsMenu')"
@@ -150,23 +150,23 @@
 
                 <NuxtLink
                   :to="localePath('/blog')"
-                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                   active-class="text-blue-600"
                   :aria-current="$route.path.startsWith(localePath('/blog')) ? 'page' : undefined"
                 >
                   {{ $t('nav.blog') }}
                 </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/about')" 
-                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                <NuxtLink
+                  :to="localePath('/about')"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/about') ? 'page' : undefined"
                 >
                   {{ $t('nav.about') }}
                 </NuxtLink>
-                <NuxtLink 
-                  :to="localePath('/contact')" 
-                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                <NuxtLink
+                  :to="localePath('/contact')"
+                  class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1.5 py-1 whitespace-nowrap"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/contact') ? 'page' : undefined"
                 >
