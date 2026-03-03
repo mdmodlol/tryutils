@@ -1,15 +1,19 @@
 ---
-title: "Canvas API Image Compression Techniques: Deep Dive and Implementation"
-description: "Comprehensive exploration of Canvas API applications in image compression, including compression algorithms, quality control, size optimization, and advanced techniques with complete code examples and best practices."
+title: "Canvas API Image Compression: Complete Guide 2025 - Free Code Examples"
+description: "Master Canvas API image compression! Complete guide with free code examples. Learn compression algorithms, quality control, and optimization techniques for your projects."
 date: '2025-01-09'
 tags: ["Canvas API", "image compression", "JavaScript", "frontend technology", "image processing", "performance optimization"]
 author: "TryUtils Team"
 keywords: "Canvas API image compression,JavaScript image processing,frontend image optimization,Canvas compression algorithms,image quality control,Web Worker image processing,memory optimization,image scaling algorithms,frontend performance optimization,client-side image compression"
-ogTitle: "Canvas API Image Compression Techniques: Deep Dive and Implementation - Complete Frontend Image Processing Guide"
-ogDescription: "Comprehensive analysis of Canvas API image compression technology, covering basic algorithms, advanced optimization, performance improvement and practical cases to master core frontend image processing skills."
+relatedTools:
+  - image-compressor
+  - image-format-converter
+embedTool: image-compressor
+ogTitle: "Canvas API Image Compression - Free Complete Guide 2025"
+ogDescription: "Learn Canvas API image compression with free code examples! Master compression algorithms, quality control, and optimization. Start now!"
 ogImage: "/images/blog/canvas-image-compression-techniques-og.jpg"
-twitterTitle: "Canvas API Image Compression Techniques - Frontend Image Processing Practice"
-twitterDescription: "Deep dive into Canvas API image compression technology, including algorithm implementation, performance optimization and practical application cases."
+twitterTitle: "Canvas API Image Compression - Free Guide 2025"
+twitterDescription: "Complete Canvas API image compression guide with free code examples. Learn optimization techniques for your projects today!"
 twitterImage: "/images/blog/canvas-image-compression-techniques-twitter.jpg"
 canonical: "https://www.tryutils.com/en/blog/ImageCompression/canvas-image-compression-techniques"
 schema:

@@ -1,6 +1,6 @@
 ---
-title: "Modern Browser Image Compression Libraries: Comparison and Selection Guide"
-description: "Comprehensive comparison and analysis of mainstream browser image compression libraries, covering functionality, performance, use cases, and providing detailed selection guidelines and best practices for developers."
+title: "Top 8 Browser Image Compression Libraries in 2025 - Free Comparison Guide"
+description: "Best free browser image compression libraries compared: compressorjs, browser-image-compression & more. Find the perfect tool for your project with our detailed analysis."
 date: '2025-01-09'
 tags: ["image compression libraries", "JavaScript libraries", "performance comparison", "frontend tools", "open source", "technology selection"]
 author: "TryUtils Team"
@@ -9,11 +9,11 @@ relatedTools:
   - image-compressor
   - image-format-converter
 embedTool: image-compressor
-ogTitle: "Modern Browser Image Compression Libraries: Comparison and Selection Guide - Complete Technology Selection Guide"
-ogDescription: "In-depth comparison of mainstream browser image compression libraries, including functional features, performance analysis, applicable scenario analysis, providing scientific technology selection decision guide and best practices."
+ogTitle: "Top 8 Browser Image Compression Libraries 2025 - Free Comparison Guide"
+ogDescription: "Best free browser image compression libraries compared in 2025. Compare compressorjs, browser-image-compression & more. Get our expert picks for your project!"
 ogImage: "/images/blog/browser-image-compression-libraries-og.jpg"
-twitterTitle: "Browser Image Compression Libraries Comparison - Technology Selection Guide"
-twitterDescription: "Comprehensive analysis of mainstream image compression libraries' pros and cons, helping developers make optimal technology selection decisions."
+twitterTitle: "Top Browser Image Compression Libraries 2025 - Free Comparison"
+twitterDescription: "Discover the best free browser image compression libraries. Expert comparison to help you choose the perfect tool for 2025."
 twitterImage: "/images/blog/browser-image-compression-libraries-twitter.jpg"
 canonical: "https://www.tryutils.com/en/blog/ImageCompression/browser-image-compression-libraries"
 schema:
