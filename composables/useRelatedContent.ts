@@ -51,10 +51,18 @@ export function generateToolAnchorText(
   locale: 'zh' | 'en' = 'zh'
 ): AnchorTextResult {
   const name = tool.name[locale] || tool.name.zh
-  const keywords = tool.keywords
+  const keywords = Array.isArray(tool.keywords) ? tool.keywords : []
+  
+  // If no keywords available, return name as-is
+  if (keywords.length === 0) {
+    return {
+      text: name,
+      containsKeyword: false
+    }
+  }
   
   // The tool name itself often contains keywords
-  const matchedKeyword = keywords.find(keyword => 
+  const matchedKeyword = keywords.find(keyword =>
     name.toLowerCase().includes(keyword.toLowerCase())
   )
   
@@ -68,7 +76,7 @@ export function generateToolAnchorText(
   
   // If name doesn't contain keyword, append the first relevant keyword
   const primaryKeyword = keywords[0]
-  const enhancedText = locale === 'zh' 
+  const enhancedText = locale === 'zh'
     ? `${name} - ${primaryKeyword}`
     : `${name} - ${primaryKeyword}`
   
@@ -92,7 +100,16 @@ export function generateArticleAnchorText(
   locale: 'zh' | 'en' = 'zh'
 ): AnchorTextResult {
   const title = article.title
-  const keywords = article.keywords || []
+  const keywords = Array.isArray(article.keywords) ? article.keywords : []
+  
+  // If no keywords or title doesn't contain keyword, return title as-is
+  // (articles without keywords will have containsKeyword: false)
+  if (keywords.length === 0) {
+    return {
+      text: title,
+      containsKeyword: false
+    }
+  }
   
   // Check if title already contains a keyword
   const matchedKeyword = keywords.find(keyword =>
@@ -104,15 +121,6 @@ export function generateArticleAnchorText(
       text: title,
       containsKeyword: true,
       matchedKeyword
-    }
-  }
-  
-  // If no keywords or title doesn't contain keyword, return title as-is
-  // (articles without keywords will have containsKeyword: false)
-  if (keywords.length === 0) {
-    return {
-      text: title,
-      containsKeyword: false
     }
   }
   
