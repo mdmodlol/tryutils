@@ -107,6 +107,7 @@ setStructuredData([
                     <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" role="status" aria-label="Loading"></div>
                     <p class="text-gray-600 dark:text-gray-300">{{ t('common.loading') || 'Loading...' }}</p>
                   </div>
+                  
                 </div>
               </template>
             </ClientOnly>
