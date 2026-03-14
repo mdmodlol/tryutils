@@ -86,6 +86,8 @@
                       >
                         {{ $t('nav.heicConverter') }}
                       </NuxtLink>
+
+                      
                     </div>
                   </div>
                 </div>
@@ -143,6 +145,13 @@
                         role="menuitem"
                       >
                         {{ $t('nav.urlCodec') }}
+                      </NuxtLink>
+                      <NuxtLink
+                        :to="localePath('/markdown-preview')"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
+                        role="menuitem"
+                      >
+                        {{ $t('nav.markdownPreview') }}
                       </NuxtLink>
                     </div>
                   </div>
