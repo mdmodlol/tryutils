@@ -132,25 +132,27 @@ const displayItems = computed<DisplayItem[]>(() => {
   
   if (props.type === 'tools') {
     return relatedTools.value.map(tool => {
-      // Create a ToolConfig-like object for anchor text generation
-      const toolConfig = {
-        id: tool.id,
-        name: { [currentLocale]: tool.name, zh: tool.name, en: tool.name },
-        description: { [currentLocale]: tool.description, zh: tool.description, en: tool.description },
-        icon: tool.icon,
-        path: tool.path,
-        category: '',
-        keywords: tool.keywords
+      // Get the original ToolConfig object for proper anchor text generation
+      const originalTool = getToolById(tool.id)
+      if (!originalTool) {
+        // Fallback if tool not found
+        return {
+          path: tool.path,
+          anchorText: tool.name,
+          description: tool.description,
+          icon: tool.icon,
+          keywords: tool.keywords || []
+        }
       }
       
-      const anchorResult = generateToolAnchorText(toolConfig, currentLocale)
+      const anchorResult = generateToolAnchorText(originalTool, currentLocale)
       
       return {
         path: tool.path,
         anchorText: anchorResult.text,
         description: tool.description,
         icon: tool.icon,
-        keywords: tool.keywords
+        keywords: tool.keywords || []
       }
     })
   } else {

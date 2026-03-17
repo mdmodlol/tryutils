@@ -183,11 +183,27 @@ watchEffect(() => {
             <ContentRenderer :value="data" />
           </div>
 
+          <!-- CTA 引导使用工具 -->
+          <div v-if="relatedToolIds.length > 0" class="px-8 py-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border-t border-gray-100 dark:border-gray-700">
+            <div class="text-center">
+              <p class="text-gray-700 dark:text-gray-300 mb-4">{{ locale === 'en' ? 'Ready to compress your images? Try our free tool now!' : '准备压缩你的图片了吗？立即体验免费工具！' }}</p>
+              <NuxtLink
+                :to="localePath(`/${relatedToolIds[0]}`)"
+                class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              >
+                {{ locale === 'en' ? 'Try Free Image Compressor' : '免费使用图片压缩工具' }}
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </NuxtLink>
+            </div>
+          </div>
+
           <!-- 文章底部 -->
           <footer class="px-8 py-6 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700" role="contentinfo">
             <div class="flex items-center justify-between">
-              <NuxtLink 
-                :to="localePath('/blog')" 
+              <NuxtLink
+                :to="localePath('/blog')"
                 class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
                 :aria-label="`返回到${$t('nav.blog')}`"
               >
@@ -200,7 +216,7 @@ watchEffect(() => {
               <!-- 分享按钮 -->
               <div class="flex items-center space-x-3" role="group" aria-label="分享选项">
                 <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('blog.article.share') }}:</span>
-                <button 
+                <button
                   @click="shareArticle"
                   class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
                   :title="$t('blog.article.copyLink')"
