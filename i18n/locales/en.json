@@ -142,6 +142,7 @@
     "colorConverter": "Colors",
     "textDiff": "Diff",
     "urlCodec": "URL",
+    "markdownPreview": "Markdown",
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
@@ -515,6 +516,9 @@
         },
         "urlCodec": {
           "description": "URL encoding/decoding tool with encodeURIComponent and encodeURI support"
+        },
+        "markdownPreview": {
+          "description": "Real-time Markdown to HTML preview with GFM syntax, code highlighting and export features"
         }
       }
     },
@@ -1323,6 +1327,28 @@
       "title": "URL Codec - Free Online URL Encoder/Decoder | TryUtils",
       "description": "Free online URL encoder/decoder tool supporting encodeURIComponent/encodeURI and decodeURIComponent/decodeURI. Completely processed in browser, protecting your privacy.",
       "keywords": "URL encode,URL decode,encodeURIComponent,encodeURI,online URL tool,URL encoder,URL decoder,TryUtils"
+    }
+  },
+  "markdownPreview": {
+    "title": "Markdown Preview",
+    "subtitle": "Real-time Markdown to HTML preview tool with GFM syntax support",
+    "description": "Real-time Markdown to HTML preview with GFM syntax, code highlighting and export features",
+    "inputLabel": "Markdown Input",
+    "inputPlaceholder": "Enter Markdown content here...",
+    "previewLabel": "HTML Preview",
+    "features": {
+      "title": "Key Features",
+      "realtime": "Real-time Preview",
+      "realtimeDesc": "See rendered output instantly as you type Markdown",
+      "syntax": "Syntax Highlighting",
+      "syntaxDesc": "Support for code block highlighting and GFM extended syntax",
+      "export": "Export Options",
+      "exportDesc": "Export as HTML and Markdown files"
+    },
+    "meta": {
+      "title": "Markdown Preview - Free Online Markdown to HTML Converter | TryUtils",
+      "description": "Free online Markdown preview tool for real-time conversion to HTML with GFM syntax, code highlighting, formatting and export features. Completely processed in browser, protecting your privacy.",
+      "keywords": "Markdown preview,Markdown to HTML,online Markdown tool,GFM,Markdown editor,Markdown syntax,TryUtils"
     }
   }
 }

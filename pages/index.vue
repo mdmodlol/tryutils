@@ -111,6 +111,12 @@ const toolCategories = computed(() => [
         description: t('home.categories.devTools.urlCodec.description'),
         path: '/url-codec',
         icon: 'url'
+      },
+      {
+        name: t('nav.markdownPreview'),
+        description: t('home.categories.devTools.markdownPreview.description'),
+        path: '/markdown-preview',
+        icon: 'markdown'
       }
     ]
   }

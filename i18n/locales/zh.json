@@ -144,6 +144,7 @@
     "colorConverter": "颜色转换",
     "textDiff": "文本对比",
     "urlCodec": "URL 编解码",
+    "markdownPreview": "Markdown 预览",
     "blog": "博客",
     "about": "关于",
     "contact": "联系",
@@ -507,6 +508,9 @@
         },
         "urlCodec": {
           "description": "URL 编码/解码工具，支持 encodeURIComponent 和 encodeURI"
+        },
+        "markdownPreview": {
+          "description": "实时 Markdown 转 HTML 预览，支持 GFM 语法、代码高亮和导出功能"
         }
       }
     },
@@ -1291,6 +1295,28 @@
       "title": "URL 编解码 - 免费在线 URL 编码解码工具 | TryUtils",
       "description": "免费在线 URL 编解码工具，支持 URL 编码（encodeURIComponent/encodeURI）和解码（decodeURIComponent/decodeURI）。完全在浏览器中处理，保护您的隐私。",
       "keywords": "URL编码,URL解码,encodeURIComponent,encodeURI,在线URL工具,URL encode,URL decode,TryUtils"
+    }
+  },
+  "markdownPreview": {
+    "title": "Markdown 预览",
+    "subtitle": "实时 Markdown 转 HTML 预览工具，支持 GFM 语法和代码高亮",
+    "description": "实时 Markdown 转 HTML 预览，支持 GFM 语法、代码高亮和导出功能",
+    "inputLabel": "Markdown 输入",
+    "inputPlaceholder": "在此输入 Markdown 内容...",
+    "previewLabel": "HTML 预览",
+    "features": {
+      "title": "主要功能",
+      "realtime": "实时预览",
+      "realtimeDesc": "输入时实时渲染 Markdown，即时看到效果",
+      "syntax": "语法高亮",
+      "syntaxDesc": "支持代码块语法高亮和 GFM 扩展语法",
+      "export": "导出功能",
+      "exportDesc": "支持导出为 HTML 和 Markdown 文件"
+    },
+    "meta": {
+      "title": "Markdown 预览 - 免费在线 Markdown 转 HTML 工具 | TryUtils",
+      "description": "免费在线 Markdown 预览工具，实时转换 Markdown 为 HTML，支持 GFM 语法、代码高亮、���格和导出功能。完全在浏览器中处理，保护您的隐私。",
+      "keywords": "Markdown预览,Markdown转HTML,在线Markdown工具,GFM,Markdown编辑器,Markdown语法,TryUtils"
     }
   }
 }

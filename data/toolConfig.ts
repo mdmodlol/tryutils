@@ -149,6 +149,21 @@ export const toolConfigs: ToolConfig[] = [
     path: '/url-codec',
     category: 'DevTools',
     keywords: ['url', 'encode', 'decode', 'uri', 'percent', '编码', '解码', 'encodeURIComponent', 'encodeURI']
+  },
+  {
+    id: 'markdown-preview',
+    name: {
+      zh: 'Markdown 预览',
+      en: 'Markdown Preview'
+    },
+    description: {
+      zh: '实时 Markdown 转 HTML 预览，支持 GFM 语法、代码高亮和导出功能',
+      en: 'Real-time Markdown to HTML preview with GFM syntax, code highlighting and export'
+    },
+    icon: 'heroicons:document-text',
+    path: '/markdown-preview',
+    category: 'DevTools',
+    keywords: ['markdown', 'preview', 'html', 'convert', '预览', '转换', 'md', 'github', 'gfm', 'export']
   }
 ]
 

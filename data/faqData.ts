@@ -519,6 +519,62 @@ export const toolFAQs: Record<string, ToolFAQs> = {
         category: 'usage'
       }
     ]
+  },
+  'markdown-preview': {
+    zh: [
+      {
+        question: 'Markdown 是什么？',
+        answer: 'Markdown 是一种轻量级标记语言，用简单的符号来格式化文本。它易于学习和使用，广泛应用于文档、博客、README 文件等。',
+        category: 'basics'
+      },
+      {
+        question: '支持哪些 Markdown 语法？',
+        answer: '支持标准 Markdown 语法，包括标题、列表、代码块、链接、图片、表格、引用等。同时支持 GFM（GitHub Flavored Markdown）扩展语法。',
+        category: 'syntax'
+      },
+      {
+        question: '可以导出为哪些格式？',
+        answer: '支持导出为 HTML 文件和 Markdown 文件。导出的 HTML 包含完整的样式，可以直接在浏览器中打开。',
+        category: 'export'
+      },
+      {
+        question: '我的内容会被保存吗？',
+        answer: '不会。所有处理都在您的浏览器本地完成，内容不会上传到任何服务器，完全保护您的隐私。',
+        category: 'privacy'
+      },
+      {
+        question: '支持代码高亮吗？',
+        answer: '是的。代码块会根据指定的编程语言进行语法高亮，支持 JavaScript、Python、Java、CSS 等多种语言。',
+        category: 'features'
+      }
+    ],
+    en: [
+      {
+        question: 'What is Markdown?',
+        answer: 'Markdown is a lightweight markup language that uses simple symbols to format text. It is easy to learn and widely used for documentation, blogs, README files, and more.',
+        category: 'basics'
+      },
+      {
+        question: 'What Markdown syntax is supported?',
+        answer: 'Supports standard Markdown syntax including headings, lists, code blocks, links, images, tables, and blockquotes. Also supports GFM (GitHub Flavored Markdown) extended syntax.',
+        category: 'syntax'
+      },
+      {
+        question: 'What formats can I export to?',
+        answer: 'You can export to HTML and Markdown files. The exported HTML includes complete styling and can be opened directly in a browser.',
+        category: 'export'
+      },
+      {
+        question: 'Will my content be saved?',
+        answer: 'No. All processing is done locally in your browser. Content is never uploaded to any server, completely protecting your privacy.',
+        category: 'privacy'
+      },
+      {
+        question: 'Is code highlighting supported?',
+        answer: 'Yes. Code blocks are syntax highlighted based on the specified programming language, supporting JavaScript, Python, Java, CSS, and many others.',
+        category: 'features'
+      }
+    ]
   }
 }
 
