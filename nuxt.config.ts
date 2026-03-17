@@ -214,7 +214,6 @@ export default defineNuxtConfig({
         allow: ['/'],
         disallow: [
           '/admin',
-          '/api',
           '/404',
           '/500',
           '/*?*utm_*',
