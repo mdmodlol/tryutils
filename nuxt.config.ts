@@ -217,7 +217,6 @@ export default defineNuxtConfig({
           '/api',
           '/404',
           '/500',
-          '/*.json$',
           '/*?*utm_*',
           '/*?*ref=*',
           '/*?*fbclid=*'
