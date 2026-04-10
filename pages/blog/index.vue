@@ -157,7 +157,7 @@ setStructuredData(schemas)
             <h2 id="categories-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">{{ $t('blog.categories.title') }}</h2>
             <div class="grid md:grid-cols-3 gap-6" role="list">
               <NuxtLink 
-                :to="localePath('/blog/HeicConverter/what-is-heic-format')" 
+                :to="localePath('/blog/heicconverter/what-is-heic-format')" 
                 class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                 role="listitem"
                 :aria-label="`阅读关于${$t('blog.categories.heic.title')}的文章`"

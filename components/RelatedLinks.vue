@@ -105,14 +105,14 @@ const predefinedLinks = {
   blog: [
     {
       title: 'common.relatedLinksContent.imageCompressionGuide',
-      path: '/blog/ImageCompression/image-compression-fundamentals',
+      path: '/blog/imagecompression/image-compression-fundamentals',
       description: 'common.relatedLinksContent.learnCompressionTechniques',
       icon: 'heroicons:light-bulb',
       tags: ['imageCompression', 'guide', 'tutorials']
     },
     {
       title: 'common.relatedLinksContent.heicFormatExplained',
-      path: '/blog/HeicConverter/what-is-heic-format',
+      path: '/blog/heicconverter/what-is-heic-format',
       description: 'common.relatedLinksContent.understandHeicFormat',
       icon: 'heroicons:book-open',
       tags: ['heic', 'guide', 'format']
