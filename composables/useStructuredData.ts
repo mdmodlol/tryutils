@@ -1,3 +1,5 @@
+import { getCanonicalUrl } from '~/utils/blog-paths'
+
 export interface OrganizationSchema {
   '@context': string
   '@type': string
@@ -148,9 +150,7 @@ export const useStructuredData = () => {
     name: string
     description: string
   }): WebPageSchema => {
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
     
     const schema: WebPageSchema = {
       '@context': 'https://schema.org',
@@ -176,9 +176,7 @@ export const useStructuredData = () => {
     datePublished: string
     dateModified?: string
   }): ArticleSchema => {
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
     
     return {
       '@context': 'https://schema.org',
@@ -213,9 +211,7 @@ export const useStructuredData = () => {
     description: string
     category?: string
   }): SoftwareApplicationSchema => {
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
     
     return {
       '@context': 'https://schema.org',

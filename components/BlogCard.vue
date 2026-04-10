@@ -63,6 +63,8 @@
 </template>
 
 <script setup>
+import { getPublicBlogPathFromContentPath } from '~/utils/blog-paths'
+
 const props = defineProps({
   article: {
     type: Object,
@@ -73,12 +75,12 @@ const props = defineProps({
 defineEmits(['tagClick'])
 
 const { locale } = useI18n()
-const localePath = useLocalePath()
 
 // 计算正确的文章路径
 const articlePath = computed(() => {
   if (!props.article?._path) return ''
-  let path = props.article._path
+  return getPublicBlogPathFromContentPath(props.article._path, locale.value === 'en' ? 'en' : 'zh')
+  /*
   
   // 移除现有的语言后缀
   if (path.endsWith('.en')) {
@@ -91,6 +93,7 @@ const articlePath = computed(() => {
   }
   
   return localePath(path)
+  */
 })
 
 // 日期格式化函数

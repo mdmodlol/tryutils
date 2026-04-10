@@ -7,6 +7,7 @@
  */
 
 import { toolConfigs, getToolById, type ToolConfig } from '~/data/toolConfig'
+import { getPublicBlogPathFromContentPath } from '~/utils/blog-paths'
 
 export interface RelatedArticle {
   title: string
@@ -238,17 +239,24 @@ export function useRelatedArticles(
 ) {
   const { limit = 5 } = options
   const toolIdRef = isRef(toolId) ? toolId : ref(toolId)
+  const { locale } = useI18n()
+  const currentLocale = computed<'zh' | 'en'>(() => options.locale || (locale.value === 'en' ? 'en' : 'zh'))
   
   const { data: articles, pending, error } = useAsyncData(
     `related-articles-${toolIdRef.value}`,
     () => queryContent('blog')
-      .where({ relatedTools: { $contains: toolIdRef.value } })
+      .where({
+        relatedTools: { $contains: toolIdRef.value },
+        _path: currentLocale.value === 'en'
+          ? { $regex: /\.en$/ }
+          : { $not: { $regex: /\.en$/ } }
+      })
       .only(['title', 'description', '_path', 'date', 'keywords'])
       .sort({ date: -1 })
       .limit(limit)
       .find(),
     {
-      watch: [toolIdRef]
+      watch: [toolIdRef, currentLocale]
     }
   )
   
@@ -258,7 +266,7 @@ export function useRelatedArticles(
     return articles.value.map(article => ({
       title: article.title || '',
       description: article.description || '',
-      path: article._path || '',
+      path: getPublicBlogPathFromContentPath(article._path || '', currentLocale.value),
       date: article.date || '',
       keywords: article.keywords || []
     }))

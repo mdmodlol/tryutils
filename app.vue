@@ -433,6 +433,7 @@
 </template>
 
 <script setup lang="ts">
+import { getCanonicalUrl, stripEnglishLocalePrefix } from '~/utils/blog-paths'
 // useI18n 只负责翻译和状态
 const { t, locale } = useI18n()
 
@@ -440,6 +441,21 @@ const { t, locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath() // 用于语言切换器
 const localePath = useLocalePath()             // 用于模板中的链接
 const route = useRoute()
+const baseUrl = 'https://www.tryutils.com'
+const canonicalUrl = computed(() => getCanonicalUrl(baseUrl, route.path))
+const defaultLocalePath = computed(() => switchLocalePath('zh') || stripEnglishLocalePrefix(route.path))
+const englishLocalePath = computed(() => {
+  const switchedPath = switchLocalePath('en')
+  if (switchedPath) {
+    return switchedPath
+  }
+
+  if (route.path === '/') {
+    return '/en'
+  }
+
+  return route.path.startsWith('/en') ? route.path : `/en${route.path}`
+})
 
 // Performance optimization: Apply preload hints for critical resources
 // Using useHead directly for preload hints (Nuxt's recommended approach)
@@ -500,7 +516,7 @@ useHead({
     // Open Graph / Facebook
     { property: 'og:type', content: 'website' },
     { property: 'og:site_name', content: 'TryUtils' },
-    { property: 'og:url', content: () => `https://www.tryutils.com${route.path}` },
+    { property: 'og:url', content: () => canonicalUrl.value },
     { property: 'og:title', content: () => t('app.seo.ogTitle') },
     { property: 'og:description', content: () => t('app.seo.ogDescription') },
     { property: 'og:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' },
@@ -510,18 +526,18 @@ useHead({
     // Twitter
     { property: 'twitter:card', content: 'summary_large_image' },
     { property: 'twitter:site', content: '@TryUtils' },
-    { property: 'twitter:url', content: () => `https://www.tryutils.com${route.path}` },
+    { property: 'twitter:url', content: () => canonicalUrl.value },
     { property: 'twitter:title', content: () => t('app.seo.twitterTitle') },
     { property: 'twitter:description', content: () => t('app.seo.twitterDescription') },
     { property: 'twitter:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' }
   ],
   link: [
     // 语言切换链接
-    { rel: 'alternate', hreflang: 'zh', href: () => `https://www.tryutils.com${switchLocalePath('zh')}` },
-    { rel: 'alternate', hreflang: 'en', href: () => `https://www.tryutils.com${switchLocalePath('en')}` },
-    { rel: 'alternate', hreflang: 'x-default', href: 'https://www.tryutils.com/' },
+    { rel: 'alternate', hreflang: 'zh', href: () => `${baseUrl}${defaultLocalePath.value}` },
+    { rel: 'alternate', hreflang: 'en', href: () => `${baseUrl}${englishLocalePath.value}` },
+    { rel: 'alternate', hreflang: 'x-default', href: () => `${baseUrl}${defaultLocalePath.value}` },
     // 规范链接
-    { rel: 'canonical', href: () => `https://www.tryutils.com${route.path}` }
+    { rel: 'canonical', href: () => canonicalUrl.value }
   ],
   script: [
     {

@@ -87,6 +87,10 @@ const articlesResult = props.type === 'articles' && props.toolId
 
 const articles = articlesResult.articles
 
+const getItemPath = (item: DisplayItem) => {
+  return props.type === 'articles' ? item.path : localePath(item.path)
+}
+
 // Helper function to get tools from IDs
 function getRelatedToolsFromIds(toolIds: string[], currentLocale: 'zh' | 'en', limit: number): RelatedToolItem[] {
   return toolIds
@@ -190,7 +194,7 @@ const displayItems = computed<DisplayItem[]>(() => {
       <NuxtLink
         v-for="item in displayItems"
         :key="item.path"
-        :to="localePath(item.path)"
+        :to="getItemPath(item)"
         class="group block p-4 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
         :aria-label="item.anchorText"
       >

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // SEO 配置
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const seoConfig = computed(() => ({
   title: t('blog.seo.title'),
   description: t('blog.seo.description'),
@@ -24,6 +25,8 @@ const { data: articles, pending } = await useAsyncData('blog-articles', () => {
     // 中文：查找不带 .en 后缀的文件
     return queryContent('/blog').where({ _path: { $not: { $regex: /\.en$/ } } }).sort({ date: -1 }).find()
   }
+}, {
+  watch: [locale]
 })
 
 // 搜索和筛选状态
@@ -154,7 +157,7 @@ setStructuredData(schemas)
             <h2 id="categories-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">{{ $t('blog.categories.title') }}</h2>
             <div class="grid md:grid-cols-3 gap-6" role="list">
               <NuxtLink 
-                to="/blog/HeicConverter/what-is-heic-format" 
+                :to="localePath('/blog/HeicConverter/what-is-heic-format')" 
                 class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                 role="listitem"
                 :aria-label="`阅读关于${$t('blog.categories.heic.title')}的文章`"

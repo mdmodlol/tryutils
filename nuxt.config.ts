@@ -330,7 +330,11 @@ export default defineNuxtConfig({
         '/blog/UrlCodec/how-to-encode-decode-url-online',
         '/blog/UrlCodec/url-encoding-in-web-development',
         '/blog/UrlCodec/encodeuri-vs-encodeuricomponent',
-        '/blog/UrlCodec/url-encoding-special-characters-guide'
+        '/blog/UrlCodec/url-encoding-special-characters-guide',
+        // Priority English blog articles
+        '/en/blog/ImageCompression/browser-image-compression-libraries',
+        '/en/blog/HeicConverter/what-is-heic-format',
+        '/en/blog/HeicConverter/how-to-convert-heic-to-jpg'
       ]
     }
   }

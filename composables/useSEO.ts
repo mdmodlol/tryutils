@@ -1,4 +1,5 @@
 import type { ComputedRef } from 'vue'
+import { getCanonicalUrl } from '~/utils/blog-paths'
 
 export interface SEOConfig {
   title?: string
@@ -22,14 +23,11 @@ export interface SEOConfig {
 export const useSEO = (config: SEOConfig | ComputedRef<SEOConfig>) => {
   const { t, locale } = useI18n()
   const route = useRoute()
-  const runtimeConfig = useRuntimeConfig()
   
   const seoConfig = computed(() => {
     const cfg = unref(config)
     const baseUrl = 'https://www.tryutils.com'
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
     
     return {
       title: cfg.title || t('app.seo.ogTitle'),
@@ -83,15 +81,6 @@ export const useSEO = (config: SEOConfig | ComputedRef<SEOConfig>) => {
   })
   
   // 设置规范链接
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: () => seoConfig.value.canonical
-      }
-    ]
-  })
-  
   return {
     seoConfig: readonly(seoConfig)
   }

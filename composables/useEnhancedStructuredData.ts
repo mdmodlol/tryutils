@@ -1,3 +1,5 @@
+import { getCanonicalUrl } from '~/utils/blog-paths'
+
 export interface FAQPageSchema {
   '@context': string
   '@type': string
@@ -120,9 +122,7 @@ export const useEnhancedStructuredData = () => {
     tools?: string[]
     supplies?: string[]
   }): HowToSchema => {
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
 
     return {
       '@context': 'https://schema.org',
@@ -161,9 +161,7 @@ export const useEnhancedStructuredData = () => {
     serviceUrl?: string
     rating?: { value: string; count: string }
   }): ServiceSchema => {
-    const currentLocale = locale.value
-    const localePath = currentLocale === 'zh' ? '' : `/${currentLocale}`
-    const fullUrl = `${baseUrl}${localePath}${route.path}`
+    const fullUrl = getCanonicalUrl(baseUrl, route.path)
 
     const schema: ServiceSchema = {
       '@context': 'https://schema.org',

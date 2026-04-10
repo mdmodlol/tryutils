@@ -1,29 +1,41 @@
 <script setup lang="ts">
 import { useBlogArticleMeta } from '~/composables/useBlogArticleMeta'
 import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
+import { getToolById } from '~/data/toolConfig'
+import { getContentBlogPathFromPublicPath } from '~/utils/blog-paths'
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
-const nuxtApp = useNuxtApp()
+
+const createArticleError = (articleError?: Partial<Error & { statusCode?: number; statusMessage?: string }>) =>
+  createError({
+    statusCode: articleError?.statusCode || 404,
+    statusMessage: articleError?.statusMessage || 'Article not found',
+    fatal: true
+  })
 
 // 获取文章数据，根据当前语言获取对应的文章
-const { data, pending, error } = await useAsyncData('blog-article', () => {
+const { data, pending, error } = await useAsyncData('blog-article', async () => {
   const slug = route.params.slug
   const articlePath = Array.isArray(slug) ? slug.join('/') : slug
   
   // 根据当前语言构建文章路径
-  const langSuffix = locale.value === 'en' ? '.en' : ''
-  const fullPath = `/blog/${articlePath}${langSuffix}`
+  const currentLocale = locale.value as 'zh' | 'en'
+  const contentPath = getContentBlogPathFromPublicPath(`/blog/${articlePath}`, currentLocale)
   
-  return queryContent(fullPath).findOne().catch(() => {
+  const article = await queryContent(contentPath).findOne()
+
+  if (!article) {
+    throw createArticleError()
+  }
+
+  return article
     // 如果找不到对应语言的文章，尝试获取默认语言版本
-    const fallbackPath = locale.value === 'en' ? `/blog/${articlePath}` : `/blog/${articlePath}.en`
-    return queryContent(fallbackPath).findOne()
-  })
 }, {
   // 当语言或路由参数变化时重新获取数据
-  watch: [locale, () => route.params.slug],
+  watch: [locale, () => route.fullPath]
+  /*
   // 添加缓存和优化选项
   server: false, // 在客户端获取数据，避免服务端渲染延迟
   default: () => null, // 设置默认值避免闪现
@@ -31,7 +43,12 @@ const { data, pending, error } = await useAsyncData('blog-article', () => {
   getCachedData(key) {
     return nuxtApp.ssrContext?.cache?.[key] ?? nuxtApp.static.data[key]
   }
+  */
 })
+
+if (error.value) {
+  throw createArticleError(error.value)
+}
 
 // 生成面包屑导航数据
 const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
@@ -52,7 +69,77 @@ const relatedToolIds = computed<string[]>(() => {
   return data.value?.relatedTools || []
 })
 
+const primaryRelatedTool = computed(() => {
+  const primaryToolId = relatedToolIds.value[0]
+  return primaryToolId ? getToolById(primaryToolId) : undefined
+})
+
+const primaryToolPath = computed(() => primaryRelatedTool.value?.path || '/blog')
+
+/*
+const articleCtaText = computed(() => {
+  switch (primaryRelatedTool.value?.id) {
+    case 'heic-converter':
+      return locale.value === 'en'
+        ? 'Need to open or convert HEIC files right now? Use our free browser-based HEIC converter.'
+        : '现在就要打开或转换 HEIC 文件？试试我们的免费浏览器版 HEIC 转换工具。'
+    case 'image-format-converter':
+      return locale.value === 'en'
+        ? 'Need a different output format? Convert images to JPG, PNG, WebP, GIF, AVIF, and more.'
+        : '需要转换成其他格式？可以继续转成 JPG、PNG、WebP、GIF、AVIF 等常见格式。'
+    case 'image-compressor':
+      return locale.value === 'en'
+        ? 'Ready to compress your images after reading? Try the free image compressor in your browser.'
+        : '看完后想直接压缩图片？可以马上体验浏览器里的免费图片压缩工具。'
+    default:
+      return locale.value === 'en'
+        ? 'Try the related free tool to put these steps into practice.'
+        : '试试下面的免费相关工具，把这篇文章里的方法直接用起来。'
+  }
+})
+
+const articleCtaButtonLabel = computed(() => {
+  switch (primaryRelatedTool.value?.id) {
+    case 'heic-converter':
+      return locale.value === 'en' ? 'Open HEIC Converter' : '打开 HEIC 转换器'
+    case 'image-format-converter':
+      return locale.value === 'en' ? 'Open Format Converter' : '打开格式转换器'
+    case 'image-compressor':
+      return locale.value === 'en' ? 'Open Image Compressor' : '打开图片压缩器'
+    default:
+      return locale.value === 'en' ? 'Open Free Tool' : '打开免费工具'
+  }
+})
+
 // 日期格式化函数
+*/
+
+const articleCtaText = computed(() => {
+  switch (primaryRelatedTool.value?.id) {
+    case 'heic-converter':
+      return 'Need to open or convert HEIC files right now? Use our free browser-based HEIC converter.'
+    case 'image-format-converter':
+      return 'Need a different output format? Convert images to JPG, PNG, WebP, GIF, AVIF, and more.'
+    case 'image-compressor':
+      return 'Ready to compress your images after reading? Try the free image compressor in your browser.'
+    default:
+      return 'Try the related free tool to put these steps into practice.'
+  }
+})
+
+const articleCtaButtonLabel = computed(() => {
+  switch (primaryRelatedTool.value?.id) {
+    case 'heic-converter':
+      return 'Open HEIC Converter'
+    case 'image-format-converter':
+      return 'Open Format Converter'
+    case 'image-compressor':
+      return 'Open Image Compressor'
+    default:
+      return 'Open Free Tool'
+  }
+})
+
 const formatDate = (date: string | Date | undefined) => {
   if (!date) return ''
   const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
@@ -83,18 +170,16 @@ const shareArticle = async () => {
 
 // 使用 useBlogArticleMeta 设置优化的 SEO 元数据
 // Requirements: 5.1, 5.2, 5.3 - 标题长度、描述长度、日期包含
-watchEffect(() => {
-  if (data.value) {
-    useBlogArticleMeta({
-      title: data.value.title || '',
-      description: data.value.description || '',
-      date: data.value.date || new Date().toISOString(),
-      author: data.value.author || 'TryUtils',
-      keywords: data.value.keywords || data.value.tags || [],
-      locale: locale.value as 'zh' | 'en'
-    })
-  }
-})
+const articleMeta = computed(() => ({
+  title: data.value?.title || '',
+  description: data.value?.description || '',
+  date: data.value?.date || new Date().toISOString(),
+  author: data.value?.author || 'TryUtils',
+  keywords: data.value?.keywords || data.value?.tags || [],
+  locale: locale.value as 'zh' | 'en'
+}))
+
+useBlogArticleMeta(articleMeta)
 </script>
 
 <template>
@@ -109,7 +194,7 @@ watchEffect(() => {
       <div class="max-w-4xl mx-auto px-6">
         <!-- 面包屑导航 - Requirements: 3.2 -->
         <BreadcrumbNav 
-          v-if="data && !pending && !error" 
+          v-if="data && !pending" 
           :items="breadcrumbItems" 
           :generate-schema="true"
         />
@@ -137,7 +222,7 @@ watchEffect(() => {
             </NuxtLink>
           </div>
 
-          <article v-else key="content" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm dark:shadow-gray-900/50 overflow-hidden transition-colors duration-300" itemscope itemtype="https://schema.org/Article">
+          <article v-else-if="data" key="content" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm dark:shadow-gray-900/50 overflow-hidden transition-colors duration-300" itemscope itemtype="https://schema.org/Article">
           <!-- 文章头部 -->
           <header class="px-8 py-8 border-b border-gray-100 dark:border-gray-700">
             <div class="text-center">
@@ -188,7 +273,7 @@ watchEffect(() => {
             <div class="text-center">
               <p class="text-gray-700 dark:text-gray-300 mb-4">{{ locale === 'en' ? 'Ready to compress your images? Try our free tool now!' : '准备压缩你的图片了吗？立即体验免费工具！' }}</p>
               <NuxtLink
-                :to="localePath(`/${relatedToolIds[0]}`)"
+                :to="localePath(primaryToolPath)"
                 class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               >
                 {{ locale === 'en' ? 'Try Free Image Compressor' : '免费使用图片压缩工具' }}
@@ -236,7 +321,7 @@ watchEffect(() => {
         
         <!-- 相关工具推荐 - Requirements: 4.1 -->
         <RelatedContent 
-          v-if="!pending && !error && relatedToolIds.length > 0"
+          v-if="!pending && data && relatedToolIds.length > 0"
           type="tools"
           :related-tool-ids="relatedToolIds"
           :limit="3"
