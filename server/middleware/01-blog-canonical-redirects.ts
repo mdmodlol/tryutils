@@ -1,4 +1,4 @@
-import { getCanonicalPath } from '~/utils/blog-paths'
+import { getCanonicalPath, resolveLegacyBlogPath } from '~/utils/blog-paths'
 
 export default defineEventHandler((event) => {
   const url = getRequestURL(event)
@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     return
   }
 
-  const canonicalPath = getCanonicalPath(url.pathname)
+  const canonicalPath = resolveLegacyBlogPath(url.pathname) || getCanonicalPath(url.pathname)
 
   if (canonicalPath === url.pathname) {
     return

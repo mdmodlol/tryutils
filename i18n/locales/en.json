@@ -33,7 +33,6 @@
     "articlesList": "Blog articles list",
     "articleContent": "Article content",
     "toolsList": "Image processing tools list",
-
     "articleInfo": "Article information",
     "articleTags": "Article tags",
     "shareOptions": "Share options",
@@ -107,7 +106,8 @@
       "a2": "We only collect necessary anonymous usage statistics (such as page views) to improve our service. We do not collect, store, or analyze your personal files.",
       "q3": "Can I use it offline?",
       "a3": "Currently, an internet connection is needed to load the tool interface, but file processing itself doesn't require network access. We're developing a PWA version that will support offline usage in the future."
-    }
+    },
+    "sectionLabel": "Support"
   },
   "brand": {
     "tagline": "Simple and Practical Online Tools Collection"
@@ -153,10 +153,11 @@
   "common": {
     "language": "Language",
     "languages": {
-      "zh": "中文",
+      "zh": "Chinese",
       "en": "English"
     },
     "clearAll": "Clear All",
+    "close": "Close",
     "removeFile": "Remove File",
     "loading": "Loading...",
     "startUsing": "Start Using",
@@ -170,7 +171,7 @@
     "relatedLinksContent": {
       "imageCompressor": "Image Compressor",
       "formatConverter": "Format Converter",
-      "heicConverter": "HEIC Converter", 
+      "heicConverter": "HEIC Converter",
       "aboutUs": "About Us",
       "contact": "Contact",
       "blog": "Blog",
@@ -207,7 +208,9 @@
     },
     "accessibility": {
       "skipToMain": "Skip to main content"
-    }
+    },
+    "fileReadFailed": "Failed to read file",
+    "uploadFailed": "Upload failed"
   },
   "footer": {
     "description": "Focused on providing simple and practical online tools, allowing you to quickly complete daily needs without installing complex software. Completely processed in browser to protect your privacy and security.",
@@ -466,6 +469,15 @@
     },
     "features": {
       "title": "Tool Features"
+    },
+    "tags": {
+      "batch": "Batch",
+      "logo": "Logo",
+      "download": "Download"
+    },
+    "sectionLabels": {
+      "workflow": "Image workflow",
+      "directory": "Task directory"
     }
   },
   "home": {
@@ -565,6 +577,86 @@
       "title": "TryUtils - Simple and Practical Online Tools Collection",
       "description": "TryUtils provides simple and practical online tools, including HEIC converter, document converter, etc. All processing is completed in browser to protect your privacy.",
       "keywords": "online tools,HEIC converter,document converter,file conversion,browser tools,privacy protection,TryUtils"
+    },
+    "redesign": {
+      "eyebrow": "TryUtils Image Lab",
+      "headline": "A calmer, more trustworthy home for image workflows",
+      "description": "Bring compression, format conversion, HEIC handling, and batch export into one clear starting point. Help people start work quickly now while leaving room for APIs and AI-assisted workflows later.",
+      "primaryCta": "Open image tools",
+      "secondaryCta": "Browse developer tools",
+      "quickLabel": "Popular starts",
+      "workflowLabel": "Homepage thesis",
+      "workflowTitle": "Help people move from upload to export with less friction",
+      "workflowSubtitle": "The first screen should surface the workflow, not another generic promise wall.",
+      "categoriesLabel": "Product architecture",
+      "categoriesTitle": "Organize the site around real jobs, not a pile of feature cards",
+      "categoriesSubtitle": "Image workflow stays the primary path. Developer tools remain useful, searchable support products.",
+      "futureLabel": "Monetization direction",
+      "futureTitle": "Leave clean room for two monetization paths",
+      "futureSubtitle": "Make the core image workflow dependable first, then extend naturally into APIs and AI-assisted features.",
+      "faqLabel": "FAQ",
+      "faqSubtitle": "These are the questions people usually want answered before they trust a utility site.",
+      "trustAria": "Trust signals",
+      "workspace": {
+        "pill": "TryUtils workspace",
+        "pipelineEyebrow": "Image pipeline",
+        "pipelineTitle": "Compress, convert, and export in one pass",
+        "privateBadge": "Private by default",
+        "futureLayerEyebrow": "Future layer",
+        "futureLayerTitle": "API-ready surfaces",
+        "futureLayerDescription": "A cleaner path toward developer keys, quotas, and narrow API products.",
+        "nextStepEyebrow": "Next step",
+        "nextStepTitle": "AI-assisted export",
+        "nextStepDescription": "Start with assisted workflows before expanding into heavier AI features."
+      },
+      "categoryMeta": {
+        "imageTools": {
+          "eyebrow": "Primary workflow",
+          "summary": "This is the clearest monetization path: compression, conversion, HEIC, QR, and batch export."
+        },
+        "devTools": {
+          "eyebrow": "Support products",
+          "summary": "Keep the developer utilities for search, internal linking, and ad inventory without letting them hijack the main product story."
+        }
+      },
+      "workflowSteps": {
+        "step1": {
+          "title": "Lead with tasks, not a generic intro",
+          "description": "Surface compression, conversion, and HEIC handling right in the first screen."
+        },
+        "step2": {
+          "title": "Give the workflow a calmer workspace",
+          "description": "Make upload, settings, output, and export feel like one reliable sequence."
+        },
+        "step3": {
+          "title": "Let trust signals support monetization",
+          "description": "Privacy, batch capability, and stability convert better than hype-heavy copy."
+        },
+        "step4": {
+          "title": "Treat APIs and AI as the next layer",
+          "description": "Extend the image workflow instead of forcing unrelated AI features into the product."
+        }
+      },
+      "futureTracks": {
+        "api": {
+          "title": "API / developer access",
+          "description": "Package compression, conversion, and HEIC handling into a narrow, dependable API for builders and product teams.",
+          "bullets": [
+            "Start with one or two high-frequency endpoints",
+            "Manual key distribution is enough for v1",
+            "Layer in docs, quotas, and rate limits over time"
+          ]
+        },
+        "ai": {
+          "title": "AI-assisted image workflow",
+          "description": "Avoid becoming a generic AIGC directory. Use AI to help people crop, label, export, and adapt images faster.",
+          "bullets": [
+            "Smart alt text and naming suggestions",
+            "Auto-crop and export presets by platform",
+            "Batch flows that feel operational, not gimmicky"
+          ]
+        }
+      }
     }
   },
   "about": {
@@ -598,6 +690,12 @@
       "title": "About Us - TryUtils",
       "description": "Learn about TryUtils' mission, story and vision. We are committed to providing simple and practical online tools, protecting user privacy, and making file processing more convenient.",
       "keywords": "TryUtils,about us,online tools,file conversion,privacy protection"
+    },
+    "sectionLabels": {
+      "mission": "Mission",
+      "story": "Story",
+      "vision": "Vision",
+      "contact": "Contact"
     }
   },
   "contact": {
@@ -645,7 +743,8 @@
       "title": "Contact Us - TryUtils",
       "description": "Have questions, suggestions or cooperation intentions? Contact the TryUtils team via email, we'd love to hear from you.",
       "keywords": "contact us,TryUtils,customer service,technical support,business cooperation"
-    }
+    },
+    "sectionLabel": "Contact"
   },
   "privacy": {
     "hero": {
@@ -704,7 +803,8 @@
       "title": "Privacy Policy - TryUtils",
       "description": "Learn how TryUtils collects, uses and protects your personal information. We are committed to protecting your privacy, all file processing is completed locally.",
       "keywords": "privacy policy,data protection,TryUtils,personal information,security"
-    }
+    },
+    "sectionLabel": "Privacy"
   },
   "blog": {
     "seo": {
@@ -794,6 +894,10 @@
       "title": "Tech Blog - TryUtils",
       "description": "TryUtils tech blog, sharing file conversion, online tool usage tips and practical tutorials. Help you better use our tools.",
       "keywords": "TryUtils,tech blog,file conversion,online tools,tutorials,tips"
+    },
+    "sectionLabels": {
+      "editorial": "Editorial",
+      "readingFocus": "Reading focus"
     }
   },
   "imageFormatConverter": {
@@ -974,7 +1078,12 @@
     "stats": "Trusted by Users",
     "totalUsers": "Active Users",
     "filesProcessed": "Files Processed",
-    "avgRating": "User Rating"
+    "avgRating": "User Rating",
+    "labels": {
+      "workflow": "Workflow",
+      "trust": "Trust signals",
+      "comparison": "Comparison"
+    }
   },
   "qrCodeGenerator": {
     "title": "QR Code Generator",
@@ -1008,6 +1117,22 @@
       "toolTitle": "QR Code Generation Tool",
       "relatedToolsAriaLabel": "Related Tools List"
     },
+    "aria": {
+      "region": "QR code generator workspace",
+      "modeSelection": "QR code generation mode selection",
+      "modeToggleGroup": "QR code generation mode buttons",
+      "closeError": "Close error message",
+      "singleHeading": "Single QR code generation",
+      "batchHeading": "Batch QR code generation",
+      "inputSettings": "QR code input and settings",
+      "actionGroup": "QR code actions",
+      "downloadGroup": "Download options",
+      "previewRegion": "QR code preview area",
+      "progressStatus": "Generation progress: {percentage}% complete",
+      "progressPercentage": "Progress percentage: {percentage}%",
+      "batchActionGroup": "Batch generation actions",
+      "generatedList": "Generated QR codes"
+    },
     "input": {
       "placeholder": "Enter text, URL, phone number or email",
       "label": "Input Content",
@@ -1035,13 +1160,28 @@
       "errorCorrectionL": "Low (7%)",
       "errorCorrectionM": "Medium (15%)",
       "errorCorrectionQ": "High (25%)",
-      "errorCorrectionH": "Highest (30%)"
+      "errorCorrectionH": "Highest (30%)",
+      "contrastWarning": "Foreground and background colors may be too close, which can reduce scan reliability.",
+      "aria": {
+        "region": "QR code settings",
+        "applyPreset": "Apply {preset} color preset",
+        "sizeSlider": "QR code size: {size} pixels",
+        "sizePreset": "Set size to {size} pixels - {preset}",
+        "logoPreview": "Uploaded logo preview",
+        "logoSizeSlider": "Logo size: {size} percent"
+      }
     },
     "preview": {
       "title": "Preview",
       "generating": "Generating...",
       "size": "Size",
-      "format": "Format"
+      "format": "Format",
+      "aria": {
+        "heading": "QR code preview",
+        "canvasLabel": "QR code preview, {size} by {size} pixels",
+        "svgLabel": "QR code preview in SVG format",
+        "imageAlt": "QR code preview"
+      }
     },
     "export": {
       "title": "Export",
@@ -1061,7 +1201,11 @@
       "downloadZip": "Download ZIP",
       "currentItem": "Current Item",
       "results": "Generation Results",
-      "moreResults": "{count} more results not shown"
+      "moreResults": "{count} more results not shown",
+      "resultAlt": "QR code {index}: {content}",
+      "csvTooLarge": "CSV file is too large. Maximum size is 1MB.",
+      "csvImportFailed": "CSV import failed",
+      "csvLimitExceeded": "CSV file contains {count} items, which exceeds the limit of {max}."
     },
     "mode": {
       "single": "Single Generation",
@@ -1127,6 +1271,23 @@
     },
     "features": {
       "title": "Tool Features"
+    },
+    "tags": {
+      "format": "Format",
+      "validate": "Validate",
+      "minify": "Minify",
+      "encode": "Encode",
+      "decode": "Decode",
+      "files": "Files",
+      "compare": "Compare",
+      "review": "Review",
+      "changes": "Changes",
+      "preview": "Preview",
+      "export": "Export"
+    },
+    "sectionLabels": {
+      "utilityLayer": "Utility layer",
+      "browserUtilities": "Browser-based utilities"
     }
   },
   "jsonFormatter": {
@@ -1136,6 +1297,10 @@
     "inputPlaceholder": "Paste or type JSON data here...",
     "outputPlaceholder": "Formatted JSON will appear here...",
     "placeholder": "Paste or type JSON data here...",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
     "actions": {
       "format": "Format",
       "minify": "Minify",
@@ -1167,6 +1332,31 @@
       "title": "JSON Formatter - Free Online JSON Formatting Tool | TryUtils",
       "description": "Free online JSON formatter with formatting, validation, minification, syntax highlighting and error location. Completely processed in browser, protecting your privacy.",
       "keywords": "JSON formatter,JSON validator,JSON minifier,online JSON tool,JSON beautifier,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Paste JSON",
+        "text": "Paste or drop the JSON payload you want to inspect into the input workspace."
+      },
+      "step2": {
+        "name": "Choose indentation",
+        "text": "Pick the spacing style that matches your project or the payload you are reviewing."
+      },
+      "step3": {
+        "name": "Format or minify",
+        "text": "Beautify the payload for reading, or compress it into a single line for transport."
+      },
+      "step4": {
+        "name": "Validate and copy",
+        "text": "Check for syntax errors, review the formatted result, and copy the clean JSON when ready."
+      }
+    },
+    "comparison": {
+      "validation": "Built-in syntax validation",
+      "errorLocation": "Error line location",
+      "localProcessing": "Local browser processing",
+      "minify": "Format and minify",
+      "noRegistration": "No registration required"
     }
   },
   "base64Codec": {
@@ -1179,6 +1369,12 @@
     },
     "textMode": "Text Mode",
     "imageMode": "Image Mode",
+    "panels": {
+      "input": "Input",
+      "output": "Output",
+      "base64Input": "Base64 Input",
+      "base64Output": "Base64 Output"
+    },
     "inputPlaceholder": {
       "encode": "Enter text to encode...",
       "decode": "Enter Base64 string to decode..."
@@ -1213,6 +1409,31 @@
       "title": "Base64 Codec - Free Online Base64 Tool | TryUtils",
       "description": "Free online Base64 encoding/decoding tool for text and images, with file drag & drop support. Completely processed in browser, protecting your privacy.",
       "keywords": "Base64 encode,Base64 decode,online Base64 tool,image Base64,file encoding,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Choose text or image mode",
+        "text": "Switch between text conversion and image conversion based on the data you need to process."
+      },
+      "step2": {
+        "name": "Pick encode or decode",
+        "text": "Set the workflow to encoding or decoding before entering content or uploading a file."
+      },
+      "step3": {
+        "name": "Process the content",
+        "text": "Run the conversion to generate Base64 output, plain text, or an image preview."
+      },
+      "step4": {
+        "name": "Copy or download",
+        "text": "Copy the output into your workflow or download the decoded image directly."
+      }
+    },
+    "comparison": {
+      "textAndImages": "Text and image workflows",
+      "localProcessing": "Local browser processing",
+      "fileUpload": "File upload support",
+      "utf8Support": "UTF-8 safe encoding",
+      "noRegistration": "No registration required"
     }
   },
   "colorConverter": {
@@ -1251,6 +1472,31 @@
       "title": "Color Converter - Free Online Color Format Converter | TryUtils",
       "description": "Free online color converter supporting HEX, RGB, HSL format conversion with visual color picker. Completely processed in browser, protecting your privacy.",
       "keywords": "color converter,HEX to RGB,RGB to HSL,online color picker,color format conversion,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Enter or pick a color",
+        "text": "Start with a HEX value, RGB number set, HSL value, or the native color picker."
+      },
+      "step2": {
+        "name": "Review converted formats",
+        "text": "See synchronized HEX, RGB, and HSL outputs update together as you edit the color."
+      },
+      "step3": {
+        "name": "Explore the palette",
+        "text": "Inspect complementary, analogous, triadic, tint, and shade variations for the active color."
+      },
+      "step4": {
+        "name": "Copy the values you need",
+        "text": "Copy a format value or palette swatch into your design or code workflow."
+      }
+    },
+    "comparison": {
+      "multiFormat": "HEX, RGB, and HSL support",
+      "visualPalette": "Palette generation",
+      "history": "Recent color history",
+      "localProcessing": "Local browser processing",
+      "quickCopy": "One-click copy"
     }
   },
   "textDiff": {
@@ -1288,6 +1534,31 @@
       "title": "Text Diff - Free Online Text Comparison Tool | TryUtils",
       "description": "Free online text diff tool to compare two texts and highlight additions, deletions, and modifications. Completely processed in browser, protecting your privacy.",
       "keywords": "text diff,text comparison,diff tool,online diff,text compare,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Paste both versions",
+        "text": "Add the original text on the left and the revised version on the right."
+      },
+      "step2": {
+        "name": "Run the comparison",
+        "text": "Click compare to generate a visual diff with line-level and inline changes."
+      },
+      "step3": {
+        "name": "Switch the view",
+        "text": "Review changes in side-by-side mode or switch to unified mode for a patch-style view."
+      },
+      "step4": {
+        "name": "Copy the result",
+        "text": "Copy the diff output or keep iterating until the changes are ready to share."
+      }
+    },
+    "comparison": {
+      "inlineChanges": "Inline change highlighting",
+      "sideBySide": "Side-by-side and unified views",
+      "localProcessing": "Local browser processing",
+      "copyResult": "Copyable diff output",
+      "noRegistration": "No registration required"
     }
   },
   "urlCodec": {
@@ -1327,6 +1598,31 @@
       "title": "URL Codec - Free Online URL Encoder/Decoder | TryUtils",
       "description": "Free online URL encoder/decoder tool supporting encodeURIComponent/encodeURI and decodeURIComponent/decodeURI. Completely processed in browser, protecting your privacy.",
       "keywords": "URL encode,URL decode,encodeURIComponent,encodeURI,online URL tool,URL encoder,URL decoder,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Choose encode or decode",
+        "text": "Set the workspace to encoding or decoding before you paste the value you want to process."
+      },
+      "step2": {
+        "name": "Select the encoding method",
+        "text": "Use encodeURIComponent for parameter values or encodeURI for complete URLs."
+      },
+      "step3": {
+        "name": "Review the output",
+        "text": "Check the processed result instantly as you type and confirm the correct mode was used."
+      },
+      "step4": {
+        "name": "Copy or swap",
+        "text": "Copy the result or swap it back into the input field for the next step in your workflow."
+      }
+    },
+    "comparison": {
+      "componentAndFull": "encodeURIComponent and encodeURI",
+      "instantProcessing": "Instant processing",
+      "localProcessing": "Local browser processing",
+      "examples": "Built-in example workflow",
+      "noRegistration": "No registration required"
     }
   },
   "markdownPreview": {
@@ -1336,6 +1632,36 @@
     "inputLabel": "Markdown Input",
     "inputPlaceholder": "Enter Markdown content here...",
     "previewLabel": "HTML Preview",
+    "modes": {
+      "split": "Split",
+      "preview": "Preview",
+      "code": "Code"
+    },
+    "actions": {
+      "sample": "Sample",
+      "copy": "Copy HTML",
+      "copied": "Copied",
+      "downloadHtml": "HTML",
+      "downloadMarkdown": "MD",
+      "clear": "Clear",
+      "upload": "Upload"
+    },
+    "panels": {
+      "input": "Markdown Input",
+      "preview": "Preview"
+    },
+    "stats": {
+      "chars": "chars",
+      "lines": "lines",
+      "words": "words"
+    },
+    "dragDrop": {
+      "dropHere": "Drop Markdown file here"
+    },
+    "confirmClear": "Clear all content?",
+    "errors": {
+      "render": "Error rendering markdown"
+    },
     "features": {
       "title": "Key Features",
       "realtime": "Real-time Preview",
@@ -1349,6 +1675,35 @@
       "title": "Markdown Preview - Free Online Markdown to HTML Converter | TryUtils",
       "description": "Free online Markdown preview tool for real-time conversion to HTML with GFM syntax, code highlighting, formatting and export features. Completely processed in browser, protecting your privacy.",
       "keywords": "Markdown preview,Markdown to HTML,online Markdown tool,GFM,Markdown editor,Markdown syntax,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "Write or paste Markdown",
+        "text": "Start with your markdown source or load a sample to inspect the supported syntax."
+      },
+      "step2": {
+        "name": "Pick a working view",
+        "text": "Switch between split, preview-only, or code-only mode depending on the task."
+      },
+      "step3": {
+        "name": "Review the rendered output",
+        "text": "Check headings, tables, lists, links, and code blocks in the preview pane as you edit."
+      },
+      "step4": {
+        "name": "Copy or export",
+        "text": "Copy the generated HTML or export the current document as HTML or Markdown."
+      }
+    },
+    "comparison": {
+      "livePreview": "Live Markdown preview",
+      "gfmSupport": "GFM syntax support",
+      "localProcessing": "Local browser processing",
+      "exportFormats": "HTML and Markdown export",
+      "noRegistration": "No registration required"
     }
+  },
+  "relatedContent": {
+    "toolsLabel": "More tools",
+    "articlesLabel": "Continue reading"
   }
 }

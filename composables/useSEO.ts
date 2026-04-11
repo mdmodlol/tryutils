@@ -41,7 +41,8 @@ export const useSEO = (config: SEOConfig | ComputedRef<SEOConfig>) => {
       twitterDescription: cfg.twitterDescription || cfg.description || t('app.seo.twitterDescription'),
       twitterImage: cfg.twitterImage || cfg.ogImage || `${baseUrl}/android-chrome-512x512.png`,
       twitterCard: cfg.twitterCard || 'summary_large_image',
-      canonical: cfg.canonical || fullUrl,
+      // Canonical URLs are generated centrally from the current route.
+      canonical: fullUrl,
       robots: cfg.robots || 'index, follow',
       author: cfg.author || 'TryUtils',
       publishedTime: cfg.publishedTime,

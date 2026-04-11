@@ -1,7 +1,7 @@
 <template>
   <!-- 跳转到主要内容的链接 -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
-    跳转到主要内容
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-slate-950 text-white px-4 py-2 rounded-full dark:bg-slate-100 dark:text-slate-950 z-50">
+    {{ $t('accessibility.skipToMain') }}
   </a>
 
   <div id="main-content" class="image-format-converter fade-in-up" itemscope itemtype="https://schema.org/SoftwareApplication" role="main">
@@ -26,7 +26,7 @@
       <ClientOnly>
         <!-- 拖拽上传区域 -->
         <div 
-          class="enhanced-upload-zone group"
+          class="enhanced-upload-zone"
           :class="{ 'drag-over': isDragging }"
           @dragenter="handleDragEnter"
           @dragleave="handleDragLeave"
@@ -41,22 +41,16 @@
           <!-- 优化后的上传区域布局 - 减少高度 -->
           <div class="flex flex-col items-center justify-center space-y-4 py-6">
             <!-- 主图标区域 - 缩小尺寸 -->
-            <div class="relative flex items-center justify-center w-24 h-24">
-              <!-- 背景光晕效果 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-xl opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"></div>
-              <!-- 主图标 -->
-              <div class="relative z-10 p-4 rounded-full bg-gradient-to-br from-purple-50 to-pink-50 group-hover:from-purple-100 group-hover:to-pink-100 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                <Icon name="heroicons:arrow-path" class="w-8 h-8 text-purple-500 group-hover:text-purple-600 transition-all duration-300 group-hover:scale-110" aria-hidden="true" />
+            <div class="upload-icon-shell">
+              <div class="upload-icon-core">
+                <Icon name="heroicons:arrow-path" class="h-8 w-8 text-slate-700 dark:text-slate-200" aria-hidden="true" />
               </div>
-              <!-- 装饰性圆环 -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-dashed border-purple-200 rounded-full opacity-30 group-hover:opacity-60 group-hover:border-purple-300 transition-all duration-300 group-hover:scale-105"></div>
             </div>
             
-            <!-- 文字内容区域 - 减少间距 -->
             <div class="text-center space-y-3 max-w-md">
               <!-- 主要提示文字 -->
               <div class="space-y-1">
-                <p class="text-xl font-semibold text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">
+                <p class="text-xl font-semibold text-slate-900 dark:text-slate-100">
                   {{ $t('imageFormatConverter.dragText') }}
                 </p>
                 <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
@@ -66,10 +60,7 @@
               
               <!-- 选择文件按钮 -->
               <div class="flex justify-center pt-2">
-                <label class="group/btn relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 active:scale-95">
-                  <!-- 按钮光效 -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
-                  <!-- 按钮内容 -->
+                <label class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white">
                   <div class="relative flex items-center gap-2 text-base">
                     <Icon name="heroicons:folder-open" class="w-5 h-5" aria-hidden="true" />
                     <span>{{ $t('imageFormatConverter.selectFile') }}</span>
@@ -88,9 +79,9 @@
             </div>
             
             <!-- 支持信息 - 缩小尺寸 -->
-            <div class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800">
-              <Icon name="heroicons:shield-check" class="w-4 h-4 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-              <p id="file-support-info" class="text-xs font-medium text-purple-700 dark:text-purple-300">
+            <div class="upload-support-pill">
+              <Icon name="heroicons:shield-check" class="w-4 h-4 text-teal-700 dark:text-teal-300" aria-hidden="true" />
+              <p id="file-support-info" class="text-xs font-medium text-slate-600 dark:text-slate-300">
                 {{ $t('imageFormatConverter.supportInfo') }}
               </p>
             </div>
@@ -107,7 +98,7 @@
 
         <template #fallback>
           <div class="text-center py-8" role="status" aria-live="polite">
-            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-purple-500 dark:text-purple-400" aria-hidden="true" />
+            <Icon name="heroicons:arrow-path" class="w-8 h-8 animate-spin mx-auto text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $t('common.loading') }}</p>
           </div>
         </template>
@@ -117,7 +108,7 @@
     <!-- 文件信息和格式选择 -->
     <section v-if="selectedFile" class="format-selection-section" role="region" aria-labelledby="format-title">
       <h3 id="format-title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
-        <Icon name="heroicons:cog-6-tooth" class="text-purple-600 dark:text-purple-400" aria-hidden="true" />
+        <Icon name="heroicons:cog-6-tooth" class="text-slate-700 dark:text-slate-300" aria-hidden="true" />
         {{ $t('imageFormatConverter.formatSelection') }}
       </h3>
 
@@ -125,8 +116,8 @@
       <div class="file-info-card mb-6" role="region" aria-labelledby="file-info-title">
         <h4 id="file-info-title" class="sr-only">当前文件信息</h4>
         <div class="flex items-center gap-4">
-          <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-lg flex items-center justify-center">
-            <Icon name="heroicons:photo" class="w-8 h-8 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+          <div class="file-info-icon">
+            <Icon name="heroicons:photo" class="w-8 h-8 text-slate-700 dark:text-slate-200" aria-hidden="true" />
           </div>
           <div class="flex-1">
             <h5 class="font-medium text-gray-900 dark:text-gray-100">{{ selectedFile.name }}</h5>
@@ -173,7 +164,7 @@
       <!-- 动态格式选项 -->
       <div v-if="showFormatOptions" class="format-options-section" role="region" aria-labelledby="format-options-title">
         <h4 id="format-options-title" class="text-lg font-medium mb-4 flex items-center gap-2">
-          <Icon name="heroicons:adjustments-horizontal" class="text-purple-600" aria-hidden="true" />
+          <Icon name="heroicons:adjustments-horizontal" class="text-slate-700 dark:text-slate-300" aria-hidden="true" />
           {{ $t('imageFormatConverter.formatOptions') }}
         </h4>
 
@@ -263,7 +254,7 @@
     <!-- 转换进度 -->
     <section v-if="isConverting" class="progress-section" role="region" aria-labelledby="progress-title">
       <h3 id="progress-title" class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">{{ $t('imageFormatConverter.progress') }}</h3>
-      <div class="enhanced-progress" role="progressbar" :aria-valuenow="conversionProgress" aria-valuemin="0" aria-valuemax="100" :aria-label="`转换进度 ${conversionProgress}%`">
+      <div class="enhanced-progress" role="progressbar" :aria-valuenow="conversionProgress" aria-valuemin="0" aria-valuemax="100" :aria-label="$t('accessibility.conversionProgressAriaLabel', { progress: conversionProgress })">
         <div class="enhanced-progress-fill" :style="{ width: `${conversionProgress}%` }"></div>
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center" role="status" aria-live="polite">{{ conversionProgress }}%</p>
@@ -279,7 +270,7 @@
       <div class="result-card">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-lg flex items-center justify-center">
+            <div class="result-icon-shell">
               <Icon name="heroicons:check" class="w-6 h-6 text-green-600 dark:text-green-400" aria-hidden="true" />
             </div>
             <div>
@@ -287,14 +278,14 @@
               <p class="text-sm text-gray-500 dark:text-gray-400">{{ conversionResult.details }}</p>
             </div>
           </div>
-          <button @click="downloadResult" class="download-button" :aria-label="`下载 ${conversionResult.filename}`">
+          <button @click="downloadResult" class="download-button" :aria-label="$t('accessibility.downloadFileAriaLabel', { filename: conversionResult.filename })">
             <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 mr-2" aria-hidden="true" />
             {{ $t('imageFormatConverter.download') }}
           </button>
         </div>
 
         <!-- 转换统计 -->
-        <div class="conversion-stats" role="list" aria-label="转换统计信息">
+        <div class="conversion-stats" role="list" :aria-label="$t('accessibility.conversionStats')">
           <div class="stat-item" role="listitem">
             <span class="stat-label">{{ $t('imageFormatConverter.originalFormat') }}</span>
             <span class="stat-value">{{ conversionResult.originalFormat?.toUpperCase() }}</span>
@@ -597,298 +588,151 @@ watch(() => conversionOptions.value.targetFormat, () => {
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
 <style>
-/* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
-:root.dark .image-format-converter .core-feature-section {
-  background: linear-gradient(to bottom right, #1f2937, rgba(88, 28, 135, 0.3), rgba(157, 23, 77, 0.3));
-  border-color: #374151;
-}
-
-:root.dark .image-format-converter .section-subtitle {
-  color: #9ca3af;
+:root.dark .image-format-converter .core-feature-section,
+:root.dark .image-format-converter .format-selection-section,
+:root.dark .image-format-converter .format-options-section,
+:root.dark .image-format-converter .progress-section,
+:root.dark .image-format-converter .results-section {
+  border-color: #1e293b;
+  background: rgba(2, 6, 23, 0.82);
 }
 
 :root.dark .image-format-converter .enhanced-upload-zone {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #1e293b 100%);
-  border-color: #374151;
+  background: rgba(15, 23, 42, 0.78);
+  border-color: #334155;
 }
 
-:root.dark .image-format-converter .enhanced-upload-zone:hover {
-  border-color: #a855f7;
-  background: linear-gradient(135deg, #581c87 0%, #7e22ce 50%, #a855f7 100%);
-}
-
-:root.dark .image-format-converter .enhanced-upload-zone.drag-over {
-  border-color: #c084fc;
-  background: linear-gradient(135deg, #7e22ce 0%, #a855f7 50%, #c084fc 100%);
-}
-
-:root.dark .image-format-converter .format-selection-section {
-  background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.3), #1f2937, rgba(157, 23, 77, 0.3));
-  border-color: #7e22ce;
-}
-
-:root.dark .image-format-converter .file-info-card {
-  background-color: #1f2937;
-  border-color: #374151;
-}
-
-:root.dark .image-format-converter .format-option {
-  background-color: #1f2937;
-  border-color: #374151;
-}
-
-:root.dark .image-format-converter .format-option:hover {
-  border-color: #a855f7;
-}
-
+:root.dark .image-format-converter .enhanced-upload-zone:hover,
+:root.dark .image-format-converter .enhanced-upload-zone.drag-over,
 :root.dark .image-format-converter .format-option.selected {
-  border-color: #c084fc;
-  background-color: rgba(88, 28, 135, 0.5);
+  border-color: #2dd4bf;
+  background: rgba(15, 23, 42, 0.92);
 }
 
-:root.dark .image-format-converter .format-options-section {
-  background-color: #1f2937;
-  border-color: #374151;
-}
-
-:root.dark .image-format-converter .progress-section {
-  background: linear-gradient(to right, rgba(88, 28, 135, 0.3), rgba(157, 23, 77, 0.3));
-  border-color: #7e22ce;
-}
-
-:root.dark .image-format-converter .results-section {
-  background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.3), #1f2937, rgba(6, 78, 59, 0.3));
-  border-color: #166534;
-}
-
-:root.dark .image-format-converter .result-card {
-  background-color: #1f2937;
-  border-color: #374151;
-}
-
-:root.dark .image-format-converter .stat-item {
-  background-color: #374151;
-}
-
-:root.dark .image-format-converter .stat-label {
-  color: #9ca3af;
-}
-
-:root.dark .image-format-converter .stat-value {
-  color: #f3f4f6;
-}
-
-:root.dark .image-format-converter .enhanced-progress {
-  background-color: #374151;
+:root.dark .image-format-converter .file-info-card,
+:root.dark .image-format-converter .result-card,
+:root.dark .image-format-converter .stat-item,
+:root.dark .image-format-converter .format-option,
+:root.dark .image-format-converter .file-info-icon,
+:root.dark .image-format-converter .result-icon-shell,
+:root.dark .image-format-converter .upload-icon-core {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: #1e293b;
 }
 </style>
 
 <style scoped>
-/* 图片格式转换器专用样式 */
 .image-format-converter {
-  @apply max-w-6xl mx-auto px-4 py-8;
+  @apply mx-auto max-w-6xl px-4 py-8;
 }
 
-.core-feature-section {
-  @apply mb-12 p-8 bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 rounded-2xl shadow-lg border border-gray-100/50;
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.core-feature-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(147, 51, 234, 0.3), transparent);
+.core-feature-section,
+.format-selection-section,
+.progress-section,
+.results-section {
+  @apply mb-10 rounded-[30px] border border-slate-200/80 bg-white/95 p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none;
 }
 
 .section-title {
-  @apply text-3xl font-bold mb-3;
-  background: linear-gradient(135deg, #9333ea 0%, #ec4899 50%, #9333ea 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-text 3s ease-in-out infinite;
+  @apply mb-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50;
 }
 
 .section-subtitle {
-  @apply text-lg text-gray-600 mb-6 font-medium;
-}
-
-@keyframes gradient-text {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: 0% 0; }
+  @apply mb-6 text-lg font-medium text-slate-600 dark:text-slate-300;
 }
 
 .enhanced-upload-zone {
-  @apply relative overflow-hidden rounded-2xl;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-  border: 2px dashed #cbd5e1;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  @apply rounded-[28px] border-2 border-dashed border-slate-300 bg-slate-50/80 px-6 py-10 transition-all duration-200 dark:border-slate-700 dark:bg-slate-950/60;
 }
 
-.enhanced-upload-zone:hover {
-  @apply border-purple-400 shadow-2xl;
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 50%, #e9d5ff 100%);
-  transform: translateY(-4px) scale(1.01);
-}
-
+.enhanced-upload-zone:hover,
 .enhanced-upload-zone.drag-over {
-  @apply border-purple-500 shadow-2xl;
-  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 50%, #d8b4fe 100%);
-  transform: translateY(-6px) scale(1.02);
+  @apply border-teal-400 bg-white dark:border-teal-400 dark:bg-slate-950;
 }
 
-.format-selection-section {
-  @apply bg-gradient-to-br from-purple-50 via-white to-pink-50 rounded-xl p-8 border border-purple-100 mb-8;
+.upload-icon-shell {
+  @apply flex h-24 w-24 items-center justify-center rounded-full border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900;
 }
 
-.file-info-card {
-  @apply bg-white rounded-lg p-4 shadow-sm border border-gray-100;
+.upload-icon-core,
+.file-info-icon,
+.result-icon-shell {
+  @apply flex items-center justify-center rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800;
+}
+
+.upload-icon-core {
+  @apply h-16 w-16 rounded-full;
+}
+
+.file-info-icon {
+  @apply h-16 w-16;
+}
+
+.result-icon-shell {
+  @apply h-12 w-12;
+}
+
+.upload-support-pill,
+.file-info-card,
+.format-options-section,
+.result-card,
+.stat-item {
+  @apply rounded-[22px] border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/70;
 }
 
 .format-option {
-  @apply bg-white border-2 border-gray-200 rounded-lg transition-all duration-300 cursor-pointer;
+  @apply rounded-[18px] border border-slate-200 bg-white transition-all duration-200 cursor-pointer dark:border-slate-800 dark:bg-slate-950/70;
 }
 
-.format-option:hover {
-  @apply border-purple-300 shadow-md;
-  transform: translateY(-2px);
-}
-
+.format-option:hover,
 .format-option.selected {
-  @apply border-purple-500 bg-purple-50 shadow-md;
+  @apply border-teal-400 bg-slate-50 dark:bg-slate-900;
 }
 
-.format-options-section {
-  @apply bg-white rounded-lg p-6 border border-gray-100 mt-6;
+.quality-slider,
+.compression-slider,
+.speed-slider {
+  @apply appearance-none h-2 rounded-lg bg-slate-200 outline-none dark:bg-slate-800;
 }
 
-.option-group {
-  @apply mb-6 last:mb-0;
-}
-
-.quality-slider, .compression-slider, .speed-slider {
-  @apply appearance-none bg-gray-200 rounded-lg h-2 outline-none;
-}
-
-.quality-slider::-webkit-slider-thumb, 
-.compression-slider::-webkit-slider-thumb, 
+.quality-slider::-webkit-slider-thumb,
+.compression-slider::-webkit-slider-thumb,
 .speed-slider::-webkit-slider-thumb {
-  @apply appearance-none w-5 h-5 bg-purple-500 rounded-full cursor-pointer shadow-lg;
+  @apply appearance-none h-5 w-5 cursor-pointer rounded-full bg-slate-950 dark:bg-slate-100;
+}
+
+.convert-button,
+.download-button {
+  @apply inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white;
 }
 
 .convert-button {
-  @apply px-8 py-4 text-lg font-semibold rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center;
-  background: linear-gradient(135deg, #9333ea 0%, #ec4899 50%, #8b5cf6 100%);
-  background-size: 200% 100%;
-  color: white;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  @apply px-8 py-4 text-base;
 }
 
-.convert-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.convert-button:hover {
-  @apply shadow-2xl;
-  background-position: 100% 0;
-  transform: translateY(-2px) scale(1.05);
-}
-
-.convert-button:hover::before {
-  left: 100%;
-}
-
-.convert-button:disabled {
-  @apply opacity-50 cursor-not-allowed;
-  transform: none;
-}
-
-.progress-section {
-  @apply bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200 mb-8;
+.convert-button:disabled,
+.download-button:disabled {
+  @apply cursor-not-allowed opacity-50;
 }
 
 .enhanced-progress {
-  @apply relative overflow-hidden rounded-full h-4 bg-gray-200 shadow-inner;
+  @apply h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800;
 }
 
 .enhanced-progress-fill {
-  @apply h-full transition-all duration-500 ease-out rounded-full;
-  background: linear-gradient(90deg, #9333ea 0%, #ec4899 30%, #8b5cf6 60%, #d946ef 100%);
-  background-size: 300% 100%;
-  animation: progress-shimmer 2s ease-in-out infinite;
-  position: relative;
-}
-
-.enhanced-progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: progress-shine 1.5s ease-in-out infinite;
-}
-
-@keyframes progress-shimmer {
-  0%, 100% { background-position: 300% 0; }
-  50% { background-position: 0% 0; }
-}
-
-@keyframes progress-shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.results-section {
-  @apply bg-gradient-to-br from-green-50 via-white to-emerald-50 rounded-xl p-8 border border-green-200;
-}
-
-.result-card {
-  @apply bg-white rounded-lg p-6 shadow-sm border border-gray-100;
-}
-
-.download-button {
-  @apply px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg shadow-md transition-all duration-300 flex items-center;
-}
-
-.download-button:hover {
-  @apply shadow-lg;
-  background: linear-gradient(to right, #059669, #047857);
-  transform: translateY(-1px) scale(1.02);
+  @apply h-full rounded-full bg-teal-600 transition-all duration-500 dark:bg-teal-400;
 }
 
 .conversion-stats {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4;
-}
-
-.stat-item {
-  @apply text-center p-3 bg-gray-50 rounded-lg;
+  @apply mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5;
 }
 
 .stat-label {
-  @apply block text-xs text-gray-500 mb-1;
+  @apply block text-xs text-slate-500 dark:text-slate-400;
 }
 
 .stat-value {
-  @apply block text-sm font-semibold text-gray-900;
+  @apply block text-sm font-semibold text-slate-900 dark:text-slate-100;
 }
 
 .fade-in-up {
@@ -906,24 +750,26 @@ watch(() => conversionOptions.value.targetFormat, () => {
   }
 }
 
-/* 响应式优化 */
 @media (max-width: 768px) {
   .image-format-converter {
     @apply px-2 py-4;
   }
-  
-  .core-feature-section, .format-selection-section {
-    @apply p-4 mb-6;
+
+  .core-feature-section,
+  .format-selection-section,
+  .progress-section,
+  .results-section {
+    @apply mb-6 p-4;
   }
-  
+
   .section-title {
     @apply text-2xl;
   }
-  
+
   .convert-button {
     @apply px-6 py-3 text-base;
   }
-  
+
   .conversion-stats {
     @apply grid-cols-1;
   }

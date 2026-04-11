@@ -7,6 +7,7 @@ import { getContentBlogPathFromPublicPath } from '~/utils/blog-paths'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
+const currentLocale = computed<'zh' | 'en'>(() => (locale.value === 'en' ? 'en' : 'zh'))
 
 const createArticleError = (articleError?: Partial<Error & { statusCode?: number; statusMessage?: string }>) =>
   createError({
@@ -15,15 +16,15 @@ const createArticleError = (articleError?: Partial<Error & { statusCode?: number
     fatal: true
   })
 
-// 获取文章数据，根据当前语言获取对应的文章
-const { data, pending, error } = await useAsyncData('blog-article', async () => {
+const articlePublicPath = computed(() => {
   const slug = route.params.slug
-  const articlePath = Array.isArray(slug) ? slug.join('/') : slug
-  
-  // 根据当前语言构建文章路径
-  const currentLocale = locale.value as 'zh' | 'en'
-  const contentPath = getContentBlogPathFromPublicPath(`/blog/${articlePath}`, currentLocale)
-  
+  const articlePath = Array.isArray(slug) ? slug.join('/') : slug || ''
+  const basePath = `/blog/${articlePath}`
+  return currentLocale.value === 'en' ? `/en${basePath}` : basePath
+})
+
+const { data, pending, error } = await useAsyncData('blog-article', async () => {
+  const contentPath = getContentBlogPathFromPublicPath(articlePublicPath.value, currentLocale.value)
   const article = await queryContent(contentPath).findOne()
 
   if (!article) {
@@ -31,43 +32,28 @@ const { data, pending, error } = await useAsyncData('blog-article', async () => 
   }
 
   return article
-    // 如果找不到对应语言的文章，尝试获取默认语言版本
 }, {
-  // 当语言或路由参数变化时重新获取数据
   watch: [locale, () => route.fullPath]
-  /*
-  // 添加缓存和优化选项
-  server: false, // 在客户端获取数据，避免服务端渲染延迟
-  default: () => null, // 设置默认值避免闪现
-  transform: (data) => data, // 保持数据原样
-  getCachedData(key) {
-    return nuxtApp.ssrContext?.cache?.[key] ?? nuxtApp.static.data[key]
-  }
-  */
 })
 
 if (error.value) {
   throw createArticleError(error.value)
 }
 
-// 生成面包屑导航数据
 const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
   const items: BreadcrumbItem[] = [
     { name: t('seo.breadcrumb.home'), path: '/' },
     { name: t('seo.breadcrumb.blog'), path: '/blog' }
   ]
-  
+
   if (data.value?.title) {
     items.push({ name: data.value.title, path: route.path })
   }
-  
+
   return items
 })
 
-// 获取文章关联的工具ID列表
-const relatedToolIds = computed<string[]>(() => {
-  return data.value?.relatedTools || []
-})
+const relatedToolIds = computed<string[]>(() => data.value?.relatedTools || [])
 
 const primaryRelatedTool = computed(() => {
   const primaryToolId = relatedToolIds.value[0]
@@ -76,23 +62,22 @@ const primaryRelatedTool = computed(() => {
 
 const primaryToolPath = computed(() => primaryRelatedTool.value?.path || '/blog')
 
-/*
 const articleCtaText = computed(() => {
   switch (primaryRelatedTool.value?.id) {
     case 'heic-converter':
-      return locale.value === 'en'
+      return currentLocale.value === 'en'
         ? 'Need to open or convert HEIC files right now? Use our free browser-based HEIC converter.'
         : '现在就要打开或转换 HEIC 文件？试试我们的免费浏览器版 HEIC 转换工具。'
     case 'image-format-converter':
-      return locale.value === 'en'
+      return currentLocale.value === 'en'
         ? 'Need a different output format? Convert images to JPG, PNG, WebP, GIF, AVIF, and more.'
         : '需要转换成其他格式？可以继续转成 JPG、PNG、WebP、GIF、AVIF 等常见格式。'
     case 'image-compressor':
-      return locale.value === 'en'
+      return currentLocale.value === 'en'
         ? 'Ready to compress your images after reading? Try the free image compressor in your browser.'
         : '看完后想直接压缩图片？可以马上体验浏览器里的免费图片压缩工具。'
     default:
-      return locale.value === 'en'
+      return currentLocale.value === 'en'
         ? 'Try the related free tool to put these steps into practice.'
         : '试试下面的免费相关工具，把这篇文章里的方法直接用起来。'
   }
@@ -101,226 +86,166 @@ const articleCtaText = computed(() => {
 const articleCtaButtonLabel = computed(() => {
   switch (primaryRelatedTool.value?.id) {
     case 'heic-converter':
-      return locale.value === 'en' ? 'Open HEIC Converter' : '打开 HEIC 转换器'
+      return currentLocale.value === 'en' ? 'Open HEIC Converter' : '打开 HEIC 转换器'
     case 'image-format-converter':
-      return locale.value === 'en' ? 'Open Format Converter' : '打开格式转换器'
+      return currentLocale.value === 'en' ? 'Open Format Converter' : '打开格式转换器'
     case 'image-compressor':
-      return locale.value === 'en' ? 'Open Image Compressor' : '打开图片压缩器'
+      return currentLocale.value === 'en' ? 'Open Image Compressor' : '打开图片压缩器'
     default:
-      return locale.value === 'en' ? 'Open Free Tool' : '打开免费工具'
-  }
-})
-
-// 日期格式化函数
-*/
-
-const articleCtaText = computed(() => {
-  switch (primaryRelatedTool.value?.id) {
-    case 'heic-converter':
-      return 'Need to open or convert HEIC files right now? Use our free browser-based HEIC converter.'
-    case 'image-format-converter':
-      return 'Need a different output format? Convert images to JPG, PNG, WebP, GIF, AVIF, and more.'
-    case 'image-compressor':
-      return 'Ready to compress your images after reading? Try the free image compressor in your browser.'
-    default:
-      return 'Try the related free tool to put these steps into practice.'
-  }
-})
-
-const articleCtaButtonLabel = computed(() => {
-  switch (primaryRelatedTool.value?.id) {
-    case 'heic-converter':
-      return 'Open HEIC Converter'
-    case 'image-format-converter':
-      return 'Open Format Converter'
-    case 'image-compressor':
-      return 'Open Image Compressor'
-    default:
-      return 'Open Free Tool'
+      return currentLocale.value === 'en' ? 'Open Free Tool' : '打开免费工具'
   }
 })
 
 const formatDate = (date: string | Date | undefined) => {
   if (!date) return ''
-  const localeCode = locale.value === 'en' ? 'en-US' : 'zh-CN'
+
+  const localeCode = currentLocale.value === 'en' ? 'en-US' : 'zh-CN'
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   }
-  
+
   try {
     return new Date(date).toLocaleDateString(localeCode, options)
-  } catch (err) {
-    // Fallback to English if there's an error
+  } catch {
     return new Date(date).toLocaleDateString('en-US', options)
   }
 }
 
-// 分享文章
 const shareArticle = async () => {
   try {
     await navigator.clipboard.writeText(window.location.href)
-    // 这里可以添加一个提示消息
     alert(t('blog.article.linkCopied'))
   } catch (err) {
-    console.error('复制失败:', err)
+    console.error('Failed to copy article link:', err)
   }
 }
 
-// 使用 useBlogArticleMeta 设置优化的 SEO 元数据
-// Requirements: 5.1, 5.2, 5.3 - 标题长度、描述长度、日期包含
 const articleMeta = computed(() => ({
   title: data.value?.title || '',
   description: data.value?.description || '',
   date: data.value?.date || new Date().toISOString(),
   author: data.value?.author || 'TryUtils',
   keywords: data.value?.keywords || data.value?.tags || [],
-  locale: locale.value as 'zh' | 'en'
+  locale: currentLocale.value
 }))
 
 useBlogArticleMeta(articleMeta)
 </script>
 
 <template>
-  <div id="main-content" class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <!-- 跳转到主要内容的链接 -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
-      跳转到主要内容
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 z-50 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white dark:bg-slate-100 dark:text-slate-950"
+    >
+      {{ t('accessibility.skipToMain') }}
     </a>
 
-    <!-- 文章内容 -->
-    <main class="py-8" role="main">
-      <div class="max-w-4xl mx-auto px-6">
-        <!-- 面包屑导航 - Requirements: 3.2 -->
-        <BreadcrumbNav 
-          v-if="data && !pending" 
-          :items="breadcrumbItems" 
-          :generate-schema="true"
-        />
-        
+    <main id="main-content" class="py-8" role="main">
+      <div class="mx-auto max-w-4xl px-6">
+        <BreadcrumbNav v-if="data && !pending" :items="breadcrumbItems" :generate-schema="true" />
+
         <Transition name="fade" mode="out-in">
-          <div v-if="pending" key="loading" class="text-center py-12" role="status" aria-live="polite">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto" aria-hidden="true"></div>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">{{ $t('blog.loading') }}</p>
+          <div v-if="pending" key="loading" class="flex min-h-[280px] items-center justify-center" role="status" aria-live="polite">
+            <div class="text-center">
+              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"></div>
+              <p class="text-slate-600 dark:text-slate-300">{{ $t('blog.loading') }}</p>
+            </div>
           </div>
 
-          <div v-else-if="error" key="error" class="text-center py-12" role="alert">
-            <div class="w-24 h-24 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
-              <svg class="w-12 h-12 text-red-500 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-              </svg>
+          <div v-else-if="error" key="error" class="py-16 text-center" role="alert">
+            <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-rose-100 text-rose-500 dark:bg-rose-900/30 dark:text-rose-400">
+              <Icon name="heroicons:exclamation-triangle" class="h-8 w-8" aria-hidden="true" />
             </div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.article.notFound.title') }}</h1>
-            <p class="text-gray-600 dark:text-gray-400 mb-6">{{ $t('blog.article.notFound.description') }}</p>
-            <NuxtLink 
-              :to="localePath('/blog')" 
-              class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-              :aria-label="`返回到${$t('nav.blog')}`"
+            <h1 class="text-2xl font-semibold text-slate-950 dark:text-slate-50">{{ $t('blog.article.notFound.title') }}</h1>
+            <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{{ $t('blog.article.notFound.description') }}</p>
+            <NuxtLink
+              :to="localePath('/blog')"
+              class="mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
             >
               {{ $t('blog.article.backToBlog') }}
             </NuxtLink>
           </div>
 
-          <article v-else-if="data" key="content" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm dark:shadow-gray-900/50 overflow-hidden transition-colors duration-300" itemscope itemtype="https://schema.org/Article">
-          <!-- 文章头部 -->
-          <header class="px-8 py-8 border-b border-gray-100 dark:border-gray-700">
-            <div class="text-center">
-              <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight" itemprop="headline">
+          <article
+            v-else-if="data"
+            key="content"
+            class="overflow-hidden rounded-[32px] border border-slate-200/80 bg-white/95 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none"
+            itemscope
+            itemtype="https://schema.org/Article"
+          >
+            <header class="border-b border-slate-200/80 px-8 py-10 dark:border-slate-800">
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
+                {{ $t('nav.blog') }}
+              </p>
+              <h1 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl" itemprop="headline">
                 {{ data?.title }}
               </h1>
-              <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" itemprop="description">
+              <p class="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300" itemprop="description">
                 {{ data?.description }}
               </p>
-              
-              <!-- 文章元信息 -->
-              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400" role="group" aria-label="文章信息">
-                <time class="flex items-center" :datetime="data?.date" itemprop="datePublished">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                  </svg>
-                  <span class="sr-only">发布日期：</span>
+
+              <div class="mt-6 flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                <time :datetime="data?.date" itemprop="datePublished" class="inline-flex items-center">
+                  <Icon name="heroicons:calendar-days" class="mr-2 h-4 w-4" aria-hidden="true" />
                   {{ formatDate(data?.date) }}
                 </time>
-                
-                <!-- 标签 -->
-                <div v-if="data?.tags && data.tags.length > 0" class="flex items-center flex-wrap gap-2" role="group" aria-label="文章标签">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                  </svg>
-                  <span class="sr-only">标签：</span>
+
+                <div v-if="data?.tags?.length" class="flex flex-wrap gap-2">
                   <span
                     v-for="tag in data.tags"
                     :key="tag"
-                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs rounded-full"
+                    class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300"
                     itemprop="keywords"
                   >
                     {{ tag }}
                   </span>
                 </div>
               </div>
+            </header>
+
+            <div class="prose prose-slate max-w-none px-8 py-10 dark:prose-invert" itemprop="articleBody">
+              <ContentRenderer :value="data" />
             </div>
-          </header>
 
-          <!-- 文章正文 -->
-          <div class="prose prose-lg dark:prose-invert max-w-none px-8 py-8" itemprop="articleBody" role="region" aria-labelledby="article-content">
-            <h2 id="article-content" class="sr-only">文章内容</h2>
-            <ContentRenderer :value="data" />
-          </div>
-
-          <!-- CTA 引导使用工具 -->
-          <div v-if="relatedToolIds.length > 0" class="px-8 py-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border-t border-gray-100 dark:border-gray-700">
-            <div class="text-center">
-              <p class="text-gray-700 dark:text-gray-300 mb-4">{{ locale === 'en' ? 'Ready to compress your images? Try our free tool now!' : '准备压缩你的图片了吗？立即体验免费工具！' }}</p>
+            <div
+              v-if="relatedToolIds.length > 0"
+              class="border-t border-slate-200/80 bg-slate-50/80 px-8 py-8 dark:border-slate-800 dark:bg-slate-950/70"
+            >
+              <p class="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">{{ articleCtaText }}</p>
               <NuxtLink
                 :to="localePath(primaryToolPath)"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                class="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
               >
-                {{ locale === 'en' ? 'Try Free Image Compressor' : '免费使用图片压缩工具' }}
-                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
+                {{ articleCtaButtonLabel }}
+                <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
               </NuxtLink>
             </div>
-          </div>
 
-          <!-- 文章底部 -->
-          <footer class="px-8 py-6 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700" role="contentinfo">
-            <div class="flex items-center justify-between">
+            <footer class="flex flex-col gap-4 border-t border-slate-200/80 px-8 py-6 text-sm dark:border-slate-800 md:flex-row md:items-center md:justify-between">
               <NuxtLink
                 :to="localePath('/blog')"
-                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
-                :aria-label="`返回到${$t('nav.blog')}`"
+                class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
               >
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
+                <Icon name="heroicons:arrow-left" class="h-4 w-4" aria-hidden="true" />
                 {{ $t('blog.article.backToBlog') }}
               </NuxtLink>
-              
-              <!-- 分享按钮 -->
-              <div class="flex items-center space-x-3" role="group" aria-label="分享选项">
-                <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('blog.article.share') }}:</span>
-                <button
-                  @click="shareArticle"
-                  class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
-                  :title="$t('blog.article.copyLink')"
-                  :aria-label="$t('blog.article.copyLink')"
-                  type="button"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </footer>
-        </article>
-        
+
+              <button
+                @click="shareArticle"
+                class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
+                type="button"
+              >
+                <Icon name="heroicons:square-2-stack" class="h-4 w-4" aria-hidden="true" />
+                {{ $t('blog.article.copyLink') }}
+              </button>
+            </footer>
+          </article>
         </Transition>
-        
-        <!-- 相关工具推荐 - Requirements: 4.1 -->
-        <RelatedContent 
+
+        <RelatedContent
           v-if="!pending && data && relatedToolIds.length > 0"
           type="tools"
           :related-tool-ids="relatedToolIds"
@@ -331,10 +256,7 @@ useBlogArticleMeta(articleMeta)
   </div>
 </template>
 
-
-
 <style>
-/* 过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -343,160 +265,5 @@ useBlogArticleMeta(articleMeta)
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-/* Prose 样式优化 */
-.prose {
-  @apply text-gray-800 leading-relaxed;
-}
-
-:global(.dark) .prose {
-  @apply text-gray-200;
-}
-
-.prose h1 {
-  @apply text-3xl font-bold text-gray-900 mt-8 mb-4;
-}
-
-:global(.dark) .prose h1 {
-  @apply text-gray-100;
-}
-
-.prose h2 {
-  @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
-}
-
-:global(.dark) .prose h2 {
-  @apply text-gray-100;
-}
-
-.prose h3 {
-  @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
-}
-
-:global(.dark) .prose h3 {
-  @apply text-gray-100;
-}
-
-.prose p {
-  @apply mb-4 leading-relaxed;
-}
-
-.prose ul, .prose ol {
-  @apply mb-4 pl-6;
-}
-
-.prose li {
-  @apply mb-2;
-}
-
-.prose blockquote {
-  @apply border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6;
-}
-
-:global(.dark) .prose blockquote {
-  @apply text-gray-300 border-blue-400;
-}
-
-.prose a {
-  @apply text-blue-600 hover:text-blue-700 underline;
-}
-
-:global(.dark) .prose a {
-  @apply text-blue-400 hover:text-blue-300;
-}
-
-.prose img {
-  @apply rounded-lg shadow-sm my-6;
-}
-
-.prose table {
-  @apply w-full border-collapse border border-gray-300 my-6 bg-white;
-}
-
-:global(.dark) .prose table {
-  @apply border-gray-600 bg-gray-800;
-}
-
-.prose th, .prose td {
-  @apply border border-gray-300 px-4 py-2;
-}
-
-:global(.dark) .prose th,
-:global(.dark) .prose td {
-  @apply border-gray-600 text-gray-200;
-}
-
-.prose th {
-  @apply bg-gray-100 font-semibold text-gray-800;
-}
-
-:global(.dark) .prose th {
-  @apply bg-gray-700 text-gray-100;
-}
-
-.prose tr {
-  @apply bg-white;
-}
-
-:global(.dark) .prose tr {
-  @apply bg-gray-800;
-}
-
-.prose tr:nth-child(even) {
-  @apply bg-gray-50;
-}
-
-:global(.dark) .prose tr:nth-child(even) {
-  background-color: rgb(55, 65, 81); /* gray-700 的稍深版本 */
-}
-
-.prose tbody tr:hover {
-  @apply bg-gray-100;
-}
-
-:global(.dark) .prose tbody tr:hover {
-  @apply bg-gray-700;
-}
-
-/* 标题链接样式 - 移除默认的蓝色链接样式 */
-.prose h1 a,
-.prose h2 a,
-.prose h3 a,
-.prose h4 a,
-.prose h5 a,
-.prose h6 a {
-  @apply text-inherit no-underline;
-  color: inherit !important;
-}
-
-.prose h1 a:hover,
-.prose h2 a:hover,
-.prose h3 a:hover,
-.prose h4 a:hover,
-.prose h5 a:hover,
-.prose h6 a:hover {
-  @apply text-inherit no-underline;
-  color: inherit !important;
-}
-
-:global(.dark) .prose h1 a,
-:global(.dark) .prose h2 a,
-:global(.dark) .prose h3 a,
-:global(.dark) .prose h4 a,
-:global(.dark) .prose h5 a,
-:global(.dark) .prose h6 a {
-  @apply text-gray-100 no-underline;
-  color: inherit !important;
-}
-
-:global(.dark) .prose h1 a:hover,
-:global(.dark) .prose h2 a:hover,
-:global(.dark) .prose h3 a:hover,
-:global(.dark) .prose h4 a:hover,
-:global(.dark) .prose h5 a:hover,
-:global(.dark) .prose h6 a:hover {
-  @apply text-gray-100 no-underline;
-  color: inherit !important;
 }
 </style>

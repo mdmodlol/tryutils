@@ -4,10 +4,8 @@
  * Real-time Markdown to HTML preview with syntax highlighting
  * Pure client-side processing using simple markdown parser
  */
-
 const { t } = useI18n()
 
-// === State ===
 const inputText = ref('')
 const outputHtml = ref('')
 const previewMode = ref<'split' | 'preview' | 'code'>('split')
@@ -15,7 +13,6 @@ const copySuccess = ref(false)
 const isDragging = ref(false)
 let renderTimeout: NodeJS.Timeout | null = null
 
-// === Computed ===
 const inputStats = computed(() => {
   const text = inputText.value
   const chars = text.length
@@ -26,7 +23,6 @@ const inputStats = computed(() => {
   return { chars, lines, words, size }
 })
 
-// === Simple Markdown Parser ===
 function escapeHtml(text: string): string {
   const map: Record<string, string> = {
     '&': '&amp;',
@@ -40,50 +36,32 @@ function escapeHtml(text: string): string {
 
 function parseMarkdown(markdown: string): string {
   let html = markdown
+  const tableDividerCharacterClass = ['-', ':', '\\s', '\\|'].join('')
+  const tablePattern = new RegExp(`\\| (.*?) \\|\\n\\| [${tableDividerCharacterClass}]+ \\|\\n((?:\\| .*? \\|\\n?)*)`, 'g')
 
-  // Escape HTML first
   html = escapeHtml(html)
-
-  // Headers
   html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>')
   html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>')
   html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>')
-
-  // Horizontal rule
   html = html.replace(/^---$/gm, '<hr />')
-
-  // Code blocks
   html = html.replace(/```(.*?)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
-
-  // Bold and italic
   html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>')
   html = html.replace(/____(.*?)____/g, '<strong><em>$1</em></strong>')
   html = html.replace(/__(.*?)__/g, '<strong>$1</strong>')
   html = html.replace(/_(.*?)_/g, '<em>$1</em>')
-
-  // Strikethrough
   html = html.replace(/~~(.*?)~~/g, '<del>$1</del>')
-
-  // Links
   html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-
-  // Images
   html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" />')
-
-  // Blockquotes
   html = html.replace(/^&gt; (.*?)$/gm, '<blockquote>$1</blockquote>')
-
-  // Lists
   html = html.replace(/^\* (.*?)$/gm, '<li>$1</li>')
   html = html.replace(/^- (.*?)$/gm, '<li>$1</li>')
   html = html.replace(/^(\d+)\. (.*?)$/gm, '<li>$2</li>')
   html = html.replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>')
   html = html.replace(/<\/ul>\n<ul>/g, '')
 
-  // Paragraphs
   const lines = html.split('\n')
   let inBlock = false
   html = lines.map((line) => {
@@ -101,8 +79,7 @@ function parseMarkdown(markdown: string): string {
     return line
   }).join('\n')
 
-  // Tables (simple support)
-  html = html.replace(/\| (.*?) \|\n\| [-:\s|]+ \|\n((?:\| .*? \|\n?)*)/g, (match, header, rows) => {
+  html = html.replace(tablePattern, (match, header, rows) => {
     const headerCells = header.split('|').filter((c: string) => c.trim())
     const headerHtml = headerCells.map((c: string) => `<th>${c.trim()}</th>`).join('')
     const rowsHtml = rows.split('\n').filter((r: string) => r.trim()).map((row: string) => {
@@ -115,26 +92,20 @@ function parseMarkdown(markdown: string): string {
   return html
 }
 
-// === Markdown Processing ===
 function renderMarkdown(markdown: string): void {
   try {
-    const html = parseMarkdown(markdown)
-    outputHtml.value = html
+    outputHtml.value = parseMarkdown(markdown)
   } catch (error) {
     console.error('Markdown rendering error:', error)
-    outputHtml.value = '<div class="text-red-600 dark:text-red-400"><p>Error rendering markdown</p></div>'
+    outputHtml.value = `<div class="text-red-600 dark:text-red-400"><p>${t('markdownPreview.errors.render')}</p></div>`
   }
 }
 
-// === Watch for input changes with debounce ===
 watch(inputText, (newVal) => {
   if (renderTimeout) clearTimeout(renderTimeout)
-  renderTimeout = setTimeout(() => {
-    renderMarkdown(newVal)
-  }, 300)
+  renderTimeout = setTimeout(() => renderMarkdown(newVal), 300)
 })
 
-// === File Upload ===
 function handleFileUpload(event: Event): void {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
@@ -147,7 +118,6 @@ function handleFileUpload(event: Event): void {
   reader.readAsText(file)
 }
 
-// === Drag & Drop ===
 function handleDragOver(event: DragEvent): void {
   event.preventDefault()
   isDragging.value = true
@@ -160,7 +130,7 @@ function handleDragLeave(): void {
 function handleDrop(event: DragEvent): void {
   event.preventDefault()
   isDragging.value = false
-  
+
   const files = event.dataTransfer?.files
   if (!files) return
 
@@ -174,7 +144,6 @@ function handleDrop(event: DragEvent): void {
   }
 }
 
-// === Copy to Clipboard ===
 async function copyToClipboard(): Promise<void> {
   try {
     await navigator.clipboard.writeText(outputHtml.value)
@@ -187,7 +156,6 @@ async function copyToClipboard(): Promise<void> {
   }
 }
 
-// === Download ===
 function downloadAsHtml(): void {
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -231,15 +199,13 @@ function downloadAsMarkdown(): void {
   URL.revokeObjectURL(url)
 }
 
-// === Clear ===
 function clearAll(): void {
-  if (confirm('Clear all content?')) {
+  if (confirm(t('markdownPreview.confirmClear'))) {
     inputText.value = ''
     outputHtml.value = ''
   }
 }
 
-// === Load sample ===
 function loadSample(): void {
   inputText.value = `# Markdown Preview Demo
 
@@ -271,159 +237,147 @@ function hello() {
 [Visit TryUtils](https://www.tryutils.com)`
 }
 
-// Initialize with empty state
 onMounted(() => {
   renderMarkdown('')
 })
 </script>
 
 <template>
-  <div class="w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-    <!-- Toolbar -->
-    <div class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
-      <div class="flex flex-wrap gap-2 items-center justify-between">
-        <!-- Mode Selector -->
+  <div class="w-full overflow-hidden rounded-[30px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+    <div class="border-b border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
+      <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex gap-2">
           <button
             v-for="mode in ['split', 'preview', 'code']"
             :key="mode"
-            @click="previewMode = mode as any"
             :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+              'rounded-full px-3 py-2 text-sm font-medium transition-colors',
               previewMode === mode
-                ? 'bg-blue-500 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+                : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
             ]"
-            :aria-label="`Switch to ${mode} mode`"
+            :aria-label="`${t('markdownPreview.panels.preview')} ${mode}`"
+            @click="previewMode = mode as any"
           >
-            <Icon 
+            <Icon
               :name="mode === 'split' ? 'heroicons:window' : mode === 'preview' ? 'heroicons:eye' : 'heroicons:code-bracket'"
-              class="w-4 h-4 inline mr-1"
+              class="mr-1 inline h-4 w-4"
             />
-            {{ mode === 'split' ? 'Split' : mode === 'preview' ? 'Preview' : 'Code' }}
+            {{ mode === 'split' ? t('markdownPreview.modes.split') : mode === 'preview' ? t('markdownPreview.modes.preview') : t('markdownPreview.modes.code') }}
           </button>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="flex gap-2 flex-wrap">
+        <div class="flex flex-wrap gap-2">
           <button
+            class="rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+            :title="t('markdownPreview.actions.sample')"
             @click="loadSample"
-            class="px-3 py-2 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            title="Load sample"
           >
-            <Icon name="heroicons:sparkles" class="w-4 h-4 inline mr-1" />
-            Sample
+            <Icon name="heroicons:sparkles" class="mr-1 inline h-4 w-4" />
+            {{ t('markdownPreview.actions.sample') }}
           </button>
           <button
-            @click="copyToClipboard"
             :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+              'rounded-full px-3 py-2 text-sm font-medium transition-colors',
               copySuccess
-                ? 'bg-green-500 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                ? 'bg-emerald-600 text-white'
+                : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
             ]"
-            title="Copy HTML"
+            :title="t('markdownPreview.actions.copy')"
+            @click="copyToClipboard"
           >
-            <Icon :name="copySuccess ? 'heroicons:check' : 'heroicons:document-duplicate'" class="w-4 h-4 inline mr-1" />
-            {{ copySuccess ? 'Copied!' : 'Copy' }}
+            <Icon :name="copySuccess ? 'heroicons:check' : 'heroicons:document-duplicate'" class="mr-1 inline h-4 w-4" />
+            {{ copySuccess ? t('markdownPreview.actions.copied') : t('markdownPreview.actions.copy') }}
           </button>
           <button
+            class="rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+            :title="t('markdownPreview.actions.downloadHtml')"
             @click="downloadAsHtml"
-            class="px-3 py-2 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            title="Download as HTML"
           >
-            <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 inline mr-1" />
-            HTML
+            <Icon name="heroicons:arrow-down-tray" class="mr-1 inline h-4 w-4" />
+            {{ t('markdownPreview.actions.downloadHtml') }}
           </button>
           <button
+            class="rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+            :title="t('markdownPreview.actions.downloadMarkdown')"
             @click="downloadAsMarkdown"
-            class="px-3 py-2 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            title="Download as Markdown"
           >
-            <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 inline mr-1" />
-            MD
+            <Icon name="heroicons:arrow-down-tray" class="mr-1 inline h-4 w-4" />
+            {{ t('markdownPreview.actions.downloadMarkdown') }}
           </button>
           <button
+            class="rounded-full border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700 transition-colors hover:bg-rose-100 dark:border-rose-900/70 dark:bg-rose-950/30 dark:text-rose-300 dark:hover:bg-rose-950/50"
+            :title="t('markdownPreview.actions.clear')"
             @click="clearAll"
-            class="px-3 py-2 rounded-md text-sm font-medium bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
-            title="Clear all"
           >
-            <Icon name="heroicons:trash" class="w-4 h-4 inline mr-1" />
-            Clear
+            <Icon name="heroicons:trash" class="mr-1 inline h-4 w-4" />
+            {{ t('markdownPreview.actions.clear') }}
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="flex flex-col lg:flex-row h-[600px]">
-      <!-- Input Section -->
-      <div v-if="previewMode !== 'preview'" class="flex-1 flex flex-col border-r border-gray-200 dark:border-gray-700">
-        <!-- Input Header -->
-        <div class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-3 flex justify-between items-center">
-          <h3 class="font-semibold text-gray-700 dark:text-gray-300">Markdown Input</h3>
+    <div class="flex h-[600px] flex-col lg:flex-row">
+      <div v-if="previewMode !== 'preview'" class="flex flex-1 flex-col border-r border-slate-200 dark:border-slate-800">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
+          <h3 class="font-semibold text-slate-700 dark:text-slate-300">{{ t('markdownPreview.panels.input') }}</h3>
           <label class="cursor-pointer">
             <input
               type="file"
               accept=".md,.txt"
-              @change="handleFileUpload"
               class="hidden"
-              aria-label="Upload file"
+              :aria-label="t('markdownPreview.actions.upload')"
+              @change="handleFileUpload"
             />
-            <span class="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-              <Icon name="heroicons:arrow-up-tray" class="w-4 h-4" />
-              Upload
+            <span class="flex items-center gap-1 text-sm text-teal-700 hover:underline dark:text-teal-300">
+              <Icon name="heroicons:arrow-up-tray" class="h-4 w-4" />
+              {{ t('markdownPreview.actions.upload') }}
             </span>
           </label>
         </div>
 
-        <!-- Input Area -->
         <div
+          :class="[
+            'relative flex-1',
+            isDragging ? 'bg-slate-100 dark:bg-slate-900/80' : ''
+          ]"
           @dragover="handleDragOver"
           @dragleave="handleDragLeave"
           @drop="handleDrop"
-          :class="[
-            'flex-1 relative',
-            isDragging ? 'bg-blue-50 dark:bg-blue-900/20' : ''
-          ]"
         >
           <textarea
             v-model="inputText"
-            placeholder="Enter Markdown here..."
-            class="w-full h-full p-4 font-mono text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-0 focus:outline-none resize-none"
+            :placeholder="t('markdownPreview.inputPlaceholder')"
+            class="h-full w-full resize-none border-0 bg-white p-4 font-mono text-sm text-slate-900 focus:outline-none dark:bg-slate-950 dark:text-slate-100"
             spellcheck="false"
-            aria-label="Markdown input"
+            :aria-label="t('markdownPreview.inputLabel')"
           />
-          <div v-if="isDragging" class="absolute inset-0 bg-blue-500/10 border-2 border-dashed border-blue-500 rounded-lg flex items-center justify-center pointer-events-none">
+          <div v-if="isDragging" class="pointer-events-none absolute inset-0 flex items-center justify-center rounded-[24px] border border-dashed border-teal-500 bg-slate-950/5">
             <div class="text-center">
-              <Icon name="heroicons:arrow-down-tray" class="w-8 h-8 text-blue-500 mx-auto mb-2" />
-              <p class="text-blue-600 dark:text-blue-400 font-medium">Drop Markdown file here</p>
+              <Icon name="heroicons:arrow-down-tray" class="mx-auto mb-2 h-8 w-8 text-teal-600 dark:text-teal-300" />
+              <p class="font-medium text-teal-700 dark:text-teal-300">{{ t('markdownPreview.dragDrop.dropHere') }}</p>
             </div>
           </div>
         </div>
 
-        <!-- Input Stats -->
-        <div class="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-2 text-xs text-gray-600 dark:text-gray-400 flex gap-4">
-          <span>{{ inputStats.chars }} chars</span>
-          <span>{{ inputStats.lines }} lines</span>
-          <span>{{ inputStats.words }} words</span>
+        <div class="flex gap-4 border-t border-slate-200 bg-slate-50/80 px-4 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-400">
+          <span>{{ inputStats.chars }} {{ t('markdownPreview.stats.chars') }}</span>
+          <span>{{ inputStats.lines }} {{ t('markdownPreview.stats.lines') }}</span>
+          <span>{{ inputStats.words }} {{ t('markdownPreview.stats.words') }}</span>
           <span>{{ inputStats.size }}</span>
         </div>
       </div>
 
-      <!-- Preview Section -->
-      <div v-if="previewMode !== 'code'" class="flex-1 flex flex-col border-l border-gray-200 dark:border-gray-700">
-        <!-- Preview Header -->
-        <div class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-3">
-          <h3 class="font-semibold text-gray-700 dark:text-gray-300">Preview</h3>
+      <div v-if="previewMode !== 'code'" class="flex flex-1 flex-col border-l border-slate-200 dark:border-slate-800">
+        <div class="border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
+          <h3 class="font-semibold text-slate-700 dark:text-slate-300">{{ t('markdownPreview.panels.preview') }}</h3>
         </div>
 
-        <!-- Preview Area -->
-        <div class="flex-1 overflow-auto p-4 prose prose-sm dark:prose-invert max-w-none">
+        <div class="prose prose-sm dark:prose-invert max-w-none flex-1 overflow-auto p-4">
           <div
             v-html="outputHtml"
-            class="text-gray-900 dark:text-gray-100"
-            aria-label="Markdown preview"
+            class="text-slate-900 dark:text-slate-100"
+            :aria-label="t('markdownPreview.previewLabel')"
           />
         </div>
       </div>
@@ -433,7 +387,7 @@ onMounted(() => {
 
 <style scoped>
 .prose {
-  @apply text-gray-900 dark:text-gray-100;
+  @apply text-slate-900 dark:text-slate-100;
 }
 
 .prose h1,
@@ -442,7 +396,7 @@ onMounted(() => {
 .prose h4,
 .prose h5,
 .prose h6 {
-  @apply font-bold text-gray-900 dark:text-gray-100 mt-6 mb-4;
+  @apply mt-6 mb-4 font-bold text-slate-900 dark:text-slate-100;
 }
 
 .prose h1 {
@@ -462,15 +416,15 @@ onMounted(() => {
 }
 
 .prose code {
-  @apply bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono text-red-600 dark:text-red-400;
+  @apply rounded bg-slate-100 px-2 py-1 font-mono text-sm text-rose-600 dark:bg-slate-800 dark:text-rose-300;
 }
 
 .prose pre {
-  @apply bg-gray-100 dark:bg-gray-700 p-4 rounded-lg overflow-x-auto my-4;
+  @apply my-4 overflow-x-auto rounded-2xl bg-slate-100 p-4 dark:bg-slate-800;
 }
 
 .prose pre code {
-  @apply bg-transparent p-0 text-gray-900 dark:text-gray-100;
+  @apply bg-transparent p-0 text-slate-900 dark:text-slate-100;
 }
 
 .prose ul,
@@ -483,27 +437,27 @@ onMounted(() => {
 }
 
 .prose blockquote {
-  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400 my-4;
+  @apply my-4 border-l-4 border-slate-300 pl-4 italic text-slate-600 dark:border-slate-600 dark:text-slate-400;
 }
 
 .prose a {
-  @apply text-blue-600 dark:text-blue-400 hover:underline;
+  @apply text-teal-700 hover:underline dark:text-teal-300;
 }
 
 .prose table {
-  @apply w-full border-collapse my-4;
+  @apply my-4 w-full border-collapse;
 }
 
 .prose th,
 .prose td {
-  @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-left;
+  @apply border border-slate-300 px-4 py-2 text-left dark:border-slate-600;
 }
 
 .prose th {
-  @apply bg-gray-100 dark:bg-gray-700 font-semibold;
+  @apply bg-slate-100 font-semibold dark:bg-slate-800;
 }
 
 .prose hr {
-  @apply my-6 border-gray-300 dark:border-gray-600;
+  @apply my-6 border-slate-300 dark:border-slate-600;
 }
 </style>

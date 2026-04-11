@@ -1,59 +1,46 @@
 <template>
-  <section 
-    class="py-16 px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
-    aria-labelledby="faq-title"
-  >
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 
-          id="faq-title"
-          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4"
-        >
+  <section class="bg-slate-50/80 py-16 transition-colors duration-300 dark:bg-slate-950/60" aria-labelledby="faq-title">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-10 text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">
+          {{ t('faq.sectionLabel') }}
+        </p>
+        <h2 id="faq-title" class="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl">
           {{ t('faq.title') }}
         </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
           {{ t('faq.subtitle') }}
         </p>
       </div>
 
-      <div class="space-y-4" role="list">
-        <div
-          v-for="(faq, index) in displayFaqs"
-          :key="index"
-          class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300"
-          role="listitem"
-        >
-          <button
-            :id="`faq-button-${index}`"
-            :aria-expanded="openIndex === index ? 'true' : 'false'"
-            :aria-controls="`faq-content-${index}`"
-            class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors"
-            @click="toggleFAQ(index)"
-          >
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 pr-4">
-              {{ faq.question }}
-            </h3>
-            <Icon 
-              :name="openIndex === index ? 'heroicons:chevron-up' : 'heroicons:chevron-down'"
-              class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 transition-transform duration-200"
-              :class="{ 'transform rotate-180': openIndex === index }"
-              aria-hidden="true"
-            />
-          </button>
-          
-          <div
-            :id="`faq-content-${index}`"
-            :aria-labelledby="`faq-button-${index}`"
-            :hidden="openIndex !== index"
-            class="overflow-hidden transition-all duration-300 ease-in-out"
-            :class="openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'"
-            role="region"
-          >
-            <div class="px-6 pb-4">
-              <div 
-                class="text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none"
-                v-html="faq.answer"
+      <div class="overflow-hidden rounded-[30px] border border-slate-200/80 bg-white/95 shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none">
+        <div class="divide-y divide-slate-200/80 dark:divide-slate-800" role="list">
+          <div v-for="(faq, index) in displayFaqs" :key="index" class="px-6" role="listitem">
+            <button
+              :id="`faq-button-${index}`"
+              :aria-expanded="openIndex === index ? 'true' : 'false'"
+              :aria-controls="`faq-content-${index}`"
+              class="flex w-full items-center justify-between gap-6 py-5 text-left"
+              @click="toggleFAQ(index)"
+            >
+              <h3 class="text-base font-semibold leading-7 text-slate-950 dark:text-slate-50">
+                {{ faq.question }}
+              </h3>
+              <Icon
+                :name="openIndex === index ? 'heroicons:minus-small' : 'heroicons:plus-small'"
+                class="h-6 w-6 flex-none text-slate-500 dark:text-slate-400"
+                aria-hidden="true"
               />
+            </button>
+
+            <div
+              :id="`faq-content-${index}`"
+              :aria-labelledby="`faq-button-${index}`"
+              :hidden="openIndex !== index"
+              class="pb-5"
+              role="region"
+            >
+              <div class="prose prose-slate max-w-none text-sm leading-7 dark:prose-invert" v-html="faq.answer" />
             </div>
           </div>
         </div>
@@ -66,11 +53,8 @@
 import { useFAQSchema, type FAQItem } from '~/composables/useFAQSchema'
 
 interface Props {
-  /** FAQ category for i18n-based FAQs */
   category?: 'general' | 'image-tools' | 'privacy'
-  /** Custom FAQ items (overrides category-based FAQs) */
   items?: FAQItem[]
-  /** Whether to generate FAQ structured data (default: true) */
   generateSchema?: boolean
 }
 
@@ -81,108 +65,40 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const { t } = useI18n()
-const openIndex = ref<number | null>(null)
+const openIndex = ref<number | null>(0)
 
-// Category-based FAQ data from i18n
 const categoryFaqs = computed(() => {
   const faqData = {
     general: [
-      {
-        question: t('faq.general.q1'),
-        answer: t('faq.general.a1')
-      },
-      {
-        question: t('faq.general.q2'),
-        answer: t('faq.general.a2')
-      },
-      {
-        question: t('faq.general.q3'),
-        answer: t('faq.general.a3')
-      },
-      {
-        question: t('faq.general.q4'),
-        answer: t('faq.general.a4')
-      }
+      { question: t('faq.general.q1'), answer: t('faq.general.a1') },
+      { question: t('faq.general.q2'), answer: t('faq.general.a2') },
+      { question: t('faq.general.q3'), answer: t('faq.general.a3') },
+      { question: t('faq.general.q4'), answer: t('faq.general.a4') }
     ],
     'image-tools': [
-      {
-        question: t('faq.imageTools.q1'),
-        answer: t('faq.imageTools.a1')
-      },
-      {
-        question: t('faq.imageTools.q2'),
-        answer: t('faq.imageTools.a2')
-      },
-      {
-        question: t('faq.imageTools.q3'),
-        answer: t('faq.imageTools.a3')
-      },
-      {
-        question: t('faq.imageTools.q4'),
-        answer: t('faq.imageTools.a4')
-      },
-      {
-        question: t('faq.imageTools.q5'),
-        answer: t('faq.imageTools.a5')
-      }
+      { question: t('faq.imageTools.q1'), answer: t('faq.imageTools.a1') },
+      { question: t('faq.imageTools.q2'), answer: t('faq.imageTools.a2') },
+      { question: t('faq.imageTools.q3'), answer: t('faq.imageTools.a3') },
+      { question: t('faq.imageTools.q4'), answer: t('faq.imageTools.a4') },
+      { question: t('faq.imageTools.q5'), answer: t('faq.imageTools.a5') }
     ],
     privacy: [
-      {
-        question: t('faq.privacy.q1'),
-        answer: t('faq.privacy.a1')
-      },
-      {
-        question: t('faq.privacy.q2'),
-        answer: t('faq.privacy.a2')
-      },
-      {
-        question: t('faq.privacy.q3'),
-        answer: t('faq.privacy.a3')
-      }
+      { question: t('faq.privacy.q1'), answer: t('faq.privacy.a1') },
+      { question: t('faq.privacy.q2'), answer: t('faq.privacy.a2') },
+      { question: t('faq.privacy.q3'), answer: t('faq.privacy.a3') }
     ]
   }
-  
+
   return faqData[props.category] || faqData.general
 })
 
-// Use custom items if provided, otherwise use category-based FAQs
-const displayFaqs = computed<FAQItem[]>(() => {
-  return props.items || categoryFaqs.value
-})
+const displayFaqs = computed<FAQItem[]>(() => props.items || categoryFaqs.value)
 
 const toggleFAQ = (index: number) => {
   openIndex.value = openIndex.value === index ? null : index
 }
 
-// Generate FAQ structured data using useFAQSchema composable
-// Only generate schema if generateSchema prop is true
 if (props.generateSchema) {
   useFAQSchema(displayFaqs)
 }
 </script>
-
-<style scoped>
-.prose h4 {
-  @apply text-base font-semibold text-gray-900 dark:text-gray-100 mt-4 mb-2;
-}
-
-.prose p {
-  @apply mb-3;
-}
-
-.prose ul {
-  @apply list-disc list-inside space-y-1;
-}
-
-.prose li {
-  @apply text-gray-700 dark:text-gray-300;
-}
-
-.prose strong {
-  @apply font-semibold text-gray-900 dark:text-gray-100;
-}
-
-.prose a {
-  @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline;
-}
-</style>

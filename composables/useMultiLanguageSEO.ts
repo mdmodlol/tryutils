@@ -1,7 +1,9 @@
+import { getCanonicalUrl, stripEnglishLocalePrefix } from '~/utils/blog-paths'
+
 /**
- * Multi-language SEO composable
- * Handles hreflang tags, HTML lang attribute, and canonical URL management
- * 
+ * Deprecated compatibility wrapper.
+ * Canonical URL generation is centralized in app.vue/useSEO/blog-paths.
+ *
  * @see Requirements 6.1, 6.2, 6.4
  */
 
@@ -128,9 +130,7 @@ export function getHtmlLangAttribute(locale: string): string {
  * @returns Canonical URL
  */
 export function generateCanonicalUrl(baseUrl: string, currentPath: string): string {
-  // Ensure path starts with /
-  const normalizedPath = currentPath.startsWith('/') ? currentPath : '/' + currentPath
-  return `${baseUrl}${normalizedPath}`
+  return getCanonicalUrl(baseUrl, currentPath)
 }
 
 /**
@@ -197,7 +197,6 @@ export function validateCanonicalUrlConsistency(
 export function useMultiLanguageSEO() {
   const { locale } = useI18n()
   const route = useRoute()
-  const switchLocalePath = useSwitchLocalePath()
   const runtimeConfig = useRuntimeConfig()
   
   const baseUrl = runtimeConfig.public.siteUrl || 'https://www.tryutils.com'
@@ -225,6 +224,7 @@ export function useMultiLanguageSEO() {
   
   // Generate canonical URL
   const canonicalUrl = computed(() => generateCanonicalUrl(baseUrl, route.path))
+  const normalizedPath = computed(() => stripEnglishLocalePrefix(route.path))
   
   // Set head with SEO tags
   useHead({
@@ -233,7 +233,10 @@ export function useMultiLanguageSEO() {
     },
     link: [
       ...hreflangTags.value,
-      { rel: 'canonical', href: canonicalUrl }
+      { rel: 'canonical', href: canonicalUrl.value },
+      { rel: 'alternate', hreflang: 'zh', href: `${baseUrl}${normalizedPath.value}` },
+      { rel: 'alternate', hreflang: 'en', href: `${baseUrl}${normalizedPath.value === '/' ? '/en' : `/en${normalizedPath.value}`}` },
+      { rel: 'alternate', hreflang: 'x-default', href: `${baseUrl}${normalizedPath.value}` }
     ]
   })
   

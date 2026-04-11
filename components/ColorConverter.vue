@@ -268,7 +268,7 @@ onMounted(() => {
 <template>
   <div class="space-y-6">
     <!-- Color Input & Preview Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div class="rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Color Preview -->
         <div class="flex flex-col items-center gap-4">
@@ -276,7 +276,7 @@ onMounted(() => {
             {{ t('colorConverter.preview.title') }}
           </h3>
           <div
-            class="w-40 h-40 rounded-2xl shadow-lg border-2 border-gray-200 dark:border-gray-600 transition-colors duration-200"
+            class="h-40 w-40 rounded-[28px] border border-slate-200 shadow-[0_22px_56px_rgba(15,23,42,0.12)] transition-colors duration-200 dark:border-slate-700 dark:shadow-none"
             :style="{ backgroundColor: hex }"
           />
           <!-- Native Color Picker -->
@@ -288,14 +288,14 @@ onMounted(() => {
               @input="onColorPicker"
               :aria-label="t('colorConverter.preview.title')"
             />
-            <span class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
               <Icon name="heroicons:swatch" class="w-4 h-4" aria-hidden="true" />
               {{ t('colorConverter.preview.title') }}
             </span>
           </label>
           <!-- Random Button -->
           <button
-            class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            class="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
             @click="randomColor"
           >
             <Icon name="heroicons:sparkles" class="w-4 h-4" aria-hidden="true" />
@@ -331,7 +331,7 @@ onMounted(() => {
                 type="text"
                 :value="hex"
                 @change="onHexInput(($event.target as HTMLInputElement).value)"
-                class="flex-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                class="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 placeholder="#FF5733"
                 maxlength="7"
               />
@@ -364,7 +364,7 @@ onMounted(() => {
                   @change="onRgbInput(ch, ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="255"
-                  class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
             </div>
@@ -396,7 +396,7 @@ onMounted(() => {
                   @change="onHslInput('h', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="360"
-                  class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
               <div>
@@ -407,7 +407,7 @@ onMounted(() => {
                   @change="onHslInput('s', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="100"
-                  class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
               <div>
@@ -418,7 +418,7 @@ onMounted(() => {
                   @change="onHslInput('l', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="100"
-                  class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
             </div>
@@ -428,7 +428,7 @@ onMounted(() => {
     </div>
 
     <!-- Palette Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div class="rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
         <Icon name="heroicons:paint-brush" class="w-5 h-5 text-purple-500" aria-hidden="true" />
         {{ t('colorConverter.palette.title') }}
@@ -440,14 +440,14 @@ onMounted(() => {
           <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ t('colorConverter.palette.complementary') }}</p>
           <div class="flex gap-2">
             <div
-              class="group relative w-14 h-14 rounded-lg shadow-sm cursor-pointer border border-gray-200 dark:border-gray-600 hover:scale-110 transition-transform"
+              class="group relative h-14 w-14 cursor-pointer rounded-2xl border border-slate-200 shadow-sm transition-transform hover:scale-105 dark:border-slate-700"
               :style="{ backgroundColor: hex }"
               @click="copyToClipboard(hex, 'palette-current')"
             >
               <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 text-[10px] font-mono font-bold transition-opacity" :style="{ color: contrastText(hex) }">{{ hex }}</span>
             </div>
             <div
-              class="group relative w-14 h-14 rounded-lg shadow-sm cursor-pointer border border-gray-200 dark:border-gray-600 hover:scale-110 transition-transform"
+              class="group relative h-14 w-14 cursor-pointer rounded-2xl border border-slate-200 shadow-sm transition-transform hover:scale-105 dark:border-slate-700"
               :style="{ backgroundColor: complementary }"
               @click="copyToClipboard(complementary, 'palette-comp')"
             >
@@ -463,7 +463,7 @@ onMounted(() => {
             <div
               v-for="(color, i) in [analogous[0], hex, analogous[1]]"
               :key="'ana-' + i"
-              class="group relative w-14 h-14 rounded-lg shadow-sm cursor-pointer border border-gray-200 dark:border-gray-600 hover:scale-110 transition-transform"
+              class="group relative h-14 w-14 cursor-pointer rounded-2xl border border-slate-200 shadow-sm transition-transform hover:scale-105 dark:border-slate-700"
               :style="{ backgroundColor: color }"
               @click="copyToClipboard(color, 'palette-ana-' + i)"
             >
@@ -479,7 +479,7 @@ onMounted(() => {
             <div
               v-for="(color, i) in [hex, ...triadic]"
               :key="'tri-' + i"
-              class="group relative w-14 h-14 rounded-lg shadow-sm cursor-pointer border border-gray-200 dark:border-gray-600 hover:scale-110 transition-transform"
+              class="group relative h-14 w-14 cursor-pointer rounded-2xl border border-slate-200 shadow-sm transition-transform hover:scale-105 dark:border-slate-700"
               :style="{ backgroundColor: color }"
               @click="copyToClipboard(color, 'palette-tri-' + i)"
             >
@@ -495,7 +495,7 @@ onMounted(() => {
             <div
               v-for="(color, i) in shades"
               :key="'shade-' + i"
-              class="group relative w-14 h-14 rounded-lg shadow-sm cursor-pointer border border-gray-200 dark:border-gray-600 hover:scale-110 transition-transform"
+              class="group relative h-14 w-14 cursor-pointer rounded-2xl border border-slate-200 shadow-sm transition-transform hover:scale-105 dark:border-slate-700"
               :style="{ backgroundColor: color }"
               @click="copyToClipboard(color, 'palette-shade-' + i)"
             >
@@ -523,10 +523,10 @@ onMounted(() => {
     </div>
 
     <!-- History Card -->
-    <div v-if="colorHistory.length > 0" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div v-if="colorHistory.length > 0" class="rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-          <Icon name="heroicons:clock" class="w-5 h-5 text-blue-500" aria-hidden="true" />
+          <Icon name="heroicons:clock" class="w-5 h-5 text-teal-600 dark:text-teal-300" aria-hidden="true" />
           {{ t('colorConverter.history.title') }}
         </h3>
         <button
@@ -541,8 +541,8 @@ onMounted(() => {
         <button
           v-for="color in colorHistory"
           :key="color"
-          class="group relative w-12 h-12 rounded-lg shadow-sm border-2 transition-all hover:scale-110"
-          :class="color === hex ? 'border-blue-500 ring-2 ring-blue-300 dark:ring-blue-700' : 'border-gray-200 dark:border-gray-600'"
+          class="group relative h-12 w-12 rounded-2xl border transition-all hover:scale-105"
+          :class="color === hex ? 'border-teal-500 ring-2 ring-teal-300 dark:ring-teal-800' : 'border-slate-200 dark:border-slate-700'"
           :style="{ backgroundColor: color }"
           @click="selectHistory(color)"
           :aria-label="color"

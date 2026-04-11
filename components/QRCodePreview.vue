@@ -1,16 +1,16 @@
 <template>
   <article class="qr-code-preview" role="region" aria-labelledby="preview-heading">
-    <h2 id="preview-heading" class="sr-only">QR Code Preview</h2>
+    <h2 id="preview-heading" class="sr-only">{{ $t('qrCodeGenerator.preview.aria.heading') }}</h2>
     
     <!-- 加载状态 -->
     <div
       v-if="isLoading"
-      class="preview-loading flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600"
+      class="preview-loading flex flex-col items-center justify-center rounded-[28px] border border-dashed border-slate-300 bg-slate-50/80 p-8 dark:border-slate-700 dark:bg-slate-900/80"
       role="status"
       aria-live="polite"
       :aria-label="$t('qrCodeGenerator.preview.generating')"
     >
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4" aria-hidden="true" />
+      <div class="mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-500" aria-hidden="true" />
       <p class="text-sm text-gray-600 dark:text-gray-400">
         {{ $t('qrCodeGenerator.preview.generating') }}
       </p>
@@ -22,7 +22,7 @@
       class="preview-content"
     >
       <!-- 二维码显示区域 -->
-      <figure class="qr-display bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+      <figure class="qr-display flex items-center justify-center rounded-[28px] border border-slate-200 bg-white/95 p-6 dark:border-slate-800 dark:bg-slate-900/85">
         <!-- Canvas 预览 -->
         <div
           v-if="qrCode.canvas"
@@ -34,7 +34,7 @@
             :height="qrCode.size"
             class="max-w-full h-auto rounded"
             role="img"
-            :aria-label="`QR code preview, ${qrCode.size} by ${qrCode.size} pixels`"
+            :aria-label="$t('qrCodeGenerator.preview.aria.canvasLabel', { size: qrCode.size })"
           />
         </div>
 
@@ -43,7 +43,7 @@
           v-else-if="qrCode.svg"
           class="qr-svg-container"
           role="img"
-          aria-label="QR code preview in SVG format"
+          :aria-label="$t('qrCodeGenerator.preview.aria.svgLabel')"
           v-html="qrCode.svg"
         />
 
@@ -51,14 +51,14 @@
         <img
           v-else-if="qrCode.dataUrl"
           :src="qrCode.dataUrl"
-          alt="QR Code Preview"
+          :alt="$t('qrCodeGenerator.preview.aria.imageAlt')"
           class="max-w-full h-auto rounded"
           :style="{ width: `${qrCode.size}px`, height: `${qrCode.size}px` }"
         />
       </figure>
 
       <!-- 二维码信息 -->
-      <aside class="qr-info mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg" aria-labelledby="qr-info-heading">
+      <aside class="qr-info mt-4 rounded-[24px] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-900/80" aria-labelledby="qr-info-heading">
         <h4 id="qr-info-heading" class="text-sm font-semibold mb-2 dark:text-white">
           {{ $t('qrCodeGenerator.preview.title') }}
         </h4>
@@ -86,7 +86,7 @@
     <!-- 空状态 -->
     <div
       v-else
-      class="preview-empty flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600"
+      class="preview-empty flex flex-col items-center justify-center rounded-[28px] border border-dashed border-slate-300 bg-slate-50/80 p-8 dark:border-slate-700 dark:bg-slate-900/80"
       role="status"
     >
       <svg

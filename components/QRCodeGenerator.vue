@@ -1,14 +1,14 @@
 <template>
-  <div class="qr-code-generator" role="main" aria-label="QR Code Generator">
+  <div class="qr-code-generator" role="main" :aria-label="$t('qrCodeGenerator.aria.region')">
     <!-- 模式切换 -->
-    <nav class="mode-toggle mb-6" aria-label="Generation mode selection">
-      <div class="flex items-center gap-4" role="group" aria-label="Mode toggle buttons">
+    <nav class="mode-toggle mb-6" :aria-label="$t('qrCodeGenerator.aria.modeSelection')">
+      <div class="flex items-center gap-4" role="group" :aria-label="$t('qrCodeGenerator.aria.modeToggleGroup')">
         <button
           type="button"
-          class="px-6 py-3 rounded-lg font-medium transition-colors"
+          class="rounded-full px-6 py-3 text-sm font-medium transition-colors"
           :class="mode === 'single' 
-            ? 'bg-blue-500 text-white' 
-            : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'"
+            ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950' 
+            : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'"
           :aria-pressed="mode === 'single'"
           :aria-label="$t('qrCodeGenerator.mode.single')"
           @click="switchMode('single')"
@@ -17,10 +17,10 @@
         </button>
         <button
           type="button"
-          class="px-6 py-3 rounded-lg font-medium transition-colors"
+          class="rounded-full px-6 py-3 text-sm font-medium transition-colors"
           :class="mode === 'batch' 
-            ? 'bg-blue-500 text-white' 
-            : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'"
+            ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950' 
+            : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'"
           :aria-pressed="mode === 'batch'"
           :aria-label="$t('qrCodeGenerator.mode.batch')"
           @click="switchMode('batch')"
@@ -61,7 +61,7 @@
         <button
           type="button"
           class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
-          :aria-label="$t('common.close') || 'Close error message'"
+          :aria-label="$t('qrCodeGenerator.aria.closeError')"
           @click="clearError"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -73,12 +73,12 @@
 
     <!-- 单个模式 -->
     <section v-if="mode === 'single'" class="single-mode" aria-labelledby="single-mode-heading">
-      <h2 id="single-mode-heading" class="sr-only">Single QR Code Generation</h2>
+      <h2 id="single-mode-heading" class="sr-only">{{ $t('qrCodeGenerator.aria.singleHeading') }}</h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- 左侧：输入和设置 -->
-        <article class="input-settings-panel space-y-6" aria-label="Input and settings">
+        <article class="input-settings-panel space-y-6" :aria-label="$t('qrCodeGenerator.aria.inputSettings')">
           <!-- 文本输入 -->
-          <div class="input-section">
+          <div class="input-section rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
             <label
               for="qr-input"
               class="block text-lg font-semibold mb-3 dark:text-white"
@@ -88,7 +88,7 @@
             <textarea
               id="qr-input"
               v-model="singleInput"
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white resize-vertical"
+              class="w-full resize-y rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               :placeholder="$t('qrCodeGenerator.input.placeholder')"
               rows="4"
               :aria-label="$t('qrCodeGenerator.input.label')"
@@ -96,7 +96,7 @@
               :aria-invalid="singleInput.length > 2000"
             />
             <p id="char-count" class="mt-2 text-sm text-gray-600 dark:text-gray-400" aria-live="polite">
-              {{ singleInput.length }} / 2000 {{ $t('common.characters') || '字符' }}
+              {{ singleInput.length }} / 2000 {{ $t('common.characters') }}
             </p>
           </div>
 
@@ -107,10 +107,10 @@
           />
 
           <!-- 操作按钮 -->
-          <div class="actions flex gap-4" role="group" aria-label="QR code actions">
+          <div class="actions flex gap-4" role="group" :aria-label="$t('qrCodeGenerator.aria.actionGroup')">
             <button
               type="button"
-              class="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
               :disabled="!canGenerate || isGenerating"
               :aria-busy="isGenerating"
               :aria-label="isGenerating ? $t('qrCodeGenerator.actions.generating') : $t('qrCodeGenerator.actions.generate')"
@@ -120,7 +120,7 @@
             </button>
             <button
               type="button"
-              class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              class="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
               :aria-label="$t('qrCodeGenerator.actions.reset')"
               @click="resetSingle"
             >
@@ -129,10 +129,10 @@
           </div>
 
           <!-- 下载按钮 -->
-          <div v-if="singleResult" class="download-actions flex gap-4" role="group" aria-label="Download options">
+          <div v-if="singleResult" class="download-actions flex gap-4" role="group" :aria-label="$t('qrCodeGenerator.aria.downloadGroup')">
             <button
               type="button"
-              class="flex-1 px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors disabled:opacity-50"
+              class="flex-1 rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
               :disabled="isExporting"
               :aria-busy="isExporting"
               :aria-label="isExporting ? $t('qrCodeGenerator.actions.downloading') : $t('qrCodeGenerator.actions.download')"
@@ -146,7 +146,7 @@
         <!-- 右侧：预览 -->
         <aside
           class="preview-panel"
-          aria-label="QR code preview"
+          :aria-label="$t('qrCodeGenerator.aria.previewRegion')"
           @dragenter="handleDragEnter"
           @dragleave="handleDragLeave"
           @dragover="handleDragOver"
@@ -154,11 +154,11 @@
         >
           <div
             v-if="isDragging"
-            class="drag-overlay absolute inset-0 bg-blue-500/10 border-2 border-dashed border-blue-500 rounded-lg flex items-center justify-center z-10"
+            class="drag-overlay absolute inset-0 z-10 flex items-center justify-center rounded-[28px] border border-dashed border-teal-500 bg-slate-950/5"
             role="status"
             aria-live="polite"
           >
-            <p class="text-lg font-medium text-blue-600 dark:text-blue-400">
+            <p class="text-lg font-medium text-teal-700 dark:text-teal-300">
               {{ $t('qrCodeGenerator.dragDrop.dropHere') }}
             </p>
           </div>
@@ -172,7 +172,7 @@
 
     <!-- 批量模式 -->
     <section v-else class="batch-mode" aria-labelledby="batch-mode-heading">
-      <h2 id="batch-mode-heading" class="sr-only">Batch QR Code Generation</h2>
+      <h2 id="batch-mode-heading" class="sr-only">{{ $t('qrCodeGenerator.aria.batchHeading') }}</h2>
       <div class="space-y-6">
         <!-- 批量输入 -->
         <QRCodeBatchInput
@@ -189,36 +189,36 @@
         <!-- 批量进度 -->
         <aside
           v-if="batchProgress"
-          class="progress-section p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+          class="progress-section rounded-[24px] border border-slate-200 bg-white/95 p-4 shadow-[0_24px_72px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none"
           role="status"
           aria-live="polite"
           aria-atomic="true"
-          :aria-label="`Generation progress: ${batchProgress.percentage}% complete`"
+          :aria-label="$t('qrCodeGenerator.aria.progressStatus', { percentage: batchProgress.percentage })"
         >
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-blue-800 dark:text-blue-200">
+            <span class="text-sm font-medium text-slate-800 dark:text-slate-200">
               {{ $t('qrCodeGenerator.batch.progress') }}: {{ batchProgress.current }} / {{ batchProgress.total }}
             </span>
-            <span class="text-sm font-semibold text-blue-800 dark:text-blue-200" aria-label="Progress percentage">
+            <span class="text-sm font-semibold text-slate-800 dark:text-slate-200" :aria-label="$t('qrCodeGenerator.aria.progressPercentage', { percentage: batchProgress.percentage })">
               {{ batchProgress.percentage }}%
             </span>
           </div>
-          <div class="w-full bg-blue-200 dark:bg-blue-800 rounded-full h-2" role="progressbar" :aria-valuenow="batchProgress.percentage" aria-valuemin="0" aria-valuemax="100">
+          <div class="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800" role="progressbar" :aria-valuenow="batchProgress.percentage" aria-valuemin="0" aria-valuemax="100">
             <div
-              class="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              class="h-2 rounded-full bg-teal-500 transition-all duration-300"
               :style="{ width: `${batchProgress.percentage}%` }"
             />
           </div>
-          <p class="mt-2 text-xs text-blue-700 dark:text-blue-300 truncate" aria-live="polite">
+          <p class="mt-2 truncate text-xs text-slate-600 dark:text-slate-400" aria-live="polite">
             {{ $t('qrCodeGenerator.batch.currentItem') }}: {{ batchProgress.currentItem }}
           </p>
         </aside>
 
         <!-- 操作按钮 -->
-        <div class="actions flex gap-4" role="group" aria-label="Batch generation actions">
+        <div class="actions flex gap-4" role="group" :aria-label="$t('qrCodeGenerator.aria.batchActionGroup')">
           <button
             type="button"
-            class="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="flex-1 rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
             :disabled="!canGenerateBatch || isGenerating"
             :aria-busy="isGenerating"
             :aria-label="isGenerating ? $t('qrCodeGenerator.actions.generating') : $t('qrCodeGenerator.batch.generate')"
@@ -229,7 +229,7 @@
           <button
             v-if="batchResults.length > 0"
             type="button"
-            class="flex-1 px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors disabled:opacity-50"
+            class="flex-1 rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
             :disabled="isExporting"
             :aria-busy="isExporting"
             :aria-label="isExporting ? $t('qrCodeGenerator.actions.downloading') : $t('qrCodeGenerator.batch.downloadZip')"
@@ -244,17 +244,17 @@
           <h3 id="batch-results-heading" class="text-lg font-semibold mb-4 dark:text-white">
             {{ $t('qrCodeGenerator.batch.results') }} ({{ batchResults.length }})
           </h3>
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" role="list" aria-label="Generated QR codes">
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" role="list" :aria-label="$t('qrCodeGenerator.aria.generatedList')">
             <figure
               v-for="(result, index) in batchResults.slice(0, 12)"
               :key="index"
-              class="result-item p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg"
+              class="result-item rounded-[22px] border border-slate-200 bg-white/95 p-3 dark:border-slate-800 dark:bg-slate-900/85"
               role="listitem"
             >
               <img
                 v-if="result.dataUrl"
                 :src="result.dataUrl"
-                :alt="`QR Code ${index + 1}: ${batchInput[index]}`"
+                :alt="$t('qrCodeGenerator.batch.resultAlt', { index: index + 1, content: batchInput[index] })"
                 class="w-full h-auto rounded"
               />
               <figcaption class="mt-2 text-xs text-gray-600 dark:text-gray-400 truncate">
@@ -280,6 +280,8 @@ import { useDragDrop } from '~/composables/useDragDrop'
 import { useDataCleanup } from '~/composables/useDataCleanup'
 import type { QRCodeOptions, QRCodeResult } from '~/composables/useQRCodeGenerator'
 import type { BatchGenerationProgress } from '~/composables/useQRCodeBatch'
+
+const { t } = useI18n()
 
 // 模式
 const mode = ref<'single' | 'batch'>('single')
@@ -488,9 +490,8 @@ const generateBatch = async () => {
     
     // 显示错误（如果有）
     if (result.errors.length > 0) {
-      const errorMsg = `${result.errors.length} 个项目生成失败`
       console.error('Batch generation errors:', result.errors)
-      globalError.value = errorMsg
+      globalError.value = t('qrCodeGenerator.errors.generationFailed')
     }
   } catch (err: any) {
     handleError(err, 'generation')
@@ -547,7 +548,7 @@ const readFileAsDataURL = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error('文件读取失败'))
+    reader.onerror = () => reject(new Error(t('common.fileReadFailed')))
     reader.readAsDataURL(file)
   })
 }
@@ -556,7 +557,9 @@ const readFileAsDataURL = (file: File): Promise<string> => {
  * 处理错误
  */
 const handleError = (err: any, type: 'validation' | 'generation' | 'export') => {
-  const message = err.message || '操作失败'
+  const message = err.message || (type === 'export'
+    ? t('qrCodeGenerator.errors.exportFailed')
+    : t('qrCodeGenerator.errors.generationFailed'))
   globalError.value = message
   
   // 记录错误到控制台
@@ -613,18 +616,18 @@ watch([generatorError, exportError, batchError], ([genErr, expErr, batErr]) => {
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="color"]:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="file"]:focus-visible + label {
-  @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="range"]:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 </style>

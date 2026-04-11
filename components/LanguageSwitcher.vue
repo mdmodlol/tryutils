@@ -218,14 +218,14 @@ onMounted(() => {
 <style scoped>
 /* 语言切换器按钮 */
 .language-switcher-btn {
-  @apply flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl shadow-sm;
-  @apply hover:shadow-md hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  @apply flex items-center gap-2 px-4 py-2.5 bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-full shadow-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-teal-600/30 dark:focus:ring-teal-400/30;
   @apply transition-all duration-300 cursor-pointer;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .language-switcher-btn:hover {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-color: rgba(13, 148, 136, 0.3);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
   transform: translateY(-1px);
 }
 
@@ -235,14 +235,13 @@ onMounted(() => {
 
 /* 下拉菜单容器 */
 .language-dropdown {
-  @apply absolute left-0 mt-3 bg-white rounded-2xl border border-gray-200;
+  @apply absolute left-0 mt-3 bg-white rounded-2xl border border-slate-200;
   @apply z-50 overflow-hidden;
-  background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
   box-shadow: 
-    0 10px 25px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 18px 40px -12px rgba(15, 23, 42, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
   transform-origin: top center;
   min-width: 100%;
   width: max-content;
@@ -261,25 +260,19 @@ onMounted(() => {
 }
 
 .language-option-inactive:hover {
-  @apply text-blue-700;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
-  transform: translateX(4px);
+  @apply text-teal-700;
+  background: rgba(240, 253, 250, 0.9);
 }
 
 .language-option-active {
   @apply text-white;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  box-shadow: 
-    0 4px 12px rgba(59, 130, 246, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #0f172a;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
 }
 
 .language-option-active:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  transform: translateX(2px);
-  box-shadow: 
-    0 6px 16px rgba(59, 130, 246, 0.4),
-    0 3px 6px rgba(0, 0, 0, 0.15);
+  background: #1e293b;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.2);
 }
 
 .language-option:first-child {
@@ -336,21 +329,20 @@ onMounted(() => {
 <style>
 /* 深色模式支持 - 必须在非 scoped 样式中才能正常工作 */
 :root.dark .language-switcher-btn {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-  border-color: #374151;
+  border-color: #334155;
 }
 
 :root.dark .language-switcher-btn:hover {
-  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.28);
 }
 
 :root.dark .language-dropdown {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-  border-color: #4b5563;
+  background: rgba(15, 23, 42, 0.96);
+  border-color: #334155;
   box-shadow: 
-    0 10px 25px -3px rgba(0, 0, 0, 0.3),
-    0 4px 6px -2px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 18px 40px -12px rgba(2, 6, 23, 0.45),
+    0 0 0 1px rgba(148, 163, 184, 0.08);
 }
 
 :root.dark .language-option-inactive {
@@ -358,11 +350,12 @@ onMounted(() => {
 }
 
 :root.dark .language-option-inactive:hover {
-  color: #60a5fa;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+  color: #5eead4;
+  background: rgba(15, 118, 110, 0.16);
 }
 
 :root.dark .language-option-active {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: #e2e8f0;
+  color: #0f172a;
 }
 </style>

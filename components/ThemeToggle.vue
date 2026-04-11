@@ -65,14 +65,15 @@ const ariaLabel = computed(() => {
 
 <style scoped>
 .theme-toggle-btn {
-  @apply flex items-center justify-center p-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm;
-  @apply hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  @apply flex items-center justify-center p-2.5 bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-full shadow-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-teal-600/30 dark:focus:ring-teal-400/30;
   @apply transition-all duration-300 cursor-pointer;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .theme-toggle-btn:hover {
   transform: translateY(-1px);
+  border-color: rgba(13, 148, 136, 0.3);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .theme-toggle-btn:active {
@@ -82,7 +83,8 @@ const ariaLabel = computed(() => {
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
 <style>
-:root.dark .theme-toggle-btn {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+:root.dark .theme-toggle-btn:hover {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.28);
 }
 </style>

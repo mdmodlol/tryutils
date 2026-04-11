@@ -287,11 +287,11 @@ const sideBySideLines = computed(() => {
 <template>
   <div class="space-y-4">
     <!-- Action Bar -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+    <div class="rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <div class="flex flex-wrap items-center gap-3">
         <!-- Compare Button -->
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
+          class="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
           @click="compare"
         >
           <Icon name="heroicons:magnifying-glass" class="w-4 h-4" />
@@ -300,7 +300,7 @@ const sideBySideLines = computed(() => {
 
         <!-- Swap Button -->
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium transition-colors"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           @click="swap"
         >
           <Icon name="heroicons:arrows-right-left" class="w-4 h-4" />
@@ -309,7 +309,7 @@ const sideBySideLines = computed(() => {
 
         <!-- Clear Button -->
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium transition-colors"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           @click="clear"
         >
           <Icon name="heroicons:trash" class="w-4 h-4" />
@@ -319,7 +319,7 @@ const sideBySideLines = computed(() => {
         <!-- Copy Diff Button -->
         <button
           v-if="hasCompared && diffResult.length > 0"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium transition-colors"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           @click="copyDiff"
         >
           <Icon :name="copySuccess ? 'heroicons:check' : 'heroicons:clipboard-document'" class="w-4 h-4" />
@@ -330,12 +330,12 @@ const sideBySideLines = computed(() => {
         <div class="flex-1" />
 
         <!-- View Mode Toggle -->
-        <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+        <div class="inline-flex overflow-hidden rounded-full border border-slate-300 dark:border-slate-700">
           <button
             class="px-3 py-1.5 text-sm font-medium transition-colors"
             :class="viewMode === 'sideBySide'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600'"
+              ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+              : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800'"
             @click="viewMode = 'sideBySide'"
           >
             <Icon name="heroicons:view-columns" class="w-4 h-4 inline mr-1" />
@@ -344,8 +344,8 @@ const sideBySideLines = computed(() => {
           <button
             class="px-3 py-1.5 text-sm font-medium transition-colors"
             :class="viewMode === 'unified'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600'"
+              ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+              : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800'"
             @click="viewMode = 'unified'"
           >
             <Icon name="heroicons:bars-3" class="w-4 h-4 inline mr-1" />
@@ -359,13 +359,13 @@ const sideBySideLines = computed(() => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Original Text -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors"
-        :class="{ 'ring-2 ring-blue-400': isDraggingLeft }"
+        class="overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] transition-colors dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none"
+        :class="{ 'ring-2 ring-teal-400': isDraggingLeft }"
         @dragover="handleDragOver($event, 'left')"
         @dragleave="handleDragLeave('left')"
         @drop="handleDrop($event, 'left')"
       >
-        <div class="flex items-center justify-between px-4 py-2 bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
           <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
             <Icon name="heroicons:document-text" class="w-4 h-4 inline mr-1" />
             {{ t('textDiff.original') }}
@@ -375,20 +375,20 @@ const sideBySideLines = computed(() => {
         <textarea
           v-model="originalText"
           :placeholder="t('textDiff.originalPlaceholder')"
-          class="w-full h-64 p-4 font-mono text-sm bg-transparent text-gray-800 dark:text-gray-200 resize-y focus:outline-none"
+          class="h-64 w-full resize-y bg-transparent p-4 font-mono text-sm text-slate-800 focus:outline-none dark:text-slate-200"
           spellcheck="false"
         />
       </div>
 
       <!-- Modified Text -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors"
-        :class="{ 'ring-2 ring-blue-400': isDraggingRight }"
+        class="overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] transition-colors dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none"
+        :class="{ 'ring-2 ring-teal-400': isDraggingRight }"
         @dragover="handleDragOver($event, 'right')"
         @dragleave="handleDragLeave('right')"
         @drop="handleDrop($event, 'right')"
       >
-        <div class="flex items-center justify-between px-4 py-2 bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
           <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
             <Icon name="heroicons:document-text" class="w-4 h-4 inline mr-1" />
             {{ t('textDiff.modified') }}
@@ -398,14 +398,14 @@ const sideBySideLines = computed(() => {
         <textarea
           v-model="modifiedText"
           :placeholder="t('textDiff.modifiedPlaceholder')"
-          class="w-full h-64 p-4 font-mono text-sm bg-transparent text-gray-800 dark:text-gray-200 resize-y focus:outline-none"
+          class="h-64 w-full resize-y bg-transparent p-4 font-mono text-sm text-slate-800 focus:outline-none dark:text-slate-200"
           spellcheck="false"
         />
       </div>
     </div>
 
     <!-- Stats Bar -->
-    <div v-if="hasCompared" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+    <div v-if="hasCompared" class="rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <div class="flex flex-wrap items-center gap-4 text-sm">
         <div class="flex items-center gap-1.5">
           <span class="w-3 h-3 rounded-sm bg-green-500/20 border border-green-500" />
@@ -431,7 +431,7 @@ const sideBySideLines = computed(() => {
     </div>
 
     <!-- Diff Result -->
-    <div v-if="hasCompared" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div v-if="hasCompared" class="overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <!-- No changes -->
       <div v-if="diffResult.length > 0 && stats.additions === 0 && stats.deletions === 0 && stats.modifications === 0" class="p-8 text-center">
         <Icon name="heroicons:check-circle" class="w-12 h-12 text-green-500 mx-auto mb-3" />
@@ -558,7 +558,7 @@ const sideBySideLines = computed(() => {
     </div>
 
     <!-- Empty State -->
-    <div v-if="!hasCompared" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
+    <div v-if="!hasCompared" class="rounded-[28px] border border-slate-200 bg-white/95 p-12 text-center shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <Icon name="heroicons:document-magnifying-glass" class="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
       <p class="text-gray-500 dark:text-gray-400">{{ t('textDiff.empty.enterText') }}</p>
     </div>

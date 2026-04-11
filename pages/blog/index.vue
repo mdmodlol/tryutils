@@ -1,7 +1,7 @@
 <script setup lang="ts">
-// SEO 配置
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
+
 const seoConfig = computed(() => ({
   title: t('blog.seo.title'),
   description: t('blog.seo.description'),
@@ -14,26 +14,19 @@ const seoConfig = computed(() => ({
 const { useSEO } = await import('~/composables/useSEO')
 useSEO(seoConfig)
 
-// 博客数据获取
 const { data: articles, pending } = await useAsyncData('blog-articles', () => {
-  // 根据当前语言筛选文章
   const currentLocale = locale.value
   if (currentLocale === 'en') {
-    // 英文：查找 .en.md 文件
     return queryContent('/blog').where({ _path: { $regex: /\.en$/ } }).sort({ date: -1 }).find()
-  } else {
-    // 中文：查找不带 .en 后缀的文件
-    return queryContent('/blog').where({ _path: { $not: { $regex: /\.en$/ } } }).sort({ date: -1 }).find()
   }
+  return queryContent('/blog').where({ _path: { $not: { $regex: /\.en$/ } } }).sort({ date: -1 }).find()
 }, {
   watch: [locale]
 })
 
-// 搜索和筛选状态
 const searchQuery = ref('')
 const selectedTag = ref('')
 
-// 获取所有标签
 const allTags = computed(() => {
   if (!articles.value) return []
   const tags = new Set<string>()
@@ -45,92 +38,93 @@ const allTags = computed(() => {
   return Array.from(tags).sort()
 })
 
-// 筛选文章
 const filteredArticles = computed(() => {
   if (!articles.value) return []
-  
+
   return articles.value.filter(article => {
-    const matchesSearch = !searchQuery.value || 
-      article.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      article.description?.toLowerCase().includes(searchQuery.value.toLowerCase())
-    
-    const matchesTag = !selectedTag.value || 
-      (article.tags && article.tags.includes(selectedTag.value))
-    
+    const matchesSearch = !searchQuery.value
+      || article.title?.toLowerCase().includes(searchQuery.value.toLowerCase())
+      || article.description?.toLowerCase().includes(searchQuery.value.toLowerCase())
+
+    const matchesTag = !selectedTag.value || (article.tags && article.tags.includes(selectedTag.value))
     return matchesSearch && matchesTag
   })
 })
 
-// 处理标签点击
 const handleTagClick = (tag: string) => {
   selectedTag.value = selectedTag.value === tag ? '' : tag
 }
 
-// 结构化数据
-const {
-  getOrganizationSchema,
-  getWebPageSchema,
-  setStructuredData
-} = useStructuredData()
+const { getOrganizationSchema, getWebPageSchema, setStructuredData } = useStructuredData()
 
-// 设置博客页面结构化数据
-const schemas = [
+setStructuredData([
   getOrganizationSchema(),
   getWebPageSchema({
     name: t('blog.seo.title'),
     description: t('blog.seo.description')
   })
-]
-
-setStructuredData(schemas)
+])
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-    <!-- 跳转到主要内容的链接 -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
-      跳转到主要内容
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 z-50 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white dark:bg-slate-100 dark:text-slate-950"
+    >
+      {{ t('accessibility.skipToMain') }}
     </a>
 
-    <!-- Hero Section -->
-    <header class="py-12 px-6" role="banner">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="fade-in">
-          <h1 class="text-5xl md:text-6xl font-bold text-gradient mb-6">
-            {{ $t('blog.hero.title') }}
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {{ $t('blog.hero.description') }}
-          </p>
+    <main id="main-content" class="pb-16" role="main">
+      <section class="border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.85fr)] lg:py-16">
+          <div class="space-y-5">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-700 dark:text-teal-300">
+              {{ t('blog.sectionLabels.editorial') }}
+            </p>
+            <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-5xl">
+              {{ t('blog.hero.title') }}
+            </h1>
+            <p class="max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+              {{ t('blog.hero.description') }}
+            </p>
+          </div>
+
+          <aside class="rounded-[28px] border border-slate-200/80 bg-white/92 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/88 dark:shadow-none">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+              {{ t('blog.sectionLabels.readingFocus') }}
+            </p>
+            <ul class="space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              <li>{{ t('blog.seo.description') }}</li>
+              <li>{{ t('home.features.privacy.description') }}</li>
+              <li>{{ t('home.categories.imageTools.description') }}</li>
+            </ul>
+          </aside>
         </div>
-      </div>
-    </header>
+      </section>
 
-    <!-- 博客文章列表 -->
-    <main class="pb-16" id="main-content" role="main">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="slide-up">
-          <!-- 搜索和筛选 -->
-          <section aria-labelledby="search-heading" role="search">
-            <h2 id="search-heading" class="sr-only">搜索和筛选文章</h2>
-            <BlogSearch
-              v-model:search-query="searchQuery"
-              v-model:selected-tag="selectedTag"
-              :tags="allTags"
-              :result-count="filteredArticles.length"
-            />
-          </section>
-          
-          <!-- 文章网格 -->
-          <section aria-labelledby="articles-heading" role="region">
-            <h2 id="articles-heading" class="sr-only">博客文章列表</h2>
-            
-            <div v-if="pending" class="text-center py-12" role="status" aria-live="polite">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto" aria-hidden="true"></div>
-              <p class="mt-4 text-gray-600 dark:text-gray-400">{{ $t('blog.loading') }}</p>
+      <section class="mx-auto max-w-6xl px-6 py-10 lg:py-14">
+        <div class="rounded-[30px] border border-slate-200/80 bg-white/95 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none">
+          <BlogSearch
+            v-model:search-query="searchQuery"
+            v-model:selected-tag="selectedTag"
+            :tags="allTags"
+            :result-count="filteredArticles.length"
+          />
+
+          <div v-if="pending" class="flex min-h-[240px] items-center justify-center" role="status" aria-live="polite">
+            <div class="text-center">
+              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"></div>
+              <p class="text-slate-600 dark:text-slate-300">{{ $t('blog.loading') }}</p>
             </div>
+          </div>
 
-            <div v-else-if="filteredArticles && filteredArticles.length > 0" class="space-y-8" role="list">
+          <div
+            v-else-if="filteredArticles && filteredArticles.length > 0"
+            class="mt-6 overflow-hidden rounded-[24px] border border-slate-200/80 dark:border-slate-800"
+            role="list"
+          >
+            <div class="divide-y divide-slate-200/80 dark:divide-slate-800">
               <BlogCard
                 v-for="article in filteredArticles"
                 :key="article._path"
@@ -139,61 +133,51 @@ setStructuredData(schemas)
                 role="listitem"
               />
             </div>
+          </div>
 
-            <!-- 暂无文章 -->
-            <div v-else class="text-center py-16" role="status" aria-live="polite">
-              <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
-                <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.noArticles.title') }}</h3>
-              <p class="text-gray-600 dark:text-gray-400">{{ $t('blog.noArticles.description') }}</p>
+          <div v-else class="py-16 text-center" role="status" aria-live="polite">
+            <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500">
+              <Icon name="heroicons:document-text" class="h-8 w-8" aria-hidden="true" />
             </div>
-          </section>
-
-          <!-- 分类导航 -->
-          <section class="mt-16" aria-labelledby="categories-heading" role="region">
-            <h2 id="categories-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">{{ $t('blog.categories.title') }}</h2>
-            <div class="grid md:grid-cols-3 gap-6" role="list">
-              <NuxtLink 
-                :to="localePath('/blog/heicconverter/what-is-heic-format')" 
-                class="card p-6 text-center hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
-                role="listitem"
-                :aria-label="`阅读关于${$t('blog.categories.heic.title')}的文章`"
-              >
-                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                  </svg>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ $t('blog.categories.heic.title') }}</h3>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $t('blog.categories.heic.description') }}</p>
-              </NuxtLink>
-
-              <div class="card p-6 text-center opacity-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" role="listitem" aria-label="即将推出的文档工具分类">
-                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                  </svg>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ $t('blog.categories.document.title') }}</h3>
-                <p class="text-gray-500 dark:text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
-              </div>
-
-              <div class="card p-6 text-center opacity-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" role="listitem" aria-label="即将推出的使用技巧分类">
-                <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                  </svg>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ $t('blog.categories.tips.title') }}</h3>
-                <p class="text-gray-500 dark:text-gray-500 text-sm">{{ $t('blog.categories.comingSoon') }}</p>
-              </div>
-            </div>
-          </section>
+            <h2 class="text-xl font-semibold text-slate-950 dark:text-slate-50">{{ $t('blog.noArticles.title') }}</h2>
+            <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{{ $t('blog.noArticles.description') }}</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6">
+        <div class="grid gap-6 md:grid-cols-3">
+          <NuxtLink
+            :to="localePath('/blog/heicconverter/what-is-heic-format')"
+            class="rounded-[28px] border border-slate-200/80 bg-white/95 p-6 transition hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900/90 dark:hover:border-slate-700 dark:hover:bg-slate-900"
+          >
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
+              {{ $t('blog.categories.heic.title') }}
+            </p>
+            <h2 class="mt-4 text-xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
+              {{ $t('blog.categories.heic.description') }}
+            </h2>
+          </NuxtLink>
+
+          <div class="rounded-[28px] border border-dashed border-slate-300 bg-slate-50/80 p-6 dark:border-slate-700 dark:bg-slate-900/70">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              {{ $t('blog.categories.document.title') }}
+            </p>
+            <h2 class="mt-4 text-xl font-semibold tracking-tight text-slate-800 dark:text-slate-100">
+              {{ $t('blog.categories.comingSoon') }}
+            </h2>
+          </div>
+
+          <div class="rounded-[28px] border border-dashed border-slate-300 bg-slate-50/80 p-6 dark:border-slate-700 dark:bg-slate-900/70">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              {{ $t('blog.categories.tips.title') }}
+            </p>
+            <h2 class="mt-4 text-xl font-semibold tracking-tight text-slate-800 dark:text-slate-100">
+              {{ $t('blog.categories.comingSoon') }}
+            </h2>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>

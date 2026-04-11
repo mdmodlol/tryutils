@@ -1,151 +1,144 @@
 <template>
-  <section 
-    class="py-12 px-6 bg-white dark:bg-gray-800 transition-colors duration-300"
-    aria-labelledby="tool-content-title"
-  >
-    <div class="max-w-4xl mx-auto">
-      <!-- How To Use Section -->
-      <div class="mb-12">
-        <h2 
-          id="tool-content-title"
-          class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6"
-        >
-          {{ t('toolPageContent.howToUse') }}
-        </h2>
-        
-        <ol 
-          class="space-y-6"
-          role="list"
-          :aria-label="t('accessibility.usageStepsAriaLabel')"
-        >
-          <li
-            v-for="(step, index) in steps"
-            :key="index"
-            class="flex gap-4 items-start"
-          >
-            <div 
-              class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-lg"
-              aria-hidden="true"
-            >
-              {{ index + 1 }}
-            </div>
-            <div class="flex-1 pt-1">
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                {{ step.name }}
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400">
-                {{ step.text }}
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
+  <section class="bg-slate-100/80 py-16 transition-colors duration-300 dark:bg-slate-900/70" aria-labelledby="tool-content-title">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
+        <div class="rounded-[30px] border border-slate-200/80 bg-white/95 p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none">
+          <div class="mb-8 space-y-3">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
+              {{ t('toolPageContent.labels.workflow') }}
+            </p>
+            <h2 id="tool-content-title" class="text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
+              {{ t('toolPageContent.howToUse') }}
+            </h2>
+          </div>
 
-      <!-- Comparison Table Section -->
-      <div v-if="comparisons && comparisons.length > 0" class="mb-12">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-          {{ t('toolPageContent.comparison') }}
-        </h2>
-        
-        <div class="overflow-x-auto">
-          <table 
-            class="w-full border-collapse bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden"
-            role="table"
-          >
-            <thead>
-              <tr class="bg-gray-100 dark:bg-gray-700">
-                <th 
-                  class="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100"
-                  scope="col"
-                >
-                  {{ t('toolPageContent.feature') }}
-                </th>
-                <th 
-                  class="px-4 py-3 text-center text-sm font-semibold text-blue-600 dark:text-blue-400"
-                  scope="col"
-                >
-                  TryUtils
-                </th>
-                <th 
-                  v-for="(competitorName, idx) in competitorNames"
-                  :key="idx"
-                  class="px-4 py-3 text-center text-sm font-semibold text-gray-600 dark:text-gray-400"
-                  scope="col"
-                >
-                  {{ competitorName }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr 
-                v-for="(item, index) in comparisons"
-                :key="index"
-                class="border-t border-gray-200 dark:border-gray-700"
-                :class="index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'"
-              >
-                <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 font-medium">
-                  {{ item.feature }}
-                </td>
-                <td class="px-4 py-3 text-center">
-                  <span :class="getValueClass(item.ourTool, true)">
-                    {{ formatValue(item.ourTool) }}
-                  </span>
-                </td>
-                <td 
-                  v-for="(_, idx) in competitorNames"
-                  :key="idx"
-                  class="px-4 py-3 text-center"
-                >
-                  <span :class="getValueClass(getCompetitorValue(item, idx), false)">
-                    {{ formatValue(getCompetitorValue(item, idx)) }}
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <ol class="space-y-6" role="list" :aria-label="t('accessibility.usageStepsAriaLabel')">
+            <li v-for="(step, index) in steps" :key="index" class="flex gap-4 items-start">
+              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white dark:bg-slate-100 dark:text-slate-950">
+                {{ index + 1 }}
+              </div>
+              <div class="space-y-1.5 pt-1">
+                <h3 class="text-lg font-semibold text-slate-950 dark:text-slate-50">
+                  {{ step.name }}
+                </h3>
+                <p class="text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  {{ step.text }}
+                </p>
+              </div>
+            </li>
+          </ol>
         </div>
-      </div>
 
-      <!-- Usage Statistics Section -->
-      <div v-if="stats" class="mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-          {{ t('toolPageContent.stats') }}
-        </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div 
-            v-if="stats.totalUsers"
-            class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-xl p-6 text-center"
+        <div class="space-y-8">
+          <div
+            v-if="stats"
+            class="rounded-[30px] border border-slate-200/80 bg-white/95 p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none"
           >
-            <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-              {{ stats.totalUsers }}
+            <div class="mb-6 space-y-2">
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                {{ t('toolPageContent.labels.trust') }}
+              </p>
+              <h2 class="text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
+                {{ t('toolPageContent.stats') }}
+              </h2>
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">
-              {{ t('toolPageContent.totalUsers') }}
+
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div
+                v-if="stats.totalUsers"
+                class="rounded-[22px] border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950/70"
+              >
+                <p class="text-2xl font-semibold text-slate-950 dark:text-slate-50">{{ stats.totalUsers }}</p>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ t('toolPageContent.totalUsers') }}</p>
+              </div>
+
+              <div
+                v-if="stats.filesProcessed"
+                class="rounded-[22px] border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950/70"
+              >
+                <p class="text-2xl font-semibold text-slate-950 dark:text-slate-50">{{ stats.filesProcessed }}</p>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ t('toolPageContent.filesProcessed') }}</p>
+              </div>
+
+              <div
+                v-if="stats.avgRating"
+                class="rounded-[22px] border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950/70"
+              >
+                <p class="text-2xl font-semibold text-slate-950 dark:text-slate-50">{{ stats.avgRating }}</p>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ t('toolPageContent.avgRating') }}</p>
+              </div>
             </div>
           </div>
-          
-          <div 
-            v-if="stats.filesProcessed"
-            class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-xl p-6 text-center"
+
+          <div
+            v-if="comparisons && comparisons.length > 0"
+            class="overflow-hidden rounded-[30px] border border-slate-200/80 bg-white/95 shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none"
           >
-            <div class="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
-              {{ stats.filesProcessed }}
+            <div class="border-b border-slate-200/80 px-8 py-6 dark:border-slate-800">
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                {{ t('toolPageContent.labels.comparison') }}
+              </p>
+              <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
+                {{ t('toolPageContent.comparison') }}
+              </h2>
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">
-              {{ t('toolPageContent.filesProcessed') }}
-            </div>
-          </div>
-          
-          <div 
-            v-if="stats.avgRating"
-            class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-6 text-center"
-          >
-            <div class="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-              {{ stats.avgRating }}
-            </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">
-              {{ t('toolPageContent.avgRating') }}
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200/80 dark:divide-slate-800" role="table">
+                <thead class="bg-slate-50/80 dark:bg-slate-950/80">
+                  <tr>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400" scope="col">
+                      {{ t('toolPageContent.feature') }}
+                    </th>
+                    <th class="px-6 py-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-teal-700 dark:text-teal-300" scope="col">
+                      TryUtils
+                    </th>
+                    <th
+                      v-for="(competitorName, idx) in competitorNames"
+                      :key="idx"
+                      class="px-6 py-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400"
+                      scope="col"
+                    >
+                      {{ competitorName }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200/80 dark:divide-slate-800">
+                  <tr v-for="(item, index) in comparisons" :key="index">
+                    <td class="px-6 py-4 text-sm font-medium text-slate-950 dark:text-slate-50">
+                      {{ item.feature }}
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                      <div class="flex justify-center">
+                        <template v-if="typeof item.ourTool === 'boolean'">
+                          <Icon
+                            :name="item.ourTool ? 'heroicons:check-circle' : 'heroicons:x-circle'"
+                            class="h-5 w-5"
+                            :class="item.ourTool ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'"
+                            aria-hidden="true"
+                          />
+                        </template>
+                        <span v-else class="text-sm font-medium text-teal-700 dark:text-teal-300">{{ item.ourTool }}</span>
+                      </div>
+                    </td>
+                    <td v-for="(_, idx) in competitorNames" :key="idx" class="px-6 py-4 text-center">
+                      <div class="flex justify-center">
+                        <template v-if="typeof getCompetitorValue(item, idx) === 'boolean'">
+                          <Icon
+                            :name="getCompetitorValue(item, idx) ? 'heroicons:check-circle' : 'heroicons:x-circle'"
+                            class="h-5 w-5"
+                            :class="getCompetitorValue(item, idx) ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'"
+                            aria-hidden="true"
+                          />
+                        </template>
+                        <span v-else class="text-sm text-slate-600 dark:text-slate-300">
+                          {{ getCompetitorValue(item, idx) }}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -156,14 +149,6 @@
 
 <script setup lang="ts">
 import { useHowToSchema, type HowToStep } from '~/composables/useHowToSchema'
-
-/**
- * ToolPageContent Component
- * Displays HowTo steps, comparison table, and usage statistics for tool pages
- * Integrates useHowToSchema for structured data generation
- * 
- * Requirements: 3.1, 3.2, 3.3, 3.4
- */
 
 interface ComparisonItem {
   feature: string
@@ -180,17 +165,11 @@ interface UsageStats {
 }
 
 interface Props {
-  /** Name of the tool for HowTo schema */
   toolName: string
-  /** Array of HowTo steps */
   steps: HowToStep[]
-  /** Comparison table items */
   comparisons?: ComparisonItem[]
-  /** Names of competitors for comparison table headers */
   competitorNames?: string[]
-  /** Usage statistics */
   stats?: UsageStats
-  /** Whether to generate HowTo structured data (default: true) */
   generateSchema?: boolean
 }
 
@@ -203,43 +182,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { t } = useI18n()
 
-// Generate HowTo structured data
 if (props.generateSchema && props.steps.length > 0) {
   useHowToSchema(props.toolName, props.steps)
 }
 
-/**
- * Get competitor value from comparison item by index
- */
 function getCompetitorValue(item: ComparisonItem, index: number): string | boolean {
   const key = `competitor${index + 1}` as keyof ComparisonItem
-  return item[key] as string | boolean ?? '-'
-}
-
-/**
- * Format value for display in comparison table
- */
-function formatValue(value: string | boolean): string {
-  if (typeof value === 'boolean') {
-    return value ? '✓' : '✗'
-  }
-  return String(value)
-}
-
-/**
- * Get CSS class for comparison value
- */
-function getValueClass(value: string | boolean, highlight: boolean): string {
-  if (typeof value === 'boolean') {
-    if (value === true) {
-      return highlight 
-        ? 'text-green-600 dark:text-green-400 font-semibold' 
-        : 'text-green-500 dark:text-green-500'
-    }
-    return 'text-red-500 dark:text-red-400'
-  }
-  return highlight 
-    ? 'text-sm text-blue-600 dark:text-blue-400 font-medium' 
-    : 'text-sm text-gray-600 dark:text-gray-400'
+  return (item[key] as string | boolean | undefined) ?? '-'
 }
 </script>

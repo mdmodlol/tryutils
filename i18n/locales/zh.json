@@ -36,7 +36,6 @@
     "articlesList": "博客文章列表",
     "articleContent": "文章内容",
     "toolsList": "图片处理工具列表",
-
     "articleInfo": "文章信息",
     "articleTags": "文章标签",
     "shareOptions": "分享选项",
@@ -110,7 +109,8 @@
       "a2": "我们只收集必要的匿名使用统计数据（如页面访问量）来改进服务。我们不会收集、存储或分析您的个人文件。",
       "q3": "可以离线使用吗？",
       "a3": "目前需要网络连接来加载工具界面，但文件处理本身不需要网络。我们正在开发PWA版本，未来将支持离线使用。"
-    }
+    },
+    "sectionLabel": "常见问题"
   },
   "app": {
     "seo": {
@@ -157,6 +157,7 @@
       "en": "English"
     },
     "clearAll": "清除全部",
+    "close": "关闭",
     "removeFile": "移除文件",
     "loading": "加载中...",
     "startUsing": "开始使用",
@@ -169,7 +170,7 @@
     "relatedLinks": "相关链接",
     "relatedLinksContent": {
       "imageCompressor": "图片压缩工具",
-      "formatConverter": "格式转换工具", 
+      "formatConverter": "格式转换工具",
       "heicConverter": "HEIC转换工具",
       "aboutUs": "关于我们",
       "contact": "联系我们",
@@ -207,7 +208,9 @@
     },
     "accessibility": {
       "skipToMain": "跳转到主要内容"
-    }
+    },
+    "fileReadFailed": "文件读取失败",
+    "uploadFailed": "上传失败"
   },
   "footer": {
     "description": "专注于提供简单、实用的在线工具，让您无需安装复杂软件就能快速完成日常需求。完全在浏览器中处理，保护您的隐私安全。",
@@ -248,7 +251,7 @@
     },
     "features": {
       "free": "免费在线转换",
-      "privacy": "隐私保护", 
+      "privacy": "隐私保护",
       "fast": "快速处理",
       "ariaLabel": "产品特性",
       "listAriaLabel": "产品特性列表",
@@ -399,7 +402,7 @@
     "qualityAriaLabel": "图片质量: {quality}%",
     "outputFormat": "输出格式",
     "maxWidth": "最大宽度",
-    "maxHeight": "最大高度", 
+    "maxHeight": "最大高度",
     "maxSizeMB": "最大文件大小 (MB)",
     "processedFiles": "成功处理 {processed}/{total} 个文件",
     "allFilesFailed": "所有文件处理失败",
@@ -458,6 +461,15 @@
     },
     "features": {
       "title": "工具特色"
+    },
+    "tags": {
+      "batch": "批量",
+      "logo": "Logo",
+      "download": "下载"
+    },
+    "sectionLabels": {
+      "workflow": "图片工作流",
+      "directory": "任务目录"
     }
   },
   "home": {
@@ -557,6 +569,86 @@
       "title": "TryUtils - 简单实用的在线工具集合",
       "description": "TryUtils 提供简单实用的在线工具，包括 HEIC 转换器、文档转换器等。所有处理都在浏览器中完成，保护您的隐私。",
       "keywords": "在线工具,HEIC转换器,文档转换器,文件转换,浏览器工具,隐私保护,TryUtils"
+    },
+    "redesign": {
+      "eyebrow": "TryUtils Image Lab",
+      "headline": "更安静，也更值得信赖的图片工作入口",
+      "description": "把压缩、格式转换、HEIC 处理和批量导出收进一个清晰入口。首页先帮用户快速开始工作，后面也能自然承接 API 和 AI 辅助能力。",
+      "primaryCta": "进入图片工具",
+      "secondaryCta": "查看开发者工具",
+      "quickLabel": "高频入口",
+      "workflowLabel": "首页主张",
+      "workflowTitle": "让用户更快完成上传、处理和导出",
+      "workflowSubtitle": "第一屏不再堆空泛承诺，而是直接把核心工作流摆出来。",
+      "categoriesLabel": "产品结构",
+      "categoriesTitle": "围绕真实任务组织工具，而不是堆一排功能卡片",
+      "categoriesSubtitle": "图片工作流做主入口，开发者工具保留为辅助流量和搜索入口。",
+      "futureLabel": "变现方向",
+      "futureTitle": "为两条自然的商业路径预留空间",
+      "futureSubtitle": "先把核心图片工作流做稳，再往 API 和 AI 辅助能力扩展。",
+      "faqLabel": "常见问题",
+      "faqSubtitle": "在用户愿意信任一个工具站之前，通常会先关心这些问题。",
+      "trustAria": "信任信号",
+      "workspace": {
+        "pill": "TryUtils 工作台",
+        "pipelineEyebrow": "图片工作流",
+        "pipelineTitle": "压缩、转换、导出，一条路径走完",
+        "privateBadge": "隐私优先",
+        "futureLayerEyebrow": "未来延展",
+        "futureLayerTitle": "API 预备层",
+        "futureLayerDescription": "为开发者 Key、调用配额和窄接口产品留出清晰路径。",
+        "nextStepEyebrow": "下一阶段",
+        "nextStepTitle": "AI 辅助导出",
+        "nextStepDescription": "先把辅助能力做好，再决定哪些 AI 功能值得放大。"
+      },
+      "categoryMeta": {
+        "imageTools": {
+          "eyebrow": "核心工作流",
+          "summary": "这是最自然的变现主线：压缩、转换、HEIC、二维码和批量导出。"
+        },
+        "devTools": {
+          "eyebrow": "辅助产品",
+          "summary": "保留高频开发工具，用来承接搜索流量、内链和广告库存，但不再抢主线。"
+        }
+      },
+      "workflowSteps": {
+        "step1": {
+          "title": "先让用户选任务，而不是先读一堆介绍",
+          "description": "在第一屏直接露出压缩、转换和 HEIC 处理这些高频入口。"
+        },
+        "step2": {
+          "title": "把复杂操作收进更安静的工作台",
+          "description": "让上传、参数、结果和导出形成一条清晰、可靠的处理路径。"
+        },
+        "step3": {
+          "title": "用信任感支撑后续变现",
+          "description": "隐私、本地处理、批量能力和稳定速度，比花哨文案更能转化。"
+        },
+        "step4": {
+          "title": "把 API 和 AI 当作下一层扩展",
+          "description": "围绕图片工作流逐步增强，而不是硬塞一堆不相关的 AI 功能。"
+        }
+      },
+      "futureTracks": {
+        "api": {
+          "title": "API / 开发者能力",
+          "description": "把压缩、格式转换和 HEIC 处理沉淀成窄而稳的接口，提供给独立开发者、内容平台和站点产品调用。",
+          "bullets": [
+            "先做 1 到 2 个高频接口",
+            "v1 先人工发 key 也可以启动",
+            "文档、限流和配额按阶段补齐"
+          ]
+        },
+        "ai": {
+          "title": "AI 辅助图片工作流",
+          "description": "不做泛 AIGC 工具站，而是让 AI 帮用户更快裁切、命名、导出和适配不同渠道。",
+          "bullets": [
+            "智能 alt text 和命名建议",
+            "按平台自动裁切与导出预设",
+            "批量流程更像工作流而不是玩具"
+          ]
+        }
+      }
     }
   },
   "about": {
@@ -590,6 +682,12 @@
       "title": "关于我们 - TryUtils",
       "description": "了解 TryUtils 的使命、故事和愿景。我们致力于提供简单实用的在线工具，保护用户隐私，让文件处理变得更加便捷。",
       "keywords": "TryUtils,关于我们,在线工具,文件转换,隐私保护"
+    },
+    "sectionLabels": {
+      "mission": "使命",
+      "story": "故事",
+      "vision": "愿景",
+      "contact": "联系"
     }
   },
   "contact": {
@@ -637,7 +735,8 @@
       "title": "联系我们 - TryUtils",
       "description": "有问题、建议或合作意向？通过邮件联系 TryUtils 团队，我们很乐意听到您的声音。",
       "keywords": "联系我们,TryUtils,客服,技术支持,商务合作"
-    }
+    },
+    "sectionLabel": "联系"
   },
   "privacy": {
     "hero": {
@@ -695,7 +794,8 @@
       "title": "隐私政策 - TryUtils",
       "description": "了解 TryUtils 如何收集、使用和保护您的个人信息。我们承诺保护您的隐私，所有文件处理都在本地完成。",
       "keywords": "隐私政策,数据保护,TryUtils,个人信息,安全"
-    }
+    },
+    "sectionLabel": "隐私"
   },
   "blog": {
     "seo": {
@@ -786,6 +886,10 @@
       "title": "技术博客 - TryUtils",
       "description": "TryUtils 技术博客，分享文件转换、在线工具使用技巧和实用教程。帮助您更好地使用我们的工具。",
       "keywords": "TryUtils,技术博客,文件转换,在线工具,教程,技巧"
+    },
+    "sectionLabels": {
+      "editorial": "文章栏目",
+      "readingFocus": "阅读重点"
     }
   },
   "imageFormatConverter": {
@@ -942,7 +1046,12 @@
     "stats": "用户信赖",
     "totalUsers": "活跃用户",
     "filesProcessed": "已处理文件",
-    "avgRating": "用户评分"
+    "avgRating": "用户评分",
+    "labels": {
+      "workflow": "使用流程",
+      "trust": "信任信号",
+      "comparison": "对比参考"
+    }
   },
   "qrCodeGenerator": {
     "title": "二维码生成器",
@@ -976,6 +1085,22 @@
       "toolTitle": "二维码生成工具",
       "relatedToolsAriaLabel": "相关工具列表"
     },
+    "aria": {
+      "region": "二维码生成工作区",
+      "modeSelection": "二维码生成模式选择",
+      "modeToggleGroup": "二维码生成模式按钮",
+      "closeError": "关闭错误提示",
+      "singleHeading": "单个二维码生成",
+      "batchHeading": "批量二维码生成",
+      "inputSettings": "二维码输入与设置",
+      "actionGroup": "二维码操作",
+      "downloadGroup": "下载选项",
+      "previewRegion": "二维码预览区域",
+      "progressStatus": "生成进度：已完成 {percentage}%",
+      "progressPercentage": "当前进度百分比：{percentage}%",
+      "batchActionGroup": "批量生成操作",
+      "generatedList": "已生成的二维码列表"
+    },
     "input": {
       "placeholder": "输入文本、URL、电话号码或电子邮件",
       "label": "输入内容",
@@ -1003,13 +1128,28 @@
       "errorCorrectionL": "低（7%）",
       "errorCorrectionM": "中（15%）",
       "errorCorrectionQ": "高（25%）",
-      "errorCorrectionH": "最高（30%）"
+      "errorCorrectionH": "最高（30%）",
+      "contrastWarning": "前景色与背景色对比不足，可能影响二维码的可扫描性。",
+      "aria": {
+        "region": "二维码设置",
+        "applyPreset": "应用 {preset} 颜色预设",
+        "sizeSlider": "二维码尺寸：{size} 像素",
+        "sizePreset": "将尺寸设置为 {size} 像素，预设为 {preset}",
+        "logoPreview": "已上传 Logo 预览",
+        "logoSizeSlider": "Logo 大小：{size}%"
+      }
     },
     "preview": {
       "title": "预览",
       "generating": "生成中...",
       "size": "尺寸",
-      "format": "格式"
+      "format": "格式",
+      "aria": {
+        "heading": "二维码预览",
+        "canvasLabel": "二维码预览，尺寸为 {size} × {size} 像素",
+        "svgLabel": "SVG 格式二维码预览",
+        "imageAlt": "二维码预览图"
+      }
     },
     "export": {
       "title": "导出",
@@ -1029,7 +1169,11 @@
       "downloadZip": "下载 ZIP",
       "currentItem": "当前项目",
       "results": "生成结果",
-      "moreResults": "还有 {count} 个结果未显示"
+      "moreResults": "还有 {count} 个结果未显示",
+      "resultAlt": "二维码 {index}：{content}",
+      "csvTooLarge": "CSV 文件过大，最大支持 1MB。",
+      "csvImportFailed": "CSV 导入失败",
+      "csvLimitExceeded": "CSV 文件包含 {count} 个项目，超过最大限制 {max}。"
     },
     "mode": {
       "single": "单个生成",
@@ -1095,6 +1239,23 @@
     },
     "features": {
       "title": "工具特色"
+    },
+    "tags": {
+      "format": "格式化",
+      "validate": "校验",
+      "minify": "压缩",
+      "encode": "编码",
+      "decode": "解码",
+      "files": "文件",
+      "compare": "对比",
+      "review": "检查",
+      "changes": "变更",
+      "preview": "预览",
+      "export": "导出"
+    },
+    "sectionLabels": {
+      "utilityLayer": "辅助工具层",
+      "browserUtilities": "浏览器内工具"
     }
   },
   "jsonFormatter": {
@@ -1135,6 +1296,35 @@
       "title": "JSON 格式化 - 免费在线 JSON 格式化工具 | TryUtils",
       "description": "免费在线 JSON 格式化工具，支持 JSON 格式化、校验、压缩，语法高亮和错误定位。完全在浏览器中处理，保护您的隐私。",
       "keywords": "JSON格式化,JSON校验,JSON压缩,在线JSON工具,JSON美化,TryUtils"
+    },
+    "panels": {
+      "input": "输入",
+      "output": "输出"
+    },
+    "howTo": {
+      "step1": {
+        "name": "粘贴 JSON 内容",
+        "text": "将需要检查的 JSON 内容粘贴到输入区，也可以直接拖入 .json 文件。"
+      },
+      "step2": {
+        "name": "选择缩进方式",
+        "text": "根据项目规范选择 2 空格、4 空格或 Tab 缩进。"
+      },
+      "step3": {
+        "name": "格式化或压缩",
+        "text": "将 JSON 美化成易读结构，或压缩为单行结果用于传输。"
+      },
+      "step4": {
+        "name": "检查并复制结果",
+        "text": "确认语法是否有效，查看错误位置，然后复制处理后的结果。"
+      }
+    },
+    "comparison": {
+      "validation": "内置 JSON 校验",
+      "errorLocation": "错误行定位",
+      "localProcessing": "浏览器本地处理",
+      "minify": "支持格式化和压缩",
+      "noRegistration": "无需注册"
     }
   },
   "base64Codec": {
@@ -1181,6 +1371,37 @@
       "title": "Base64 编解码 - 免费在线 Base64 工具 | TryUtils",
       "description": "免费在线 Base64 编解码工具，支持文本和图片的 Base64 编码/解码，支持文件拖拽。完全在浏览器中处理，保护您的隐私。",
       "keywords": "Base64编码,Base64解码,在线Base64工具,图片Base64,文件编码,TryUtils"
+    },
+    "panels": {
+      "input": "输入",
+      "output": "输出",
+      "base64Input": "Base64 输入",
+      "base64Output": "Base64 输出"
+    },
+    "howTo": {
+      "step1": {
+        "name": "选择文本或图片模式",
+        "text": "根据当前任务选择文本转换或图片转换模式。"
+      },
+      "step2": {
+        "name": "切换编码或解码",
+        "text": "先确定要进行编码还是解码，再输入内容或上传文件。"
+      },
+      "step3": {
+        "name": "执行转换",
+        "text": "运行转换后，可以得到 Base64 文本、普通文本，或图片预览结果。"
+      },
+      "step4": {
+        "name": "复制或下载",
+        "text": "复制输出内容，或直接下载解码后的图片文件。"
+      }
+    },
+    "comparison": {
+      "textAndImages": "支持文本和图片",
+      "localProcessing": "浏览器本地处理",
+      "fileUpload": "支持文件上传",
+      "utf8Support": "UTF-8 安全编码",
+      "noRegistration": "无需注册"
     }
   },
   "colorConverter": {
@@ -1219,6 +1440,31 @@
       "title": "颜色转换 - 免费在线颜色格式转换工具 | TryUtils",
       "description": "免费在线颜色转换工具，支持 HEX、RGB、HSL 颜色格式互转，可视化调色板。完全在浏览器中处理，保护您的隐私。",
       "keywords": "颜色转换,HEX转RGB,RGB转HSL,在线调色板,颜色格式转换,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "输入或选择颜色",
+        "text": "输入 HEX、RGB、HSL 数值，或直接使用颜色选择器。"
+      },
+      "step2": {
+        "name": "查看同步结果",
+        "text": "颜色变化后，HEX、RGB、HSL 三种格式会自动同步更新。"
+      },
+      "step3": {
+        "name": "浏览调色板",
+        "text": "查看互补色、类似色、三角色，以及明暗变化结果。"
+      },
+      "step4": {
+        "name": "复制需要的颜色值",
+        "text": "将颜色代码或调色板中的色值复制到设计稿或代码中。"
+      }
+    },
+    "comparison": {
+      "multiFormat": "支持 HEX / RGB / HSL",
+      "visualPalette": "可视化调色板",
+      "history": "最近颜色历史",
+      "localProcessing": "浏览器本地处理",
+      "quickCopy": "一键复制"
     }
   },
   "textDiff": {
@@ -1256,6 +1502,31 @@
       "title": "文本对比 - 免费在线文本差异对比工具 | TryUtils",
       "description": "免费在线文本对比工具，对比两段文本的差异，高亮显示增删改内容。完全在浏览器中处理，保护您的隐私。",
       "keywords": "文本对比,文本差异,Diff工具,在线对比,文本比较,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "输入两个版本",
+        "text": "左侧放原始文本，右侧放修改后的文本。"
+      },
+      "step2": {
+        "name": "开始对比",
+        "text": "点击对比按钮，生成逐行和行内差异结果。"
+      },
+      "step3": {
+        "name": "切换视图",
+        "text": "可以在并排视图和统一视图之间切换，按需要查看差异。"
+      },
+      "step4": {
+        "name": "复制结果",
+        "text": "确认改动后复制差异内容，或继续调整输入文本。"
+      }
+    },
+    "comparison": {
+      "inlineChanges": "支持行内差异高亮",
+      "sideBySide": "支持并排和统一视图",
+      "localProcessing": "浏览器本地处理",
+      "copyResult": "可复制差异结果",
+      "noRegistration": "无需注册"
     }
   },
   "urlCodec": {
@@ -1295,6 +1566,31 @@
       "title": "URL 编解码 - 免费在线 URL 编码解码工具 | TryUtils",
       "description": "免费在线 URL 编解码工具，支持 URL 编码（encodeURIComponent/encodeURI）和解码（decodeURIComponent/decodeURI）。完全在浏览器中处理，保护您的隐私。",
       "keywords": "URL编码,URL解码,encodeURIComponent,encodeURI,在线URL工具,URL encode,URL decode,TryUtils"
+    },
+    "howTo": {
+      "step1": {
+        "name": "选择编码或解码",
+        "text": "先确定当前需要做的是编码还是解码。"
+      },
+      "step2": {
+        "name": "选择编码方式",
+        "text": "参数值用 encodeURIComponent，完整 URL 用 encodeURI。"
+      },
+      "step3": {
+        "name": "查看即时结果",
+        "text": "输入内容后立即查看处理结果，并确认是否使用了正确模式。"
+      },
+      "step4": {
+        "name": "复制或交换内容",
+        "text": "复制输出结果，或将结果交换回输入区继续处理下一步。"
+      }
+    },
+    "comparison": {
+      "componentAndFull": "支持 encodeURIComponent 与 encodeURI",
+      "instantProcessing": "即时处理结果",
+      "localProcessing": "浏览器本地处理",
+      "examples": "内置示例",
+      "noRegistration": "无需注册"
     }
   },
   "markdownPreview": {
@@ -1315,8 +1611,67 @@
     },
     "meta": {
       "title": "Markdown 预览 - 免费在线 Markdown 转 HTML 工具 | TryUtils",
-      "description": "免费在线 Markdown 预览工具，实时转换 Markdown 为 HTML，支持 GFM 语法、代码高亮、���格和导出功能。完全在浏览器中处理，保护您的隐私。",
+      "description": "免费在线 Markdown 预览工具，实时转换 Markdown 为 HTML，支持 GFM 语法、代码高亮、表格和导出功能。完全在浏览器中处理，保护您的隐私。",
       "keywords": "Markdown预览,Markdown转HTML,在线Markdown工具,GFM,Markdown编辑器,Markdown语法,TryUtils"
+    },
+    "modes": {
+      "split": "分栏",
+      "preview": "预览",
+      "code": "源码"
+    },
+    "actions": {
+      "sample": "示例",
+      "copy": "复制 HTML",
+      "copied": "已复制",
+      "downloadHtml": "HTML",
+      "downloadMarkdown": "MD",
+      "clear": "清空",
+      "upload": "上传"
+    },
+    "panels": {
+      "input": "Markdown 输入",
+      "preview": "预览"
+    },
+    "stats": {
+      "chars": "字符",
+      "lines": "行",
+      "words": "词"
+    },
+    "dragDrop": {
+      "dropHere": "将 Markdown 文件拖到这里"
+    },
+    "confirmClear": "要清空当前内容吗？",
+    "errors": {
+      "render": "Markdown 渲染失败"
+    },
+    "howTo": {
+      "step1": {
+        "name": "输入或粘贴 Markdown",
+        "text": "直接编写 Markdown 内容，或先加载示例查看支持效果。"
+      },
+      "step2": {
+        "name": "选择工作视图",
+        "text": "根据当前任务切换分栏、预览或源码视图。"
+      },
+      "step3": {
+        "name": "检查渲染结果",
+        "text": "在预览区查看标题、列表、表格、链接和代码块的渲染效果。"
+      },
+      "step4": {
+        "name": "复制或导出",
+        "text": "复制生成后的 HTML，或导出为 HTML / Markdown 文件。"
+      }
+    },
+    "comparison": {
+      "livePreview": "实时 Markdown 预览",
+      "gfmSupport": "支持 GFM 语法",
+      "localProcessing": "浏览器本地处理",
+      "exportFormats": "支持 HTML 和 Markdown 导出",
+      "noRegistration": "无需注册"
     }
+  },
+  "relatedContent": {
+    "toolsLabel": "更多工具",
+    "articlesLabel": "继续阅读"
   }
 }

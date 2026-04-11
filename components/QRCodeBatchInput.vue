@@ -14,7 +14,7 @@
       <textarea
         :id="`batch-input-${componentId}`"
         v-model="inputText"
-        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white resize-vertical"
+        class="w-full resize-y rounded-[24px] border border-slate-300 bg-white px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         :placeholder="$t('qrCodeGenerator.batch.placeholder')"
         rows="10"
         :aria-label="$t('qrCodeGenerator.batch.input')"
@@ -24,7 +24,7 @@
       />
       <div class="flex items-center justify-between mt-2 text-sm">
         <span :id="`batch-count-${componentId}`" class="text-gray-600 dark:text-gray-400" aria-live="polite">
-          {{ itemCount }} / {{ maxItems }} {{ $t('common.items') || '项' }}
+          {{ itemCount }} / {{ maxItems }} {{ $t('common.items') }}
         </span>
         <span
           v-if="itemCount > maxItems"
@@ -42,7 +42,7 @@
     <div class="csv-import">
       <label
         :for="`csv-upload-${componentId}`"
-        class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800"
         tabindex="0"
         @keydown="handleCsvLabelKeydown"
       >
@@ -77,7 +77,7 @@
     <!-- CSV 导入错误 -->
     <aside
       v-if="csvError"
-      class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
+      class="rounded-2xl border border-rose-200 bg-rose-50 p-3 dark:border-rose-900/70 dark:bg-rose-950/30"
       role="alert"
       aria-live="assertive"
     >
@@ -90,7 +90,7 @@
     <div v-if="itemCount > 0" class="flex justify-end">
       <button
         type="button"
-        class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
         :aria-label="$t('common.clearAll')"
         @click="clearAll"
       >
@@ -102,6 +102,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+const { t } = useI18n()
 
 interface Props {
   modelValue: string[]
@@ -165,7 +166,7 @@ const handleCsvUpload = async (event: Event) => {
     // 验证文件大小（最大 1MB）
     const maxSize = 1 * 1024 * 1024 // 1MB
     if (file.size > maxSize) {
-      throw new Error('CSV 文件过大，最大支持 1MB')
+      throw new Error(t('qrCodeGenerator.batch.csvTooLarge'))
     }
 
     // 读取文件内容
@@ -179,14 +180,14 @@ const handleCsvUpload = async (event: Event) => {
     
     // 检查项目数量
     if (lines.length > props.maxItems) {
-      throw new Error(`CSV 文件包含 ${lines.length} 个项目，超过最大限制 ${props.maxItems}`)
+      throw new Error(t('qrCodeGenerator.batch.csvLimitExceeded', { count: lines.length, max: props.maxItems }))
     }
 
     // 更新输入文本
     inputText.value = lines.join('\n')
     handleInputChange()
   } catch (err: any) {
-    csvError.value = err.message || 'CSV 导入失败'
+    csvError.value = err.message || t('qrCodeGenerator.batch.csvImportFailed')
     console.error('CSV upload error:', err)
   }
 
@@ -201,7 +202,7 @@ const readFileAsText = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error('文件读取失败'))
+    reader.onerror = () => reject(new Error(t('common.fileReadFailed')))
     reader.readAsText(file)
   })
 }
@@ -268,10 +269,10 @@ button:focus-visible,
 textarea:focus-visible,
 input:focus-visible,
 label:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="file"]:focus-visible + label {
-  @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 </style>

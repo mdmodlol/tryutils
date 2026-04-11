@@ -1,12 +1,11 @@
 /**
- * Tool Configuration Data
- * Defines all available tools with their metadata for SEO and internal linking
- * Requirements: 4.1, 4.2
+ * Tool configuration data
+ * Defines all available tools with metadata used by SEO and internal linking.
  */
 
 export interface ToolConfig {
   id: string
-  name: Record<string, string>  // i18n
+  name: Record<string, string>
   description: Record<string, string>
   icon: string
   path: string
@@ -22,8 +21,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Image Compressor'
     },
     description: {
-      zh: '智能压缩图片大小，保持高质量的同时减少文件体积',
-      en: 'Intelligently compress image size while maintaining high quality and reducing file volume'
+      zh: '智能压缩图片体积，在尽量保留画质的同时减少文件大小。',
+      en: 'Intelligently compress image size while maintaining high quality and reducing file volume.'
     },
     icon: 'heroicons:photo',
     path: '/image-compressor',
@@ -37,8 +36,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'HEIC Converter'
     },
     description: {
-      zh: '将 iPhone/iPad 的 HEIC 图片转换为 JPG、PNG 等常用格式',
-      en: 'Convert iPhone/iPad HEIC images to JPG, PNG and other common formats'
+      zh: '把 iPhone 和 iPad 的 HEIC 图片转换成 JPG、PNG 等更常见的格式。',
+      en: 'Convert iPhone and iPad HEIC images to JPG, PNG, and other common formats.'
     },
     icon: 'heroicons:arrow-path',
     path: '/heic-converter',
@@ -52,8 +51,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Format Converter'
     },
     description: {
-      zh: '支持多种图片格式转换，包括 JPEG、PNG、WebP、GIF、AVIF、TIFF',
-      en: 'Supports multiple image format conversions, including JPEG, PNG, WebP, GIF, AVIF, TIFF'
+      zh: '支持 JPEG、PNG、WebP、GIF、AVIF、TIFF 等多种图片格式之间互转。',
+      en: 'Convert between multiple image formats, including JPEG, PNG, WebP, GIF, AVIF, and TIFF.'
     },
     icon: 'heroicons:arrows-right-left',
     path: '/image-format-converter',
@@ -67,8 +66,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'QR Code Generator'
     },
     description: {
-      zh: '在线生成二维码，支持自定义颜色、尺寸、Logo 嵌入和批量生成',
-      en: 'Generate QR codes online with custom colors, sizes, logo embedding and batch generation'
+      zh: '在线生成二维码，支持颜色、尺寸、Logo 嵌入和批量生成。',
+      en: 'Generate QR codes online with custom colors, sizes, logo embedding, and batch generation.'
     },
     icon: 'heroicons:qr-code',
     path: '/qr-code-generator',
@@ -82,8 +81,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'JSON Formatter'
     },
     description: {
-      zh: 'JSON 格式化、校验、压缩，支持语法高亮和错误定位',
-      en: 'JSON formatting, validation, and minification with syntax highlighting and error location'
+      zh: '对 JSON 进行格式化、校验和压缩，并提供语法高亮与错误定位。',
+      en: 'Format, validate, and minify JSON with syntax highlighting and error location.'
     },
     icon: 'heroicons:code-bracket',
     path: '/json-formatter',
@@ -97,8 +96,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Base64 Codec'
     },
     description: {
-      zh: '文本和图片的 Base64 编码/解码，支持文件拖拽',
-      en: 'Base64 encoding/decoding for text and images, with file drag & drop support'
+      zh: '支持文本和图片的 Base64 编码、解码与拖拽导入。',
+      en: 'Encode and decode Base64 for text and images, with file drag-and-drop support.'
     },
     icon: 'heroicons:lock-closed',
     path: '/base64-codec',
@@ -112,8 +111,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Color Converter'
     },
     description: {
-      zh: 'HEX、RGB、HSL 颜色格式互转，可视化调色板',
-      en: 'Convert between HEX, RGB, HSL color formats with visual color picker'
+      zh: '在 HEX、RGB、HSL 等颜色格式之间快速转换，并提供可视化调色器。',
+      en: 'Convert between HEX, RGB, and HSL color formats with a visual color picker.'
     },
     icon: 'heroicons:swatch',
     path: '/color-converter',
@@ -127,8 +126,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Text Diff'
     },
     description: {
-      zh: '对比两段文本的差异，高亮显示增删改内容',
-      en: 'Compare two texts and highlight additions, deletions, and modifications'
+      zh: '比较两段文本的差异，高亮显示新增、删除和修改内容。',
+      en: 'Compare two texts and highlight additions, deletions, and modifications.'
     },
     icon: 'heroicons:document-duplicate',
     path: '/text-diff',
@@ -142,8 +141,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'URL Codec'
     },
     description: {
-      zh: 'URL 编码/解码工具，支持 encodeURIComponent 和 encodeURI',
-      en: 'URL encoding/decoding tool with encodeURIComponent and encodeURI support'
+      zh: '用于 URL 和 URI 的编码与解码，支持 encodeURIComponent 和 encodeURI。',
+      en: 'Encode and decode URLs with support for encodeURIComponent and encodeURI.'
     },
     icon: 'heroicons:link',
     path: '/url-codec',
@@ -157,8 +156,8 @@ export const toolConfigs: ToolConfig[] = [
       en: 'Markdown Preview'
     },
     description: {
-      zh: '实时 Markdown 转 HTML 预览，支持 GFM 语法、代码高亮和导出功能',
-      en: 'Real-time Markdown to HTML preview with GFM syntax, code highlighting and export'
+      zh: '实时把 Markdown 转成 HTML 预览，支持 GFM 语法、代码高亮和导出。',
+      en: 'Preview Markdown as HTML in real time with GFM syntax, code highlighting, and export.'
     },
     icon: 'heroicons:document-text',
     path: '/markdown-preview',
@@ -167,30 +166,18 @@ export const toolConfigs: ToolConfig[] = [
   }
 ]
 
-/**
- * Get tool config by ID
- */
 export function getToolById(id: string): ToolConfig | undefined {
   return toolConfigs.find(tool => tool.id === id)
 }
 
-/**
- * Get tool config by path
- */
 export function getToolByPath(path: string): ToolConfig | undefined {
   return toolConfigs.find(tool => tool.path === path)
 }
 
-/**
- * Get tools by category
- */
 export function getToolsByCategory(category: string): ToolConfig[] {
   return toolConfigs.filter(tool => tool.category === category)
 }
 
-/**
- * Get all tool IDs
- */
 export function getAllToolIds(): string[] {
   return toolConfigs.map(tool => tool.id)
 }

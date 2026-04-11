@@ -6,7 +6,6 @@
  */
 const { t } = useI18n()
 
-// === State ===
 const inputText = ref('')
 const outputHtml = ref('')
 const outputRaw = ref('')
@@ -17,7 +16,6 @@ const errorLine = ref<number | null>(null)
 const copySuccess = ref(false)
 const isDragging = ref(false)
 
-// === Computed ===
 const inputStats = computed(() => {
   const text = inputText.value
   const chars = text.length
@@ -41,25 +39,18 @@ const indentValue = computed(() => {
   return indentType.value === '4' ? 4 : 2
 })
 
-// === JSON Syntax Highlighting ===
 function syntaxHighlight(json: string): string {
-  // Escape HTML entities
   const escaped = json
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-  // Apply syntax highlighting with CSS classes
   return escaped.replace(
     /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
     (match) => {
-      let cls = 'json-number' // number
+      let cls = 'json-number'
       if (/^"/.test(match)) {
-        if (/:$/.test(match)) {
-          cls = 'json-key' // key
-        } else {
-          cls = 'json-string' // string value
-        }
+        cls = /:$/.test(match) ? 'json-key' : 'json-string'
       } else if (/true|false/.test(match)) {
         cls = 'json-boolean'
       } else if (/null/.test(match)) {
@@ -70,31 +61,24 @@ function syntaxHighlight(json: string): string {
   )
 }
 
-// === Parse Error Location ===
 function getErrorLocation(error: SyntaxError, text: string): { line: number; message: string } {
   const msg = error.message
-  // Try to extract position from error message
   const posMatch = msg.match(/position\s+(\d+)/i) || msg.match(/at\s+(\d+)/i)
-  
+
   if (posMatch) {
     const pos = parseInt(posMatch[1])
     const beforeError = text.substring(0, pos)
-    const line = beforeError.split('\n').length
-    return { line, message: msg }
+    return { line: beforeError.split('\n').length, message: msg }
   }
 
-  // Try column-based match
-  const colMatch = msg.match(/column\s+(\d+)/i)
   const lineMatch = msg.match(/line\s+(\d+)/i)
   if (lineMatch) {
     return { line: parseInt(lineMatch[1]), message: msg }
   }
 
-  // Fallback: try to find the approximate error position
   return { line: 1, message: msg }
 }
 
-// === Validation (real-time) ===
 function validateJson(text: string): void {
   if (!text.trim()) {
     validationState.value = 'idle'
@@ -113,19 +97,17 @@ function validateJson(text: string): void {
     if (e instanceof SyntaxError) {
       const loc = getErrorLocation(e, text)
       errorLine.value = loc.line
-      errorMessage.value = t('jsonFormatter.validation.errorAtLine', { line: loc.line }) + ': ' + loc.message
+      errorMessage.value = `${t('jsonFormatter.validation.errorAtLine', { line: loc.line })}: ${loc.message}`
     } else {
       errorMessage.value = String(e)
     }
   }
 }
 
-// Watch input for real-time validation
 watch(inputText, (val) => {
   validateJson(val)
 })
 
-// === Actions ===
 function formatJson(): void {
   const text = inputText.value.trim()
   if (!text) {
@@ -148,7 +130,7 @@ function formatJson(): void {
       const loc = getErrorLocation(e, text)
       validationState.value = 'invalid'
       errorLine.value = loc.line
-      errorMessage.value = t('jsonFormatter.validation.errorAtLine', { line: loc.line }) + ': ' + loc.message
+      errorMessage.value = `${t('jsonFormatter.validation.errorAtLine', { line: loc.line })}: ${loc.message}`
     }
   }
 }
@@ -170,7 +152,7 @@ function minifyJson(): void {
       const loc = getErrorLocation(e, text)
       validationState.value = 'invalid'
       errorLine.value = loc.line
-      errorMessage.value = t('jsonFormatter.validation.errorAtLine', { line: loc.line }) + ': ' + loc.message
+      errorMessage.value = `${t('jsonFormatter.validation.errorAtLine', { line: loc.line })}: ${loc.message}`
     }
   }
 }
@@ -182,7 +164,6 @@ async function copyOutput(): Promise<void> {
     copySuccess.value = true
     setTimeout(() => { copySuccess.value = false }, 2000)
   } catch {
-    // Fallback
     const textarea = document.createElement('textarea')
     textarea.value = outputRaw.value
     document.body.appendChild(textarea)
@@ -203,7 +184,6 @@ function clearAll(): void {
   errorLine.value = null
 }
 
-// === Drag & Drop ===
 function handleDragEnter(e: DragEvent): void {
   e.preventDefault()
   isDragging.value = true
@@ -223,7 +203,7 @@ function handleDrop(e: DragEvent): void {
   isDragging.value = false
 
   const files = e.dataTransfer?.files
-  if (!files || files.length === 0) return
+  if (!files?.length) return
 
   const file = files[0]
   if (!file.name.endsWith('.json') && file.type !== 'application/json') return
@@ -233,7 +213,6 @@ function handleDrop(e: DragEvent): void {
     const content = event.target?.result as string
     if (content) {
       inputText.value = content
-      // Auto-format on file drop
       nextTick(() => formatJson())
     }
   }
@@ -242,84 +221,79 @@ function handleDrop(e: DragEvent): void {
 </script>
 
 <template>
-  <div 
+  <div
     class="json-formatter"
     @dragenter="handleDragEnter"
     @dragover="handleDragOver"
     @dragleave="handleDragLeave"
     @drop="handleDrop"
   >
-    <!-- Drag overlay -->
     <Transition name="fade">
-      <div 
+      <div
         v-if="isDragging"
-        class="fixed inset-0 z-50 bg-blue-500/10 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+        class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-slate-950/10 backdrop-blur-[2px]"
       >
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-12 border-2 border-dashed border-blue-400 dark:border-blue-500">
-          <Icon name="heroicons:document-arrow-down" class="w-16 h-16 text-blue-500 mx-auto mb-4" />
-          <p class="text-xl font-semibold text-gray-700 dark:text-gray-200">{{ $t('jsonFormatter.dropHint') }}</p>
+        <div class="rounded-[28px] border border-dashed border-slate-300 bg-white/95 p-12 shadow-[0_28px_80px_rgba(15,23,42,0.16)] dark:border-slate-700 dark:bg-slate-900/95">
+          <Icon name="heroicons:document-arrow-down" class="mx-auto mb-4 h-16 w-16 text-teal-600 dark:text-teal-300" />
+          <p class="text-xl font-semibold text-slate-700 dark:text-slate-200">{{ t('jsonFormatter.dropHint') }}</p>
         </div>
       </div>
     </Transition>
 
-    <!-- Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-4">
+    <div class="mb-4 rounded-[28px] border border-slate-200 bg-white/95 p-5 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
       <div class="flex flex-wrap items-center gap-3">
-        <!-- Action Buttons -->
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+          class="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white dark:focus:ring-offset-slate-950"
           @click="formatJson"
         >
-          <Icon name="heroicons:code-bracket" class="w-4 h-4" aria-hidden="true" />
-          {{ $t('jsonFormatter.actions.format') }}
+          <Icon name="heroicons:code-bracket" class="h-4 w-4" aria-hidden="true" />
+          {{ t('jsonFormatter.actions.format') }}
         </button>
 
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800 dark:focus:ring-offset-slate-950"
           @click="minifyJson"
         >
-          <Icon name="heroicons:arrows-pointing-in" class="w-4 h-4" aria-hidden="true" />
-          {{ $t('jsonFormatter.actions.minify') }}
+          <Icon name="heroicons:arrows-pointing-in" class="h-4 w-4" aria-hidden="true" />
+          {{ t('jsonFormatter.actions.minify') }}
         </button>
 
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-          :class="copySuccess 
-            ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500' 
-            : 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500'"
+          class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
+          :class="copySuccess
+            ? 'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500'
+            : 'border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-100 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800'"
           :disabled="!outputRaw"
           @click="copyOutput"
         >
-          <Icon :name="copySuccess ? 'heroicons:check' : 'heroicons:clipboard-document'" class="w-4 h-4" aria-hidden="true" />
-          {{ copySuccess ? $t('jsonFormatter.actions.copySuccess') : $t('jsonFormatter.actions.copy') }}
+          <Icon :name="copySuccess ? 'heroicons:check' : 'heroicons:clipboard-document'" class="h-4 w-4" aria-hidden="true" />
+          {{ copySuccess ? t('jsonFormatter.actions.copySuccess') : t('jsonFormatter.actions.copy') }}
         </button>
 
         <button
-          class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+          class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 transition-colors hover:border-rose-300 hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 dark:border-rose-900/70 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-950/60 dark:focus:ring-offset-slate-950"
           @click="clearAll"
         >
-          <Icon name="heroicons:trash" class="w-4 h-4" aria-hidden="true" />
-          {{ $t('jsonFormatter.actions.clear') }}
+          <Icon name="heroicons:trash" class="h-4 w-4" aria-hidden="true" />
+          {{ t('jsonFormatter.actions.clear') }}
         </button>
 
-        <!-- Spacer -->
         <div class="flex-1" />
 
-        <!-- Indent Options -->
         <div class="flex items-center gap-2">
-          <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('jsonFormatter.indent.label') }}:</span>
-          <div class="flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden">
+          <span class="text-sm text-slate-600 dark:text-slate-400">{{ t('jsonFormatter.indent.label') }}:</span>
+          <div class="flex overflow-hidden rounded-full border border-slate-300 dark:border-slate-700">
             <button
               v-for="opt in [
-                { value: '2', label: $t('jsonFormatter.indent.spaces2') },
-                { value: '4', label: $t('jsonFormatter.indent.spaces4') },
-                { value: 'tab', label: $t('jsonFormatter.indent.tab') }
+                { value: '2', label: t('jsonFormatter.indent.spaces2') },
+                { value: '4', label: t('jsonFormatter.indent.spaces4') },
+                { value: 'tab', label: t('jsonFormatter.indent.tab') }
               ]"
               :key="opt.value"
-              class="px-3 py-1.5 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
-              :class="indentType === opt.value 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'"
+              class="px-3 py-1.5 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500"
+              :class="indentType === opt.value
+                ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'"
               @click="indentType = opt.value as '2' | '4' | 'tab'"
             >
               {{ opt.label }}
@@ -328,47 +302,42 @@ function handleDrop(e: DragEvent): void {
         </div>
       </div>
 
-      <!-- Validation Status -->
-      <div v-if="validationState !== 'idle'" class="mt-3 flex items-center gap-2">
-        <div 
+      <div v-if="validationState !== 'idle'" class="mt-4 flex items-center gap-2">
+        <div
           v-if="validationState === 'valid'"
-          class="flex items-center gap-2 text-sm text-green-600 dark:text-green-400"
+          class="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400"
         >
-          <Icon name="heroicons:check-circle" class="w-5 h-5" aria-hidden="true" />
-          {{ $t('jsonFormatter.validation.valid') }}
+          <Icon name="heroicons:check-circle" class="h-5 w-5" aria-hidden="true" />
+          {{ t('jsonFormatter.validation.valid') }}
         </div>
-        <div 
+        <div
           v-else-if="validationState === 'invalid'"
-          class="flex items-start gap-2 text-sm text-red-600 dark:text-red-400"
+          class="flex items-start gap-2 text-sm text-rose-600 dark:text-rose-400"
         >
-          <Icon name="heroicons:exclamation-circle" class="w-5 h-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
+          <Icon name="heroicons:exclamation-circle" class="mt-0.5 h-5 w-5 flex-shrink-0" aria-hidden="true" />
           <span>{{ errorMessage }}</span>
         </div>
       </div>
     </div>
 
-    <!-- Editor Panels -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <!-- Input Panel -->
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col">
-        <!-- Input Header -->
-        <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="flex flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
           <div class="flex items-center gap-2">
-            <Icon name="heroicons:pencil-square" class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Input</span>
+            <Icon name="heroicons:pencil-square" class="h-4 w-4 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ t('jsonFormatter.panels.input') }}</span>
           </div>
-          <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-            <span>{{ inputStats.chars }} {{ $t('jsonFormatter.info.characters') }}</span>
-            <span>{{ inputStats.lines }} {{ $t('jsonFormatter.info.lines') }}</span>
+          <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+            <span>{{ inputStats.chars }} {{ t('jsonFormatter.info.characters') }}</span>
+            <span>{{ inputStats.lines }} {{ t('jsonFormatter.info.lines') }}</span>
             <span>{{ inputStats.size }}</span>
           </div>
         </div>
-        <!-- Input Textarea -->
         <textarea
           v-model="inputText"
-          :placeholder="$t('jsonFormatter.inputPlaceholder')"
-          class="flex-1 w-full min-h-[400px] lg:min-h-[500px] p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono text-sm leading-relaxed resize-none focus:outline-none placeholder-gray-400 dark:placeholder-gray-500"
-          :class="{ 'border-l-4 border-l-red-400': validationState === 'invalid' }"
+          :placeholder="t('jsonFormatter.inputPlaceholder')"
+          class="flex-1 min-h-[400px] w-full resize-none bg-white p-4 font-mono text-sm leading-relaxed text-slate-900 placeholder-slate-400 focus:outline-none dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500 lg:min-h-[500px]"
+          :class="{ 'border-l-4 border-l-rose-400': validationState === 'invalid' }"
           spellcheck="false"
           autocomplete="off"
           autocorrect="off"
@@ -376,34 +345,31 @@ function handleDrop(e: DragEvent): void {
         />
       </div>
 
-      <!-- Output Panel -->
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col">
-        <!-- Output Header -->
-        <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+      <div class="flex flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
           <div class="flex items-center gap-2">
-            <Icon name="heroicons:eye" class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Output</span>
+            <Icon name="heroicons:eye" class="h-4 w-4 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ t('jsonFormatter.panels.output') }}</span>
           </div>
-          <div v-if="outputRaw" class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-            <span>{{ outputStats.chars }} {{ $t('jsonFormatter.info.characters') }}</span>
-            <span>{{ outputStats.lines }} {{ $t('jsonFormatter.info.lines') }}</span>
+          <div v-if="outputRaw" class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+            <span>{{ outputStats.chars }} {{ t('jsonFormatter.info.characters') }}</span>
+            <span>{{ outputStats.lines }} {{ t('jsonFormatter.info.lines') }}</span>
             <span>{{ outputStats.size }}</span>
           </div>
         </div>
-        <!-- Output Display -->
-        <div class="flex-1 min-h-[400px] lg:min-h-[500px] overflow-auto">
+        <div class="flex-1 min-h-[400px] overflow-auto lg:min-h-[500px]">
           <pre
             v-if="outputHtml"
-            class="p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap break-words json-output"
+            class="json-output p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap break-words"
             v-html="outputHtml"
           />
-          <div 
-            v-else 
-            class="flex items-center justify-center h-full min-h-[400px] lg:min-h-[500px] text-gray-400 dark:text-gray-500"
+          <div
+            v-else
+            class="flex h-full min-h-[400px] items-center justify-center text-slate-400 dark:text-slate-500 lg:min-h-[500px]"
           >
             <div class="text-center">
-              <Icon name="heroicons:code-bracket-square" class="w-12 h-12 mx-auto mb-3 opacity-50" aria-hidden="true" />
-              <p class="text-sm">{{ $t('jsonFormatter.outputPlaceholder') }}</p>
+              <Icon name="heroicons:code-bracket-square" class="mx-auto mb-3 h-12 w-12 opacity-50" aria-hidden="true" />
+              <p class="text-sm">{{ t('jsonFormatter.outputPlaceholder') }}</p>
             </div>
           </div>
         </div>
@@ -413,57 +379,58 @@ function handleDrop(e: DragEvent): void {
 </template>
 
 <style scoped>
-/* JSON Syntax Highlighting - Light Mode */
 .json-output :deep(.json-key) {
-  color: #881391;
-}
-.json-output :deep(.json-string) {
-  color: #0b7285;
-}
-.json-output :deep(.json-number) {
-  color: #c92a2a;
-}
-.json-output :deep(.json-boolean) {
-  color: #5c7cfa;
-}
-.json-output :deep(.json-null) {
-  color: #868e96;
+  color: #0f766e;
 }
 
-/* JSON Syntax Highlighting - Dark Mode */
+.json-output :deep(.json-string) {
+  color: #0369a1;
+}
+
+.json-output :deep(.json-number) {
+  color: #c2410c;
+}
+
+.json-output :deep(.json-boolean) {
+  color: #7c3aed;
+}
+
+.json-output :deep(.json-null) {
+  color: #64748b;
+}
+
 :root.dark .json-output :deep(.json-key),
 .dark .json-output :deep(.json-key) {
-  color: #c792ea;
-}
-:root.dark .json-output :deep(.json-string),
-.dark .json-output :deep(.json-string) {
-  color: #c3e88d;
-}
-:root.dark .json-output :deep(.json-number),
-.dark .json-output :deep(.json-number) {
-  color: #f78c6c;
-}
-:root.dark .json-output :deep(.json-boolean),
-.dark .json-output :deep(.json-boolean) {
-  color: #89ddff;
-}
-:root.dark .json-output :deep(.json-null),
-.dark .json-output :deep(.json-null) {
-  color: #676e95;
+  color: #5eead4;
 }
 
-/* Fade transition for drag overlay */
+:root.dark .json-output :deep(.json-string),
+.dark .json-output :deep(.json-string) {
+  color: #7dd3fc;
+}
+
+:root.dark .json-output :deep(.json-number),
+.dark .json-output :deep(.json-number) {
+  color: #fdba74;
+}
+
+:root.dark .json-output :deep(.json-boolean),
+.dark .json-output :deep(.json-boolean) {
+  color: #c4b5fd;
+}
+
+:root.dark .json-output :deep(.json-null),
+.dark .json-output :deep(.json-null) {
+  color: #94a3b8;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-/* Dark mode bg helper */
-.dark .bg-gray-750 {
-  background-color: rgb(38, 42, 51);
 }
 </style>

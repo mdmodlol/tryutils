@@ -6,6 +6,8 @@
  * **Feature: seo-optimization, Property 9: Blog article date in description**
  */
 
+import { MAX_DESCRIPTION_LENGTH, MAX_TITLE_LENGTH } from '~/composables/useSEOMetaConstants'
+
 export interface BlogArticleMetaConfig {
   title: string
   description: string
@@ -22,9 +24,6 @@ export interface GeneratedBlogMeta {
 }
 
 // Maximum lengths for SEO compliance
-export const MAX_TITLE_LENGTH = 60
-export const MAX_DESCRIPTION_LENGTH = 160
-
 /**
  * Formats a date to a localized string
  * @param date - Date string or Date object

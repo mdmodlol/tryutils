@@ -1,22 +1,8 @@
+import type { FAQPageSchema } from '~/composables/useFAQSchema'
+import type { HowToSchema as BaseHowToSchema } from '~/composables/useHowToSchema'
 import { getCanonicalUrl } from '~/utils/blog-paths'
 
-export interface FAQPageSchema {
-  '@context': string
-  '@type': string
-  mainEntity: Array<{
-    '@type': string
-    name: string
-    acceptedAnswer: {
-      '@type': string
-      text: string
-    }
-  }>
-}
-
-export interface HowToSchema {
-  '@context': string
-  '@type': string
-  name: string
+type HowToSchema = BaseHowToSchema & {
   description: string
   image?: string
   totalTime?: string
@@ -35,6 +21,7 @@ export interface HowToSchema {
   }>
   step: Array<{
     '@type': string
+    position?: number
     name: string
     text: string
     image?: string

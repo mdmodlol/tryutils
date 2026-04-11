@@ -1,5 +1,5 @@
 <template>
-  <div class="qr-code-settings space-y-6" role="region" aria-label="QR code settings">
+  <div class="qr-code-settings space-y-6" role="region" :aria-label="t('qrCodeGenerator.settings.aria.region')">
     <!-- 颜色设置 -->
     <section class="color-settings" aria-labelledby="color-settings-heading">
       <h3 id="color-settings-heading" class="text-lg font-semibold mb-4 dark:text-white">
@@ -26,7 +26,7 @@
             <input
               v-model="localOptions.foregroundColor"
               type="text"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white"
+            class="flex-1 rounded-xl border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               pattern="^#[0-9A-Fa-f]{6}$"
               @input="handleColorChange"
             />
@@ -52,7 +52,7 @@
             <input
               v-model="localOptions.backgroundColor"
               type="text"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white"
+            class="flex-1 rounded-xl border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               pattern="^#[0-9A-Fa-f]{6}$"
               @input="handleColorChange"
             />
@@ -70,12 +70,12 @@
             v-for="preset in colorPresets"
             :key="preset.name"
             type="button"
-            class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            class="rounded-full border border-slate-300 px-4 py-2 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
             :class="{
-              'ring-2 ring-blue-500': isPresetActive(preset)
+              'ring-2 ring-teal-500': isPresetActive(preset)
             }"
             :aria-pressed="isPresetActive(preset)"
-            :aria-label="`Apply ${$t(`qrCodeGenerator.settings.${preset.name}`)} color preset`"
+            :aria-label="t('qrCodeGenerator.settings.aria.applyPreset', { preset: t(`qrCodeGenerator.settings.${preset.name}`) })"
             @click="applyColorPreset(preset)"
           >
             <span class="flex items-center gap-2">
@@ -98,7 +98,7 @@
       <!-- 颜色对比度警告 -->
       <aside
         v-if="contrastWarning"
-        class="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md"
+        class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-3 dark:border-amber-900/60 dark:bg-amber-950/30"
         role="alert"
         aria-live="polite"
       >
@@ -134,8 +134,8 @@
           min="128"
           max="1024"
           step="8"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          :aria-label="`QR code size: ${localOptions.size} pixels`"
+          class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 dark:bg-slate-800"
+          :aria-label="t('qrCodeGenerator.settings.aria.sizeSlider', { size: localOptions.size })"
           :aria-valuemin="128"
           :aria-valuemax="1024"
           :aria-valuenow="localOptions.size"
@@ -157,12 +157,12 @@
             v-for="preset in sizePresets"
             :key="preset.name"
             type="button"
-            class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm dark:text-white"
+            class="rounded-full border border-slate-300 px-4 py-2 text-sm transition-colors dark:border-slate-700 dark:text-white dark:hover:bg-slate-800"
             :class="{
-              'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20': localOptions.size === preset.size
+              'ring-2 ring-teal-500 bg-slate-100 dark:bg-slate-900/80': localOptions.size === preset.size
             }"
             :aria-pressed="localOptions.size === preset.size"
-            :aria-label="`Set size to ${preset.size} pixels - ${$t(`qrCodeGenerator.settings.${preset.name}`)}`"
+            :aria-label="t('qrCodeGenerator.settings.aria.sizePreset', { size: preset.size, preset: t(`qrCodeGenerator.settings.${preset.name}`) })"
             @click="applySizePreset(preset)"
           >
             {{ $t(`qrCodeGenerator.settings.${preset.name}`) }}
@@ -182,7 +182,7 @@
         <div v-if="!localOptions.logo" class="upload-area">
           <label
             :for="`logo-upload-${componentId}`"
-            class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            class="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-[24px] border border-dashed border-slate-300 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900"
             tabindex="0"
             @keydown="handleLogoLabelKeydown"
           >
@@ -224,12 +224,12 @@
           <figure class="relative inline-block">
             <img
               :src="localOptions.logo.dataUrl"
-              alt="Logo preview"
+              :alt="t('qrCodeGenerator.settings.aria.logoPreview')"
               class="w-32 h-32 object-contain border border-gray-300 dark:border-gray-600 rounded-lg"
             />
             <button
               type="button"
-              class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors flex items-center justify-center"
+              class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-rose-500 text-white transition-colors hover:bg-rose-600"
               :aria-label="$t('qrCodeGenerator.settings.removeLogo')"
               @click="removeLogo"
             >
@@ -259,8 +259,8 @@
               min="10"
               max="30"
               step="1"
-              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-              :aria-label="`Logo size: ${Math.round((localOptions.logo.size || 0.2) * 100)} percent`"
+              class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 dark:bg-slate-800"
+              :aria-label="t('qrCodeGenerator.settings.aria.logoSizeSlider', { size: Math.round((localOptions.logo.size || 0.2) * 100) })"
               :aria-valuemin="10"
               :aria-valuemax="30"
               :aria-valuenow="logoSizePercent"
@@ -276,7 +276,7 @@
         <!-- Logo 上传错误 -->
         <aside
           v-if="logoError"
-          class="mt-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
+          class="mt-2 rounded-2xl border border-rose-200 bg-rose-50 p-3 dark:border-rose-900/70 dark:bg-rose-950/30"
           role="alert"
           aria-live="assertive"
         >
@@ -292,6 +292,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import type { QRCodeOptions, LogoOptions } from '~/composables/useQRCodeGenerator'
+const { t } = useI18n()
 
 interface ColorPreset {
   name: string
@@ -388,7 +389,7 @@ const contrastWarning = computed(() => {
   )
 
   if (contrast < 3) {
-    return '前景色和背景色对比度不足，可能影响二维码的可扫描性'
+    return t('qrCodeGenerator.settings.contrastWarning')
   }
 
   return null
@@ -470,13 +471,13 @@ const handleLogoUpload = async (event: Event) => {
     // 验证文件格式
     const validFormats = ['image/png', 'image/jpeg', 'image/svg+xml']
     if (!validFormats.includes(file.type)) {
-      throw new Error('Logo 格式不支持，仅支持 PNG、JPG、SVG 格式')
+      throw new Error(t('qrCodeGenerator.errors.logoFormatInvalid'))
     }
 
     // 验证文件大小（2MB）
     const maxSize = 2 * 1024 * 1024 // 2MB
     if (file.size > maxSize) {
-      throw new Error('Logo 文件过大，最大支持 2MB')
+      throw new Error(t('qrCodeGenerator.errors.logoTooLarge'))
     }
 
     // 读取文件为 data URL
@@ -493,7 +494,7 @@ const handleLogoUpload = async (event: Event) => {
     localOptions.value.logo = logoOptions
     emitUpdate()
   } catch (err: any) {
-    logoError.value = err.message || 'Logo 上传失败'
+    logoError.value = err.message || t('common.uploadFailed')
     console.error('Logo upload error:', err)
   }
 
@@ -590,18 +591,18 @@ watch(
 button:focus-visible,
 input:focus-visible,
 label:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="color"]:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="range"]:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply outline-none ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 
 input[type="file"]:focus-visible + label {
-  @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900;
+  @apply ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-gray-900;
 }
 </style>

@@ -6,7 +6,6 @@
  */
 const { t } = useI18n()
 
-// === State ===
 const mode = ref<'encode' | 'decode'>('encode')
 const encodeType = ref<'component' | 'full'>('component')
 const inputText = ref('')
@@ -14,7 +13,6 @@ const outputText = ref('')
 const copySuccess = ref(false)
 const errorMessage = ref('')
 
-// === Computed ===
 const inputStats = computed(() => {
   const text = inputText.value
   const chars = text.length
@@ -35,14 +33,12 @@ const inputPlaceholder = computed(() =>
     : t('urlCodec.inputPlaceholder.decode')
 )
 
-// === Helpers ===
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-// === Actions ===
 function processText(): void {
   errorMessage.value = ''
   const text = inputText.value
@@ -55,11 +51,8 @@ function processText(): void {
 
   try {
     if (mode.value === 'encode') {
-      outputText.value = encodeType.value === 'component'
-        ? encodeURIComponent(text)
-        : encodeURI(text)
+      outputText.value = encodeType.value === 'component' ? encodeURIComponent(text) : encodeURI(text)
     } else {
-      // Try decodeURIComponent first, fall back to decodeURI
       try {
         outputText.value = decodeURIComponent(text)
       } catch {
@@ -108,14 +101,13 @@ function swapInputOutput(): void {
 
 function loadExample(): void {
   if (mode.value === 'encode') {
-    inputText.value = 'https://www.example.com/search?q=你好世界&lang=zh-CN&page=1#results'
+    inputText.value = 'https://www.example.com/search?q=hello world&lang=en&page=1#results'
   } else {
-    inputText.value = 'https%3A%2F%2Fwww.example.com%2Fsearch%3Fq%3D%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C%26lang%3Dzh-CN%26page%3D1%23results'
+    inputText.value = 'https%3A%2F%2Fwww.example.com%2Fsearch%3Fq%3Dhello%2520world%26lang%3Den%26page%3D1%23results'
   }
   processText()
 }
 
-// Auto-process on input change
 watch([inputText, mode, encodeType], () => {
   if (inputText.value.trim()) {
     processText()
@@ -128,17 +120,15 @@ watch([inputText, mode, encodeType], () => {
 
 <template>
   <div class="space-y-6">
-    <!-- Mode Toggle -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <!-- Encode/Decode Toggle -->
-        <div class="flex rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600" role="radiogroup" :aria-label="t('urlCodec.modeLabel')">
+    <div class="rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+      <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div class="flex overflow-hidden rounded-full border border-slate-300 dark:border-slate-700" role="radiogroup" :aria-label="t('urlCodec.modeLabel')">
           <button
             :class="[
-              'px-5 py-2.5 text-sm font-medium transition-all duration-200',
+              'px-5 py-2.5 text-sm font-medium transition-colors',
               mode === 'encode'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
+                ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
             ]"
             role="radio"
             :aria-checked="mode === 'encode'"
@@ -148,10 +138,10 @@ watch([inputText, mode, encodeType], () => {
           </button>
           <button
             :class="[
-              'px-5 py-2.5 text-sm font-medium transition-all duration-200',
+              'px-5 py-2.5 text-sm font-medium transition-colors',
               mode === 'decode'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
+                ? 'bg-slate-950 text-white dark:bg-slate-100 dark:text-slate-950'
+                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
             ]"
             role="radio"
             :aria-checked="mode === 'decode'"
@@ -161,101 +151,94 @@ watch([inputText, mode, encodeType], () => {
           </button>
         </div>
 
-        <!-- Encode Type (only show in encode mode) -->
         <div v-if="mode === 'encode'" class="flex items-center gap-3">
-          <label class="text-sm text-gray-600 dark:text-gray-400">{{ t('urlCodec.encodeType') }}:</label>
+          <label class="text-sm text-slate-600 dark:text-slate-400">{{ t('urlCodec.encodeType') }}:</label>
           <select
             v-model="encodeType"
-            class="text-sm border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
           >
             <option value="component">encodeURIComponent</option>
             <option value="full">encodeURI</option>
           </select>
         </div>
 
-        <!-- Action Buttons -->
         <div class="flex items-center gap-2">
           <button
-            class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
+            class="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-white"
             @click="loadExample"
           >
-            <Icon name="heroicons:beaker" class="w-4 h-4 mr-1" aria-hidden="true" />
+            <Icon name="heroicons:beaker" class="mr-1 h-4 w-4" aria-hidden="true" />
             {{ t('urlCodec.example') }}
           </button>
           <button
-            class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-red-300 dark:hover:border-red-500 transition-colors"
+            class="inline-flex items-center rounded-full border border-rose-200 px-4 py-2 text-sm font-medium text-rose-700 transition-colors hover:border-rose-300 hover:bg-rose-50 dark:border-rose-900/70 dark:text-rose-300 dark:hover:bg-rose-950/50"
             @click="clearAll"
           >
-            <Icon name="heroicons:trash" class="w-4 h-4 mr-1" aria-hidden="true" />
+            <Icon name="heroicons:trash" class="mr-1 h-4 w-4" aria-hidden="true" />
             {{ t('urlCodec.clear') }}
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Input/Output Area -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Input -->
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
-          <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
+          <h3 class="text-sm font-medium text-slate-700 dark:text-slate-300">
             {{ t('urlCodec.input') }}
           </h3>
-          <span class="text-xs text-gray-500 dark:text-gray-400">
+          <span class="text-xs text-slate-500 dark:text-slate-400">
             {{ inputStats.chars }} {{ t('urlCodec.chars') }} · {{ inputStats.size }}
           </span>
         </div>
         <textarea
           v-model="inputText"
           :placeholder="inputPlaceholder"
-          class="w-full h-64 p-4 text-sm font-mono bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 resize-none focus:outline-none"
+          class="h-64 w-full resize-none bg-transparent p-4 font-mono text-sm text-slate-800 placeholder-slate-400 focus:outline-none dark:text-slate-200 dark:placeholder-slate-500"
           spellcheck="false"
           :aria-label="t('urlCodec.input')"
         />
       </div>
 
-      <!-- Swap Button (between input and output on mobile) -->
-      <div class="lg:hidden flex justify-center -my-3">
+      <div class="flex justify-center lg:hidden -my-3">
         <button
-          class="p-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          class="rounded-full border border-slate-300 bg-white p-2 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800"
           :aria-label="t('urlCodec.swap')"
           @click="swapInputOutput"
         >
-          <Icon name="heroicons:arrows-up-down" class="w-5 h-5 text-gray-600 dark:text-gray-400" aria-hidden="true" />
+          <Icon name="heroicons:arrows-up-down" class="h-5 w-5 text-slate-600 dark:text-slate-400" aria-hidden="true" />
         </button>
       </div>
 
-      <!-- Output -->
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden relative">
-        <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
+      <div class="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+        <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/80">
           <div class="flex items-center gap-2">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <h3 class="text-sm font-medium text-slate-700 dark:text-slate-300">
               {{ t('urlCodec.output') }}
             </h3>
-            <!-- Swap button for desktop -->
             <button
-              class="hidden lg:inline-flex p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              class="hidden rounded-full p-1 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700 lg:inline-flex"
               :aria-label="t('urlCodec.swap')"
               @click="swapInputOutput"
             >
-              <Icon name="heroicons:arrows-right-left" class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
+              <Icon name="heroicons:arrows-right-left" class="h-4 w-4 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             </button>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-gray-500 dark:text-gray-400">
+            <span class="text-xs text-slate-500 dark:text-slate-400">
               {{ outputStats.chars }} {{ t('urlCodec.chars') }} · {{ outputStats.size }}
             </span>
             <button
               v-if="outputText"
-              class="flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-md transition-colors"
+              class="flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors"
               :class="copySuccess
-                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50'"
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'"
               @click="copyOutput"
             >
               <Icon
                 :name="copySuccess ? 'heroicons:check' : 'heroicons:clipboard-document'"
-                class="w-3.5 h-3.5"
+                class="h-3.5 w-3.5"
                 aria-hidden="true"
               />
               {{ copySuccess ? t('urlCodec.copied') : t('urlCodec.copy') }}
@@ -265,44 +248,42 @@ watch([inputText, mode, encodeType], () => {
         <textarea
           :value="outputText"
           readonly
-          class="w-full h-64 p-4 text-sm font-mono bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 resize-none focus:outline-none"
+          class="h-64 w-full resize-none bg-transparent p-4 font-mono text-sm text-slate-800 placeholder-slate-400 focus:outline-none dark:text-slate-200 dark:placeholder-slate-500"
           :placeholder="t('urlCodec.outputPlaceholder')"
           :aria-label="t('urlCodec.output')"
         />
       </div>
     </div>
 
-    <!-- Error Message -->
     <div
       v-if="errorMessage"
-      class="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-700 dark:text-red-400"
+      class="flex items-center gap-2 rounded-[24px] border border-rose-200 bg-rose-50 p-4 text-rose-700 dark:border-rose-900/70 dark:bg-rose-950/30 dark:text-rose-300"
       role="alert"
     >
-      <Icon name="heroicons:exclamation-triangle" class="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+      <Icon name="heroicons:exclamation-triangle" class="h-5 w-5 flex-shrink-0" aria-hidden="true" />
       <span class="text-sm">{{ errorMessage }}</span>
     </div>
 
-    <!-- Encode Type Explanation -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+    <div class="rounded-[28px] border border-slate-200 bg-white/95 p-6 shadow-[0_24px_72px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-none">
+      <h3 class="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-200">
         {{ t('urlCodec.encodeTypeExplain.title') }}
       </h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-          <h4 class="font-mono text-sm font-semibold text-blue-700 dark:text-blue-400 mb-2">encodeURIComponent</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="rounded-[22px] border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
+          <h4 class="mb-2 font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">encodeURIComponent</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
             {{ t('urlCodec.encodeTypeExplain.component') }}
           </p>
-          <p class="text-xs text-gray-500 dark:text-gray-500 mt-2 font-mono">
+          <p class="mt-2 font-mono text-xs text-slate-500 dark:text-slate-500">
             {{ t('urlCodec.encodeTypeExplain.componentKeeps') }}
           </p>
         </div>
-        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
-          <h4 class="font-mono text-sm font-semibold text-green-700 dark:text-green-400 mb-2">encodeURI</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+        <div class="rounded-[22px] border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
+          <h4 class="mb-2 font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">encodeURI</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
             {{ t('urlCodec.encodeTypeExplain.full') }}
           </p>
-          <p class="text-xs text-gray-500 dark:text-gray-500 mt-2 font-mono">
+          <p class="mt-2 font-mono text-xs text-slate-500 dark:text-slate-500">
             {{ t('urlCodec.encodeTypeExplain.fullKeeps') }}
           </p>
         </div>

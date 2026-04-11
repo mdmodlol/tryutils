@@ -1,3 +1,5 @@
+﻿import { blogPublicRoutes } from './data/blog-route-manifest'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-08-30',
@@ -5,7 +7,7 @@ export default defineNuxtConfig({
   site: {
     url: 'https://www.tryutils.com',
     name: 'TryUtils',
-    description: 'TryUtils提供免费在线工具集合，包括HEIC图片转换、图片压缩、格式转换等实用功能。完全在浏览器中处理，保护您的隐私安全，无需注册即可使用。',
+    description: 'Free online utilities for HEIC conversion, image compression, and practical browser-based tools.',
     defaultLocale: 'zh'
   },
   modules: [
@@ -63,7 +65,7 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
-      title: 'TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换',
+      title: 'TryUtils - Free Online Tools for HEIC Conversion, Image Compression, and More',
       link: [
         // Favicon 和 PWA 相关文件
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -80,8 +82,8 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap' }
       ],
       meta: [
-        { name: 'description', content: 'TryUtils提供免费在线工具集合，包括HEIC图片转换、图片压缩、格式转换等实用功能。完全在浏览器中处理，保护您的隐私安全，无需注册即可使用。' },
-        { name: 'keywords', content: 'HEIC转换,图片转换,图片压缩,格式转换,在线工具,免费工具,HEIC转JPG,HEIC转PNG,图片处理,文件转换,TryUtils,隐私安全,浏览器处理' },
+        { name: 'description', content: 'TryUtils provides free online tools for HEIC conversion, image compression, format conversion, and other browser-based utilities.' },
+        { name: 'keywords', content: 'heic converter,image compressor,image format converter,online tools,free browser tools,heic to jpg,heic to png,tryutils' },
         { name: 'author', content: 'TryUtils Team' },
         { name: 'robots', content: 'index, follow' },
         { name: 'googlebot', content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
@@ -101,8 +103,8 @@ export default defineNuxtConfig({
         { name: 'msapplication-TileImage', content: '/android-chrome-192x192.png' },
         // Open Graph 标签
         { property: 'og:site_name', content: 'TryUtils' },
-        { property: 'og:title', content: 'TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换' },
-        { property: 'og:description', content: 'TryUtils提供免费在线工具集合，包括HEIC图片转换、图片压缩、格式转换等实用功能。完全在浏览器中处理，保护您的隐私安全。' },
+        { property: 'og:title', content: 'TryUtils - Free Online Tools for HEIC Conversion, Image Compression, and More' },
+        { property: 'og:description', content: 'TryUtils provides free online tools for HEIC conversion, image compression, format conversion, and other browser-based utilities.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://www.tryutils.com' },
         { property: 'og:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' },
@@ -115,8 +117,8 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@TryUtils' },
         { name: 'twitter:creator', content: '@TryUtils' },
-        { name: 'twitter:title', content: 'TryUtils - 免费在线工具集合 | HEIC转换、图片压缩、格式转换' },
-        { name: 'twitter:description', content: 'TryUtils提供免费在线工具集合，包括HEIC图片转换、图片压缩、格式转换等实用功能。完全在浏览器中处理，保护您的隐私安全。' },
+        { name: 'twitter:title', content: 'TryUtils - Free Online Tools for HEIC Conversion, Image Compression, and More' },
+        { name: 'twitter:description', content: 'TryUtils provides free online tools for HEIC conversion, image compression, format conversion, and other browser-based utilities.' },
         { name: 'twitter:image', content: 'https://www.tryutils.com/android-chrome-512x512.png' },
         { name: 'twitter:image:alt', content: 'TryUtils Logo' },
         // 结构化数据
@@ -241,7 +243,7 @@ export default defineNuxtConfig({
       apiBase: process.env.API_BASE_URL || '/api',
       siteUrl: 'https://www.tryutils.com',
       siteName: 'TryUtils',
-      siteDescription: 'TryUtils提供免费在线工具集合，包括HEIC图片转换、图片压缩、格式转换等实用功能。完全在浏览器中处理，保护您的隐私安全，无需注册即可使用。'
+      siteDescription: 'TryUtils provides free online tools for HEIC conversion, image compression, format conversion, and other browser-based utilities.'
     }
   },
   // 内容模块配置
@@ -265,77 +267,14 @@ export default defineNuxtConfig({
   // Nitro 配置（合并后的唯一配置）
   nitro: {
     compressPublicAssets: true,
-    minify: true,
+    minify: false,
+    rollupConfig: {
+      external: (id: string) => id.startsWith('file:///') && id.endsWith('/cache-driver.js')
+    },
     prerender: {
-      crawlLinks: true,
-      routes: [
-        '/',
-        '/en',
-        '/about',
-        '/en/about',
-        '/contact',
-        '/en/contact',
-        '/blog',
-        '/en/blog',
-        '/image-compressor',
-        '/en/image-compressor',
-        '/image-format-converter',
-        '/en/image-format-converter',
-        '/heic-converter',
-        '/en/heic-converter',
-        '/qr-code-generator',
-        '/en/qr-code-generator',
-        '/privacy',
-        '/en/privacy',
-        '/image-tools',
-        '/en/image-tools',
-        '/json-formatter',
-        '/en/json-formatter',
-        '/base64-codec',
-        '/en/base64-codec',
-        '/color-converter',
-        '/en/color-converter',
-        '/text-diff',
-        '/en/text-diff',
-        '/url-codec',
-        '/en/url-codec',
-        '/dev-tools',
-        '/en/dev-tools',
-        // JSON Formatter 博客文章
-        '/blog/JsonFormatter/json-formatting-basics',
-        '/blog/JsonFormatter/json-validation-guide',
-        '/blog/JsonFormatter/json-beautify-minify-tips',
-        '/blog/JsonFormatter/json-vs-xml-yaml-comparison',
-        '/blog/JsonFormatter/json-api-best-practices',
-        // Base64 Codec 博客文章
-        '/blog/Base64Codec/base64-encoding-explained',
-        '/blog/Base64Codec/how-to-base64-online',
-        '/blog/Base64Codec/base64-web-development-use-cases',
-        '/blog/Base64Codec/base64-security-myths',
-        '/blog/Base64Codec/image-to-base64-tips',
-        // Color Converter 博客文章
-        '/blog/ColorConverter/hex-rgb-hsl-color-guide',
-        '/blog/ColorConverter/how-to-convert-colors-online',
-        '/blog/ColorConverter/web-color-best-practices',
-        '/blog/ColorConverter/css-color-properties-deep-dive',
-        '/blog/ColorConverter/color-theory-developer-guide',
-        // Text Diff 博客文章
-        '/blog/TextDiff/text-diff-getting-started',
-        '/blog/TextDiff/online-text-comparison-guide',
-        '/blog/TextDiff/diff-algorithm-explained',
-        '/blog/TextDiff/text-diff-for-code-review',
-        '/blog/TextDiff/text-diff-practical-use-cases',
-        // URL Codec 博客文章
-        '/blog/UrlCodec/url-encoding-explained',
-        '/blog/UrlCodec/how-to-encode-decode-url-online',
-        '/blog/UrlCodec/url-encoding-in-web-development',
-        '/blog/UrlCodec/encodeuri-vs-encodeuricomponent',
-        '/blog/UrlCodec/url-encoding-special-characters-guide',
-        // Priority English blog articles
-        '/en/blog/imagecompression/browser-image-compression-libraries',
-        '/en/blog/heicconverter/what-is-heic-format',
-        '/en/blog/heicconverter/how-to-convert-heic-to-jpg'
-        ]
-      }
+      crawlLinks: false,
+      routes: []
+    }
   }
 })
+

@@ -2,6 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .card {
+    @apply rounded-[24px] border border-slate-200/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.06)] transition;
+  }
+
+  .card:hover {
+    @apply border-slate-300;
+    transform: none;
+  }
+
+  :root.dark .card {
+    @apply border-slate-800 bg-slate-900 shadow-none;
+  }
+
+  :root.dark .card:hover {
+    @apply border-slate-700;
+  }
+
+  .btn-primary {
+    @apply rounded-full bg-slate-950 px-6 py-3 text-white shadow-none;
+    background-image: none;
+  }
+
+  .btn-primary:hover {
+    @apply bg-slate-800 shadow-none;
+    transform: none;
+  }
+
+  :root.dark .btn-primary {
+    @apply bg-slate-100 text-slate-950;
+  }
+
+  :root.dark .btn-primary:hover {
+    @apply bg-white;
+  }
+
+  .btn-secondary {
+    @apply rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-slate-700 shadow-none;
+  }
+
+  .btn-secondary:hover {
+    @apply border-slate-300 bg-white text-slate-950 shadow-none;
+    transform: none;
+  }
+
+  :root.dark .btn-secondary {
+    @apply border-slate-700 bg-slate-800/80 text-slate-300;
+  }
+
+  :root.dark .btn-secondary:hover {
+    @apply border-slate-600 bg-slate-800 text-slate-50;
+  }
+
+  .upload-zone,
+  .enhanced-upload-zone {
+    @apply rounded-[28px] border-slate-200 bg-slate-50 shadow-none;
+    background-image: none;
+  }
+
+  .upload-zone:hover,
+  .enhanced-upload-zone:hover,
+  .upload-zone.drag-over,
+  .enhanced-upload-zone.drag-over {
+    @apply border-teal-400 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)];
+    transform: none;
+  }
+
+  :root.dark .upload-zone,
+  :root.dark .enhanced-upload-zone {
+    @apply border-slate-700 bg-slate-950;
+    background-image: none;
+  }
+
+  :root.dark .upload-zone:hover,
+  :root.dark .enhanced-upload-zone:hover,
+  :root.dark .upload-zone.drag-over,
+  :root.dark .enhanced-upload-zone.drag-over {
+    @apply border-teal-400 bg-slate-900 shadow-none;
+  }
+
+  .file-item {
+    @apply rounded-[20px] border border-slate-200 bg-white shadow-none;
+  }
+
+  .file-item:hover {
+    @apply border-slate-300 shadow-none;
+    transform: none;
+  }
+
+  :root.dark .file-item {
+    @apply border-slate-800 bg-slate-900;
+  }
+
+  :root.dark .file-item:hover {
+    @apply border-slate-700;
+  }
+
+  .progress-fill {
+    background: linear-gradient(90deg, #0f172a 0%, #0f766e 100%);
+    animation: none;
+  }
+}
+
 /* 主题切换过渡动画 */
 html {
   transition: background-color 0.3s ease, color 0.3s ease;

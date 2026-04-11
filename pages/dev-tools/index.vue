@@ -1,233 +1,174 @@
+<script setup lang="ts">
+const { t } = useI18n()
+const localePath = useLocalePath()
+
+const seoConfig = computed(() => ({
+  title: t('devTools.seo.title'),
+  description: t('devTools.seo.description'),
+  keywords: t('devTools.seo.keywords'),
+  ogTitle: t('devTools.seo.title'),
+  ogDescription: t('devTools.seo.description'),
+  ogType: 'website'
+}))
+
+const { useSEO } = await import('~/composables/useSEO')
+useSEO(seoConfig)
+
+const tools = computed(() => [
+  {
+    name: t('nav.jsonFormatter'),
+    description: t('home.categories.devTools.jsonFormatter.description'),
+    path: '/json-formatter',
+    icon: 'heroicons:code-bracket',
+    tags: [t('devTools.tags.format'), t('devTools.tags.validate'), t('devTools.tags.minify')]
+  },
+  {
+    name: t('nav.base64Codec'),
+    description: t('home.categories.devTools.base64Codec.description'),
+    path: '/base64-codec',
+    icon: 'heroicons:lock-closed',
+    tags: [t('devTools.tags.encode'), t('devTools.tags.decode'), t('devTools.tags.files')]
+  },
+  {
+    name: t('nav.colorConverter'),
+    description: t('home.categories.devTools.colorConverter.description'),
+    path: '/color-converter',
+    icon: 'heroicons:swatch',
+    tags: ['HEX', 'RGB', 'HSL']
+  },
+  {
+    name: t('nav.textDiff'),
+    description: t('home.categories.devTools.textDiff.description'),
+    path: '/text-diff',
+    icon: 'heroicons:document-duplicate',
+    tags: [t('devTools.tags.compare'), t('devTools.tags.review'), t('devTools.tags.changes')]
+  },
+  {
+    name: t('nav.urlCodec'),
+    description: t('home.categories.devTools.urlCodec.description'),
+    path: '/url-codec',
+    icon: 'heroicons:link',
+    tags: ['URI', t('devTools.tags.encode'), t('devTools.tags.decode')]
+  },
+  {
+    name: t('nav.markdownPreview'),
+    description: t('home.categories.devTools.markdownPreview.description'),
+    path: '/markdown-preview',
+    icon: 'heroicons:document-text',
+    tags: [t('devTools.tags.preview'), 'HTML', t('devTools.tags.export')]
+  }
+])
+
+const focusPoints = computed(() => [
+  {
+    title: t('home.features.privacy.title'),
+    description: t('home.features.privacy.description')
+  },
+  {
+    title: t('home.features.fast.title'),
+    description: t('home.features.fast.description')
+  },
+  {
+    title: t('devTools.title'),
+    description: t('devTools.description')
+  }
+])
+</script>
+
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300" itemscope itemtype="https://schema.org/WebPage">
-    <!-- Skip to main content link for accessibility -->
-    <a 
-      href="#main-content" 
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
-      tabindex="0"
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-950" itemscope itemtype="https://schema.org/WebPage">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 z-50 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white dark:bg-slate-100 dark:text-slate-950"
     >
-      {{ $t('accessibility.skipToMain') }}
+      {{ t('accessibility.skipToMain') }}
     </a>
 
-    <!-- SEO Head -->
-    <Head>
-      <Title>{{ t('devTools.seo.title') }}</Title>
-      <Meta name="description" :content="t('devTools.seo.description')" />
-      <Meta name="keywords" :content="t('devTools.seo.keywords')" />
-    </Head>
-
     <main id="main-content" role="main">
-      <!-- Header Section -->
-      <header class="container mx-auto px-4 py-12" role="banner">
-        <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" itemprop="name">
-            {{ t('devTools.title') }}
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" itemprop="description">
-            {{ t('devTools.description') }}
-          </p>
-        </div>
-      </header>
-
-      <!-- Tools Grid -->
-      <section class="container mx-auto px-4" role="region" aria-labelledby="tools-section-title">
-        <h2 id="tools-section-title" class="sr-only">{{ t('devTools.title') }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto" role="list" :aria-label="t('devTools.title')">
-          <!-- JSON Formatter -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:code-bracket" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.jsonFormatter') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.jsonFormatter.description') }}
+      <section class="border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.85fr)] lg:py-16">
+          <div class="space-y-5">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-700 dark:text-teal-300">
+              {{ t('home.categories.devTools.title') }}
             </p>
-            <NuxtLink 
-              :to="localePath('/json-formatter')"
-              class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.jsonFormatter')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
-
-          <!-- Base64 Codec -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:lock-closed" class="w-6 h-6 text-green-600 dark:text-green-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.base64Codec') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.base64Codec.description') }}
+            <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-5xl" itemprop="name">
+              {{ t('devTools.title') }}
+            </h1>
+            <p class="max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300" itemprop="description">
+              {{ t('devTools.description') }}
             </p>
-            <NuxtLink 
-              :to="localePath('/base64-codec')"
-              class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.base64Codec')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
+          </div>
 
-          <!-- Color Converter -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:swatch" class="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.colorConverter') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.colorConverter.description') }}
+          <aside class="rounded-[28px] border border-slate-200/80 bg-white/92 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/88 dark:shadow-none">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+              {{ t('devTools.sectionLabels.utilityLayer') }}
             </p>
-            <NuxtLink 
-              :to="localePath('/color-converter')"
-              class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.colorConverter')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
-
-          <!-- Text Diff -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:document-duplicate" class="w-6 h-6 text-orange-600 dark:text-orange-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.textDiff') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.textDiff.description') }}
-            </p>
-            <NuxtLink 
-              :to="localePath('/text-diff')"
-              class="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.textDiff')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
-
-          <!-- URL Codec -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:link" class="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.urlCodec') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.urlCodec.description') }}
-            </p>
-            <NuxtLink
-              :to="localePath('/url-codec')"
-              class="inline-flex items-center px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.urlCodec')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
-
-          <!-- Markdown Preview -->
-          <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700" role="listitem" itemscope itemtype="https://schema.org/SoftwareApplication">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mr-4" aria-hidden="true">
-                <Icon name="heroicons:document-text" class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-              </div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white" itemprop="name">
-                {{ t('nav.markdownPreview') }}
-              </h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-6" itemprop="description">
-              {{ t('home.categories.devTools.markdownPreview.description') }}
-            </p>
-            <NuxtLink
-              :to="localePath('/markdown-preview')"
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              :aria-label="`${t('common.startUsing')} ${t('nav.markdownPreview')}`"
-            >
-              {{ t('common.startUsing') }}
-              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" aria-hidden="true" />
-            </NuxtLink>
-          </article>
+            <ul class="space-y-4">
+              <li v-for="point in focusPoints" :key="point.title" class="border-t border-slate-200/80 pt-4 first:border-0 first:pt-0 dark:border-slate-800">
+                <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100">{{ point.title }}</h2>
+                <p class="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ point.description }}</p>
+              </li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <!-- Features Section -->
-      <section class="container mx-auto px-4 mt-20 pb-16" role="region" aria-labelledby="features-title">
-        <h2 id="features-title" class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
-          {{ t('devTools.features.title') }}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
-          <article class="text-center" role="listitem">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-              <Icon name="heroicons:shield-check" class="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              {{ t('home.features.privacy.title') }}
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              {{ t('home.features.privacy.description') }}
-            </p>
-          </article>
-          <article class="text-center" role="listitem">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-              <Icon name="heroicons:bolt" class="w-8 h-8 text-green-600 dark:text-green-400" />
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              {{ t('home.features.fast.title') }}
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              {{ t('home.features.fast.description') }}
-            </p>
-          </article>
-          <article class="text-center" role="listitem">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-              <Icon name="heroicons:globe-alt" class="w-8 h-8 text-purple-600 dark:text-purple-400" />
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              {{ t('home.features.online.title') }}
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              {{ t('home.features.online.description') }}
-            </p>
-          </article>
+      <section class="mx-auto max-w-6xl px-6 py-10 lg:py-14" aria-labelledby="tool-directory-title">
+        <div class="mb-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+            {{ t('devTools.sectionLabels.browserUtilities') }}
+          </p>
+          <h2 id="tool-directory-title" class="mt-2 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
+            {{ t('home.categories.devTools.description') }}
+          </h2>
+        </div>
+
+        <div class="overflow-hidden rounded-[30px] border border-slate-200/80 bg-white/95 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none">
+          <div class="divide-y divide-slate-200/80 dark:divide-slate-800">
+            <article
+              v-for="tool in tools"
+              :key="tool.path"
+              class="grid gap-6 px-6 py-6 transition hover:bg-slate-50/80 dark:hover:bg-slate-900/70 md:grid-cols-[72px_minmax(0,1fr)_auto] md:items-center"
+              itemscope
+              itemtype="https://schema.org/SoftwareApplication"
+            >
+              <div class="flex h-14 w-14 items-center justify-center rounded-[20px] bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                <Icon :name="tool.icon" class="h-7 w-7" aria-hidden="true" />
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-950 dark:text-slate-50" itemprop="name">
+                    {{ tool.name }}
+                  </h3>
+                  <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300" itemprop="description">
+                    {{ tool.description }}
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    v-for="tag in tool.tags"
+                    :key="tag"
+                    class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
+              </div>
+
+              <NuxtLink
+                :to="localePath(tool.path)"
+                class="inline-flex items-center gap-2 self-start rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white md:self-center"
+                :aria-label="t('accessibility.useToolAriaLabel', { tool: tool.name })"
+              >
+                {{ t('common.startUsing') }}
+                <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
+              </NuxtLink>
+            </article>
+          </div>
         </div>
       </section>
     </main>
   </div>
 </template>
-
-<script setup lang="ts">
-const { t } = useI18n()
-const localePath = useLocalePath()
-
-// SEO
-useHead({
-  title: () => t('devTools.seo.title'),
-  meta: [
-    { name: 'description', content: () => t('devTools.seo.description') },
-    { name: 'keywords', content: () => t('devTools.seo.keywords') }
-  ]
-})
-</script>

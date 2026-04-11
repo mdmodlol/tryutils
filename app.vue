@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NuxtLayout>
-      <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <div class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
         <!-- Skip to main content link for accessibility -->
         <a 
           href="#main-content" 
@@ -12,7 +12,7 @@
         </a>
 
         <!-- 顶部导航栏 -->
-        <header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm dark:shadow-gray-900/50 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300" role="banner">
+        <header class="bg-white/86 dark:bg-slate-950/82 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-300" role="banner">
           <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
               <!-- 品牌标志 -->
@@ -22,10 +22,10 @@
                   class="group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg" 
                   :aria-label="$t('nav.homePageLink')"
                 >
-                  <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-500 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 dark:hover:from-purple-400 dark:hover:to-blue-400 transition-all duration-300">
+                  <h1 class="text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 transition-colors duration-200">
                     TryUtils
                   </h1>
-                  <p class="text-gray-600 dark:text-gray-400 text-xs mt-1 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+                  <p class="text-slate-500 dark:text-slate-400 text-xs mt-1 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
                     {{ $t('brand.tagline') }}
                   </p>
                 </NuxtLink>
@@ -34,7 +34,7 @@
               <!-- 主导航菜单 -->
               <nav
                 class="hidden md:flex items-center lg:space-x-6 md:space-x-4"
-                role="navigation"
+                role="navigation" 
                 :aria-label="$t('nav.mainNavigation')"
               >
                 <NuxtLink

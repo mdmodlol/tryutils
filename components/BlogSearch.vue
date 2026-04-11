@@ -1,74 +1,67 @@
 <template>
-  <div class="mb-8 space-y-4" role="search" aria-label="博客搜索和筛选">
-    <!-- 搜索框 -->
+  <div class="space-y-5" role="search" :aria-label="$t('accessibility.blogSearchAndFilter')">
     <div class="relative">
-      <label for="blog-search" class="sr-only">搜索博客文章</label>
+      <label for="blog-search" class="sr-only">{{ $t('accessibility.searchBlogArticles') }}</label>
       <input
         id="blog-search"
         :value="searchQuery"
         @input="$emit('update:searchQuery', $event.target.value)"
         type="text"
         :placeholder="$t('blog.search.placeholder')"
-        class="w-full px-4 py-3 pl-12 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+        class="w-full rounded-[24px] border border-slate-200 bg-white px-5 py-4 pl-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-teal-400"
         :aria-describedby="searchQuery || selectedTag ? 'search-results-info' : undefined"
         autocomplete="off"
         role="searchbox"
-        :aria-expanded="false"
       >
-      <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-      </svg>
-      
-      <!-- 清除按钮 -->
+      <Icon name="heroicons:magnifying-glass" class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-slate-500" aria-hidden="true" />
+
       <button
         v-if="searchQuery"
         @click="$emit('update:searchQuery', '')"
-        class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
+        class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-slate-400 transition hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300"
         :aria-label="$t('blog.search.clearSearch')"
         type="button"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+        <Icon name="heroicons:x-mark" class="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
-    
-    <!-- 标签筛选 -->
-    <div class="flex flex-wrap gap-2" role="group" aria-labelledby="tag-filter-label">
-      <h3 id="tag-filter-label" class="sr-only">按标签筛选</h3>
+
+    <div class="flex flex-wrap gap-2" role="group" :aria-label="$t('accessibility.filterByTags')">
       <button
         @click="$emit('update:selectedTag', '')"
         :class="[
-          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
-          !selectedTag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+          'rounded-full border px-4 py-2 text-sm font-medium transition',
+          !selectedTag
+            ? 'border-slate-950 bg-slate-950 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-950'
+            : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:text-slate-950 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:text-slate-50'
         ]"
         type="button"
         :aria-pressed="!selectedTag"
-        :aria-label="$t('blog.search.showAllPosts')"
       >
         {{ $t('blog.search.all') }}
       </button>
+
       <button
         v-for="tag in tags"
         :key="tag"
         @click="$emit('update:selectedTag', selectedTag === tag ? '' : tag)"
         :class="[
-          'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
-          selectedTag === tag ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+          'rounded-full border px-4 py-2 text-sm font-medium transition',
+          selectedTag === tag
+            ? 'border-slate-950 bg-slate-950 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-950'
+            : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:text-slate-950 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:text-slate-50'
         ]"
         type="button"
         :aria-pressed="selectedTag === tag"
-        :aria-label="`${selectedTag === tag ? '取消筛选' : '筛选'} ${tag} 标签`"
       >
         {{ tag }}
       </button>
     </div>
-    
-    <!-- 搜索结果统计 -->
-    <div 
-      v-if="searchQuery || selectedTag" 
+
+    <div
+      v-if="searchQuery || selectedTag"
       id="search-results-info"
-      class="text-sm text-gray-600 dark:text-gray-400"
+      class="text-sm text-slate-500 dark:text-slate-400"
       role="status"
       aria-live="polite"
       aria-atomic="true"

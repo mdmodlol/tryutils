@@ -1,62 +1,55 @@
 <template>
-  <article class="card p-8 hover:scale-[1.02] transition-all duration-300 group dark:bg-gray-800 dark:border-gray-700" itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-      <div class="flex-1">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" itemprop="headline">
-          <NuxtLink 
-            :to="articlePath" 
-            class="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
-            :aria-label="`阅读文章: ${article.title}`"
+  <article class="grid gap-5 px-6 py-6 md:grid-cols-[minmax(0,1fr)_auto]" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="space-y-4">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-50" itemprop="headline">
+          <NuxtLink
+            :to="articlePath"
+            class="transition hover:text-teal-700 dark:hover:text-teal-300"
+            :aria-label="$t('accessibility.readFullArticle', { title: article.title })"
           >
             {{ article.title }}
           </NuxtLink>
         </h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3" itemprop="description">
+
+        <p class="line-clamp-3 text-sm leading-7 text-slate-600 dark:text-slate-300" itemprop="description">
           {{ article.description }}
         </p>
-        
-        <!-- 标签 -->
-        <div class="flex flex-wrap gap-2 mb-4" role="list" aria-label="文章标签">
-          <BlogTag
-            v-for="tag in article.tags"
-            :key="tag"
-            :tag="tag"
-            @click="$emit('tagClick', tag)"
-            role="listitem"
-          />
-        </div>
       </div>
-    </div>
-    
-    <!-- 文章元信息 -->
-    <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
-      <time 
-        class="text-sm text-gray-500 dark:text-gray-400 flex items-center" 
+
+      <div class="flex flex-wrap gap-2" role="list" :aria-label="$t('accessibility.articleTags')">
+        <BlogTag
+          v-for="tag in article.tags"
+          :key="tag"
+          :tag="tag"
+          @click="$emit('tagClick', tag)"
+          role="listitem"
+        />
+      </div>
+
+      <time
+        class="inline-flex items-center text-sm text-slate-500 dark:text-slate-400"
         :datetime="article.date"
         itemprop="datePublished"
-        :aria-label="`发布日期: ${formatDate(article.date)}`"
       >
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
+        <Icon name="heroicons:calendar-days" class="mr-2 h-4 w-4" aria-hidden="true" />
         {{ formatDate(article.date) }}
       </time>
-      <NuxtLink 
+    </div>
+
+    <div class="flex items-start md:items-center">
+      <NuxtLink
         :to="articlePath"
-        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-        :aria-label="`阅读完整文章: ${article.title}`"
+        class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-950 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:text-slate-50"
       >
         {{ $t('blog.card.readMore') }}
-        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
+        <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
       </NuxtLink>
     </div>
-    
-    <!-- 隐藏的结构化数据 -->
+
     <meta itemprop="author" :content="article.author || 'TryUtils'">
     <meta itemprop="dateModified" :content="article.updatedAt || article.date">
-    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" class="hidden">
       <meta itemprop="name" content="TryUtils">
     </div>
   </article>
@@ -76,27 +69,11 @@ defineEmits(['tagClick'])
 
 const { locale } = useI18n()
 
-// 计算正确的文章路径
 const articlePath = computed(() => {
   if (!props.article?._path) return ''
   return getPublicBlogPathFromContentPath(props.article._path, locale.value === 'en' ? 'en' : 'zh')
-  /*
-  
-  // 移除现有的语言后缀
-  if (path.endsWith('.en')) {
-    path = path.replace('.en', '')
-  }
-  
-  // 根据当前语言添加正确的后缀
-  if (locale.value === 'en') {
-    path = path + '.en'
-  }
-  
-  return localePath(path)
-  */
 })
 
-// 日期格式化函数
 const formatDate = (date) => {
   if (!date) return ''
   return new Date(date).toLocaleDateString(locale.value === 'en' ? 'en-US' : 'zh-CN', {

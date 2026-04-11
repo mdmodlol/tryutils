@@ -1,19 +1,48 @@
 <script setup lang="ts">
-/**
- * URL Codec Tool Page
- * Dev tool for encoding/decoding URLs
- */
-const { t, locale } = useI18n()
-const localePath = useLocalePath()
+import { getToolFAQs } from '~/data/faqData'
+import type { HowToStep } from '~/composables/useHowToSchema'
 
-// Breadcrumb items
+const { t, locale } = useI18n()
+
+const toolId = 'url-codec'
+
 const breadcrumbItems = computed(() => [
   { name: t('nav.home'), path: '/' },
   { name: t('nav.devTools'), path: '/dev-tools' },
   { name: t('urlCodec.title'), path: '/url-codec' }
 ])
 
-// SEO Meta
+const heroBullets = computed(() => [
+  { icon: 'heroicons:shield-check', label: t('home.features.privacy.description') },
+  { icon: 'heroicons:bolt', label: t('home.features.fast.description') },
+  { icon: 'heroicons:link', label: t('devTools.description') }
+])
+
+const faqItems = computed(() => getToolFAQs(toolId, locale.value))
+
+const howToSteps = computed<HowToStep[]>(() => [
+  { name: t('urlCodec.howTo.step1.name'), text: t('urlCodec.howTo.step1.text') },
+  { name: t('urlCodec.howTo.step2.name'), text: t('urlCodec.howTo.step2.text') },
+  { name: t('urlCodec.howTo.step3.name'), text: t('urlCodec.howTo.step3.text') },
+  { name: t('urlCodec.howTo.step4.name'), text: t('urlCodec.howTo.step4.text') }
+])
+
+const comparisons = computed(() => [
+  { feature: t('urlCodec.comparison.componentAndFull'), ourTool: true, competitor1: true, competitor2: false },
+  { feature: t('urlCodec.comparison.instantProcessing'), ourTool: true, competitor1: true, competitor2: true },
+  { feature: t('urlCodec.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
+  { feature: t('urlCodec.comparison.examples'), ourTool: true, competitor1: false, competitor2: true },
+  { feature: t('urlCodec.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
+])
+
+const competitorNames = ['URL Encode', 'URLEncoder']
+
+const stats = {
+  totalUsers: '12,000+',
+  filesProcessed: '160,000+',
+  avgRating: '4.7/5'
+}
+
 const seoConfig = computed(() => ({
   title: t('urlCodec.meta.title'),
   description: t('urlCodec.meta.description'),
@@ -26,7 +55,6 @@ const seoConfig = computed(() => ({
 const { useSEO } = await import('~/composables/useSEO')
 useSEO(seoConfig)
 
-// Structured data
 const { useStructuredData } = await import('~/composables/useStructuredData')
 const {
   getOrganizationSchema,
@@ -50,69 +78,42 @@ setStructuredData([
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300" itemscope itemtype="https://schema.org/WebPage">
-    <!-- Skip to main content link for accessibility -->
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
-      tabindex="0"
-    >
-      {{ t('common.accessibility.skipToMain') }}
-    </a>
+  <ToolPageShell
+    :breadcrumb-items="breadcrumbItems"
+    :section-label="t('home.categories.devTools.title')"
+    :title="t('urlCodec.title')"
+    :description="t('urlCodec.subtitle')"
+    :bullets="heroBullets"
+    :workspace-label="t('urlCodec.title')"
+    workspace-width="wide"
+  >
+    <ClientOnly>
+      <UrlCodec />
+      <template #fallback>
+        <div class="flex min-h-[280px] items-center justify-center rounded-[24px] border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
+          <div class="text-center">
+            <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600" role="status" aria-label="Loading"></div>
+            <p class="text-slate-600 dark:text-slate-300">{{ t('common.loading') || 'Loading...' }}</p>
+          </div>
+        </div>
+      </template>
+    </ClientOnly>
 
-    <main id="main-content" role="main">
-      <!-- Breadcrumb Navigation -->
-      <div class="max-w-7xl mx-auto px-6 pt-6">
-        <BreadcrumbNav :items="breadcrumbItems" />
+    <template #after-main>
+      <ToolPageContent
+        :tool-name="t('urlCodec.title')"
+        :steps="howToSteps"
+        :comparisons="comparisons"
+        :competitor-names="competitorNames"
+        :stats="stats"
+      />
+
+      <FAQ :items="faqItems" />
+
+      <div class="mx-auto max-w-6xl px-6 py-10 lg:py-12">
+        <RelatedContent type="tools" :tool-id="toolId" :limit="3" />
+        <RelatedContent type="articles" :tool-id="toolId" :limit="5" />
       </div>
-
-      <!-- Hero Section -->
-      <section class="py-8 px-6" aria-labelledby="hero-title">
-        <div class="max-w-7xl mx-auto text-center">
-          <div class="fade-in">
-            <h1 id="hero-title" class="text-4xl md:text-5xl font-bold text-gradient mb-4" itemprop="headline">
-              {{ t('urlCodec.title') }}
-            </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed" itemprop="description">
-              {{ t('urlCodec.subtitle') }}
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-              <div class="flex items-center gap-2">
-                <Icon name="heroicons:check-circle" class="w-5 h-5 text-green-500" aria-hidden="true" />
-                <span>{{ t('home.features.privacy.title') }}</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <Icon name="heroicons:bolt" class="w-5 h-5 text-green-500" aria-hidden="true" />
-                <span>{{ t('home.features.fast.title') }}</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <Icon name="heroicons:shield-check" class="w-5 h-5 text-green-500" aria-hidden="true" />
-                <span>{{ t('home.features.online.title') }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Main Tool Section -->
-      <section class="pb-12" aria-labelledby="tool-section-title">
-        <h2 id="tool-section-title" class="sr-only">{{ t('urlCodec.title') }}</h2>
-        <div class="max-w-7xl mx-auto px-6">
-          <div class="slide-up">
-            <ClientOnly>
-              <UrlCodec />
-              <template #fallback>
-                <div class="flex items-center justify-center p-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <div class="text-center">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" role="status" aria-label="Loading"></div>
-                    <p class="text-gray-600 dark:text-gray-300">{{ t('common.loading') || 'Loading...' }}</p>
-                  </div>
-                </div>
-              </template>
-            </ClientOnly>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+    </template>
+  </ToolPageShell>
 </template>
