@@ -1,0 +1,14 @@
+diff --git a/package.json b/package.json
+index 146f2fb1de3dcfd4c580512f0ea3a2c34ebc1bc6..cba988bdcf3b77ea72f22bc7c66e98e78352af15 100644
+--- a/package.json
++++ b/package.json
+@@ -20,8 +20,7 @@
+       "module": "./dist/shared.esm-bundler.js",
+       "import": "./dist/shared.esm-bundler.js",
+       "require": "./index.js"
+-    },
+-    "./*": "./*"
++    }
+   },
+   "sideEffects": false,
+   "buildOptions": {
