@@ -1,0 +1,62 @@
+# .archon/workflows/add-tool-or-feature.yaml
+name: 新增工具或功能（TryUtils 专用）
+description: 按照 CLAUDE.md + PROJECT-RULES.md 完整实现新工具页或功能，自动测试、审查、出 PR
+
+nodes:
+  - id: start
+    type: prompt
+    prompt: |
+      先读取以下文件：
+      1. CLAUDE.md（Harness 核心规范）
+      2. docs/session-state.md（当前状态）
+      3. docs/PROJECT-RULES.md（完整项目规则）
+      总结当前项目状态和本次需求。
+
+  - id: plan
+    depends_on: [start]
+    type: prompt
+    prompt: |
+      根据用户需求，创建详细 Plans.md（必须包含验收标准、测试点、双语文案 checklist）。
+      严格遵守 CLAUDE.md 中的「新增一个工具页时」清单。
+
+  - id: implement
+    depends_on: [plan]
+    type: loop
+    loop:
+      prompt: |
+        根据 Plans.md 实现下一项任务。
+        优先复用现有 composables、data/toolConfig.ts、server/utils/image-api.ts 等。
+        完成后自动运行验证命令。
+      until: ALL_TASKS_COMPLETE
+      max_iterations: 50
+
+  - id: validate
+    depends_on: [implement]
+    type: bash
+    command: |
+      pnpm test
+      pnpm exec eslint .
+      pnpm build
+    on_failure: |
+      仅返回错误摘要 + 修复建议，不要输出完整日志
+
+  - id: review
+    depends_on: [validate]
+    type: prompt
+    prompt: |
+      执行 self-review：列出所有变更、潜在风险、测试覆盖、是否符合隐私优先原则。
+      如果有问题，自动修复后再 review。
+
+  - id: approve
+    depends_on: [review]
+    type: approval
+    prompt: |
+      请人工审查本次变更，确认是否符合项目规范。批准后将继续创建 PR。
+
+  - id: finish
+    depends_on: [approve]
+    type: prompt
+    prompt: |
+      1. 更新 docs/session-state.md（记录本次完成内容）
+      2. 创建 PR（带完整描述 + 测试结果）
+      3. 输出总结：「本次 workflow 已完成，session-state.md 已更新」
