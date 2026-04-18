@@ -22,8 +22,8 @@
           v-for="tag in article.tags"
           :key="tag"
           :tag="tag"
-          @click="$emit('tagClick', tag)"
           role="listitem"
+          @click="$emit('tagClick', tag)"
         />
       </div>
 

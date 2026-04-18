@@ -28,14 +28,14 @@
         <div 
           class="enhanced-upload-zone"
           :class="{ 'drag-over': isDragging }"
-          @dragenter="handleDragEnter"
-          @dragleave="handleDragLeave"
-          @dragover="handleDragOver"
-          @drop="handleDrop"
           role="button"
           tabindex="0"
           :aria-label="$t('heicConverter.dragText')"
           aria-describedby="upload-instructions file-support-info"
+          @dragenter="handleDragEnter"
+          @dragleave="handleDragLeave"
+          @dragover="handleDragOver"
+          @drop="handleDrop"
           @keydown.enter="fileInput?.click()"
           @keydown.space.prevent="fileInput?.click()"
         >
@@ -72,9 +72,9 @@
                     multiple 
                     accept=".heic,.heif"
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    @change="handleFileSelect"
                     aria-describedby="file-support-info"
                     :aria-label="$t('heicConverter.selectFileAriaLabel')"
+                    @change="handleFileSelect"
                   >
                 </label>
               </div>
@@ -123,9 +123,9 @@
             <span class="rounded-full border border-slate-200 bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" :aria-label="`${files.length} ${$t('heicConverter.filesSelected')}`">{{ files.length }}</span>
           </h2>
           <button 
-            @click="clearFiles"
             class="btn-secondary text-sm"
             :aria-label="$t('common.clearAll') + ' (' + files.length + ' ' + $t('heicConverter.files') + ')'"
+            @click="clearFiles"
           >
             <Icon name="heroicons:trash" class="mr-2" aria-hidden="true" />
             {{ $t('heicConverter.clearAll') }}
@@ -149,9 +149,9 @@
               </div>
             </div>
             <button 
-              @click="removeFile(index)"
               class="interactive-element p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all duration-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               :aria-label="$t('common.removeFile') + ' ' + file.name"
+              @click="removeFile(index)"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
             </button>
@@ -227,11 +227,11 @@
         <div class="space-y-6">
           <!-- 转换按钮 -->
           <button 
-            @click="startConversion"
             :disabled="!canConvert"
             class="convert-button w-full flex items-center justify-center gap-3"
             :aria-label="isConverting ? $t('heicConverter.converting') : `${$t('heicConverter.startConvert')} ${files.length} ${$t('heicConverter.files')}`"
             :aria-describedby="isConverting ? 'conversion-progress' : undefined"
+            @click="startConversion"
           >
             <Icon 
               :name="isConverting ? 'heroicons:arrow-path' : 'heroicons:arrow-down-tray'" 
@@ -252,7 +252,7 @@
               <div 
                 class="enhanced-progress-fill"
                 :style="{ width: `${progress}%` }"
-              ></div>
+              />
             </div>
             <p class="text-center text-sm text-gray-600 dark:text-gray-400 font-medium">{{ $t('heicConverter.progressComplete', { progress }) }}</p>
           </div>
@@ -305,8 +305,8 @@
             </div>
             
             <button 
-              @click="downloadFile(result)"
               class="download-button text-sm"
+              @click="downloadFile(result)"
             >
               <Icon name="heroicons:arrow-down-tray" class="mr-2" aria-hidden="true" />
               {{ $t('heicConverter.download') }}
@@ -316,15 +316,15 @@
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
-            @click="downloadAll"
             class="download-button text-lg"
+            @click="downloadAll"
           >
             <Icon name="heroicons:arrow-down-tray" class="mr-2 text-xl" aria-hidden="true" />
             {{ $t('heicConverter.downloadAll') }}
           </button>
           <button 
-            @click="resetConverter"
             class="btn-secondary text-lg py-3 px-6"
+            @click="resetConverter"
           >
             <Icon name="heroicons:trash" class="mr-2 text-xl" aria-hidden="true" />
             {{ $t('heicConverter.restart') }}
@@ -375,7 +375,7 @@
 
 <script setup lang="ts">
 // 导入Vue组合式API
-import { ref, onUnmounted, computed, watch, onMounted } from 'vue'
+import { ref, onUnmounted, computed, watch } from 'vue'
 // heic-convert will be dynamically imported when needed
 
 // 导入i18n相关函数
@@ -442,10 +442,6 @@ const convertOptions = ref<ConvertOptions>({
 const hasFiles = computed(() => files.value.length > 0)
 const hasResults = computed(() => convertResults.value.length > 0)
 const canConvert = computed(() => hasFiles.value && !isConverting.value)
-const totalFileSize = computed(() => {
-  return files.value.reduce((total, file) => total + file.size, 0)
-})
-const formattedTotalSize = computed(() => formatFileSize(totalFileSize.value))
 
 // 工具函数
 const formatFileSize = (size: number) => {
@@ -579,7 +575,6 @@ const startConversion = async () => {
         const originalSize = response.headers.get('X-Original-Size') || '0'
         const processedWidth = response.headers.get('X-Processed-Width') || '0'
         const processedHeight = response.headers.get('X-Processed-Height') || '0'
-        const processedSize = response.headers.get('X-Processed-Size') || '0'
         const processedFilename = response.headers.get('X-Processed-Filename') || `converted.${convertOptions.value.format}`
         
         // 创建下载URL
@@ -730,6 +725,11 @@ onUnmounted(() => {
 :root.dark .heic-converter #image-quality,
 :root.dark .heic-converter #image-quality::-moz-range-track {
   background: #1e293b;
+}
+
+:root.dark .heic-converter #image-quality::-webkit-slider-thumb,
+:root.dark .heic-converter #image-quality::-moz-range-thumb {
+  background: #f8fafc;
 }
 </style>
 

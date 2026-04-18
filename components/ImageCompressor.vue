@@ -23,13 +23,13 @@
         <div 
           class="enhanced-upload-zone"
           :class="{ 'drag-over': isDragging }"
+          role="button"
+          tabindex="0"
+          :aria-label="$t('imageCompressor.dragText')"
           @dragenter="handleDragEnter"
           @dragleave="handleDragLeave"
           @dragover="handleDragOver"
           @drop="handleDrop"
-          role="button"
-          tabindex="0"
-          :aria-label="$t('imageCompressor.dragText')"
           @keydown.enter="fileInput?.click()"
           @keydown.space.prevent="fileInput?.click()"
         >
@@ -66,8 +66,8 @@
                     multiple 
                     accept="image/*"
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    @change="handleFileSelect"
                     aria-describedby="file-support-info"
+                    @change="handleFileSelect"
                   >
                 </label>
               </div>
@@ -116,9 +116,9 @@
             <span class="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 text-sm font-medium px-2.5 py-0.5 rounded-full">{{ files.length }}</span>
           </h3>
           <button 
-            @click="clearFiles"
             class="btn-secondary text-sm"
             :aria-label="$t('common.clearAll') + ' (' + files.length + $t('imageCompressor.files') + ')'"
+            @click="clearFiles"
           >
             <Icon name="heroicons:trash" class="mr-2" aria-hidden="true" />
             {{ $t('imageCompressor.clearAll') }}
@@ -141,9 +141,9 @@
               </div>
             </div>
             <button 
-              @click="removeFile(index)"
               class="interactive-element p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all duration-200"
               :aria-label="$t('common.removeFile') + ' ' + file.name"
+              @click="removeFile(index)"
             >
               <Icon name="heroicons:x-mark" class="text-lg" aria-hidden="true" />
             </button>
@@ -163,9 +163,9 @@
           <button
             v-for="preset in scenePresets"
             :key="preset.id"
-            @click="applyPreset(preset.id)"
             class="preset-card"
             :class="{ 'active': activePresetId === preset.id, 'customized': activePresetId === preset.id && hasCustomOverrides }"
+            @click="applyPreset(preset.id)"
           >
             <Icon :name="preset.icon" class="text-2xl mb-2 text-slate-700 dark:text-slate-200" aria-hidden="true" />
             <p class="font-medium text-sm text-gray-900 dark:text-gray-100">{{ $t(preset.labelKey) }}</p>
@@ -244,9 +244,9 @@
           <!-- 高级设置折叠按钮 -->
           <div class="md:col-span-2">
             <button
-              @click="showAdvancedSettings = !showAdvancedSettings"
               type="button"
               class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              @click="showAdvancedSettings = !showAdvancedSettings"
             >
               <Icon :name="showAdvancedSettings ? 'heroicons:chevron-up' : 'heroicons:chevron-down'" class="text-lg" aria-hidden="true" />
               {{ showAdvancedSettings ? $t('imageCompressor.presets.hideAdvanced') : $t('imageCompressor.presets.showAdvanced') }}
@@ -297,10 +297,10 @@
               <button
                 v-for="preset in targetSizePresets"
                 :key="preset.value"
-                @click="applyTargetSize(preset.value)"
                 type="button"
                 class="px-3 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-600 hover:border-teal-500 dark:hover:border-teal-400 transition-colors"
                 :class="compressionOptions.maxSizeMB === preset.value ? 'bg-teal-100 dark:bg-teal-900 border-teal-500 text-teal-700 dark:text-teal-300' : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300'"
+                @click="applyTargetSize(preset.value)"
               >
                 {{ $t(preset.label) }}
               </button>
@@ -354,10 +354,10 @@
         <div class="space-y-6">
           <!-- 压缩按钮 -->
           <button 
-            @click="startCompression"
             :disabled="!canCompress"
             class="compress-button w-full flex items-center justify-center gap-3"
             :aria-label="isCompressing ? $t('imageCompressor.compressing') : $t('imageCompressor.startCompress') + ' ' + files.length + ' ' + $t('imageCompressor.files')"
+            @click="startCompression"
           >
             <Icon 
               :name="isCompressing ? 'heroicons:arrow-path' : 'heroicons:arrow-down-tray'" 
@@ -378,7 +378,7 @@
               <div 
                 class="enhanced-progress-fill"
                 :style="{ width: `${progress.percentage}%` }"
-              ></div>
+              />
             </div>
             <p class="text-center text-sm text-gray-600 dark:text-gray-400 font-medium">
               {{ $t('imageCompressor.processingFile') }}: {{ progress.currentFileName }}
@@ -477,8 +477,8 @@
                 </div>
                 
                 <button 
-                  @click="downloadCompressedFile(result)"
                   class="download-button w-full text-sm"
+                  @click="downloadCompressedFile(result)"
                 >
                   <Icon name="heroicons:arrow-down-tray" class="mr-2" aria-hidden="true" />
                   {{ $t('imageCompressor.download') }}
@@ -490,15 +490,15 @@
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
-            @click="downloadAll"
             class="download-button text-lg"
+            @click="downloadAll"
           >
             <Icon name="heroicons:arrow-down-tray" class="mr-2 text-xl" aria-hidden="true" />
             {{ $t('imageCompressor.downloadAll') }}
           </button>
           <button 
-            @click="resetCompressor"
             class="btn-secondary text-lg py-3 px-6"
+            @click="resetCompressor"
           >
             <Icon name="heroicons:trash" class="mr-2 text-xl" aria-hidden="true" />
             {{ $t('imageCompressor.restart') }}
@@ -959,32 +959,6 @@ const getDynamicCorrectionFactor = (format: string, quality: number, complexity:
   // 计算校正因子（限制在0.5-2.0之间）
   const correctionFactor = 1 - avgError * 0.8 // 80%的校正强度
   return Math.max(0.5, Math.min(2.0, correctionFactor))
-}
-
-// 获取预估准确性统计
-const getAccuracyStats = () => {
-  if (compressionHistory.value.length === 0) return null
-  
-  const recentRecords = compressionHistory.value.slice(-20) // 最近20条记录
-  let totalError = 0
-  let validRecords = 0
-  
-  recentRecords.forEach(record => {
-    if (record.actualSize > 0 && record.estimatedSize > 0) {
-      const error = Math.abs(record.estimatedSize - record.actualSize) / record.actualSize
-      totalError += error
-      validRecords++
-    }
-  })
-  
-  if (validRecords === 0) return null
-  
-  const avgError = (totalError / validRecords) * 100
-  return {
-    averageError: avgError,
-    recordCount: validRecords,
-    accuracy: Math.max(0, 100 - avgError)
-  }
 }
 
 // 压缩统计

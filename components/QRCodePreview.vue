@@ -54,7 +54,7 @@
           :alt="$t('qrCodeGenerator.preview.aria.imageAlt')"
           class="max-w-full h-auto rounded"
           :style="{ width: `${qrCode.size}px`, height: `${qrCode.size}px` }"
-        />
+        >
       </figure>
 
       <!-- 二维码信息 -->

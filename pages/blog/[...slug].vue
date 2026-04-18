@@ -176,7 +176,7 @@ useBlogArticleMeta(articleMeta)
         <Transition name="fade" mode="out-in">
           <div v-if="pending" key="loading" class="flex min-h-[280px] items-center justify-center" role="status" aria-live="polite">
             <div class="text-center">
-              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"></div>
+              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"/>
               <p class="text-slate-600 dark:text-slate-300">{{ $t('blog.loading') }}</p>
             </div>
           </div>
@@ -284,9 +284,9 @@ useBlogArticleMeta(articleMeta)
           </NuxtLink>
 
           <button
-            @click="shareArticle"
             class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
             type="button"
+            @click="shareArticle"
           >
             <Icon name="heroicons:square-2-stack" class="h-4 w-4" aria-hidden="true" />
             {{ $t('blog.article.copyLink') }}

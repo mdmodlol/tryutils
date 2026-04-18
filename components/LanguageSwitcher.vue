@@ -2,15 +2,15 @@
   <div class="relative inline-block text-left">
     <!-- 触发按钮 -->
     <button
-      @click="toggleDropdown"
-      @keydown="handleKeyDown"
+      ref="triggerButton"
       class="language-switcher-btn group"
       :aria-label="$t('common.language')"
       :aria-expanded="isOpen"
       aria-haspopup="listbox"
       :aria-describedby="isOpen ? 'language-menu' : undefined"
-      ref="triggerButton"
       type="button"
+      @click="toggleDropdown"
+      @keydown="handleKeyDown"
     >
       <Icon name="heroicons:language" class="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" aria-hidden="true" />
       <span class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -37,19 +37,18 @@
     >
       <div
         v-show="isOpen"
-        class="language-dropdown"
-        @mousedown.prevent
+        id="language-menu"
         ref="dropdownMenu"
+        class="language-dropdown"
         role="listbox"
         :aria-labelledby="triggerButton?.id || 'language-switcher'"
-        id="language-menu"
+        @mousedown.prevent
       >
         <div class="py-1" role="none">
           <button
             v-for="(lang, index) in languages"
             :key="lang.code"
-            @mousedown.prevent="selectLanguage(lang.code)"
-            @keydown="handleOptionKeyDown($event, index)"
+            :ref="el => { if (el) optionRefs[index] = el as HTMLButtonElement }"
             :class="[
               'language-option',
               currentLocale === lang.code ? 'language-option-active' : 'language-option-inactive'
@@ -58,8 +57,9 @@
             :aria-selected="currentLocale === lang.code"
             :aria-label="`切换到${lang.name}`"
             :tabindex="isOpen ? 0 : -1"
-            :ref="el => { if (el) optionRefs[index] = el as HTMLButtonElement }"
             type="button"
+            @mousedown.prevent="selectLanguage(lang.code)"
+            @keydown="handleOptionKeyDown($event, index)"
           >
             <span class="language-flag" aria-hidden="true">{{ lang.flag }}</span>
             <span class="language-name">{{ lang.name }}</span>

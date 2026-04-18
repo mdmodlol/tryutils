@@ -533,7 +533,8 @@ const sideBySideLines = computed(() => {
               {{ line.newLine ?? '' }}
             </span>
             <!-- Prefix -->
-            <span class="w-6 shrink-0 text-center py-0.5 select-none" :class="{
+            <span
+class="w-6 shrink-0 text-center py-0.5 select-none" :class="{
               'text-green-600 dark:text-green-400': line.type === 'add',
               'text-red-600 dark:text-red-400': line.type === 'delete',
               'text-gray-400': line.type === 'equal',

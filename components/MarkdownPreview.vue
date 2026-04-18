@@ -328,7 +328,7 @@ onMounted(() => {
               class="hidden"
               :aria-label="t('markdownPreview.actions.upload')"
               @change="handleFileUpload"
-            />
+            >
             <span class="flex items-center gap-1 text-sm text-teal-700 hover:underline dark:text-teal-300">
               <Icon name="heroicons:arrow-up-tray" class="h-4 w-4" />
               {{ t('markdownPreview.actions.upload') }}
@@ -375,9 +375,9 @@ onMounted(() => {
 
         <div class="prose prose-sm dark:prose-invert max-w-none flex-1 overflow-auto p-4">
           <div
-            v-html="outputHtml"
             class="text-slate-900 dark:text-slate-100"
             :aria-label="t('markdownPreview.previewLabel')"
+            v-html="outputHtml"
           />
         </div>
       </div>

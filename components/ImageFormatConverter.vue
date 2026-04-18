@@ -28,13 +28,13 @@
         <div 
           class="enhanced-upload-zone"
           :class="{ 'drag-over': isDragging }"
+          role="button"
+          tabindex="0"
+          :aria-label="$t('imageFormatConverter.dragText')"
           @dragenter="handleDragEnter"
           @dragleave="handleDragLeave"
           @dragover="handleDragOver"
           @drop="handleDrop"
-          role="button"
-          tabindex="0"
-          :aria-label="$t('imageFormatConverter.dragText')"
           @keydown.enter="fileInput?.click()"
           @keydown.space.prevent="fileInput?.click()"
         >
@@ -71,8 +71,8 @@
                     multiple 
                     accept="image/*"
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    @change="handleFileSelect"
                     aria-describedby="file-support-info"
+                    @change="handleFileSelect"
                   >
                 </label>
               </div>
@@ -139,18 +139,18 @@
             :key="format.value"
             class="format-option"
             :class="{ 'selected': conversionOptions.targetFormat === format.value }"
-            @click="conversionOptions.targetFormat = format.value"
             role="radio"
             :aria-checked="conversionOptions.targetFormat === format.value"
             tabindex="0"
+            @click="conversionOptions.targetFormat = format.value"
             @keydown.enter="conversionOptions.targetFormat = format.value"
             @keydown.space.prevent="conversionOptions.targetFormat = format.value"
           >
             <input 
-              type="radio" 
               :id="format.value" 
-              :value="format.value" 
-              v-model="conversionOptions.targetFormat"
+              v-model="conversionOptions.targetFormat" 
+              type="radio" 
+              :value="format.value"
               class="sr-only"
             >
             <label :for="format.value" class="cursor-pointer block text-center p-3">
@@ -176,10 +176,10 @@
           <div class="flex items-center gap-4">
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.low') }}</span>
             <input 
+              v-model="conversionOptions.quality" 
               type="range" 
               min="1" 
-              max="100" 
-              v-model="conversionOptions.quality"
+              max="100"
               class="flex-1 quality-slider"
               :aria-label="$t('imageFormatConverter.quality')"
               aria-describedby="quality-description"
@@ -197,10 +197,10 @@
           <div class="flex items-center gap-4">
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.fast') }}</span>
             <input 
+              v-model="conversionOptions.compressionLevel" 
               type="range" 
               min="0" 
-              max="9" 
-              v-model="conversionOptions.compressionLevel"
+              max="9"
               class="flex-1 compression-slider"
               :aria-label="$t('imageFormatConverter.compressionLevel')"
               aria-describedby="compression-description"
@@ -218,10 +218,10 @@
           <div class="flex items-center gap-4">
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ $t('imageFormatConverter.slow') }}</span>
             <input 
+              v-model="conversionOptions.speed" 
               type="range" 
               min="0" 
-              max="8" 
-              v-model="conversionOptions.speed"
+              max="8"
               class="flex-1 speed-slider"
               :aria-label="$t('imageFormatConverter.speed')"
               aria-describedby="speed-description"
@@ -235,10 +235,10 @@
       <!-- 转换按钮 -->
       <div class="text-center mt-8">
         <button 
-          @click="convertFormat"
           :disabled="isConverting || !conversionOptions.targetFormat"
           class="convert-button"
           :aria-label="isConverting ? $t('imageFormatConverter.converting') : $t('imageFormatConverter.convert')"
+          @click="convertFormat"
         >
           <Icon 
             :name="isConverting ? 'heroicons:arrow-path' : 'heroicons:arrow-right'" 
@@ -255,7 +255,7 @@
     <section v-if="isConverting" class="progress-section" role="region" aria-labelledby="progress-title">
       <h3 id="progress-title" class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">{{ $t('imageFormatConverter.progress') }}</h3>
       <div class="enhanced-progress" role="progressbar" :aria-valuenow="conversionProgress" aria-valuemin="0" aria-valuemax="100" :aria-label="$t('accessibility.conversionProgressAriaLabel', { progress: conversionProgress })">
-        <div class="enhanced-progress-fill" :style="{ width: `${conversionProgress}%` }"></div>
+        <div class="enhanced-progress-fill" :style="{ width: `${conversionProgress}%` }"/>
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center" role="status" aria-live="polite">{{ conversionProgress }}%</p>
     </section>
@@ -278,7 +278,7 @@
               <p class="text-sm text-gray-500 dark:text-gray-400">{{ conversionResult.details }}</p>
             </div>
           </div>
-          <button @click="downloadResult" class="download-button" :aria-label="$t('accessibility.downloadFileAriaLabel', { filename: conversionResult.filename })">
+          <button class="download-button" :aria-label="$t('accessibility.downloadFileAriaLabel', { filename: conversionResult.filename })" @click="downloadResult">
             <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 mr-2" aria-hidden="true" />
             {{ $t('imageFormatConverter.download') }}
           </button>

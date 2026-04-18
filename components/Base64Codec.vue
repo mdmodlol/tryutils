@@ -417,7 +417,7 @@ function handleImageError(): void {
               accept="image/*"
               class="hidden"
               @change="handleFileSelect"
-            />
+            >
           </div>
         </div>
 
@@ -475,7 +475,7 @@ function handleImageError(): void {
                 alt="Decoded image preview"
                 class="max-h-[460px] max-w-full rounded-2xl border border-slate-200 object-contain dark:border-slate-700"
                 @error="handleImageError"
-              />
+              >
             </div>
             <div
               v-else

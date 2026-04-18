@@ -97,7 +97,7 @@ export interface SoftwareApplicationSchema {
 
 export const useStructuredData = () => {
   const route = useRoute()
-  const { t, locale } = useI18n()
+  const { t } = useI18n()
   const baseUrl = 'https://www.tryutils.com'
   
   // 组织信息结构化数据

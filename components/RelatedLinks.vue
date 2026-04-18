@@ -70,10 +70,10 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   links: () => [],
+  title: '',
   category: 'tools'
 })
 
-const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 

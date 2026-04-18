@@ -22,7 +22,7 @@ export const useImageConverter = () => {
   const loadHeicConvert = async () => {
     try {
       // 根据环境选择合适的heic-convert版本
-      const heicConvertModule = process.server 
+      const heicConvertModule = import.meta.server 
         ? await import('heic-convert')
         : await import('heic-convert/browser')
       
@@ -191,7 +191,7 @@ export const useImageConverter = () => {
       try {
         // 第一步：使用heic-convert在客户端解码HEIC为通用格式
         progress.value = 20
-        const { blob: decodedBlob, filename: tempFilename } = await decodeHEICWithClient(file, options)
+        const { blob: decodedBlob } = await decodeHEICWithClient(file, options)
         
         progress.value = 50
 
@@ -254,7 +254,7 @@ export const useImageConverter = () => {
 
           // 第二步：将所有解码后的文件发送到服务端进行批量优化
           const formData = new FormData()
-          decodedFiles.forEach((decoded, index) => {
+          decodedFiles.forEach((decoded) => {
             const tempFile = new File([decoded.blob], `${decoded.originalName}_decoded.png`, { type: 'image/png' })
             formData.append('files', tempFile)
           })
@@ -315,7 +315,7 @@ export const useImageConverter = () => {
    * 下载转换后的文件
    */
   const downloadFile = (result: ConvertResult) => {
-    if (process.server) return
+    if (import.meta.server) return
     
     const link = document.createElement('a')
     link.href = result.url
@@ -329,7 +329,7 @@ export const useImageConverter = () => {
    * 批量下载文件
    */
   const downloadMultiple = (results: ConvertResult[]) => {
-    if (process.server) return
+    if (import.meta.server) return
     
     results.forEach(result => {
       setTimeout(() => downloadFile(result), 100) // 稍微延迟避免浏览器阻止

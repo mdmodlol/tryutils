@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<Props>(), {
   generateSchema: true
 })
 
-const { t } = useI18n()
 const localePath = useLocalePath()
 const runtimeConfig = useRuntimeConfig()
 

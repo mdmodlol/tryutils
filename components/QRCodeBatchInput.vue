@@ -71,7 +71,7 @@
         class="hidden"
         :aria-label="$t('qrCodeGenerator.batch.csvImport')"
         @change="handleCsvUpload"
-      />
+      >
     </div>
 
     <!-- CSV 导入错误 -->
@@ -109,15 +109,12 @@ interface Props {
   maxItems?: number
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: string[]): void
-}
-
 const props = withDefaults(defineProps<Props>(), {
   maxItems: 50
 })
-
-const emit = defineEmits<Emits>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string[]): void
+}>()
 
 // 生成唯一组件 ID
 const componentId = ref(`batch-input-${Math.random().toString(36).substr(2, 9)}`)

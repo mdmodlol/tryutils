@@ -173,7 +173,7 @@ export async function convertToFormat(
   format: string,
   options: SharpConvertOptions = { quality: 80 }
 ): Promise<{ data: Buffer; info: sharp.OutputInfo }> {
-  const { quality, compressionLevel = 6, speed = 4, animated = false } = options
+  const { quality, compressionLevel = 6, animated = false } = options
 
   switch (format.toLowerCase()) {
     case 'jpeg':
@@ -284,7 +284,7 @@ export function setBatchZipResponseHeaders(
     format: string
   }
 ): void {
-  const { zipFilename, zipSize, processedFiles, format } = opts
+  const { zipFilename, processedFiles, format } = opts
   const totalOriginalSize = processedFiles.reduce((sum, f) => sum + f.originalSize, 0)
   const totalProcessedSize = processedFiles.reduce((sum, f) => sum + f.processedSize, 0)
   const compressionRatio = totalOriginalSize > 0

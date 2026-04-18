@@ -256,7 +256,7 @@
                 :src="result.dataUrl"
                 :alt="$t('qrCodeGenerator.batch.resultAlt', { index: index + 1, content: batchInput[index] })"
                 class="w-full h-auto rounded"
-              />
+              >
               <figcaption class="mt-2 text-xs text-gray-600 dark:text-gray-400 truncate">
                 {{ batchInput[index] }}
               </figcaption>
@@ -315,7 +315,7 @@ let debounceTimer: ReturnType<typeof setTimeout> | null = null
 const { generateQRCode, isGenerating, error: generatorError } = useQRCodeGenerator()
 const { exportToPNG, exportToSVG, exportBatchToZip, isExporting, error: exportError } = useQRCodeExport()
 const { generateBatchAsync, progress, error: batchError } = useQRCodeBatch()
-const { registerBlobUrl, revokeBlobUrl, cleanup } = useDataCleanup()
+const { registerBlobUrl, revokeBlobUrl } = useDataCleanup()
 
 // 拖拽上传 (用于 Logo)
 const {
@@ -346,16 +346,6 @@ const canGenerateBatch = computed(() => {
 const switchMode = (newMode: 'single' | 'batch') => {
   mode.value = newMode
   clearError()
-}
-
-/**
- * 处理键盘事件 - 模式切换
- */
-const handleModeKeydown = (event: KeyboardEvent, newMode: 'single' | 'batch') => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault()
-    switchMode(newMode)
-  }
 }
 
 /**

@@ -114,7 +114,7 @@ setStructuredData([
 
           <div v-if="pending" class="flex min-h-[240px] items-center justify-center" role="status" aria-live="polite">
             <div class="text-center">
-              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"></div>
+              <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-600"/>
               <p class="text-slate-600 dark:text-slate-300">{{ $t('blog.loading') }}</p>
             </div>
           </div>
@@ -129,8 +129,8 @@ setStructuredData([
                 v-for="article in filteredArticles"
                 :key="article._path"
                 :article="article"
-                @tag-click="handleTagClick"
                 role="listitem"
+                @tag-click="handleTagClick"
               />
             </div>
           </div>

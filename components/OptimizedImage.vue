@@ -18,7 +18,7 @@
       :role="decorative ? 'presentation' : undefined"
       @load="handleLoad"
       @error="handleError"
-    />
+    >
     <figcaption 
       v-if="caption" 
       :id="`${imageId}-caption`"
@@ -45,7 +45,7 @@
     :role="decorative ? 'presentation' : undefined"
     @load="handleLoad"
     @error="handleError"
-  />
+  >
 </template>
 
 <script setup lang="ts">

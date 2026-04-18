@@ -22,14 +22,14 @@
               type="color"
               class="w-16 h-10 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
               @input="handleColorChange"
-            />
+            >
             <input
               v-model="localOptions.foregroundColor"
               type="text"
             class="flex-1 rounded-xl border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               pattern="^#[0-9A-Fa-f]{6}$"
               @input="handleColorChange"
-            />
+            >
           </div>
         </div>
 
@@ -48,21 +48,21 @@
               type="color"
               class="w-16 h-10 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
               @input="handleColorChange"
-            />
+            >
             <input
               v-model="localOptions.backgroundColor"
               type="text"
             class="flex-1 rounded-xl border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               pattern="^#[0-9A-Fa-f]{6}$"
               @input="handleColorChange"
-            />
+            >
           </div>
         </div>
       </div>
 
       <!-- 颜色预设 -->
       <div class="color-presets mt-4">
-        <p class="text-sm font-medium mb-2 dark:text-gray-300" id="color-presets-label">
+        <p id="color-presets-label" class="text-sm font-medium mb-2 dark:text-gray-300">
           {{ $t('qrCodeGenerator.settings.colorPresets') }}
         </p>
         <div class="flex flex-wrap gap-2" role="group" aria-labelledby="color-presets-label">
@@ -140,7 +140,7 @@
           :aria-valuemax="1024"
           :aria-valuenow="localOptions.size"
           @input="handleSizeChange"
-        />
+        >
         <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1" aria-hidden="true">
           <span>128px</span>
           <span>1024px</span>
@@ -149,7 +149,7 @@
 
       <!-- 尺寸预设 -->
       <div class="size-presets">
-        <p class="text-sm font-medium mb-2 dark:text-gray-300" id="size-presets-label">
+        <p id="size-presets-label" class="text-sm font-medium mb-2 dark:text-gray-300">
           {{ $t('qrCodeGenerator.settings.size') }}
         </p>
         <div class="grid grid-cols-3 gap-2" role="group" aria-labelledby="size-presets-label">
@@ -215,7 +215,7 @@
               accept="image/png,image/jpeg,image/svg+xml"
               :aria-label="$t('qrCodeGenerator.settings.uploadLogo')"
               @change="handleLogoUpload"
-            />
+            >
           </label>
         </div>
 
@@ -226,7 +226,7 @@
               :src="localOptions.logo.dataUrl"
               :alt="t('qrCodeGenerator.settings.aria.logoPreview')"
               class="w-32 h-32 object-contain border border-gray-300 dark:border-gray-600 rounded-lg"
-            />
+            >
             <button
               type="button"
               class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-rose-500 text-white transition-colors hover:bg-rose-600"
@@ -265,7 +265,7 @@
               :aria-valuemax="30"
               :aria-valuenow="logoSizePercent"
               @input="handleLogoSizeChange"
-            />
+            >
             <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1" aria-hidden="true">
               <span>10%</span>
               <span>30%</span>
@@ -309,12 +309,11 @@ interface Props {
   modelValue: Partial<QRCodeOptions>
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: Partial<QRCodeOptions>): void
-}
-
 const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+// @ts-expect-error - Vue emit type system requires parameter names
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Partial<QRCodeOptions>): void
+}>()
 
 // 生成唯一组件 ID
 const componentId = ref(`qr-settings-${Math.random().toString(36).substr(2, 9)}`)
@@ -415,31 +414,11 @@ const applyColorPreset = (preset: ColorPreset) => {
 }
 
 /**
- * 处理颜色预设键盘事件
- */
-const handleColorPresetKeydown = (event: KeyboardEvent, preset: ColorPreset) => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault()
-    applyColorPreset(preset)
-  }
-}
-
-/**
  * 应用尺寸预设
  */
 const applySizePreset = (preset: SizePreset) => {
   localOptions.value.size = preset.size
   emitUpdate()
-}
-
-/**
- * 处理尺寸预设键盘事件
- */
-const handleSizePresetKeydown = (event: KeyboardEvent, preset: SizePreset) => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault()
-    applySizePreset(preset)
-  }
 }
 
 /**

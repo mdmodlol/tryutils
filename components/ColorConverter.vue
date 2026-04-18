@@ -285,9 +285,9 @@ onMounted(() => {
               type="color"
               :value="hex"
               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              @input="onColorPicker"
               :aria-label="t('colorConverter.preview.title')"
-            />
+              @input="onColorPicker"
+            >
             <span class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
               <Icon name="heroicons:swatch" class="w-4 h-4" aria-hidden="true" />
               {{ t('colorConverter.preview.title') }}
@@ -330,11 +330,11 @@ onMounted(() => {
               <input
                 type="text"
                 :value="hex"
-                @change="onHexInput(($event.target as HTMLInputElement).value)"
                 class="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 placeholder="#FF5733"
                 maxlength="7"
-              />
+                @change="onHexInput(($event.target as HTMLInputElement).value)"
+              >
             </div>
           </div>
 
@@ -361,11 +361,11 @@ onMounted(() => {
                 <input
                   type="number"
                   :value="rgb[ch]"
-                  @change="onRgbInput(ch, ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="255"
                   class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
+                  @change="onRgbInput(ch, ($event.target as HTMLInputElement).value)"
+                >
               </div>
             </div>
           </div>
@@ -393,33 +393,33 @@ onMounted(() => {
                 <input
                   type="number"
                   :value="hsl.h"
-                  @change="onHslInput('h', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="360"
                   class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
+                  @change="onHslInput('h', ($event.target as HTMLInputElement).value)"
+                >
               </div>
               <div>
                 <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">S (0-100%)</label>
                 <input
                   type="number"
                   :value="hsl.s"
-                  @change="onHslInput('s', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="100"
                   class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
+                  @change="onHslInput('s', ($event.target as HTMLInputElement).value)"
+                >
               </div>
               <div>
                 <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">L (0-100%)</label>
                 <input
                   type="number"
                   :value="hsl.l"
-                  @change="onHslInput('l', ($event.target as HTMLInputElement).value)"
                   min="0"
                   max="100"
                   class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 font-mono text-sm text-slate-900 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
+                  @change="onHslInput('l', ($event.target as HTMLInputElement).value)"
+                >
               </div>
             </div>
           </div>
@@ -544,8 +544,8 @@ onMounted(() => {
           class="group relative h-12 w-12 rounded-2xl border transition-all hover:scale-105"
           :class="color === hex ? 'border-teal-500 ring-2 ring-teal-300 dark:ring-teal-800' : 'border-slate-200 dark:border-slate-700'"
           :style="{ backgroundColor: color }"
-          @click="selectHistory(color)"
           :aria-label="color"
+          @click="selectHistory(color)"
         >
           <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 text-[9px] font-mono font-bold transition-opacity" :style="{ color: contrastText(color) }">{{ color }}</span>
         </button>

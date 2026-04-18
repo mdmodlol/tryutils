@@ -93,12 +93,10 @@ export function generateToolAnchorText(
  * Ensures anchor text contains at least one keyword from the article's keyword list
  * 
  * @param article - The article data
- * @param locale - Current locale
  * @returns Anchor text result with keyword match info
  */
 export function generateArticleAnchorText(
-  article: RelatedArticle,
-  locale: 'zh' | 'en' = 'zh'
+  article: RelatedArticle
 ): AnchorTextResult {
   const title = article.title
   const keywords = Array.isArray(article.keywords) ? article.keywords : []

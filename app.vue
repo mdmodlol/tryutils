@@ -12,7 +12,7 @@
         </a>
 
         <!-- 顶部导航栏 -->
-        <header class="bg-white/86 dark:bg-slate-950/82 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-300" role="banner">
+        <header class="sticky top-0 z-50 bg-white/86 dark:bg-slate-950/82 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-300" role="banner">
           <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
               <!-- 品牌标志 -->
@@ -191,14 +191,14 @@
               
               <!-- 移动端菜单按钮 -->
               <button 
-                @click="toggleMobileMenu"
                 class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
                 :aria-expanded="isMobileMenuOpen"
                 aria-controls="mobile-menu"
                 :aria-label="$t('nav.toggleMobileMenu')"
+                @click="toggleMobileMenu"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
               </button>
             </div>
@@ -217,10 +217,10 @@
               >
                 <NuxtLink 
                   :to="localePath('/')" 
-                  @click="closeMobileMenu"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/') ? 'page' : undefined"
+                  @click="closeMobileMenu"
                 >
                   {{ $t('nav.home') }}
                 </NuxtLink>
@@ -232,25 +232,25 @@
                   </div>
                   <NuxtLink 
                     :to="localePath('/image-compressor')" 
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.imageCompressor') }}
                   </NuxtLink>
                   <NuxtLink 
                     :to="localePath('/image-format-converter')" 
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.imageFormatConverter') }}
                   </NuxtLink>
                   <NuxtLink 
                     :to="localePath('/heic-converter')" 
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.heicConverter') }}
                   </NuxtLink>
@@ -263,41 +263,41 @@
                   </div>
                   <NuxtLink
                     :to="localePath('/json-formatter')"
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.jsonFormatter') }}
                   </NuxtLink>
                   <NuxtLink
                     :to="localePath('/base64-codec')"
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.base64Codec') }}
                   </NuxtLink>
                   <NuxtLink
                     :to="localePath('/color-converter')"
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.colorConverter') }}
                   </NuxtLink>
                   <NuxtLink
                     :to="localePath('/text-diff')"
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.textDiff') }}
                   </NuxtLink>
                   <NuxtLink
                     :to="localePath('/url-codec')"
-                    @click="closeMobileMenu"
                     class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 pl-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     active-class="text-blue-600"
+                    @click="closeMobileMenu"
                   >
                     {{ $t('nav.urlCodec') }}
                   </NuxtLink>
@@ -305,28 +305,28 @@
                 
                 <NuxtLink
                   :to="localePath('/blog')"
-                  @click="closeMobileMenu"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                   active-class="text-blue-600"
                   :aria-current="$route.path.startsWith(localePath('/blog')) ? 'page' : undefined"
+                  @click="closeMobileMenu"
                 >
                   {{ $t('nav.blog') }}
                 </NuxtLink>
                 <NuxtLink 
                   :to="localePath('/about')" 
-                  @click="closeMobileMenu"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/about') ? 'page' : undefined"
+                  @click="closeMobileMenu"
                 >
                   {{ $t('nav.about') }}
                 </NuxtLink>
                 <NuxtLink 
                   :to="localePath('/contact')" 
-                  @click="closeMobileMenu"
                   class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                   active-class="text-blue-600"
                   :aria-current="$route.path === localePath('/contact') ? 'page' : undefined"
+                  @click="closeMobileMenu"
                 >
                   {{ $t('nav.contact') }}
                 </NuxtLink>

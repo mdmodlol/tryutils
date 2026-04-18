@@ -5,22 +5,22 @@
       <input
         id="blog-search"
         :value="searchQuery"
-        @input="$emit('update:searchQuery', $event.target.value)"
         type="text"
         :placeholder="$t('blog.search.placeholder')"
         class="w-full rounded-[24px] border border-slate-200 bg-white px-5 py-4 pl-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-teal-400"
         :aria-describedby="searchQuery || selectedTag ? 'search-results-info' : undefined"
         autocomplete="off"
         role="searchbox"
+        @input="$emit('update:searchQuery', $event.target.value)"
       >
       <Icon name="heroicons:magnifying-glass" class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-slate-500" aria-hidden="true" />
 
       <button
         v-if="searchQuery"
-        @click="$emit('update:searchQuery', '')"
         class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-slate-400 transition hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300"
         :aria-label="$t('blog.search.clearSearch')"
         type="button"
+        @click="$emit('update:searchQuery', '')"
       >
         <Icon name="heroicons:x-mark" class="h-4 w-4" aria-hidden="true" />
       </button>
@@ -28,7 +28,6 @@
 
     <div class="flex flex-wrap gap-2" role="group" :aria-label="$t('accessibility.filterByTags')">
       <button
-        @click="$emit('update:selectedTag', '')"
         :class="[
           'rounded-full border px-4 py-2 text-sm font-medium transition',
           !selectedTag
@@ -37,6 +36,7 @@
         ]"
         type="button"
         :aria-pressed="!selectedTag"
+        @click="$emit('update:selectedTag', '')"
       >
         {{ $t('blog.search.all') }}
       </button>
@@ -44,7 +44,6 @@
       <button
         v-for="tag in tags"
         :key="tag"
-        @click="$emit('update:selectedTag', selectedTag === tag ? '' : tag)"
         :class="[
           'rounded-full border px-4 py-2 text-sm font-medium transition',
           selectedTag === tag
@@ -53,6 +52,7 @@
         ]"
         type="button"
         :aria-pressed="selectedTag === tag"
+        @click="$emit('update:selectedTag', selectedTag === tag ? '' : tag)"
       >
         {{ tag }}
       </button>

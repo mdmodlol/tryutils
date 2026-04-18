@@ -81,7 +81,6 @@ export interface ProductSchema {
 
 export const useEnhancedStructuredData = () => {
   const route = useRoute()
-  const { t, locale } = useI18n()
   const baseUrl = 'https://www.tryutils.com'
   
   // FAQ页面结构化数据

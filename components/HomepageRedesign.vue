@@ -708,6 +708,43 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
   box-shadow: 0 24px 60px rgba(2, 6, 23, 0.45);
 }
 
+@media (min-width: 768px) {
+  .signal-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-frame {
+    padding: 2.5rem;
+  }
+
+  .category-surface {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-frame {
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+  }
+
+  .primary-action,
+  .secondary-action {
+    width: 100%;
+  }
+
+  .workspace-panel {
+    padding: 0.85rem;
+  }
+}
+</style>
+
+<!-- 非 scoped 样式 - 用于深色模式支持 -->
+<style>
 :global(.dark) .section-title {
   color: #f8fafc;
 }
@@ -715,6 +752,21 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
 :global(.dark) .section-description,
 :global(.dark) .future-bullet {
   color: #cbd5e1;
+}
+
+:global(.dark) .section-label,
+:global(.dark) .workspace-eyebrow,
+:global(.dark) .process-index {
+  color: #5eead4;
+}
+
+:global(.dark) .primary-action {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+:global(.dark) .future-bullet-dot {
+  background: #5eead4;
 }
 
 :global(.dark) .secondary-action {
@@ -763,39 +815,5 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
 :global(.dark) .tool-row-icon {
   background: rgba(45, 212, 191, 0.12);
   color: #5eead4;
-}
-
-@media (min-width: 768px) {
-  .signal-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-frame {
-    padding: 2.5rem;
-  }
-
-  .category-surface {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: start;
-    padding: 2rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-frame {
-    padding: 1.25rem;
-    border-radius: 1.5rem;
-  }
-
-  .primary-action,
-  .secondary-action {
-    width: 100%;
-  }
-
-  .workspace-panel {
-    padding: 0.85rem;
-  }
 }
 </style>
