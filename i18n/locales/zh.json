@@ -449,6 +449,40 @@
     },
     "sections": {
       "toolTitle": "图片压缩工具"
+    },
+    "presets": {
+      "title": "选择使用场景",
+      "description": "选择适合您的使用场景，预设参数将自动填充",
+      "usingPreset": "使用: {preset}",
+      "customized": "（已自定义）",
+      "targetSize": {
+        "label": "目标大小",
+        "200KB": "200KB",
+        "500KB": "500KB",
+        "1MB": "1MB",
+        "2MB": "2MB"
+      },
+      "advancedSettings": "高级设置",
+      "showAdvanced": "显示更多选项",
+      "hideAdvanced": "收起选项",
+      "cards": {
+        "website": {
+          "label": "网站上传",
+          "description": "现代网页图片，体积小"
+        },
+        "blog": {
+          "label": "博客配图",
+          "description": "文章配图，清晰适中"
+        },
+        "email": {
+          "label": "邮件附件",
+          "description": "邮件附件，体积要小"
+        },
+        "iphone": {
+          "label": "iPhone 照片分享",
+          "description": "手机照片，适合社交分享"
+        }
+      }
     }
   },
   "imageTools": {

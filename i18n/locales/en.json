@@ -457,6 +457,40 @@
     },
     "sections": {
       "toolTitle": "Image Compression Tool"
+    },
+    "presets": {
+      "title": "Select a Use Case",
+      "description": "Choose a use case and preset parameters will be applied automatically",
+      "usingPreset": "Using: {preset}",
+      "customized": "(Customized)",
+      "targetSize": {
+        "label": "Target Size",
+        "200KB": "200KB",
+        "500KB": "500KB",
+        "1MB": "1MB",
+        "2MB": "2MB"
+      },
+      "advancedSettings": "Advanced Settings",
+      "showAdvanced": "Show More Options",
+      "hideAdvanced": "Hide Options",
+      "cards": {
+        "website": {
+          "label": "Website Upload",
+          "description": "Modern web images, smaller size"
+        },
+        "blog": {
+          "label": "Blog Images",
+          "description": "Article images, clear and moderate"
+        },
+        "email": {
+          "label": "Email Attachments",
+          "description": "Email attachments, keep small"
+        },
+        "iphone": {
+          "label": "iPhone Photo Sharing",
+          "description": "Phone photos, great for social sharing"
+        }
+      }
     }
   },
   "imageTools": {

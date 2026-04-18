@@ -152,6 +152,32 @@
       </section>
     </ClientOnly>
 
+    <!-- 场景预设选择器 -->
+    <ClientOnly>
+      <section v-if="hasFiles" class="preset-selector-section slide-up" role="region" aria-labelledby="preset-title">
+        <h3 id="preset-title" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+          <Icon name="heroicons:sparkles" class="text-gray-700 dark:text-gray-300" aria-hidden="true" />
+          {{ $t('imageCompressor.presets.title') }}
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <button
+            v-for="preset in scenePresets"
+            :key="preset.id"
+            @click="applyPreset(preset.id)"
+            class="preset-card"
+            :class="{ 'active': activePresetId === preset.id, 'customized': activePresetId === preset.id && hasCustomOverrides }"
+          >
+            <Icon :name="preset.icon" class="text-2xl mb-2 text-slate-700 dark:text-slate-200" aria-hidden="true" />
+            <p class="font-medium text-sm text-gray-900 dark:text-gray-100">{{ $t(preset.labelKey) }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $t(preset.descriptionKey) }}</p>
+            <p v-if="activePresetId === preset.id && hasCustomOverrides" class="text-xs text-amber-600 dark:text-amber-400 mt-1">
+              {{ $t('imageCompressor.presets.customized') }}
+            </p>
+          </button>
+        </div>
+      </section>
+    </ClientOnly>
+
     <!-- 压缩设置 -->
     <ClientOnly>
       <section v-if="hasFiles" class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300" role="region" aria-labelledby="settings-title">
@@ -215,44 +241,71 @@
             </select>
           </div>
 
-          <!-- 最大宽度 -->
-          <div>
-            <label for="max-width" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {{ $t('imageCompressor.maxWidth') }}
-            </label>
-            <input 
-              id="max-width"
-              v-model.number="compressionOptions.maxWidth"
-              type="number"
-              min="100"
-              max="4096"
-              :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          <!-- 高级设置折叠按钮 -->
+          <div class="md:col-span-2">
+            <button
+              @click="showAdvancedSettings = !showAdvancedSettings"
+              type="button"
+              class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
             >
+              <Icon :name="showAdvancedSettings ? 'heroicons:chevron-up' : 'heroicons:chevron-down'" class="text-lg" aria-hidden="true" />
+              {{ showAdvancedSettings ? $t('imageCompressor.presets.hideAdvanced') : $t('imageCompressor.presets.showAdvanced') }}
+            </button>
           </div>
 
-          <!-- 最大高度 -->
-          <div>
-            <label for="max-height" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {{ $t('imageCompressor.maxHeight') }}
-            </label>
-            <input 
-              id="max-height"
-              v-model.number="compressionOptions.maxHeight"
-              type="number"
-              min="100"
-              max="4096"
-              :placeholder="$t('imageCompressor.noLimit')"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            >
-          </div>
+          <!-- 高级设置：最大宽度和最大高度 -->
+          <template v-if="showAdvancedSettings">
+            <!-- 最大宽度 -->
+            <div>
+              <label for="max-width" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {{ $t('imageCompressor.maxWidth') }}
+              </label>
+              <input
+                id="max-width"
+                v-model.number="compressionOptions.maxWidth"
+                type="number"
+                min="100"
+                max="4096"
+                :placeholder="$t('imageCompressor.noLimit')"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              >
+            </div>
+
+            <!-- 最大高度 -->
+            <div>
+              <label for="max-height" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {{ $t('imageCompressor.maxHeight') }}
+              </label>
+              <input
+                id="max-height"
+                v-model.number="compressionOptions.maxHeight"
+                type="number"
+                min="100"
+                max="4096"
+                :placeholder="$t('imageCompressor.noLimit')"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              >
+            </div>
+          </template>
 
           <!-- 最大文件大小 -->
           <div>
             <label for="max-size-mb" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {{ $t('imageCompressor.maxSizeMB') }}
             </label>
-            <input 
+            <div class="flex gap-2 mb-2">
+              <button
+                v-for="preset in targetSizePresets"
+                :key="preset.value"
+                @click="applyTargetSize(preset.value)"
+                type="button"
+                class="px-3 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-600 hover:border-teal-500 dark:hover:border-teal-400 transition-colors"
+                :class="compressionOptions.maxSizeMB === preset.value ? 'bg-teal-100 dark:bg-teal-900 border-teal-500 text-teal-700 dark:text-teal-300' : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300'"
+              >
+                {{ $t(preset.label) }}
+              </button>
+            </div>
+            <input
               id="max-size-mb"
               v-model.number="compressionOptions.maxSizeMB"
               type="number"
@@ -496,6 +549,15 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted, computed, watch } from 'vue'
+import {
+  buildPresetOptions,
+  getScenePresetById,
+  hasPresetOverrides,
+  scenePresets,
+  targetSizePresets,
+  type CompressionOptions,
+  type ScenePresetId,
+} from '~/types/compression-presets'
 
 const { t } = useI18n()
 
@@ -510,15 +572,6 @@ useHead({
     { name: 'keywords', content: () => t('imageCompressor.meta.keywords') }
   ]
 })
-
-// 压缩选项接口
-interface CompressionOptions {
-  quality: number
-  format: 'jpeg' | 'png' | 'webp' | 'avif'
-  maxWidth?: number
-  maxHeight?: number
-  maxSizeMB?: number
-}
 
 // 压缩结果接口
 interface CompressionResult {
@@ -606,6 +659,18 @@ const compressionOptions = ref<CompressionOptions>({
   maxSizeMB: undefined
 })
 
+// 预设相关状态
+const activePresetId = ref<ScenePresetId | null>(null)
+const showAdvancedSettings = ref(false)
+const activePreset = computed(() => getScenePresetById(activePresetId.value) ?? null)
+const hasCustomOverrides = computed(() => {
+  if (!activePreset.value) {
+    return false
+  }
+
+  return hasPresetOverrides(compressionOptions.value, activePreset.value.recommendedOptions)
+})
+
 // 压缩结果
 const compressionResults = ref<CompressionResult[]>([])
 
@@ -636,6 +701,21 @@ const compressionEstimate = computed(() => {
     estimatedSavings: Math.max(estimatedSavings, 0)
   }
 })
+
+// 应用预设
+const applyPreset = (presetId: ScenePresetId) => {
+  const presetOptions = buildPresetOptions(presetId)
+
+  if (!presetOptions) return
+
+  activePresetId.value = presetId
+  compressionOptions.value = presetOptions
+}
+
+// 应用目标大小预设
+const applyTargetSize = (sizeMB: number) => {
+  compressionOptions.value.maxSizeMB = sizeMB
+}
 
 // 高级压缩预估算法
 const calculateAdvancedCompression = (file: File): number => {
@@ -1220,6 +1300,7 @@ onMounted(() => {
 <style>
 :root.dark .image-compressor .core-feature-section,
 :root.dark .image-compressor .file-list-section,
+:root.dark .image-compressor .preset-selector-section,
 :root.dark .image-compressor .compress-section,
 :root.dark .image-compressor .results-section,
 :root.dark .image-compressor .instructions-section,
@@ -1262,6 +1343,7 @@ onMounted(() => {
 
 .core-feature-section,
 .file-list-section,
+.preset-selector-section,
 .compress-section,
 .results-section,
 .instructions-section {
@@ -1351,6 +1433,22 @@ onMounted(() => {
   @apply mt-1 h-6 w-6 flex-shrink-0 text-teal-700 dark:text-teal-300;
 }
 
+.preset-card {
+  @apply flex flex-col items-center p-4 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 transition-all duration-200 text-center;
+}
+
+.preset-card:hover {
+  @apply border-solid border-teal-400 bg-white dark:bg-slate-900;
+}
+
+.preset-card.active {
+  @apply border-solid border-teal-500 bg-teal-50 dark:bg-teal-900/30;
+}
+
+.preset-card.customized {
+  @apply border-amber-400 bg-amber-50 dark:bg-amber-900/20;
+}
+
 .fade-in-up {
   animation: fadeInUp 0.8s ease-out;
 }
@@ -1377,6 +1475,7 @@ onMounted(() => {
 
   .core-feature-section,
   .file-list-section,
+  .preset-selector-section,
   .compress-section,
   .results-section,
   .instructions-section {
