@@ -1,5 +1,6 @@
 import sharp from 'sharp'
 import JSZip from 'jszip'
+import heicConvert from 'heic-convert'
 import {
   parseBatchFormData,
   validateFormat,
@@ -39,7 +40,15 @@ export default defineEventHandler(async (event) => {
 
     for (const file of heicFiles) {
       try {
-        const sharpInstance = sharp(file.data)
+        // 用 heic-convert 将 HEIC 解码为 JPEG 中间格式（sharp 不支持直接处理 HEIC）
+        const decodedBuffer = await heicConvert({
+          buffer: file.data,
+          format: 'JPEG',
+          quality: Math.round(quality)
+        })
+
+        // 再用 sharp 转换为目标格式
+        const sharpInstance = sharp(decodedBuffer)
         const result = await convertToFormat(sharpInstance, format, { quality: Math.round(quality) })
 
         const originalName = file.filename?.replace(/\.(heic|heif)$/i, '') || 'converted'

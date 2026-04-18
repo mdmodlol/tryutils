@@ -5,10 +5,10 @@ const path = 'i18n/locales/en.json';
 let content = fs.readFileSync(path, 'utf8');
 
 // 移除所有尾随逗号
-content = content.replace(/,(\s*[\}\]])/g, '$1');
+content = content.replace(/,(\s*[}\]])/g, '$1');
 
 // 确保对象之间有正确的逗号
-content = content.replace(/}(\s*)\"([^\"]+)\":/g, '},$1"$2":');
+content = content.replace(/}(\s*)"([^"]+)":/g, '},$1"$2":');
 
 // 写回文件
 fs.writeFileSync(path, content);

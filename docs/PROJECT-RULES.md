@@ -1,173 +1,227 @@
-# TryUtils 项目说明（Claude Code 专用）
+# TryUtils 项目规则（Harness Phase 1）
 
-## 项目概览
+## 项目摘要
 
-TryUtils 是一个基于 `Nuxt 3 + Vue 3 + TypeScript + Tailwind CSS` 的在线工具站，定位是“浏览器优先、隐私优先”的免费实用工具集合。
+TryUtils 当前是一套基于 `Nuxt 3 + Vue 3 + TypeScript + Tailwind CSS` 的双语图片处理站，产品重点不是“什么工具都做”，而是围绕以下主线稳定迭代：
 
-核心特点：
+- `image compression`
+- `HEIC / HEIF workflow`
 
-- 图像工具以 `HEIC 转换`、`图片压缩`、`图片格式转换` 为主。
-- 开发者工具覆盖 `JSON`、`Base64`、`URL`、`颜色`、`文本 Diff`、`Markdown 预览`。
-- 站点包含 `QR Code Generator`、`博客系统`、`关于/联系/隐私` 等内容页。
-- 支持中文和英文双语，默认中文，英文使用 `/en` 前缀。
-- 站点重视 SEO、结构化数据、可访问性和性能优化。
-- 大多数工具都在浏览器本地完成处理；少量图像转换能力通过服务端 `Sharp` API 提供。
+一期 harness 改造的核心不是扩品类，而是降低维护成本、保护 SEO / 路由修复成果，并让 AI 可以稳定维护现有主线。
 
-## 技术栈
+## 当前主线与软约束
 
-- 框架：`Nuxt 3`
-- 视图层：`Vue 3`
-- 语言：`TypeScript`
-- 样式：`Tailwind CSS`
-- 内容系统：`@nuxt/content`
-- 国际化：`@nuxtjs/i18n`
-- 深色模式：`@nuxtjs/color-mode`
-- SEO：`@nuxtjs/sitemap`、`@nuxtjs/robots`、JSON-LD
-- 图片优化：`@nuxt/image`
-- 图像处理：`sharp`、`heic-convert`
-- 二维码：`qrcode`
-- 压缩打包：`jszip`
-- 测试：`Vitest`、`Vue Test Utils`、`axe-core`
+- 主线工具：
+  - `image-compressor`
+  - `heic-converter`
+  - `image-format-converter`
+- 主线内容域：
+  - `imagecompression`
+  - `heicconverter`
+- 软约束规则：
+  - 允许维护其他老工具
+  - 但新增需求、SEO 优化、内容建设、首页露出、性能投入默认优先主线
+  - 非主线改动必须在计划里说明理由
 
-## 目录地图
+## 目录与责任边界
 
-- `pages/`：路由页，每个工具通常对应一个页面。
-- `components/`：工具 UI、布局组件、博客组件。
-- `composables/`：通用逻辑、SEO、结构化数据、工具状态管理。
-- `server/api/`：图像处理相关 API。
-- `server/middleware/`：安全控制、博客旧链接重定向。
-- `server/utils/`：服务端通用工具，主要是图像 API 的共用层。
-- `content/blog/`：博客 Markdown 内容，按工具分类组织，中文和英文各有一套。
-- `data/`：工具配置、FAQ、博客路由映射等静态数据。
-- `i18n/locales/`：双语文案。
-- `assets/css/`：全局样式。
-- `utils/`：纯函数工具，尤其是博客路径标准化。
-- `types/`：共享类型定义。
-- `public/`：favicon、PWA 图标和站点静态资源。
+- `pages/`：页面路由与页面级 SEO 入口
+- `components/`：工具 UI、博客 UI、共享壳层
+- `composables/`：共享逻辑、SEO、结构化数据、图片处理状态
+- `server/api/`：图片处理 API 入口
+- `server/utils/image-api.ts`：图片 API 公共层，优先复用
+- `server/middleware/01-blog-canonical-redirects.ts`：历史博客路径到规范路径的 301
+- `data/toolConfig.ts`：工具注册表
+- `data/blog-route-manifest.ts`：博客规范路径与历史别名的单一事实源
+- `utils/blog-paths.ts`：公共路径、内容路径、canonical 路径映射
+- `plans/`：任务计划与执行前上下文工件
+- `docs/session-state.md`：当前会话状态与关键决策
 
-## 现有功能
+## 任务流程
 
-### 图像工具
+### 1. 开始任务前
 
-- `image-compressor`
-- `heic-converter`
-- `image-format-converter`
+- 先阅读：
+  - `CLAUDE.md`
+  - `docs/session-state.md`
+  - 本文件
+- 在 `plans/` 下创建或更新任务计划文档
+- 默认使用 `plans/TASK-PLAN-TEMPLATE.md`
 
-### 开发者工具
+### 2. 实现任务时
 
-- `json-formatter`
-- `base64-codec`
-- `url-codec`
-- `color-converter`
-- `text-diff`
-- `markdown-preview`
+- 优先复用现有 composables、共享 SEO 工具和图片 API 公共层
+- 不重复创建第二套路由规范、第二套 canonical 逻辑、第二套图片校验逻辑
+- 保持“浏览器本地优先”承诺，服务端仅用于受控兜底
 
-### 其他页面
+### 3. 收尾时
 
-- `qr-code-generator`
-- `about`
-- `contact`
-- `privacy`
-- `blog`
-- `image-tools`
-- `dev-tools`
+- 固定验收链：
+  - `pnpm test`
+  - `pnpm exec eslint .`
+  - `pnpm build`
+- 完成后更新 `docs/session-state.md`
+- 做一次简短 self-review，说明：
+  - 改动内容
+  - 风险点
+  - 测试覆盖
 
-## 路由与内容规则
+## 任务计划模板要求
 
-- 中文是默认语言，英文路由使用 `/en/...`。
-- 博客路径有明确的标准化规则，旧的大小写路径、`.en` 后缀、`-en` slug 都需要兼容。
-- 修改博客路由时，必须同步更新 `data/blog-route-manifest.ts` 和相关测试。
-- 博客内容采用 `Nuxt Content`，主 schema 在 `content.config.ts` 中定义。
-- 新增工具页时，通常要同时改页面、组件、文案、FAQ、SEO 和工具配置。
+每个计划至少包含这些字段：
 
-## 关键实现
+- 任务名称
+- 目标与成功标准
+- 是否影响主线业务
+- 范围内 / 范围外
+- 风险等级（R0 / R1 / R2 / R3）
+- 是否涉及：
+  - SEO / canonical / og:url / hreflang
+  - 博客路由 / manifest / redirect
+  - 图片 API / 上传限制 / 隐私承诺
+  - 首页 / 导航 / About / Privacy 定位文案
+- 实施步骤
+- 验证命令
+- 风险与回退点
 
-- `data/toolConfig.ts`：工具注册表，负责名称、描述、图标、路径、分类和关键词。
-- `utils/blog-paths.ts`：博客公共路径、内容路径、旧链接别名、canonical 逻辑。
-- `server/middleware/01-blog-canonical-redirects.ts`：把旧博客路径重定向到规范路径。
-- `server/middleware/security.ts`：只允许受控来源访问 `api`，并限制请求体大小。
-- `server/utils/image-api.ts`：图像 API 的共用层，处理 multipart、参数校验、格式转换、响应头和错误封装。
-- `server/api/*.post.ts`：各类图像处理接口入口，如压缩、格式转换、HEIC 转换、批量处理。
-- `app.vue`：全局布局、导航、移动端菜单、SEO、canonical、语言切换。
-- `pages/index.vue`：首页聚合各工具分类，并挂载首页 SEO / 结构化数据。
+## 风险分级与人工介入
 
-## 开发约定
+### R0
 
-- 优先复用已有的 `composables`、`data`、`utils` 和组件，不要重复造轮子。
-- 新增或修改工具时，尽量保持浏览器本地处理的隐私承诺；如果必须走服务端，说明原因并限制输入规模。
-- 双语内容要成对更新，避免中文有、英文缺，或者英文文案落后。
-- 路由、SEO、结构化数据和内部链接要一起检查，不要只改页面主体。
-- 博客相关变更要保持小写规范路径，旧链接靠重定向兼容，不要直接删除兼容映射。
-- 图像 API 改动时，优先沿用 `server/utils/image-api.ts` 的共用函数，避免在各个接口里复制校验逻辑。
-- 不要修改 `.nuxt/`、`dist/`、`node_modules/` 这类生成目录。
-- 不要随意改动生产环境配置、密钥或部署相关环境变量。
+- 纯文案、注释、低风险文档整理
+
+### R1
+
+- 普通页面或组件维护
+- 不涉及路径、SEO 核心逻辑、API、隐私承诺
+
+### R2
+
+- SEO / canonical / og:url / hreflang / i18n
+- `data/blog-route-manifest.ts`
+- `utils/blog-paths.ts`
+- 博客 301 redirect
+- 图片 API 与上传限制
+- 首页、导航、About、Privacy 的站点定位文案
+
+要求：
+
+- 必须在计划里显式标记
+- 必须执行完整验收链
+- 必须补或更新回归测试
+
+### R3
+
+- 部署、生产配置、安全边界、破坏性迁移
+- 任何可能改变隐私承诺或用户数据处理方式的改动
+
+要求：
+
+- 必须先人工确认
+- 未确认前不继续执行
+
+## 路由、SEO 与内容规则
+
+- `data/blog-route-manifest.ts` 是博客规范路径和别名的事实源
+- `utils/blog-paths.ts` 负责：
+  - canonical path
+  - public path 与 content path 映射
+  - 历史路径兼容
+- 不重新设计博客路径体系
+- 必须继续兼容这些历史 URL 形态：
+  - `.en`
+  - `-en`
+  - 大小写混用分类
+  - `/en/...` 与非 `/en/...` 历史别名
+- 页面层 canonical 与 `og:url` 必须对齐 `getCanonicalUrl`
+- 修改上述逻辑时必须同步更新测试
+
+## 工具与内容联动的二期接口
+
+一期只定义，二期再自动化：
+
+- 主线工具清单：
+  - `image-compressor`
+  - `heic-converter`
+  - `image-format-converter`
+- 主线内容域：
+  - `imagecompression`
+  - `heicconverter`
+- 二期内容联动检查点：
+  - related tool
+  - CTA
+  - FAQ
+  - canonical
+
+## 主线博客最小联动结构
+
+从二期开始，`imagecompression` 与 `heicconverter` 下的博客默认纳入内容与工具联动 harness。
+
+- 页面层必须能拿到标准化后的联动对象，至少包含：
+  - `primaryTool`
+  - `relatedTools`
+  - `ctaVariant`
+  - `faqCategory`
+  - `canonicalPath`
+- 新文章应优先显式提供这些字段
+- 老文章允许由标准化解析层补默认值，但不能绕开统一解析层直接在页面里写分支
+- 主线博客默认最小结构为：
+  - 正文后主 CTA
+  - related tool 区块
+  - FAQ 区块
+  - canonical 检查
+- 新增主线文章时，如果缺少 CTA / related tool / FAQ / canonical 基线，测试必须能发现
 
 ## 修改清单
 
-### 新增一个工具页时
-
-至少检查并同步这些位置：
+### 修改主线工具页时
 
 - `pages/<tool>.vue`
 - `components/<Tool>.vue`
+- 相关 composable
 - `data/toolConfig.ts`
-- `i18n/locales/zh.json`
-- `i18n/locales/en.json`
-- 相关 `FAQ` 或 `structured data` composable
-- 相关博客文章或相关推荐
+- 双语文案
+- 页面级 SEO / 结构化数据
 
-### 修改博客内容或路径时
+### 修改博客路由或 canonical 逻辑时
 
-至少检查并同步这些位置：
-
-- `content/blog/**`
 - `data/blog-route-manifest.ts`
 - `utils/blog-paths.ts`
-- `utils/blog-paths.test.ts`
-- 相关组件或内部链接
+- `server/middleware/01-blog-canonical-redirects.ts`
+- 对应测试
 
-### 修改图像 API 时
-
-至少检查并同步这些位置：
+### 修改图片 API 时
 
 - `server/api/*.post.ts`
 - `server/utils/image-api.ts`
 - `server/middleware/security.ts`
-- 对应页面的上传、错误、下载逻辑
+- 对应工具页上传、错误、下载逻辑
 
-## 命令
+## 命令约定
 
 ```bash
-pnpm install
 pnpm dev
-pnpm build
-pnpm preview
 pnpm test
-pnpm test:watch
 pnpm exec eslint .
+pnpm build
+pnpm verify
 ```
 
 说明：
 
-- 仓库没有单独的 `lint` 脚本，所以直接用 `pnpm exec eslint .`。
-- `pnpm install` 会触发 `nuxt prepare`。
-- 生产相关改动优先跑 `test`、`lint`、`build`。
+- `pnpm verify` 是一期固定验收链的快捷入口
+- 如果只跑了部分检查，不能当作任务完成
 
-## 验证建议
+## 当前测试基线
 
-- 改动博客路由或路径工具后，至少跑 `pnpm test`。
-- 改动页面、组件或文案后，至少跑 `pnpm exec eslint .`。
-- 改动 Nuxt 配置、布局、SEO、API 或共享逻辑后，建议再跑 `pnpm build`。
-- 如果改动涉及无障碍或交互，优先补组件测试，必要时补 `axe` 相关检查。
+- `utils/blog-paths.test.ts`：博客路径规范与历史别名回归
+- `composables/useSEO.test.ts`：canonical 与 `og:url` 对齐
 
-## 已有测试重点
-
-- `utils/blog-paths.test.ts` 覆盖博客规范路径、旧链接别名、内容路径与公共路径的互转。
-- 新增博客别名或修改 canonical 规则时，要同步更新这些测试。
+后续凡是触碰 SEO / 路由核心逻辑，必须优先扩这两类测试。
 
 ## 注意事项
 
-- 站点强调“浏览器本地处理”和“隐私优先”，不要在文案、实现或 SEO 中把这一点写错。
-- 图像工具页面和服务端 API 的文件大小限制不一定完全一致，改动时要同时看前端提示和后端限制。
-- `app.vue` 中有全局 SEO、语言切换和 canonical 逻辑，改路由时不要只盯着单页。
-- 如果要引入新依赖，优先确认它是否真的需要服务端能力，避免把本可本地完成的功能搬到后端。
+- 不要修改 `.nuxt/`、`.output/`、`dist/`、`node_modules/`
+- 不要把一期 harness 改造扩大成整站产品重构
+- 不要为了加快速度跳过计划模板和 session-state
+- 不要把站点重新扩展为“泛工具站”叙事

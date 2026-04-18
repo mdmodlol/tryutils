@@ -170,17 +170,6 @@ export const useImageConverter = () => {
   }
 
   /**
-   * 使用服务端Sharp优化通用格式图片
-   */
-
-    return {
-      blob: convertedBlob,
-      url,
-      filename
-    }
-  }
-
-  /**
    * 转换 HEIC 文件（协同工作流程：heic-convert解码 + Sharp优化）
    */
   const convertHEIC = async (

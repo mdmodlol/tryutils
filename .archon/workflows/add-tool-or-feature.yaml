@@ -1,6 +1,6 @@
 # .archon/workflows/add-tool-or-feature.yaml
-name: 新增工具或功能（TryUtils 专用）
-description: 按照 CLAUDE.md + PROJECT-RULES.md 完整实现新工具页或功能，自动测试、审查、出 PR
+name: 安全维护或主线功能迭代（TryUtils 专用）
+description: 按照 CLAUDE.md + PROJECT-RULES.md + plans/TASK-PLAN-TEMPLATE.md 执行 TryUtils 的安全维护、主线功能迭代与回归保护
 
 nodes:
   - id: start
@@ -10,23 +10,29 @@ nodes:
       1. CLAUDE.md（Harness 核心规范）
       2. docs/session-state.md（当前状态）
       3. docs/PROJECT-RULES.md（完整项目规则）
-      总结当前项目状态和本次需求。
+      总结当前项目主线、风险边界和本次任务目标。
 
   - id: plan
     depends_on: [start]
     type: prompt
     prompt: |
-      根据用户需求，创建详细 Plans.md（必须包含验收标准、测试点、双语文案 checklist）。
-      严格遵守 CLAUDE.md 中的「新增一个工具页时」清单。
+      在 plans/ 下创建或更新本次任务计划，默认采用 plans/TASK-PLAN-TEMPLATE.md。
+      计划中必须写清：
+      - 目标与成功标准
+      - 是否影响主线业务（image compression + HEIC）
+      - 风险等级（R0 / R1 / R2 / R3）
+      - 是否涉及 SEO / 路由 / 图片 API / 隐私 / 首页与导航定位
+      - 固定验收链与回退点
 
   - id: implement
     depends_on: [plan]
     type: loop
     loop:
       prompt: |
-        根据 Plans.md 实现下一项任务。
-        优先复用现有 composables、data/toolConfig.ts、server/utils/image-api.ts 等。
-        完成后自动运行验证命令。
+        根据计划执行下一项任务。
+        默认采用单 agent 优先模式。
+        优先复用现有 composables、blog-paths、blog-route-manifest、server/utils/image-api.ts。
+        不要重新设计路径体系，不要跳过固定验收链。
       until: ALL_TASKS_COMPLETE
       max_iterations: 50
 
@@ -38,25 +44,28 @@ nodes:
       pnpm exec eslint .
       pnpm build
     on_failure: |
-      仅返回错误摘要 + 修复建议，不要输出完整日志
+      仅返回错误摘要、影响范围和修复建议，不要输出完整长日志。
 
   - id: review
     depends_on: [validate]
     type: prompt
     prompt: |
-      执行 self-review：列出所有变更、潜在风险、测试覆盖、是否符合隐私优先原则。
-      如果有问题，自动修复后再 review。
+      执行 self-review，至少检查：
+      - 是否仍符合“隐私优先的浏览器端图片处理站”定位
+      - 是否固化了 SEO / 路由修复，而不是引入第二套路径逻辑
+      - 是否补齐必要测试与风险说明
+      - 是否需要更新 docs/session-state.md
 
   - id: approve
     depends_on: [review]
     type: approval
     prompt: |
-      请人工审查本次变更，确认是否符合项目规范。批准后将继续创建 PR。
+      如果本次任务属于 R3，或触及部署 / 安全 / 隐私承诺，请等待人工批准后继续。
 
   - id: finish
     depends_on: [approve]
     type: prompt
     prompt: |
-      1. 更新 docs/session-state.md（记录本次完成内容）
-      2. 创建 PR（带完整描述 + 测试结果）
-      3. 输出总结：「本次 workflow 已完成，session-state.md 已更新」
+      1. 更新 docs/session-state.md
+      2. 汇总变更、风险、测试结果
+      3. 明确输出：session-state.md 已更新

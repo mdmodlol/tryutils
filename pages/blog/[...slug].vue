@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useBlogArticleMeta } from '~/composables/useBlogArticleMeta'
+import { normalizeBlogLinkage, resolveBlogFaqItems } from '~/composables/useBlogLinkage'
 import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
 import { getToolById } from '~/data/toolConfig'
 import { getContentBlogPathFromPublicPath } from '~/utils/blog-paths'
@@ -53,7 +54,24 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
   return items
 })
 
-const relatedToolIds = computed<string[]>(() => data.value?.relatedTools || [])
+const mainlineBlogLinkage = computed(() => {
+  if (!data.value) {
+    return null
+  }
+
+  return normalizeBlogLinkage(data.value, {
+    locale: currentLocale.value,
+    publicPath: articlePublicPath.value,
+  })
+})
+
+const relatedToolIds = computed<string[]>(() => {
+  if (mainlineBlogLinkage.value) {
+    return mainlineBlogLinkage.value.relatedTools
+  }
+
+  return Array.isArray(data.value?.relatedTools) ? data.value.relatedTools : []
+})
 
 const primaryRelatedTool = computed(() => {
   const primaryToolId = relatedToolIds.value[0]
@@ -130,6 +148,14 @@ const articleMeta = computed(() => ({
   keywords: data.value?.keywords || data.value?.tags || [],
   locale: currentLocale.value
 }))
+
+const articleFaqItems = computed(() => {
+  if (!mainlineBlogLinkage.value) {
+    return []
+  }
+
+  return resolveBlogFaqItems(mainlineBlogLinkage.value, currentLocale.value)
+})
 
 useBlogArticleMeta(articleMeta)
 </script>
@@ -210,8 +236,14 @@ useBlogArticleMeta(articleMeta)
               <ContentRenderer :value="data" />
             </div>
 
+            <BlogCTA
+              v-if="mainlineBlogLinkage"
+              :variant="mainlineBlogLinkage.ctaVariant"
+              :primary-tool="mainlineBlogLinkage.primaryTool"
+            />
+
             <div
-              v-if="relatedToolIds.length > 0"
+              v-else-if="relatedToolIds.length > 0"
               class="border-t border-slate-200/80 bg-slate-50/80 px-8 py-8 dark:border-slate-800 dark:bg-slate-950/70"
             >
               <p class="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">{{ articleCtaText }}</p>
@@ -223,25 +255,6 @@ useBlogArticleMeta(articleMeta)
                 <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
               </NuxtLink>
             </div>
-
-            <footer class="flex flex-col gap-4 border-t border-slate-200/80 px-8 py-6 text-sm dark:border-slate-800 md:flex-row md:items-center md:justify-between">
-              <NuxtLink
-                :to="localePath('/blog')"
-                class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
-              >
-                <Icon name="heroicons:arrow-left" class="h-4 w-4" aria-hidden="true" />
-                {{ $t('blog.article.backToBlog') }}
-              </NuxtLink>
-
-              <button
-                @click="shareArticle"
-                class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
-                type="button"
-              >
-                <Icon name="heroicons:square-2-stack" class="h-4 w-4" aria-hidden="true" />
-                {{ $t('blog.article.copyLink') }}
-              </button>
-            </footer>
           </article>
         </Transition>
 
@@ -251,6 +264,34 @@ useBlogArticleMeta(articleMeta)
           :related-tool-ids="relatedToolIds"
           :limit="3"
         />
+
+        <FAQ
+          v-if="!pending && data && articleFaqItems.length > 0"
+          :items="articleFaqItems"
+          :generate-schema="true"
+        />
+
+        <div
+          v-if="!pending && data"
+          class="mt-8 flex flex-col gap-4 rounded-[28px] border border-slate-200/80 bg-white/95 px-8 py-6 text-sm shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-none md:flex-row md:items-center md:justify-between"
+        >
+          <NuxtLink
+            :to="localePath('/blog')"
+            class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
+          >
+            <Icon name="heroicons:arrow-left" class="h-4 w-4" aria-hidden="true" />
+            {{ $t('blog.article.backToBlog') }}
+          </NuxtLink>
+
+          <button
+            @click="shareArticle"
+            class="inline-flex items-center gap-2 text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-50"
+            type="button"
+          >
+            <Icon name="heroicons:square-2-stack" class="h-4 w-4" aria-hidden="true" />
+            {{ $t('blog.article.copyLink') }}
+          </button>
+        </div>
       </div>
     </main>
   </div>

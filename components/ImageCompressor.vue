@@ -566,7 +566,7 @@ const defaultDragDrop = {
 }
 
 // 引入拖拽组合式函数
-const dragDropComposable = process.client ? useDragDrop({
+const dragDropComposable = import.meta.client ? useDragDrop({
   accept: ['image/*'],
   maxFiles: 20,
   maxSize: 100 * 1024 * 1024 // 100MB

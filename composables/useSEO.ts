@@ -20,34 +20,85 @@ export interface SEOConfig {
   modifiedTime?: string
 }
 
+export interface SEOTextDefaults {
+  title: string
+  description: string
+  keywords: string
+  ogTitle: string
+  ogDescription: string
+  twitterTitle: string
+  twitterDescription: string
+}
+
+export interface ResolvedSEOConfig {
+  title: string
+  description: string
+  keywords: string
+  ogTitle: string
+  ogDescription: string
+  ogImage: string
+  ogType: string
+  ogUrl: string
+  twitterTitle: string
+  twitterDescription: string
+  twitterImage: string
+  twitterCard: string
+  canonical: string
+  robots: string
+  author: string
+  publishedTime?: string
+  modifiedTime?: string
+}
+
+export function resolveSEOConfig(
+  config: SEOConfig,
+  options: {
+    baseUrl: string
+    routePath: string
+    defaults: SEOTextDefaults
+  }
+): ResolvedSEOConfig {
+  const fullUrl = getCanonicalUrl(options.baseUrl, options.routePath)
+
+  return {
+    title: config.title || options.defaults.title,
+    description: config.description || options.defaults.description,
+    keywords: config.keywords || options.defaults.keywords,
+    ogTitle: config.ogTitle || config.title || options.defaults.ogTitle,
+    ogDescription: config.ogDescription || config.description || options.defaults.ogDescription,
+    ogImage: config.ogImage || `${options.baseUrl}/android-chrome-512x512.png`,
+    ogType: config.ogType || 'website',
+    ogUrl: fullUrl,
+    twitterTitle: config.twitterTitle || config.title || options.defaults.twitterTitle,
+    twitterDescription: config.twitterDescription || config.description || options.defaults.twitterDescription,
+    twitterImage: config.twitterImage || config.ogImage || `${options.baseUrl}/android-chrome-512x512.png`,
+    twitterCard: config.twitterCard || 'summary_large_image',
+    canonical: fullUrl,
+    robots: config.robots || 'index, follow',
+    author: config.author || 'TryUtils',
+    publishedTime: config.publishedTime,
+    modifiedTime: config.modifiedTime,
+  }
+}
+
 export const useSEO = (config: SEOConfig | ComputedRef<SEOConfig>) => {
   const { t, locale } = useI18n()
   const route = useRoute()
   
   const seoConfig = computed(() => {
-    const cfg = unref(config)
-    const baseUrl = 'https://www.tryutils.com'
-    const fullUrl = getCanonicalUrl(baseUrl, route.path)
-    
-    return {
-      title: cfg.title || t('app.seo.ogTitle'),
-      description: cfg.description || t('app.seo.description'),
-      keywords: cfg.keywords || t('app.seo.keywords'),
-      ogTitle: cfg.ogTitle || cfg.title || t('app.seo.ogTitle'),
-      ogDescription: cfg.ogDescription || cfg.description || t('app.seo.ogDescription'),
-      ogImage: cfg.ogImage || `${baseUrl}/android-chrome-512x512.png`,
-      ogType: cfg.ogType || 'website',
-      twitterTitle: cfg.twitterTitle || cfg.title || t('app.seo.twitterTitle'),
-      twitterDescription: cfg.twitterDescription || cfg.description || t('app.seo.twitterDescription'),
-      twitterImage: cfg.twitterImage || cfg.ogImage || `${baseUrl}/android-chrome-512x512.png`,
-      twitterCard: cfg.twitterCard || 'summary_large_image',
-      // Canonical URLs are generated centrally from the current route.
-      canonical: fullUrl,
-      robots: cfg.robots || 'index, follow',
-      author: cfg.author || 'TryUtils',
-      publishedTime: cfg.publishedTime,
-      modifiedTime: cfg.modifiedTime
-    }
+    return resolveSEOConfig(unref(config), {
+      baseUrl: 'https://www.tryutils.com',
+      routePath: route.path,
+      defaults: {
+        title: t('app.seo.ogTitle'),
+        description: t('app.seo.description'),
+        keywords: t('app.seo.keywords'),
+        ogTitle: t('app.seo.ogTitle'),
+        ogDescription: t('app.seo.ogDescription'),
+        twitterTitle: t('app.seo.twitterTitle'),
+        twitterDescription: t('app.seo.twitterDescription'),
+      },
+    })
   })
   
   // 设置页面SEO
@@ -63,7 +114,7 @@ export const useSEO = (config: SEOConfig | ComputedRef<SEOConfig>) => {
     ogDescription: () => seoConfig.value.ogDescription,
     ogImage: () => seoConfig.value.ogImage,
     ogType: () => seoConfig.value.ogType,
-    ogUrl: () => seoConfig.value.canonical,
+    ogUrl: () => seoConfig.value.ogUrl,
     ogSiteName: 'TryUtils',
     ogLocale: () => locale.value === 'zh' ? 'zh_CN' : 'en_US',
     

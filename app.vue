@@ -476,11 +476,6 @@ useHead({
   ]
 })
 
-// 检查是否为首页或需要显示面包屑的页面
-const isHomePage = computed(() => {
-  return route.path === '/' || route.path === '/en' || route.path === '/zh'
-})
-
 // 移动端菜单状态
 const isMobileMenuOpen = ref(false)
 

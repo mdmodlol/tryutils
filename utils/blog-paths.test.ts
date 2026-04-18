@@ -18,6 +18,15 @@ describe('blog path helpers', () => {
       .toBe('/en/blog/imagecompression/browser-image-compression-libraries')
   })
 
+  it('normalizes real GSC legacy English URLs to canonical public routes', () => {
+    expect(getCanonicalPath('/blog/imagecompression/canvas-image-compression-techniques.en'))
+      .toBe('/en/blog/imagecompression/canvas-image-compression-techniques')
+    expect(getCanonicalPath('/blog/heicconverter/heic-technical-guide.en'))
+      .toBe('/en/blog/heicconverter/heic-technical-guide')
+    expect(getCanonicalPath('/blog/heicconverter/how-to-convert-heic-to-jpg.en'))
+      .toBe('/en/blog/heicconverter/how-to-convert-heic-to-jpg')
+  })
+
   it('normalizes legacy -en slugs to English public routes', () => {
     expect(getCanonicalPath('/blog/markdownpreview/markdown-complete-guide-en'))
       .toBe('/en/blog/markdownpreview/markdown-complete-guide')
@@ -26,6 +35,13 @@ describe('blog path helpers', () => {
   it('maps English public routes back to content paths', () => {
     expect(getContentBlogPathFromPublicPath('/en/blog/imagecompression/browser-image-compression-libraries'))
       .toBe('/blog/imagecompression/browser-image-compression-libraries.en')
+  })
+
+  it('maps legacy public aliases back to English content paths', () => {
+    expect(getContentBlogPathFromPublicPath('/en/blog/imagecompression/browser-image-compression-libraries.en'))
+      .toBe('/blog/imagecompression/browser-image-compression-libraries.en')
+    expect(getContentBlogPathFromPublicPath('/blog/heicconverter/heic-vs-jpg-png-comparison.en'))
+      .toBe('/blog/heicconverter/heic-vs-jpg-png-comparison.en')
   })
 
   it('maps content paths to canonical public routes', () => {
@@ -53,5 +69,14 @@ describe('blog route manifest', () => {
       .toBe('/en/blog/markdownpreview/markdown-complete-guide')
     expect(blogLegacyAliasMap.get('/en/blog/HeicConverter/what-is-heic-format-en'))
       .toBe('/en/blog/heicconverter/what-is-heic-format')
+  })
+
+  it('contains aliases for legacy GSC English blog URLs with .en suffixes', () => {
+    expect(blogLegacyAliasMap.get('/blog/imagecompression/canvas-image-compression-techniques.en'))
+      .toBe('/en/blog/imagecompression/canvas-image-compression-techniques')
+    expect(blogLegacyAliasMap.get('/blog/heicconverter/heic-technical-guide.en'))
+      .toBe('/en/blog/heicconverter/heic-technical-guide')
+    expect(blogLegacyAliasMap.get('/blog/heicconverter/how-to-convert-heic-to-jpg.en'))
+      .toBe('/en/blog/heicconverter/how-to-convert-heic-to-jpg')
   })
 })

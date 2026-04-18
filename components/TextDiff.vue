@@ -230,7 +230,9 @@ async function copyDiff() {
     await navigator.clipboard.writeText(text)
     copySuccess.value = true
     setTimeout(() => { copySuccess.value = false }, 2000)
-  } catch {}
+  } catch (error) {
+    console.error('Failed to copy diff result:', error)
+  }
 }
 
 // === Drag & Drop ===
