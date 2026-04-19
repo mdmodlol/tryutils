@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "gsc:summary": "node scripts/gsc-summary.mjs",
     "generate": "nuxt generate",
     "lint": "eslint .",
     "preview": "nuxt preview",

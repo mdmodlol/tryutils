@@ -693,21 +693,6 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
   background: #0f766e;
 }
 
-:global(.dark) .home-shell {
-  --hero-surface: rgba(15, 23, 42, 0.82);
-  --hero-border: rgba(71, 85, 105, 0.55);
-  --soft-surface: rgba(15, 23, 42, 0.72);
-  --soft-border: rgba(71, 85, 105, 0.45);
-  background:
-    radial-gradient(circle at top right, rgba(45, 212, 191, 0.1), transparent 28%),
-    radial-gradient(circle at top left, rgba(96, 165, 250, 0.1), transparent 24%),
-    linear-gradient(180deg, #020617 0%, #020617 45%, #0f172a 100%);
-}
-
-:global(.dark) .hero-frame {
-  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.45);
-}
-
 @media (min-width: 768px) {
   .signal-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -744,76 +729,92 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
 </style>
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
+<!-- 使用 html.dark 提高特异性 (0,2,0 > scoped 的 0,1,1) -->
 <style>
-:global(.dark) .section-title {
-  color: #f8fafc;
+html.dark .home-shell {
+  --hero-surface: rgba(15, 23, 42, 0.82);
+  --hero-border: rgba(71, 85, 105, 0.55);
+  --soft-surface: rgba(15, 23, 42, 0.72);
+  --soft-border: rgba(71, 85, 105, 0.45);
+  background:
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.1), transparent 28%),
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.1), transparent 24%),
+    linear-gradient(180deg, #020617 0%, #020617 45%, #0f172a 100%) !important;
 }
 
-:global(.dark) .section-description,
-:global(.dark) .future-bullet {
-  color: #cbd5e1;
+html.dark .hero-frame {
+  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.45) !important;
 }
 
-:global(.dark) .section-label,
-:global(.dark) .workspace-eyebrow,
-:global(.dark) .process-index {
-  color: #5eead4;
+html.dark .section-title {
+  color: #f8fafc !important;
 }
 
-:global(.dark) .primary-action {
-  background: #f8fafc;
-  color: #0f172a;
+html.dark .section-description,
+html.dark .future-bullet {
+  color: #cbd5e1 !important;
 }
 
-:global(.dark) .future-bullet-dot {
-  background: #5eead4;
+html.dark .section-label,
+html.dark .workspace-eyebrow,
+html.dark .process-index {
+  color: #5eead4 !important;
 }
 
-:global(.dark) .secondary-action {
-  border-color: rgba(71, 85, 105, 0.8);
-  background: rgba(15, 23, 42, 0.76);
-  color: #e2e8f0;
+html.dark .primary-action {
+  background: #f8fafc !important;
+  color: #0f172a !important;
 }
 
-:global(.dark) .secondary-action:hover,
-:global(.dark) .quick-link:hover,
-:global(.dark) .tool-row:hover {
-  border-color: rgba(45, 212, 191, 0.45);
-  background: rgba(15, 118, 110, 0.14);
+html.dark .future-bullet-dot {
+  background: #5eead4 !important;
 }
 
-:global(.dark) .quick-link {
-  border-color: rgba(71, 85, 105, 0.7);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e2e8f0;
+html.dark .secondary-action {
+  border-color: rgba(71, 85, 105, 0.8) !important;
+  background: rgba(15, 23, 42, 0.76) !important;
+  color: #e2e8f0 !important;
 }
 
-:global(.dark) .workspace-panel {
-  border-color: rgba(71, 85, 105, 0.55);
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.82));
-  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.14);
+html.dark .secondary-action:hover,
+html.dark .quick-link:hover,
+html.dark .tool-row:hover {
+  border-color: rgba(45, 212, 191, 0.45) !important;
+  background: rgba(15, 118, 110, 0.14) !important;
 }
 
-:global(.dark) .workspace-pill,
-:global(.dark) .workspace-card,
-:global(.dark) .workspace-metric {
-  background: rgba(15, 23, 42, 0.82);
+html.dark .quick-link {
+  border-color: rgba(71, 85, 105, 0.7) !important;
+  background: rgba(15, 23, 42, 0.7) !important;
+  color: #e2e8f0 !important;
 }
 
-:global(.dark) .workspace-row {
-  border-top-color: rgba(51, 65, 85, 0.85);
+html.dark .workspace-panel {
+  border-color: rgba(71, 85, 105, 0.55) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.82)) !important;
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.14) !important;
 }
 
-:global(.dark) .workspace-title {
-  color: #f8fafc;
+html.dark .workspace-pill,
+html.dark .workspace-card,
+html.dark .workspace-metric {
+  background: rgba(15, 23, 42, 0.82) !important;
 }
 
-:global(.dark) .workspace-badge,
-:global(.dark) .workspace-row-index,
-:global(.dark) .signal-icon,
-:global(.dark) .category-icon,
-:global(.dark) .tool-row-icon {
-  background: rgba(45, 212, 191, 0.12);
-  color: #5eead4;
+html.dark .workspace-row {
+  border-top-color: rgba(51, 65, 85, 0.85) !important;
+}
+
+html.dark .workspace-title {
+  color: #f8fafc !important;
+}
+
+html.dark .workspace-badge,
+html.dark .workspace-row-index,
+html.dark .signal-icon,
+html.dark .category-icon,
+html.dark .tool-row-icon {
+  background: rgba(45, 212, 191, 0.12) !important;
+  color: #5eead4 !important;
 }
 </style>

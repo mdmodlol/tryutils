@@ -1271,42 +1271,43 @@ onMounted(() => {
 </script>
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
+<!-- 使用 html.dark 提高特异性 (0,2,0) -->
 <style>
-:root.dark .image-compressor .core-feature-section,
-:root.dark .image-compressor .file-list-section,
-:root.dark .image-compressor .preset-selector-section,
-:root.dark .image-compressor .compress-section,
-:root.dark .image-compressor .results-section,
-:root.dark .image-compressor .instructions-section,
-:root.dark .image-compressor .estimate-panel,
-:root.dark .image-compressor .progress-panel {
-  border-color: #1e293b;
-  background: rgba(2, 6, 23, 0.82);
+html.dark .image-compressor .core-feature-section,
+html.dark .image-compressor .file-list-section,
+html.dark .image-compressor .preset-selector-section,
+html.dark .image-compressor .compress-section,
+html.dark .image-compressor .results-section,
+html.dark .image-compressor .instructions-section,
+html.dark .image-compressor .estimate-panel,
+html.dark .image-compressor .progress-panel {
+  border-color: #1e293b !important;
+  background: rgba(2, 6, 23, 0.82) !important;
 }
 
-:root.dark .image-compressor .enhanced-upload-zone {
-  background: rgba(15, 23, 42, 0.78);
-  border-color: #334155;
+html.dark .image-compressor .enhanced-upload-zone {
+  background: rgba(15, 23, 42, 0.78) !important;
+  border-color: #334155 !important;
 }
 
-:root.dark .image-compressor .enhanced-upload-zone:hover,
-:root.dark .image-compressor .enhanced-upload-zone.drag-over {
-  border-color: #2dd4bf;
-  background: rgba(15, 23, 42, 0.92);
+html.dark .image-compressor .enhanced-upload-zone:hover,
+html.dark .image-compressor .enhanced-upload-zone.drag-over {
+  border-color: #2dd4bf !important;
+  background: rgba(15, 23, 42, 0.92) !important;
 }
 
-:root.dark .image-compressor .file-item,
-:root.dark .image-compressor .result-item,
-:root.dark .image-compressor .instruction-item,
-:root.dark .image-compressor .metric-card {
-  background: rgba(15, 23, 42, 0.75);
-  border-color: #1e293b;
+html.dark .image-compressor .file-item,
+html.dark .image-compressor .result-item,
+html.dark .image-compressor .instruction-item,
+html.dark .image-compressor .metric-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: #1e293b !important;
 }
 
-:root.dark .image-compressor .file-item-icon,
-:root.dark .image-compressor .upload-icon-core {
-  background: rgba(15, 23, 42, 0.95);
-  border-color: #334155;
+html.dark .image-compressor .file-item-icon,
+html.dark .image-compressor .upload-icon-core {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: #334155 !important;
 }
 </style>
 

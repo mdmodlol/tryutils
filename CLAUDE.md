@@ -7,6 +7,41 @@
 - 一期只做软约束：允许维护其他老工具，但新增投入、SEO 修复、内容规划、工具体验优化默认先服务主线。
 - 站点的核心承诺仍是：浏览器本地优先、双语可访问、SEO 可维护、服务端仅作受控兜底。
 
+## 业务优先级
+
+- Claude 默认先服务主线，而不是平均维护所有工具。
+- 当前唯一主线工具：
+  - `image-compressor`
+  - `heic-converter`
+  - `image-format-converter`
+- 非主线老工具：
+  - 保留访问
+  - 允许修 bug
+  - 默认停止新增投入
+- 业务判断时优先顺序固定为：
+  1. 主线高展示低 CTR 页面
+  2. 主线内容与工具联动
+  3. `imagecompression` 与 `heicconverter` 内容维护
+  4. 主线工具页关键体验优化
+  5. 非主线老工具低成本维护
+- 不要把站点重新扩回泛工具站。
+
+## 业务复盘入口
+
+- 每周业务复盘前必须先读：
+  - `docs/session-state.md`
+  - `docs/GROWTH-PRIORITIES.md`
+  - `docs/CONTENT-OPS.md`
+  - `docs/METRICS.md`
+  - `docs/WEEKLY-REVIEW.md`
+  - 最新的 `docs/analytics/latest-gsc-summary.md`
+- GSC 数据标准路径为：
+  - `data/gsc-snapshots/YYYY-MM-DD/`
+- 固定分析产物路径为：
+  - `docs/analytics/latest-gsc-summary.md`
+  - `docs/analytics/weekly/YYYY-MM-DD.md`
+- 如果任务是“判断接下来最该做什么”，先做 weekly review，再决定是否进入实现。
+
 ## 默认协作模式
 
 - 默认采用 `单 agent 优先`。

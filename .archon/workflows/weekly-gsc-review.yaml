@@ -1,0 +1,46 @@
+# .archon/workflows/weekly-gsc-review.yaml
+name: 每周 GSC 复盘与主线优先级判断（TryUtils 专用）
+description: 基于仓库内 GSC 快照、业务规则文档和最新 summary，对 TryUtils 做每周业务复盘，并输出下周高优先任务建议
+
+nodes:
+  - id: start
+    type: prompt
+    prompt: |
+      先读取以下文件：
+      1. CLAUDE.md
+      2. docs/PROJECT-RULES.md
+      3. docs/session-state.md
+      4. docs/GROWTH-PRIORITIES.md
+      5. docs/CONTENT-OPS.md
+      6. docs/METRICS.md
+      7. docs/WEEKLY-REVIEW.md
+      总结当前主线、明确不做的事项，以及本周复盘需要回答的问题。
+
+  - id: summarize
+    depends_on: [start]
+    type: bash
+    command: |
+      pnpm gsc:summary --date {{date}}
+    on_failure: |
+      仅返回缺失文件、目录错误或脚本异常的摘要，不输出无意义长日志。
+
+  - id: review
+    depends_on: [summarize]
+    type: prompt
+    prompt: |
+      读取 docs/analytics/latest-gsc-summary.md。
+      然后固定输出：
+      - 本周最重要的 3 个发现
+      - 最值得优化的 3 个页面
+      - 最值得新增的 3 个选题
+      - 最值得推进的 1 个工具体验优化
+      - 本周明确不做的事
+      - 下周优先任务建议
+      不要直接开始改代码。
+
+  - id: plan
+    depends_on: [review]
+    type: prompt
+    prompt: |
+      如果用户决定进入执行，先在 plans/ 下创建或更新计划文档，再进入实现。
+      如果本轮只做业务判断，停在复盘结论即可。

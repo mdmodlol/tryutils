@@ -587,37 +587,38 @@ watch(() => conversionOptions.value.targetFormat, () => {
 </script>
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
+<!-- 使用 html.dark 提高特异性 (0,2,0) -->
 <style>
-:root.dark .image-format-converter .core-feature-section,
-:root.dark .image-format-converter .format-selection-section,
-:root.dark .image-format-converter .format-options-section,
-:root.dark .image-format-converter .progress-section,
-:root.dark .image-format-converter .results-section {
-  border-color: #1e293b;
-  background: rgba(2, 6, 23, 0.82);
+html.dark .image-format-converter .core-feature-section,
+html.dark .image-format-converter .format-selection-section,
+html.dark .image-format-converter .format-options-section,
+html.dark .image-format-converter .progress-section,
+html.dark .image-format-converter .results-section {
+  border-color: #1e293b !important;
+  background: rgba(2, 6, 23, 0.82) !important;
 }
 
-:root.dark .image-format-converter .enhanced-upload-zone {
-  background: rgba(15, 23, 42, 0.78);
-  border-color: #334155;
+html.dark .image-format-converter .enhanced-upload-zone {
+  background: rgba(15, 23, 42, 0.78) !important;
+  border-color: #334155 !important;
 }
 
-:root.dark .image-format-converter .enhanced-upload-zone:hover,
-:root.dark .image-format-converter .enhanced-upload-zone.drag-over,
-:root.dark .image-format-converter .format-option.selected {
-  border-color: #2dd4bf;
-  background: rgba(15, 23, 42, 0.92);
+html.dark .image-format-converter .enhanced-upload-zone:hover,
+html.dark .image-format-converter .enhanced-upload-zone.drag-over,
+html.dark .image-format-converter .format-option.selected {
+  border-color: #2dd4bf !important;
+  background: rgba(15, 23, 42, 0.92) !important;
 }
 
-:root.dark .image-format-converter .file-info-card,
-:root.dark .image-format-converter .result-card,
-:root.dark .image-format-converter .stat-item,
-:root.dark .image-format-converter .format-option,
-:root.dark .image-format-converter .file-info-icon,
-:root.dark .image-format-converter .result-icon-shell,
-:root.dark .image-format-converter .upload-icon-core {
-  background: rgba(15, 23, 42, 0.75);
-  border-color: #1e293b;
+html.dark .image-format-converter .file-info-card,
+html.dark .image-format-converter .result-card,
+html.dark .image-format-converter .stat-item,
+html.dark .image-format-converter .format-option,
+html.dark .image-format-converter .file-info-icon,
+html.dark .image-format-converter .result-icon-shell,
+html.dark .image-format-converter .upload-icon-core {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: #1e293b !important;
 }
 </style>
 

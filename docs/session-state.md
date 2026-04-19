@@ -11,7 +11,7 @@
 ## 当前整体进度
 
 - 项目阶段：稳定维护阶段
-- 当前重点：Harness 二期已落地，当前进入“主线博客联动 + 持续收敛 warning + 预设功能回归保护”阶段
+- 当前重点：Harness 二期已落地，当前进入“主线博客联动 + 持续收敛 warning + 预设功能回归保护 + 业务型 harness 补强”阶段
 
 ## 正在进行的任务（Active Tasks）
 
@@ -22,9 +22,10 @@
 - [已完成]：清理 ESLint warning，从 226 条降至 17 条（主线组件 attributes-order 全清，no-unused-vars 清除 21 条，process.server 迁移 3 条）
 - [已完成]：继续清理至 17 条 warning（为 Vue emit 类型系统参数、v-html XSS 警告、OptimizedImage/RelatedContent props）
 - [已完成]：修复 HomepageRedesign.vue 深色模式（5处CSS选择器：.section-label/.primary-action/.workspace-eyebrow/.process-index/.future-bullet-dot）
-- [已完成]：修复 HomepageRedesign.vue 深色模式不生效问题（原因：`:global(.dark)` 规则被放在 scoped 样式块内，导致选择器无法匹配。解决方案：创建独立的非 scoped `<style>` 块来放置全局 dark mode 样式）
-- [已完成]：修复 HeicConverter.vue 滑块样式（::-webkit-slider-thumb 和 ::-moz-range-thumb 的 dark mode 覆盖）
-- [下一步]：继续清理剩余 warning，或继续优化主线博客 CTA 文案与流量导向
+- [已完成]：修复 HomepageRedesign.vue 深色模式不生效问题（原因：CSS 特异性相同，scoped 样式覆盖了非 scoped 的 dark mode 样式。解决方案：1) 将所有 dark mode 规则移到非 scoped `<style>` 块；2) 使用 `html.dark` 选择器提高特异性到(0,2,0)；3) 添加 `!important`）
+- [已完成]：修复 HeicConverter.vue / ImageCompressor.vue / ImageFormatConverter.vue 的 dark mode 样式（统一使用 `html.dark` 选择器 + `!important`）
+- [已完成]：补充业务型 harness（GSC snapshot 目录、weekly review、metrics、content ops、growth priorities）
+- [下一步]：优先用 weekly review 驱动主线页面优化，再决定继续清理 warning 还是优化主线博客 CTA 文案
 
 ## 已完成但待验证项（Pending Verification）
 
@@ -35,6 +36,7 @@
 - [事项4]：主线博客的 CTA / related tool / FAQ / canonical 联动已接入统一解析层，并由自动化测试覆盖
 - [事项5]：`types/` 配置型 TypeScript 文件已补入 lint 覆盖，ImageCompressor 预设逻辑已由纯函数测试保护
 - [事项6]：2026-04-19 修复 HomepageRedesign.vue 深色模式（5处CSS选择器缺失 dark mode 覆盖 + 样式块作用域修复）和 HeicConverter.vue 滑块样式（2处伪元素样式缺失覆盖）；经验收链确认
+- [事项7]：2026-04-19 业务型 harness 已落地：新增 GSC snapshot 标准目录、weekly review workflow、4 份业务规则文档、`pnpm gsc:summary` 轻脚本，并使用 `2026-04-18` 快照生成了 `docs/analytics/latest-gsc-summary.md` 与 `docs/analytics/weekly/2026-04-18.md`
 
 ## 遗留问题 / 待处理风险（Open Issues）
 
@@ -43,6 +45,7 @@
 - [待跟进]：主线博客仍有较多历史 frontmatter 缺口，当前依赖标准化解析层补默认值
 - [待跟进]：二期已完成结构联动，后续需要结合 GSC 数据继续优化 CTA 文案与 related tool 排序
 - [待跟进]：ImageCompressor 仍缺少更高层的组件交互测试；当前先用纯逻辑测试兜底预设行为
+- [待跟进]：业务型 harness 需要持续验证 weekly review 是否真能稳定指导 Claude 判断“接下来最该做什么”
 
 ## 关键决策记录（Decisions Log）
 
@@ -55,10 +58,13 @@
 - 2026-04-18：二期主线博客已统一接入 `CTA + related tool + FAQ + canonical` 联动，并新增全量主线文章测试
 - 2026-04-18：预设”已自定义”状态改为基于当前值与预设值的确定性比较，不再依赖 watcher 时序
 - 2026-04-18：驱动 UI 行为的配置型 `types/` / `data/` 文件必须进入 lint 覆盖，关键交互配置至少补一组回归测试
-- 2026-04-19：深色模式修复采用 `:global(.dark)` 选择器覆盖硬编码 CSS，但必须放在非 scoped `<style>` 块中才能正确工作（Vue scoped CSS 会给类选择器添加属性选择器，导致 `:global(.dark) .class` 无法匹配 `<html class="dark">` 下的元素）
+- 2026-04-19：深色模式 CSS 修复的关键发现：CSS 特异性（specificity）问题导致 scoped 样式覆盖了非 scoped 的 dark mode 样式。使用 `html.dark` 选择器（特异性 0,2,0）高于 scoped 的 `.class[data-v-xxx]`（特异性 0,1,1），并配合 `!important` 确保强制覆盖
+- 2026-04-19：业务型 harness 采用“手动导出 GSC CSV + repo 固定快照目录 + weekly review + 1 个轻脚本”方案，不引入 API 或复杂分析系统
 
 ## 下次 Session 启动指令
 
 - 优先阅读：`CLAUDE.md`、`docs/PROJECT-RULES.md`、`docs/session-state.md`
+- 如果任务涉及增长判断，再额外阅读：`docs/GROWTH-PRIORITIES.md`、`docs/CONTENT-OPS.md`、`docs/METRICS.md`、`docs/WEEKLY-REVIEW.md`、`docs/analytics/latest-gsc-summary.md`
 - 开始任何改动前先在 `plans/` 下创建或更新任务计划
+- 如果拿到新的 GSC 导出，先复制到 `data/gsc-snapshots/YYYY-MM-DD/`，再运行 `pnpm gsc:summary --date YYYY-MM-DD`
 - 完成改动后先跑固定验收链，再更新本文件

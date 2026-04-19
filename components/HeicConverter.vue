@@ -692,44 +692,45 @@ onUnmounted(() => {
 </script>
 
 <!-- 非 scoped 样式 - 用于深色模式支持 -->
+<!-- 使用 html.dark 提高特异性 (0,2,0) -->
 <style>
-:root.dark .heic-converter .core-feature-section,
-:root.dark .heic-converter .file-list-section,
-:root.dark .heic-converter .convert-section,
-:root.dark .heic-converter .results-section,
-:root.dark .heic-converter .instructions-section,
-:root.dark .heic-converter .progress-panel {
-  border-color: #1e293b;
-  background: rgba(2, 6, 23, 0.82);
+html.dark .heic-converter .core-feature-section,
+html.dark .heic-converter .file-list-section,
+html.dark .heic-converter .convert-section,
+html.dark .heic-converter .results-section,
+html.dark .heic-converter .instructions-section,
+html.dark .heic-converter .progress-panel {
+  border-color: #1e293b !important;
+  background: rgba(2, 6, 23, 0.82) !important;
 }
 
-:root.dark .heic-converter .enhanced-upload-zone {
-  background: rgba(15, 23, 42, 0.78);
-  border-color: #334155;
+html.dark .heic-converter .enhanced-upload-zone {
+  background: rgba(15, 23, 42, 0.78) !important;
+  border-color: #334155 !important;
 }
 
-:root.dark .heic-converter .enhanced-upload-zone:hover,
-:root.dark .heic-converter .enhanced-upload-zone.drag-over {
-  border-color: #2dd4bf;
-  background: rgba(15, 23, 42, 0.92);
+html.dark .heic-converter .enhanced-upload-zone:hover,
+html.dark .heic-converter .enhanced-upload-zone.drag-over {
+  border-color: #2dd4bf !important;
+  background: rgba(15, 23, 42, 0.92) !important;
 }
 
-:root.dark .heic-converter .file-item,
-:root.dark .heic-converter .instruction-item,
-:root.dark .heic-converter .file-item-icon,
-:root.dark .heic-converter .upload-icon-core {
-  background: rgba(15, 23, 42, 0.75);
-  border-color: #1e293b;
+html.dark .heic-converter .file-item,
+html.dark .heic-converter .instruction-item,
+html.dark .heic-converter .file-item-icon,
+html.dark .heic-converter .upload-icon-core {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: #1e293b !important;
 }
 
-:root.dark .heic-converter #image-quality,
-:root.dark .heic-converter #image-quality::-moz-range-track {
-  background: #1e293b;
+html.dark .heic-converter #image-quality,
+html.dark .heic-converter #image-quality::-moz-range-track {
+  background: #1e293b !important;
 }
 
-:root.dark .heic-converter #image-quality::-webkit-slider-thumb,
-:root.dark .heic-converter #image-quality::-moz-range-thumb {
-  background: #f8fafc;
+html.dark .heic-converter #image-quality::-webkit-slider-thumb,
+html.dark .heic-converter #image-quality::-moz-range-thumb {
+  background: #f8fafc !important;
 }
 </style>
 
