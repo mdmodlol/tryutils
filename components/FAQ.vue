@@ -2,10 +2,7 @@
   <section class="bg-slate-50/80 py-16 transition-colors duration-300 dark:bg-slate-950/60" aria-labelledby="faq-title">
     <div class="mx-auto max-w-4xl px-6">
       <div class="mb-10 text-center">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">
-          {{ t('faq.sectionLabel') }}
-        </p>
-        <h2 id="faq-title" class="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl">
+        <h2 id="faq-title" class="text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl">
           {{ t('faq.title') }}
         </h2>
         <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">

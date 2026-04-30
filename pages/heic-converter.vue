@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('heicConverter.howTo.step4.name'), text: t('heicConverter.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('heicConverter.comparison.privacy'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('heicConverter.comparison.batchProcessing'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('heicConverter.comparison.qualityControl'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('heicConverter.comparison.noRegistration'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('heicConverter.comparison.multiFormat'), ourTool: true, competitor1: true, competitor2: false }
-])
-
-const competitorNames = ['Convertio', 'CloudConvert']
-
-const stats = {
-  totalUsers: '80,000+',
-  filesProcessed: '2,000,000+',
-  avgRating: '4.9/5'
-}
-
 const { useToolPageMeta } = await import('~/composables/useToolPageMeta')
 useToolPageMeta({
   toolName: t('heicConverter.hero.title'),
@@ -77,8 +61,7 @@ setStructuredData([
 setEnhancedStructuredData([
   getServiceSchema({
     name: t('heicConverter.seo.title'),
-    description: t('heicConverter.seo.description'),
-    rating: { value: '4.9', count: '1580' }
+    description: t('heicConverter.seo.description')
   })
 ])
 </script>
@@ -98,9 +81,6 @@ setEnhancedStructuredData([
       <ToolPageContent
         :tool-name="t('heicConverter.hero.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

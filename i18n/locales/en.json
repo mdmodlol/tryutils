@@ -613,82 +613,57 @@
       "keywords": "online tools,HEIC converter,document converter,file conversion,browser tools,privacy protection,TryUtils"
     },
     "redesign": {
-      "eyebrow": "TryUtils Image Lab",
-      "headline": "A calmer, more trustworthy home for image workflows",
-      "description": "Bring compression, format conversion, HEIC handling, and batch export into one clear starting point. Help people start work quickly now while leaving room for APIs and AI-assisted workflows later.",
+      "eyebrow": "Free online tools",
+      "headline": "Handle images, text, and everyday developer tasks faster",
+      "description": "No software installation and no account required. Choose a tool, upload or paste your content, and finish compression, conversion, formatting, encoding, decoding, and other routine tasks in a few steps.",
       "primaryCta": "Open image tools",
       "secondaryCta": "Browse developer tools",
       "quickLabel": "Popular starts",
-      "workflowLabel": "Homepage thesis",
-      "workflowTitle": "Help people move from upload to export with less friction",
-      "workflowSubtitle": "The first screen should surface the workflow, not another generic promise wall.",
-      "categoriesLabel": "Product architecture",
-      "categoriesTitle": "Organize the site around real jobs, not a pile of feature cards",
-      "categoriesSubtitle": "Image workflow stays the primary path. Developer tools remain useful, searchable support products.",
-      "futureLabel": "Monetization direction",
-      "futureTitle": "Leave clean room for two monetization paths",
-      "futureSubtitle": "Make the core image workflow dependable first, then extend naturally into APIs and AI-assisted features.",
-      "faqLabel": "FAQ",
-      "faqSubtitle": "These are the questions people usually want answered before they trust a utility site.",
+      "workflowLabel": "How it works",
+      "workflowTitle": "From choosing a tool to saving the result, only the needed steps remain",
+      "workflowSubtitle": "Each tool is built around one clear task, so you can start working right away without learning a complex interface first.",
+      "categoriesLabel": "Tool categories",
+      "categoriesTitle": "Choose tools by the task you need to finish",
+      "categoriesSubtitle": "Image processing, QR generation, and developer utilities are grouped clearly so you can find the right tool quickly.",
       "trustAria": "Trust signals",
       "workspace": {
-        "pill": "TryUtils workspace",
-        "pipelineEyebrow": "Image pipeline",
+        "pill": "TryUtils toolkit",
+        "pipelineEyebrow": "Common image tools",
         "pipelineTitle": "Compress, convert, and export in one pass",
         "privateBadge": "Private by default",
-        "futureLayerEyebrow": "Future layer",
-        "futureLayerTitle": "API-ready surfaces",
-        "futureLayerDescription": "A cleaner path toward developer keys, quotas, and narrow API products.",
-        "nextStepEyebrow": "Next step",
-        "nextStepTitle": "AI-assisted export",
-        "nextStepDescription": "Start with assisted workflows before expanding into heavier AI features."
+        "futureLayerEyebrow": "No installation",
+        "futureLayerTitle": "Open the page and start",
+        "futureLayerDescription": "Most tools run in the browser, which works well for quick file cleanup and everyday office tasks.",
+        "nextStepEyebrow": "Clear output",
+        "nextStepTitle": "Download or copy when done",
+        "nextStepDescription": "Fewer popups, redirects, and unrelated steps make results easier to save and reuse."
       },
       "categoryMeta": {
         "imageTools": {
-          "eyebrow": "Primary workflow",
-          "summary": "This is the clearest monetization path: compression, conversion, HEIC, QR, and batch export."
+          "eyebrow": "Image processing",
+          "summary": "Useful for photos, website images, iPhone HEIC files, and image assets that need to be shared quickly."
         },
         "devTools": {
-          "eyebrow": "Support products",
-          "summary": "Keep the developer utilities for search, internal linking, and ad inventory without letting them hijack the main product story."
+          "eyebrow": "Developer utilities",
+          "summary": "Useful for formatting JSON, encoding and decoding data, converting colors, comparing text, and previewing Markdown."
         }
       },
       "workflowSteps": {
         "step1": {
-          "title": "Lead with tasks, not a generic intro",
-          "description": "Surface compression, conversion, and HEIC handling right in the first screen."
+          "title": "Choose a tool",
+          "description": "Open the tool that matches your task, such as image compression, HEIC conversion, JSON formatting, or Base64 encoding."
         },
         "step2": {
-          "title": "Give the workflow a calmer workspace",
-          "description": "Make upload, settings, output, and export feel like one reliable sequence."
+          "title": "Add your content",
+          "description": "Upload a file, drag in an image, or paste text. The page shows supported formats and size limits when needed."
         },
         "step3": {
-          "title": "Let trust signals support monetization",
-          "description": "Privacy, batch capability, and stability convert better than hype-heavy copy."
+          "title": "Adjust settings",
+          "description": "Pick an output format, compression quality, encoding mode, or preview option. Defaults are ready to use if you do not need changes."
         },
         "step4": {
-          "title": "Treat APIs and AI as the next layer",
-          "description": "Extend the image workflow instead of forcing unrelated AI features into the product."
-        }
-      },
-      "futureTracks": {
-        "api": {
-          "title": "API / developer access",
-          "description": "Package compression, conversion, and HEIC handling into a narrow, dependable API for builders and product teams.",
-          "bullets": [
-            "Start with one or two high-frequency endpoints",
-            "Manual key distribution is enough for v1",
-            "Layer in docs, quotas, and rate limits over time"
-          ]
-        },
-        "ai": {
-          "title": "AI-assisted image workflow",
-          "description": "Avoid becoming a generic AIGC directory. Use AI to help people crop, label, export, and adapt images faster.",
-          "bullets": [
-            "Smart alt text and naming suggestions",
-            "Auto-crop and export presets by platform",
-            "Batch flows that feel operational, not gimmicky"
-          ]
+          "title": "Save the result",
+          "description": "Download the processed file, copy the result, or continue with another batch."
         }
       }
     }

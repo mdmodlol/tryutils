@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('imageFormatConverter.howTo.step4.name'), text: t('imageFormatConverter.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('imageFormatConverter.comparison.privacy'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('imageFormatConverter.comparison.formatSupport'), ourTool: '6+', competitor1: '4', competitor2: '5' },
-  { feature: t('imageFormatConverter.comparison.qualityControl'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('imageFormatConverter.comparison.noRegistration'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('imageFormatConverter.comparison.batchProcessing'), ourTool: true, competitor1: true, competitor2: false }
-])
-
-const competitorNames = ['Online-Convert', 'Zamzar']
-
-const stats = {
-  totalUsers: '40,000+',
-  filesProcessed: '800,000+',
-  avgRating: '4.7/5'
-}
-
 const { useToolPageMeta } = await import('~/composables/useToolPageMeta')
 useToolPageMeta({
   toolName: t('imageFormatConverter.hero.title'),
@@ -79,8 +63,7 @@ setStructuredData([
 setEnhancedStructuredData([
   getServiceSchema({
     name: t('imageFormatConverter.meta.title'),
-    description: t('imageFormatConverter.meta.description'),
-    rating: { value: '4.7', count: '980' }
+    description: t('imageFormatConverter.meta.description')
   })
 ])
 </script>
@@ -100,9 +83,6 @@ setEnhancedStructuredData([
       <ToolPageContent
         :tool-name="t('imageFormatConverter.hero.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

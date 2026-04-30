@@ -1,6 +1,6 @@
 ---
-title: "HEIC vs JPG vs PNG: Comprehensive Image Format Comparison"
-description: "In-depth comparison of the advantages, disadvantages, and use cases of HEIC, JPG, and PNG image formats to help you choose the most suitable image format."
+title: "HEIC vs JPG vs PNG in 2025: File Size, Quality & Browser Support Compared"
+description: "HEIC cuts file size by 50% vs JPG at the same quality—but does your browser support it? See real benchmarks, format pros/cons, and which format to use when."
 date: '2024-12-31'
 tags: ["HEIC", "JPG", "PNG", "image format", "comparison"]
 ---

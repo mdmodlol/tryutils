@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('qrCodeGenerator.howTo.step4.name'), text: t('qrCodeGenerator.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('qrCodeGenerator.comparison.customization'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('qrCodeGenerator.comparison.batchProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('qrCodeGenerator.comparison.logoEmbedding'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('qrCodeGenerator.comparison.privacy'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('qrCodeGenerator.comparison.multiFormat'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['QR Code Monkey', 'QR Code Generator']
-
-const stats = {
-  totalUsers: '30,000+',
-  filesProcessed: '500,000+',
-  avgRating: '4.9/5'
-}
-
 const { useToolPageMeta } = await import('~/composables/useToolPageMeta')
 useToolPageMeta({
   toolName: t('qrCodeGenerator.hero.title'),
@@ -77,8 +61,7 @@ setStructuredData([
 setEnhancedStructuredData([
   getServiceSchema({
     name: t('qrCodeGenerator.meta.title'),
-    description: t('qrCodeGenerator.meta.description'),
-    rating: { value: '4.9', count: '850' }
+    description: t('qrCodeGenerator.meta.description')
   })
 ])
 </script>
@@ -98,9 +81,6 @@ setEnhancedStructuredData([
       <ToolPageContent
         :tool-name="t('qrCodeGenerator.hero.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

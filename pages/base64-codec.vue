@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('base64Codec.howTo.step4.name'), text: t('base64Codec.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('base64Codec.comparison.textAndImages'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('base64Codec.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('base64Codec.comparison.fileUpload'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('base64Codec.comparison.utf8Support'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('base64Codec.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['Base64 Guru', 'RapidTables']
-
-const stats = {
-  totalUsers: '18,000+',
-  filesProcessed: '250,000+',
-  avgRating: '4.8/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('base64Codec.meta.title'),
   description: t('base64Codec.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('base64Codec.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

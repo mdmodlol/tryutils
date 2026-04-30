@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('imageCompressor.howTo.step4.name'), text: t('imageCompressor.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('imageCompressor.comparison.privacy'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('imageCompressor.comparison.batchProcessing'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('imageCompressor.comparison.qualityControl'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('imageCompressor.comparison.noRegistration'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('imageCompressor.comparison.freeUnlimited'), ourTool: true, competitor1: false, competitor2: false }
-])
-
-const competitorNames = ['TinyPNG', 'Squoosh']
-
-const stats = {
-  totalUsers: '50,000+',
-  filesProcessed: '1,000,000+',
-  avgRating: '4.8/5'
-}
-
 const { useToolPageMeta } = await import('~/composables/useToolPageMeta')
 useToolPageMeta({
   toolName: t('imageCompressor.title'),
@@ -79,8 +63,7 @@ setStructuredData([
 setEnhancedStructuredData([
   getServiceSchema({
     name: t('imageCompressor.meta.title'),
-    description: t('imageCompressor.meta.description'),
-    rating: { value: '4.8', count: '1250' }
+    description: t('imageCompressor.meta.description')
   })
 ])
 </script>
@@ -100,9 +83,6 @@ setEnhancedStructuredData([
       <ToolPageContent
         :tool-name="t('imageCompressor.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

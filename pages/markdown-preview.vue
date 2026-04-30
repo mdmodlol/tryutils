@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('markdownPreview.howTo.step4.name'), text: t('markdownPreview.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('markdownPreview.comparison.livePreview'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('markdownPreview.comparison.gfmSupport'), ourTool: true, competitor1: true, competitor2: true },
-  { feature: t('markdownPreview.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('markdownPreview.comparison.exportFormats'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('markdownPreview.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['Dillinger', 'Markdown Live Preview']
-
-const stats = {
-  totalUsers: '11,000+',
-  filesProcessed: '150,000+',
-  avgRating: '4.7/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('markdownPreview.meta.title'),
   description: t('markdownPreview.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('markdownPreview.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

@@ -29,12 +29,9 @@ const homeCopy = computed(() => ({
   quickLabel: t('home.redesign.quickLabel'),
   workflowTitle: t('home.redesign.workflowTitle'),
   workflowSubtitle: t('home.redesign.workflowSubtitle'),
-  categoriesTitle: t('home.redesign.categoriesTitle'),
-  categoriesSubtitle: t('home.redesign.categoriesSubtitle'),
-  futureTitle: t('home.redesign.futureTitle'),
-  futureSubtitle: t('home.redesign.futureSubtitle'),
-  faqSubtitle: t('home.redesign.faqSubtitle')
-}))
+    categoriesTitle: t('home.redesign.categoriesTitle'),
+    categoriesSubtitle: t('home.redesign.categoriesSubtitle')
+  }))
 
 const iconMap: Record<string, string> = {
   '/image-compressor': 'heroicons:arrows-pointing-in',
@@ -73,27 +70,6 @@ const workflowSteps = computed(() => [
   { title: t('home.redesign.workflowSteps.step2.title'), description: t('home.redesign.workflowSteps.step2.description') },
   { title: t('home.redesign.workflowSteps.step3.title'), description: t('home.redesign.workflowSteps.step3.description') },
   { title: t('home.redesign.workflowSteps.step4.title'), description: t('home.redesign.workflowSteps.step4.description') }
-])
-
-const futureTracks = computed(() => [
-  {
-    title: t('home.redesign.futureTracks.api.title'),
-    description: t('home.redesign.futureTracks.api.description'),
-    bullets: [
-      t('home.redesign.futureTracks.api.bullets.0'),
-      t('home.redesign.futureTracks.api.bullets.1'),
-      t('home.redesign.futureTracks.api.bullets.2')
-    ]
-  },
-  {
-    title: t('home.redesign.futureTracks.ai.title'),
-    description: t('home.redesign.futureTracks.ai.description'),
-    bullets: [
-      t('home.redesign.futureTracks.ai.bullets.0'),
-      t('home.redesign.futureTracks.ai.bullets.1'),
-      t('home.redesign.futureTracks.ai.bullets.2')
-    ]
-  }
 ])
 
 const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
@@ -300,42 +276,7 @@ const primaryTools = computed(() => props.toolCategories[0]?.tools ?? [])
       </div>
     </section>
 
-    <section class="px-6 py-12" aria-labelledby="future-title">
-      <div class="max-w-6xl mx-auto section-stack">
-        <div class="section-intro">
-          <p class="section-label">{{ t('home.redesign.futureLabel') }}</p>
-          <h2 id="future-title" class="section-title">{{ homeCopy.futureTitle }}</h2>
-          <p class="section-description">{{ homeCopy.futureSubtitle }}</p>
-        </div>
-
-        <div class="grid gap-6 lg:grid-cols-2">
-          <article v-for="track in futureTracks" :key="track.title" class="future-track">
-            <div class="space-y-4">
-              <h3 class="text-2xl font-semibold text-slate-950 dark:text-slate-50">{{ track.title }}</h3>
-              <p class="text-base leading-7 text-slate-600 dark:text-slate-300">{{ track.description }}</p>
-            </div>
-
-            <ul class="space-y-3">
-              <li v-for="bullet in track.bullets" :key="bullet" class="future-bullet">
-                <span class="future-bullet-dot" />
-                <span>{{ bullet }}</span>
-              </li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="px-6 py-12" aria-labelledby="faq-title">
-      <div class="max-w-6xl mx-auto section-stack">
-        <div class="section-intro">
-          <p class="section-label">{{ t('home.redesign.faqLabel') }}</p>
-          <h2 id="faq-title" class="section-title">{{ t('faq.title') }}</h2>
-          <p class="section-description">{{ homeCopy.faqSubtitle }}</p>
-        </div>
-        <FAQ category="general" />
-      </div>
-    </section>
+    <FAQ category="general" />
   </div>
 </template>
 

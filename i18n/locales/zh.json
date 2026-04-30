@@ -605,82 +605,57 @@
       "keywords": "在线工具,HEIC转换器,文档转换器,文件转换,浏览器工具,隐私保护,TryUtils"
     },
     "redesign": {
-      "eyebrow": "TryUtils Image Lab",
-      "headline": "更安静，也更值得信赖的图片工作入口",
-      "description": "把压缩、格式转换、HEIC 处理和批量导出收进一个清晰入口。首页先帮用户快速开始工作，后面也能自然承接 API 和 AI 辅助能力。",
+      "eyebrow": "免费在线工具",
+      "headline": "快速处理图片、文本和常用开发任务",
+      "description": "不用安装软件，也不用注册账号。选择需要的工具，上传或粘贴内容，几步就能完成压缩、转换、格式化、编码解码等日常任务。",
       "primaryCta": "进入图片工具",
       "secondaryCta": "查看开发者工具",
       "quickLabel": "高频入口",
-      "workflowLabel": "首页主张",
-      "workflowTitle": "让用户更快完成上传、处理和导出",
-      "workflowSubtitle": "第一屏不再堆空泛承诺，而是直接把核心工作流摆出来。",
-      "categoriesLabel": "产品结构",
-      "categoriesTitle": "围绕真实任务组织工具，而不是堆一排功能卡片",
-      "categoriesSubtitle": "图片工作流做主入口，开发者工具保留为辅助流量和搜索入口。",
-      "futureLabel": "变现方向",
-      "futureTitle": "为两条自然的商业路径预留空间",
-      "futureSubtitle": "先把核心图片工作流做稳，再往 API 和 AI 辅助能力扩展。",
-      "faqLabel": "常见问题",
-      "faqSubtitle": "在用户愿意信任一个工具站之前，通常会先关心这些问题。",
+      "workflowLabel": "使用方式",
+      "workflowTitle": "从选择工具到下载结果，只保留必要步骤",
+      "workflowSubtitle": "每个工具都围绕一个明确任务设计，打开页面后可以直接开始，不需要先学习复杂设置。",
+      "categoriesLabel": "工具分类",
+      "categoriesTitle": "按任务选择工具",
+      "categoriesSubtitle": "图片处理、二维码生成和开发者小工具放在清晰的分类里，方便快速找到需要的功能。",
       "trustAria": "信任信号",
       "workspace": {
-        "pill": "TryUtils 工作台",
-        "pipelineEyebrow": "图片工作流",
+        "pill": "TryUtils 工具台",
+        "pipelineEyebrow": "常用图片工具",
         "pipelineTitle": "压缩、转换、导出，一条路径走完",
         "privateBadge": "隐私优先",
-        "futureLayerEyebrow": "未来延展",
-        "futureLayerTitle": "API 预备层",
-        "futureLayerDescription": "为开发者 Key、调用配额和窄接口产品留出清晰路径。",
-        "nextStepEyebrow": "下一阶段",
-        "nextStepTitle": "AI 辅助导出",
-        "nextStepDescription": "先把辅助能力做好，再决定哪些 AI 功能值得放大。"
+        "futureLayerEyebrow": "无需安装",
+        "futureLayerTitle": "打开网页即可使用",
+        "futureLayerDescription": "大多数工具在浏览器中完成处理，适合临时处理文件和日常办公。",
+        "nextStepEyebrow": "清晰结果",
+        "nextStepTitle": "处理完成后直接下载",
+        "nextStepDescription": "尽量减少弹窗、跳转和无关步骤，让处理结果更容易保存和复用。"
       },
       "categoryMeta": {
         "imageTools": {
-          "eyebrow": "核心工作流",
-          "summary": "这是最自然的变现主线：压缩、转换、HEIC、二维码和批量导出。"
+          "eyebrow": "图片处理",
+          "summary": "适合处理照片、网页图片、iPhone HEIC 文件和需要快速分享的图片资源。"
         },
         "devTools": {
-          "eyebrow": "辅助产品",
-          "summary": "保留高频开发工具，用来承接搜索流量、内链和广告库存，但不再抢主线。"
+          "eyebrow": "开发辅助",
+          "summary": "适合格式化 JSON、编码解码、转换颜色、对比文本和预览 Markdown。"
         }
       },
       "workflowSteps": {
         "step1": {
-          "title": "先让用户选任务，而不是先读一堆介绍",
-          "description": "在第一屏直接露出压缩、转换和 HEIC 处理这些高频入口。"
+          "title": "选择工具",
+          "description": "根据要处理的内容进入对应工具，例如图片压缩、HEIC 转换、JSON 格式化或 Base64 编解码。"
         },
         "step2": {
-          "title": "把复杂操作收进更安静的工作台",
-          "description": "让上传、参数、结果和导出形成一条清晰、可靠的处理路径。"
+          "title": "添加内容",
+          "description": "上传文件、拖拽图片，或直接粘贴文本内容。页面会提示支持的格式和大小限制。"
         },
         "step3": {
-          "title": "用信任感支撑后续变现",
-          "description": "隐私、本地处理、批量能力和稳定速度，比花哨文案更能转化。"
+          "title": "调整设置",
+          "description": "按需要选择输出格式、压缩质量、编码模式或预览方式，不需要的选项可以保持默认。"
         },
         "step4": {
-          "title": "把 API 和 AI 当作下一层扩展",
-          "description": "围绕图片工作流逐步增强，而不是硬塞一堆不相关的 AI 功能。"
-        }
-      },
-      "futureTracks": {
-        "api": {
-          "title": "API / 开发者能力",
-          "description": "把压缩、格式转换和 HEIC 处理沉淀成窄而稳的接口，提供给独立开发者、内容平台和站点产品调用。",
-          "bullets": [
-            "先做 1 到 2 个高频接口",
-            "v1 先人工发 key 也可以启动",
-            "文档、限流和配额按阶段补齐"
-          ]
-        },
-        "ai": {
-          "title": "AI 辅助图片工作流",
-          "description": "不做泛 AIGC 工具站，而是让 AI 帮用户更快裁切、命名、导出和适配不同渠道。",
-          "bullets": [
-            "智能 alt text 和命名建议",
-            "按平台自动裁切与导出预设",
-            "批量流程更像工作流而不是玩具"
-          ]
+          "title": "下载或复制结果",
+          "description": "处理完成后可以下载文件、复制结果，或继续处理下一批内容。"
         }
       }
     }

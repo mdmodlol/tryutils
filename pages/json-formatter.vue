@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('jsonFormatter.howTo.step4.name'), text: t('jsonFormatter.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('jsonFormatter.comparison.validation'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('jsonFormatter.comparison.errorLocation'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('jsonFormatter.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('jsonFormatter.comparison.minify'), ourTool: true, competitor1: true, competitor2: true },
-  { feature: t('jsonFormatter.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['JSONLint', 'Code Beautify']
-
-const stats = {
-  totalUsers: '25,000+',
-  filesProcessed: '400,000+',
-  avgRating: '4.8/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('jsonFormatter.meta.title'),
   description: t('jsonFormatter.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('jsonFormatter.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('urlCodec.howTo.step4.name'), text: t('urlCodec.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('urlCodec.comparison.componentAndFull'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('urlCodec.comparison.instantProcessing'), ourTool: true, competitor1: true, competitor2: true },
-  { feature: t('urlCodec.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('urlCodec.comparison.examples'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('urlCodec.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['URL Encode', 'URLEncoder']
-
-const stats = {
-  totalUsers: '12,000+',
-  filesProcessed: '160,000+',
-  avgRating: '4.7/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('urlCodec.meta.title'),
   description: t('urlCodec.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('urlCodec.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

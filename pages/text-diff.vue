@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('textDiff.howTo.step4.name'), text: t('textDiff.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('textDiff.comparison.inlineChanges'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('textDiff.comparison.sideBySide'), ourTool: true, competitor1: true, competitor2: false },
-  { feature: t('textDiff.comparison.localProcessing'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('textDiff.comparison.copyResult'), ourTool: true, competitor1: false, competitor2: true },
-  { feature: t('textDiff.comparison.noRegistration'), ourTool: true, competitor1: true, competitor2: true }
-])
-
-const competitorNames = ['Diffchecker', 'Text Compare']
-
-const stats = {
-  totalUsers: '14,000+',
-  filesProcessed: '180,000+',
-  avgRating: '4.7/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('textDiff.meta.title'),
   description: t('textDiff.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('textDiff.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />

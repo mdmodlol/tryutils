@@ -1,6 +1,6 @@
 ---
-title: "Best Browser Image Compression Libraries in 2025: 8 Options Compared"
-description: "Compare browser-image-compression, Compressor.js, Squoosh, and more. See bundle size, speed, features, and when to use each browser image compression library."
+title: "Best Browser Image Compression Libraries for Web Performance in 2025"
+description: "browser-image-compression vs Compressor.js vs Squoosh: real bundle sizes, compression speed, and WebWorker support compared. Pick the right library for your project in 30 seconds."
 date: '2025-01-09'
 tags: ["image compression libraries", "JavaScript libraries", "performance comparison", "frontend tools", "open source", "technology selection"]
 author: "TryUtils Team"

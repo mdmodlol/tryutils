@@ -27,22 +27,6 @@ const howToSteps = computed<HowToStep[]>(() => [
   { name: t('colorConverter.howTo.step4.name'), text: t('colorConverter.howTo.step4.text') }
 ])
 
-const comparisons = computed(() => [
-  { feature: t('colorConverter.comparison.multiFormat'), ourTool: true, competitor1: true, competitor2: true },
-  { feature: t('colorConverter.comparison.visualPalette'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('colorConverter.comparison.history'), ourTool: true, competitor1: false, competitor2: false },
-  { feature: t('colorConverter.comparison.localProcessing'), ourTool: true, competitor1: true, competitor2: true },
-  { feature: t('colorConverter.comparison.quickCopy'), ourTool: true, competitor1: false, competitor2: true }
-])
-
-const competitorNames = ['HTML Color Codes', 'ColorHexa']
-
-const stats = {
-  totalUsers: '16,000+',
-  filesProcessed: '220,000+',
-  avgRating: '4.8/5'
-}
-
 const seoConfig = computed(() => ({
   title: t('colorConverter.meta.title'),
   description: t('colorConverter.meta.description'),
@@ -103,9 +87,6 @@ setStructuredData([
       <ToolPageContent
         :tool-name="t('colorConverter.title')"
         :steps="howToSteps"
-        :comparisons="comparisons"
-        :competitor-names="competitorNames"
-        :stats="stats"
       />
 
       <FAQ :items="faqItems" />
